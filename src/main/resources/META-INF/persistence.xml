@@ -1,0 +1,20 @@
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="primary"  transaction-type="RESOURCE_LOCAL">
+<!--         <provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source> -->
+		<class>com.ht.scada.common.user.entity.User</class>
+		<class>com.ht.scada.common.user.entity.UserExtInfo</class>
+		<class>com.ht.scada.common.user.entity.UserRole</class>
+		<properties>
+<!-- 			<property name="jboss.entity.manager.factory.jndi.name" value="java:jboss/spring-quickstart/persistence" /> -->
+			<!-- Properties for Hibernate -->
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+		</properties>
+	</persistence-unit>
+</persistence>
