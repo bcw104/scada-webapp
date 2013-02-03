@@ -9,12 +9,10 @@
 		<class>com.ht.scada.common.user.entity.User</class>
 		<class>com.ht.scada.common.user.entity.UserExtInfo</class>
 		<class>com.ht.scada.common.user.entity.UserRole</class>
-		<properties>
-<!-- 			<property name="jboss.entity.manager.factory.jndi.name" value="java:jboss/spring-quickstart/persistence" /> -->
-			<!-- Properties for Hibernate -->
+<!-- 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
-		</properties>
+		</properties> -->
 	</persistence-unit>
 </persistence>

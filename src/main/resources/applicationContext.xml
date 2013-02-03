@@ -33,14 +33,15 @@
 	<context:component-scan base-package="com.ht.scada.common.user.entity, com.ht.scada.common.user.dao, com.ht.scada.common.user.service.impl, com.ht.scada.web.jms">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
-
-	<!-- Jpa Entity Manager 配置 -->
-	<!-- JDNI name for EntityManagerFactory is defined in src/main/resources/META-INF/persistence.xml -->
+	
+	<!-- Jpa Entity Manager 配置 : JDNI name for EntityManagerFactory is defined in src/main/resources/META-INF/persistence.xml -->
 <!--     <jee:jndi-lookup jndi-name="java:jboss/spring-quickstart/persistence" id="entityManagerFactory"
                      expected-type="javax.persistence.EntityManagerFactory" />
 	<bean id="entityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
    		<property name="entityManagerFactory" ref="entityManagerFactory"/>
 	</bean> -->
+	
+	<!-- Jpa Entity Manager 配置 -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
 		<property name="dataSource" ref="dataSource"/>
 		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
@@ -48,6 +49,9 @@
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
 			</props>
 		</property>
 	</bean>
@@ -81,11 +85,9 @@
 	
 	<!-- production环境 -->
  	<beans profile="production">
- 		<context:property-placeholder ignore-unresolvable="true"
-			location="classpath*:/application.properties" />	
+ 		<context:property-placeholder ignore-unresolvable="true" location="classpath*:/application.properties" />	
 		
 		<!-- 数据源配置, 使用DBCP数据库连接池 -->
-<!-- 	<jee:jndi-lookup jndi-name="java:jboss/datasources/ExampleDS" id="dataSource" expected-type="javax.sql.DataSource"/> -->
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 			<!-- Connection Info -->
 			<property name="driverClassName" value="${jdbc.driver}" />
@@ -103,7 +105,7 @@
 		</bean>
 		
 		<!-- 数据源配置,使用应用服务器的数据库连接池 -->
-		<!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ExampleDB" />-->
+<!-- 	<jee:jndi-lookup jndi-name="java:jboss/datasources/ExampleDS" id="dataSource" expected-type="javax.sql.DataSource"/> -->
 	</beans>
 	
 	<!-- local development环境 -->
