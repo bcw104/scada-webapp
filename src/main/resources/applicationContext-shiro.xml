@@ -27,12 +27,22 @@
 				/logout = logout
 				/static/** = anon
 				/api/** = anon
+				/alarm/** = anon
 				/register/** = anon
 				/admin/** = roles[admin]
 				/** = user
 			</value>
 		</property>
 	</bean>
+	
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	    <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
+	    <property name="arguments" ref="securityManager"/>
+	</bean>
+	
+	<!-- Required for security annotations to work in this servlet -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"/>
 	
 	<!-- 用户授权信息Cache, 采用EhCache -->
 	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">

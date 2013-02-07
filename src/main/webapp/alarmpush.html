@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="static/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="static/jquery/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="static/jquery/jquery.atmosphere.js"></script>
+<script type="text/javascript" src="static/application.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div id="header" class="prepend-1 span-22 append-1 last">
+			<h1 class="loud">实时消息传输示例</h1>
+		</div>
+		<div id="content" class="prepend-1 span-17 prepend-top last">
+			<input id="message-field" type="text" size="40"
+				value="Send a tweet to connected clients" /> <input
+				id="message-button" type="button" value="发送" />
+		</div>
+		<div id="stats" class="prepend-1 span-4 append-1 prepend-top last">
+			<table id="asynchHttpStats">
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>通讯方式</td>
+						<td id="transportType">N/A</td>
+					</tr>
+				</tbody>
+			</table>
+			<table id="chartableStats">
+				<caption>状态信息</caption>
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row" style="color: #1751A7">共接收到的消息数</th>
+						<td id="numberOfCallbackInvocations">0</td>
+					</tr>
+					<tr>
+						<th scope="row" style="color: #A74217">错误数</th>
+						<td id="numberOfErrors">0</td>
+					</tr>
+					<tr>
+						<th scope="row" style="color: #8AA717">当前最新消息</th>
+						<td id="latestMessage"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
