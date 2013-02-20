@@ -51,7 +51,7 @@ public class AlarmPushWndController {
 	}
 
 	/**
-	 * 通过Sevlet3.0异步请求方式读取是否存在报警信息 要求请求用户拥有权限alarm:push（查看报警推画面）
+	 * 订阅报警信息
 	 * 
 	 * @return
 	 */
@@ -79,12 +79,12 @@ public class AlarmPushWndController {
 	}
 
 	/**
-	 * TODO: 仅用于模拟测试数据时使用
+	 * TODO: 仅用于模拟推送数据时使用
 	 */
 	@Scheduled(fixedDelay=5000)
 	public void pollForMessages() {
 
-		String statusMessage = "A new Client has connected on " + new Date().toString();
+		String statusMessage = "A new message on " + new Date().toString();
 		try {
 			log.debug("发送报警信息");
 			MetaBroadcaster.getDefault().broadcastTo("/", objectMapper.writeValueAsString(statusMessage));

@@ -1,6 +1,7 @@
 /target
 /test-output
 /log
+/data
 /.settings
 /.classpath
 /.project

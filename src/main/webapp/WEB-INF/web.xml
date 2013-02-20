@@ -14,7 +14,10 @@
 	</context-param>
 	<context-param>
 		<param-name>spring.profiles.default</param-name>
+<!-- 		<param-value>test</param-value> -->
+<!-- 		<param-value>functional</param-value> -->
 		<param-value>development</param-value>
+<!-- 		<param-value>production</param-value> -->
 	</context-param>
 
 	<listener>

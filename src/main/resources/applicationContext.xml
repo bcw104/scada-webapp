@@ -45,22 +45,18 @@
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
 		<property name="dataSource" ref="dataSource"/>
 		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
-		<property name="packagesToScan" value="com.ht.scada.common.user.entity"/>
+		<property name="packagesToScan" value="com.ht.scada.common.user.entity, com.ht.scada.common.tag.entity"/>
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+<!-- 				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop> -->
 			</props>
 		</property>
 	</bean>
 	
-	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-		<property name="showSql" value="true" />
-		<property name="generateDdl" value="true" />
-		<property name="database" value="H2" />
-	</bean>
 	
 	<!-- Spring Data Jpa配置 -->
  	<jpa:repositories base-package="com.ht.scada.common.user.dao"  transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
@@ -86,6 +82,10 @@
 	<!-- production环境 -->
  	<beans profile="production">
  		<context:property-placeholder ignore-unresolvable="true" location="classpath*:/application.properties" />	
+ 		
+		<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+			<property name="database" value="SQL_SERVER" />
+		</bean>
 		
 		<!-- 数据源配置, 使用DBCP数据库连接池 -->
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -113,6 +113,10 @@
 		<context:property-placeholder ignore-resource-not-found="true"
 			location="classpath*:/application.properties,
           			  classpath*:/application.development.properties" />	
+          			  
+		<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+			<property name="database" value="H2" />
+		</bean>
 
 		<!-- DBCP连接池 -->
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -130,6 +134,10 @@
 			location="classpath*:/application.properties,
           			  classpath*:/application.functional.properties,
           			  classpath*:/application.functional-local.properties" />	
+          			  
+		<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+			<property name="database" value="H2" />
+		</bean>
 
 		<!-- DBCP连接池 -->
 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -151,6 +159,10 @@
 	 	<context:property-placeholder ignore-resource-not-found="true"
 			location="classpath*:/application.properties,
           			  classpath*:/application.test.properties" />	
+          			  
+		<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+			<property name="database" value="H2" />
+		</bean>
 		
 		<!-- Simple连接池 -->
 <!-- 	<jdbc:embedded-database id="dataSource" type="H2" /> -->
