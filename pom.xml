@@ -402,6 +402,11 @@
 			<artifactId>jtds</artifactId>
 			<version>1.3.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<version>10.2.0.4.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
