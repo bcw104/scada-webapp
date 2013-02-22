@@ -11,4 +11,9 @@ public class MainController {
 	public String main() {
 		return "main/index";
 	}
+	
+	@RequestMapping
+	public String test() {
+		return "main/test";
+	}
 }
