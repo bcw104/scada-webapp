@@ -49,6 +49,9 @@ public class RegisterController {
 		per.add("bbb");
 		ur.setPermissions(per);
 		userService.updateUserRole(ur);
+		User usr = userService.getUserByUsername(username);
+		usr.setUserRole(ur);
+		userService.updateUser(usr);
 		redirectAttributes.addFlashAttribute("username", username);
 		return "redirect:/login";
 	}
