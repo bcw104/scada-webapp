@@ -44,6 +44,5 @@
 
 	<task:executor id="executor" pool-size="5" />
 	<task:scheduler id="scheduler" pool-size="5" />
-	<task:annotation-driven scheduler="scheduler"
-		executor="executor" />
+	<task:annotation-driven scheduler="scheduler" executor="executor" />
 </beans>
