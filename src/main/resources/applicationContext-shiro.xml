@@ -23,6 +23,7 @@
 		<property name="successUrl" value="/" />
 		<property name="filterChainDefinitions">
 			<value>
+			    /main/test = anon
 				/login = authc
 				/logout = logout
 				/static/** = anon

@@ -36,7 +36,7 @@
 		<div class="control-group">
 			<label for="password" class="control-label">密码:</label>
 			<div class="controls">
-				<input type="password" id="password" name="password" class="input-medium required"/>
+				<input type="password" id="password" name="password"  value="${password}"  class="input-medium required"/>
 			</div>
 		</div>
 				

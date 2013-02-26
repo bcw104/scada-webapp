@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ht.scada.common.user.entity.User;
+import com.ht.scada.common.user.security.ShiroDbRealm;
 import com.ht.scada.common.user.service.UserService;
 
 /**
@@ -27,7 +31,8 @@ import com.ht.scada.common.user.service.UserService;
 @Controller
 @RequestMapping(value = "/admin/user")
 public class UserAdminController {
-
+	private static final Logger log = LoggerFactory.getLogger(UserAdminController.class);
+	
 	@Autowired
 	private UserService userService;
 
@@ -91,5 +96,25 @@ public class UserAdminController {
 	@ResponseBody
 	public String test(@RequestBody User user) {
 		return "{'a':1}";
+	}
+	@RequestMapping(value="pass")
+	public String password(RedirectAttributes redirectAttributes){
+		return "account/password";
+	}
+	@RequestMapping(value="updatePassWord", method = RequestMethod.POST)
+	public String updatePassWord(String oldpass,String newPass,String rePass,Model model) {
+		User user = userService.getCurrentUser();
+		if(!rePass.equals(newPass)){
+			model.addAttribute("message", "新设密码与原始密码不相符，请重新输入!");
+			return "account/password";
+		}
+		if(!user.getPassword().equals(new Sha256Hash(oldpass).toHex())){
+			model.addAttribute("message", "原始密码不正确！");
+			return "account/password";
+		}
+		
+		userService.updateUserPassword(new Sha256Hash(newPass).toHex(), user.getId());
+		model.addAttribute("message", "密码修改成功！");
+		return "account/password";
 	}
 }
