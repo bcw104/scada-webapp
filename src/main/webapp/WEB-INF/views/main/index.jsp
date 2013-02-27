@@ -92,7 +92,7 @@ var item=[{id:'a1',name:'实时监控'},
 </head>
 <body onload="doOnLoad();">
 <div id="menuMain0">
-	<div id="menu1" style="padding-left: 20px;padding-top: 5px;height:15px;"><strong style="font-size: 14px"><a href="#" onclick="openTab(1,'测试','http://www.baidu.com')">>>test</a></strong></div>
+	<div id="menu1" style="padding-left: 20px;padding-top: 5px;height:15px;"><a href="#" onclick="openTab(1,'用户管理','${ctx}/admin/user/userManage')">用户管理</a></div>
 	<div id="menu2" style="padding-left: 20px;padding-top: 5px;height:15px;"><a href="#" onclick="openTab(2,'修改密码','${ctx}/admin/user/pass')">修改密码</a></div>
 </div>
 <div id="logout_div" style="width:55px;height:20px;   float:right; margin-top:40px; margin-right: 10px; ">

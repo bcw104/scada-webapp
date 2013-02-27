@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ht.scada.common.user.entity.User;
+import com.ht.scada.common.user.entity.UserExtInfo;
 import com.ht.scada.common.user.security.ShiroDbRealm;
 import com.ht.scada.common.user.service.UserService;
 
@@ -98,8 +99,12 @@ public class UserAdminController {
 		return "{'a':1}";
 	}
 	@RequestMapping(value="pass")
-	public String password(RedirectAttributes redirectAttributes){
+	public String password(){
 		return "account/password";
+	}
+	@RequestMapping(value="userManage")
+	public String userManage(){
+		return "account/userManage";
 	}
 	@RequestMapping(value="updatePassWord", method = RequestMethod.POST)
 	public String updatePassWord(String oldpass,String newPass,String rePass,Model model) {
@@ -116,5 +121,10 @@ public class UserAdminController {
 		userService.updateUserPassword(new Sha256Hash(newPass).toHex(), user.getId());
 		model.addAttribute("message", "密码修改成功！");
 		return "account/password";
+	}
+	@RequestMapping(value="findUser")
+	@ResponseBody
+	public List<UserExtInfo> findUser() {
+		return userService.getAllUserExtInfo();
 	}
 }
