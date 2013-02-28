@@ -33,6 +33,7 @@
 		<version.slf4j>1.7.2</version.slf4j>
 		
 		<version.shiro>1.2.1</version.shiro>
+	 <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
 	</properties>
 
 	<dependencyManagement>
