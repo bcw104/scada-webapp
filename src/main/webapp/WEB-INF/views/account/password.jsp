@@ -31,8 +31,22 @@ a:hover {
 </style>
 <script type="text/javascript">
 	function onSubmit(){
+                var oldPass=document.getElementById("oldpass").value;
 		var newPass=document.getElementById("newPass").value;
 		var rePass=document.getElementById("rePass").value;
+                 if(oldPass==''||oldPass==null){
+                    document.getElementById("passmessage").innerHTML="原始密码不能为空！";
+                    return false;
+                }
+                if(newPass==''||newPass==null){
+                    document.getElementById("passmessage").innerHTML="新密码不能为空！";
+                    return false;
+                }
+                 if(rePass==''||rePass==null){
+                    document.getElementById("passmessage").innerHTML="确认密码不能为空！";
+                    return false;
+                }
+                
 		if(newPass!=rePass){
 			document.getElementById("passmessage").innerHTML="新设密码与原始密码不相符，请重新输入！";
 			document.getElementById("rePass").focus;
@@ -65,15 +79,15 @@ a:hover {
                 </div>
                 <div style=" margin: 5px;">
                     <label for="oldpass">原始密码:</label>
-                    <input type="text" name="oldpass" ></input>
+                    <input type="password" name="oldpass" ></input>
                 </div>
                 <div style=" margin: 5px;">
                     <label for="newPass">新设密码:</label>
-                    <input type="text" name="newPass" id="newPass"></input>
+                    <input type="password" name="newPass" id="newPass"></input>
                 </div>
                 <div style=" margin: 5px;">
                     <label for="rePass">确认密码:</label>
-                    <input  type="text" name="rePass" id="rePass"></input>
+                    <input  type="password" name="rePass" id="rePass"></input>
                 </div>
                 <div style=" margin: 10px; text-align: center">
                     <input id="submit_btn"  type="submit" value="提交"/>

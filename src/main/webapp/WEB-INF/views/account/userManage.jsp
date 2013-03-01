@@ -10,8 +10,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户管理</title>
 <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx.css">
-<script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>    
+<script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script> 
+<script src="${ctx}/static/jquery/jquery.form.js"></script> 
 <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
+<script src="${ctx}/static/userManage.js"></script>
 <style>
     html, body {
         width: 100%;
@@ -31,66 +33,117 @@
 	}
 </style>
 <script>
-var dhxLayout,toolbar,mygrid;
-
-function doOnLoad(){
-	  creatLayout();
-	  creatToolbar();
-	  
-	  $.ajax({
-		  type: 'POST',
-		  url: '${ctx}/admin/user/findUser',
-		  success: function(json){
-			var item={rows:[]};
-			for(var i=0;i<json.length;i++){
-				var it={};
-				it.id = json[i].user.id;
-				it.data = [];
-				it.data.push(json[i].user.username);
-				it.data.push(json[i].realName);
-				it.data.push(json[i].gender);
-				it.data.push(json[i].department);
-				it.data.push(json[i].address);
-				it.data.push(json[i].telphone);
-				it.data.push(json[i].email);
-				it.data.push(json[i].user.userRole.name);
-				item.rows.push(it);
-				
-				}
-			creatGrid(item);
-		  }
-	  });
-	  
-}
-function creatToolbar(){
-	toolbar=dhxLayout.cells("a").attachToolbar();
-  //toolbar.setIconsPath("imgs/dhxtoolbar_dhx_skyblue/");
-	toolbar.addButton("add", 1, "添加用户");
-  	toolbar.addButton("update", 2, "编辑用户");
-  	toolbar.addButton("pass", 3, "修改密码");
-	toolbar.addButton("drop", 4, "删除用户");
-}
-function creatLayout(){
-	dhxLayout=new dhtmlXLayoutObject(document.body, "1C");
-	dhxLayout.cells("a").hideHeader();
-}
-function creatGrid(json){
-	mygrid=dhxLayout.cells("a").attachGrid(); 
-	mygrid.setImagePath("imgs/");
-	mygrid.setHeader("用户名,真实姓名,性别,部门,地址,电话,Email,角色");
-	mygrid.setInitWidths("100,100,100,100,100,100,*");
-	mygrid.setColAlign("left,left,left,left,left,left,left");
-	mygrid.setColTypes("txt,txt,txt,txt,txt,txt,txt");
-	mygrid.setColSorting("str,str,str,str,str,str,str");
-	//mygrid.getCombo(1).put(2, 2);
-	//mygrid.setSkin("dhx_skyblue");
-	mygrid.init();
-	mygrid.parse(json,'json');
-}
+var objUrl='${ctx}';
+window.dhx_globalImgPath = "${ctx}/static/dhtmlx/imgs/";
 </script>
 </head>
 
 <body onload="doOnLoad()">
-
+<div id="addUser" style=" display:none;line-height:10px">
+    <form id="addForm" name="addForm" action="${ctx}/admin/user/addUser" method="post" autocomplete=off >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">用户名：</td>
+                <td><input type="text" name="user.username" id="userName"></input></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">姓名：</td>
+                <td><input type="text" name="realName" id="relName"></input></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">性别：</td>
+                <td><input name="gender" type="radio" value="1" checked />男&nbsp;&nbsp;&nbsp;&nbsp;<input name="gender" type="radio" value="0" />女</td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">部门：</td>
+                <td><input type="text" name="department" id="department"></input></td>
+              </tr>
+              <tr >
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">地址：</td>
+                <td><input type="text" name="address" id="address"></input></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">E-mail：</td>
+                <td><input type="text" name="email" id="email"></input></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">电话：</td>
+                <td><input type="text" name="telphone" id="telphone"></input></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">角色：</td>
+                <td valign="middle" style="padding-top:3px"><input type="hidden" name="role_id" id="description" value=""></input><div id="combo_zone4" style="width:100px; height:25px;"></div></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">密码：</td>
+                <td><input type="password" name="user.shaPassword" id="newPassword"></input></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">确认密码：</td>
+                <td><input type="password" name="relPass" id="relPassword"></input></td>
+              </tr>
+              <tr>
+                  <td colspan="2" height="30" align="center"> <input id="submit_btn"  type="button" onclick="addUserFormSubmit()"  value="提交"/></td>
+              </tr>
+            </table>
+	</form>
+</div>
+<div id="updateUser" style="display:none;padding-top:40px;">
+     <form id="updateForm" action="${ctx}/admin/user/updateUserExtInfo" method="post" autocomplete=off>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">用户名：</td>
+                <td><input type="hidden" name="user_id" id="update_userid" value=""><input type="text" name="user.username" id="update_uName" readonly="true"></input></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">姓名：</td>
+                <td><input type="text" name="realName" id="update_rName"></input></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">性别：</td>
+                <td><input name="gender" type="radio" value="1" checked />男&nbsp;&nbsp;&nbsp;&nbsp;<input name="gender" type="radio" value="0" />女</td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">部门：</td>
+                <td><input type="text" name="department" id="update_department"></input></td>
+              </tr>
+              <tr >
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">地址：</td>
+                <td><input type="text" name="address" id="update_address"></input></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">E-mail：</td>
+                <td><input type="text" name="email" id="update_email"></input></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">电话：</td>
+                <td><input type="text" name="telphone" id="update_telphone"></input></td>
+              </tr>
+              <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">角色：</td>
+                <td valign="middle" style="padding-top:3px"><input type="hidden" name="role_id" id="update_description" value=""></input><div id="combo_zone5" style="width:100px; height:25px;"></div></td>
+              </tr>
+              <tr>
+                  <td colspan="2" height="30" align="center"> <input id="update_btn"  type="button" onclick="updateUserFormSubmit()"  value="提交"/></td>
+              </tr>
+            </table>
+	</form>
+</div>
+<div id="passUser" style=" display:none;text-align:center;padding:50px;line-height:50px">
+    <form id="passForm">
+            <div style=" margin: 5px;">
+                <label for="newPass">新设密码:</label>
+                <input type="hidden" name="userID" id="userid_pass" value="">
+                <input type="password" name="newPass" id="newPass"></input>
+            </div>
+            <div style=" margin: 5px;">
+                <label for="rePass">确认密码:</label>
+                <input  type="password" name="rePass" id="rePass"></input>
+            </div>
+            <div style=" margin: 10px; text-align: center">
+                <input id="submit_btn"  type="button" onclick="updatePass()" value="提交"/><input id="btn"  type="button" onclick="winClose();" value="取消"/>
+            </div>
+    </form>
+</div>
 </body>
 </html>

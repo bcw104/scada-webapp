@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ht.scada.common.user.entity.User;
 import com.ht.scada.common.user.entity.UserExtInfo;
+import com.ht.scada.common.user.entity.UserRole;
 import com.ht.scada.common.user.security.ShiroDbRealm;
 import com.ht.scada.common.user.service.UserService;
 
@@ -127,4 +128,55 @@ public class UserAdminController {
 	public List<UserExtInfo> findUser() {
 		return userService.getAllUserExtInfo();
 	}
+        @RequestMapping(value="updatePass")
+	@ResponseBody
+	public String updatePass(String newPass,String rePass,int userID) {
+                if(!rePass.equals(newPass)){	
+			return "passWorng";
+		}
+		userService.updateUserPassword(new Sha256Hash(newPass).toHex(), userID);
+		return "true";
+	}
+        @RequestMapping(value="addUser")
+        @ResponseBody
+	public String addUser(UserExtInfo userExtInfo,int role_id,Model model) {
+            //user.setUserRole(userRole);
+            // userExtInfo.setUser(user);
+            //userService.addNewUser(user);
+            UserRole role = userService.getUserRoleById(role_id);
+            userExtInfo.getUser().setUserRole(role);
+            userService.saveUserExtInfo(userExtInfo);
+            return "true";
+	}
+        @RequestMapping(value="delUserExtInfo")
+        @ResponseBody
+	public String delUserExtInfo(int userid) {
+          //  User user=userService.getUser(userid);
+            userService.deleteUser(userid);
+            return "true";
+	}
+        @RequestMapping(value="findUserExtInfoByUserID")
+	@ResponseBody
+	public UserExtInfo findUserExtInfoByUserID(String userID) {
+                log.debug(userID);
+                int uid=Integer.parseInt(userID);
+		return userService.findByUserID(uid);
+	}
+        @RequestMapping(value="updateUserExtInfo")
+        @ResponseBody
+	public String updateUser(@ModelAttribute("preloadUserExtInfo")UserExtInfo userExtInfo,Model model) {
+//            UserRole role = userService.getUserRoleById(role_id);
+//            userExtInfo.getUser().setUserRole(role);
+            userService.saveUserExtInfo(userExtInfo);
+            return "true";
+	}
+        @ModelAttribute("preloadUserExtInfo")
+        public UserExtInfo preloadUserExtInfo(@RequestParam(value = "user_id", required = false) Integer user_id,@RequestParam(value = "role_id", required = false)Integer role_id){
+            if(user_id  != null){
+                UserExtInfo extInfo = userService.findByUserID(user_id);
+                extInfo.getUser().setUserRole(userService.getUserRoleById(role_id));
+                return extInfo;
+            }
+            return null;
+        }
 }
