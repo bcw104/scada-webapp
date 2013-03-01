@@ -23,15 +23,16 @@
 		<property name="successUrl" value="/" />
 		<property name="filterChainDefinitions">
 			<value>
-			    /main/test = anon
-				/login = authc
-				/logout = logout
-				/static/** = anon
-				/api/** = anon
-				/alarm/** = anon
-				/register/** = anon
-				/admin/** = roles[admin]
-				/** = user
+                    /test/** = anon
+                    /main/test = anon
+                    /login = authc
+                    /logout = logout
+                    /static/** = anon
+                    /api/** = anon
+                    /alarm/** = anon
+                    /register/** = anon
+                    /admin/** = roles[admin]
+                    /** = user
 			</value>
 		</property>
 	</bean>

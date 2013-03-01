@@ -46,6 +46,7 @@ function doOnLoad(){
 				var it={};
 				it.id = json[i].id;
 				it.data = [];
+                it.data.push(0);
 				it.data.push(json[i].name);
 				it.data.push(json[i].description);
 				item.rows.push(it);
@@ -69,11 +70,11 @@ function creatLayout(){
 function creatGrid(json){
 	mygrid=dhxLayout.cells("a").attachGrid(); 
 	mygrid.setImagePath("imgs/");
-	mygrid.setHeader("角色名称,角色说明");
-	mygrid.setInitWidths("100,*");
-	mygrid.setColAlign("left,left");
-	mygrid.setColTypes("txt,txt");
-	mygrid.setColSorting("str,str");
+	mygrid.setHeader("序号,角色名称,角色说明");
+	mygrid.setInitWidths("100,100,*");
+	mygrid.setColAlign("left,left,left");
+	mygrid.setColTypes("cntr,txt,txt");
+	mygrid.setColSorting("int,str,str");
 	//mygrid.getCombo(1).put(2, 2);
 	//mygrid.setSkin("dhx_skyblue");
 	mygrid.init();
