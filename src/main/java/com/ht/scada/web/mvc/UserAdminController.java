@@ -160,7 +160,7 @@ public class UserAdminController {
 	public UserExtInfo findUserExtInfoByUserID(String userID) {
                 log.debug(userID);
                 int uid=Integer.parseInt(userID);
-		return userService.findByUserID(uid);
+		return userService.findUserExtInfoByUserID(uid);
 	}
         @RequestMapping(value="updateUserExtInfo")
         @ResponseBody
@@ -173,7 +173,7 @@ public class UserAdminController {
         @ModelAttribute("preloadUserExtInfo")
         public UserExtInfo preloadUserExtInfo(@RequestParam(value = "user_id", required = false) Integer user_id,@RequestParam(value = "role_id", required = false)Integer role_id){
             if(user_id  != null){
-                UserExtInfo extInfo = userService.findByUserID(user_id);
+                UserExtInfo extInfo = userService.findUserExtInfoByUserID(user_id);
                 extInfo.getUser().setUserRole(userService.getUserRoleById(role_id));
                 return extInfo;
             }

@@ -40,7 +40,7 @@ public class MainController {
 		per.add("aaa");
 		per.add("bbb");
 		ur.setPermissions(per);
-		userService.updateUserRole(ur);
+		userService.saveUserRole(ur);
 		User usr = userService.getUserByUsername("admin");
 		usr.setUserRole(ur);
 		userService.updateUser(usr);
