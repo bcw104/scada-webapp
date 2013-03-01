@@ -145,7 +145,7 @@ public class UserAdminController {
             //userService.addNewUser(user);
             UserRole role = userService.getUserRoleById(role_id);
             userExtInfo.getUser().setUserRole(role);
-            userService.addUserExtInfo(userExtInfo);
+            userService.saveUserExtInfo(userExtInfo);
             return "true";
 	}
         @RequestMapping(value="delUserExtInfo")
@@ -155,4 +155,28 @@ public class UserAdminController {
             userService.deleteUser(userid);
             return "true";
 	}
+        @RequestMapping(value="findUserExtInfoByUserID")
+	@ResponseBody
+	public UserExtInfo findUserExtInfoByUserID(String userID) {
+                log.debug(userID);
+                int uid=Integer.parseInt(userID);
+		return userService.findByUserID(uid);
+	}
+        @RequestMapping(value="updateUserExtInfo")
+        @ResponseBody
+	public String updateUser(@ModelAttribute("preloadUserExtInfo")UserExtInfo userExtInfo,Model model) {
+//            UserRole role = userService.getUserRoleById(role_id);
+//            userExtInfo.getUser().setUserRole(role);
+            userService.saveUserExtInfo(userExtInfo);
+            return "true";
+	}
+        @ModelAttribute("preloadUserExtInfo")
+        public UserExtInfo preloadUserExtInfo(@RequestParam(value = "user_id", required = false) Integer user_id,@RequestParam(value = "role_id", required = false)Integer role_id){
+            if(user_id  != null){
+                UserExtInfo extInfo = userService.findByUserID(user_id);
+                extInfo.getUser().setUserRole(userService.getUserRoleById(role_id));
+                return extInfo;
+            }
+            return null;
+        }
 }
