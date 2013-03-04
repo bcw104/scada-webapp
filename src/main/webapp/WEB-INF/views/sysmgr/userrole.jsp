@@ -99,7 +99,7 @@ function doOnClick(itemId){
             alertMessage("请选择用户");
             return;
         }
-        $.post("${ctx}/admin/role/findUserRoleByUserID",
+        $.post("${ctx}/admin/role/findUserRoleByID",
         {
           roleId:selectedId
         },
