@@ -54,8 +54,8 @@ public class AlarmPushWndControllerTest extends AbstractShiroTest {
 	public void getAlarmMessages() throws Exception {
 		
 		List<String> messages = Arrays.asList("a", "b", "c");
-		EasyMock.expect(this.jmsService.getLatestAlarmInfo(anyObject(String.class))).andReturn(messages);
-		EasyMock.replay(this.jmsService);
+//		EasyMock.expect(this.jmsService.getLatestAlarmInfo(anyObject(String.class))).andReturn(messages);
+//		EasyMock.replay(this.jmsService);
 		
 		EasyMock.expect(this.objectMapper.writeValueAsString(anyObject())).andReturn("abc");
 		EasyMock.replay(this.objectMapper);
@@ -70,8 +70,8 @@ public class AlarmPushWndControllerTest extends AbstractShiroTest {
 	
 	@Test
 	public void getAlarmMessagesStartAsync() throws Exception {
-		EasyMock.expect(this.jmsService.getLatestAlarmInfo(anyObject(String.class))).andReturn(Arrays.<String>asList());
-		EasyMock.replay(this.jmsService);
+//		EasyMock.expect(this.jmsService.getLatestAlarmInfo(anyObject(String.class))).andReturn(Arrays.<String>asList());
+//		EasyMock.replay(this.jmsService);
 		
 		EasyMock.expect(this.objectMapper.writeValueAsString(anyObject())).andReturn("abc");
 		EasyMock.replay(this.objectMapper);

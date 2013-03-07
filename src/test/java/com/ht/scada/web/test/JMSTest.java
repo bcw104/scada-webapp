@@ -142,7 +142,7 @@ public class JMSTest {
 		// Step 9. Create a JMS Message Consumer for the queue
 		MessageConsumer messageConsumer = session.createConsumer(queue);
 
-		// Step 10. Start the Connection
+		// Step 10. Start the Connection(用于接收消息)
 		connection.start();
 
 		// Step 11. Trying to receive a message. Since the queue is configured
