@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>Getting Started with Spring on JBoss</name>
+	<name>scada-webapp</name>
 
 	<properties>
 
@@ -33,6 +33,7 @@
 		<version.slf4j>1.7.2</version.slf4j>
 		
 		<version.shiro>1.2.1</version.shiro>
+	 <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
 	</properties>
 
 	<dependencyManagement>
@@ -407,6 +408,17 @@
 			<artifactId>ojdbc14</artifactId>
 			<version>10.2.0.4.0</version>
 		</dependency>
+	 <dependency>
+	  <groupId>javax.servlet.jsp</groupId>
+	  <artifactId>jsp-api</artifactId>
+	  <version>2.1</version>
+	  <scope>provided</scope>
+	 </dependency>
+	 <dependency>
+	  <groupId>jstl</groupId>
+	  <artifactId>jstl</artifactId>
+	  <version>1.2</version>
+	 </dependency>
 	</dependencies>
 
 	<build>

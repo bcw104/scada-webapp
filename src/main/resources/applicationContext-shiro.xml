@@ -12,7 +12,7 @@
 	</bean>
 
 	<!-- 項目自定义的Realm, 所有accountService依赖的dao都需要用depends-on声明 -->
-	<bean id="shiroDbRealm" class="com.ht.scada.common.user.security.ShiroDbRealm" depends-on="userDao,userRoleDao">
+	<bean id="shiroDbRealm" class="com.ht.scada.common.user.security.ShiroDbRealm" depends-on="userDao,userRoleDao,userExtInfoDao">
 		<property name="userService" ref="userService"/>
 	</bean>
 	
@@ -23,14 +23,16 @@
 		<property name="successUrl" value="/" />
 		<property name="filterChainDefinitions">
 			<value>
-				/login = authc
-				/logout = logout
-				/static/** = anon
-				/api/** = anon
-				/alarm/** = anon
-				/register/** = anon
-				/admin/** = roles[admin]
-				/** = user
+                    /test/** = anon
+                    /main/test = anon
+                    /login = authc
+                    /logout = logout
+                    /static/** = anon
+                    /api/** = anon
+                    /alarm/** = anon
+                    /register/** = anon
+                    /admin/** = roles[admin]
+                    /** = user
 			</value>
 		</property>
 	</bean>

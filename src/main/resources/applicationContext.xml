@@ -49,7 +49,7 @@
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
-				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
 <!-- 				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>

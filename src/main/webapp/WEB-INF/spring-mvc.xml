@@ -8,16 +8,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<!-- 自动扫描且只扫描@Controller -->
-	<context:component-scan base-package="com.ht.scada.web.mvc"
-		use-default-filters="false">
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
+	<context:component-scan base-package="com.ht.scada.web.mvc" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
-			<bean
-				class="org.springframework.mvc.atmosphere.support.AtmosphereArgumentResolver" />
+			<bean class="org.springframework.mvc.atmosphere.support.AtmosphereArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
@@ -25,21 +22,18 @@
 	<mvc:default-servlet-handler />
 
 	<!-- 定义JSP文件的位置 -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 
 	<!-- 定义无Controller的path<->view直接映射 -->
-	<mvc:view-controller path="/" view-name="redirect:/task" />
+	<mvc:view-controller path="/" view-name="redirect:/main" />
 
-	<bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-				<bean
-					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 					<property name="objectMapper" ref="jaxbJacksonObjectMapper" />
 				</bean>
 			</list>
@@ -50,6 +44,5 @@
 
 	<task:executor id="executor" pool-size="5" />
 	<task:scheduler id="scheduler" pool-size="5" />
-	<task:annotation-driven scheduler="scheduler"
-		executor="executor" />
+	<task:annotation-driven scheduler="scheduler" executor="executor" />
 </beans>
