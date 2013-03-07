@@ -47,7 +47,7 @@ public class AlarmPushWndControllerTest extends AbstractShiroTest {
 	public void beforeMethod() {
 		this.jmsService = EasyMock.createMock(JmsService.class);
 		this.objectMapper = EasyMock.createMock(ObjectMapper.class);
-		this.mockMvc = MockMvcBuilders.standaloneSetup(new AlarmPushWndController(jmsService, objectMapper)).build();
+		//this.mockMvc = MockMvcBuilders.standaloneSetup(new AlarmPushWndController(jmsService, objectMapper)).build();
 	}
 
 	@Test

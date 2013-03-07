@@ -24,6 +24,12 @@ import org.springframework.web.context.request.async.DeferredResult;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ht.scada.common.data.FaultDiagnoseRecord;
+import com.ht.scada.common.data.FaultRecord;
+import com.ht.scada.common.data.OffLimitsRecord;
+import com.ht.scada.common.data.YXData;
+import com.ht.scada.common.middleware.AlarmDataListener;
+import com.ht.scada.common.middleware.service.AlarmService;
 import com.ht.scada.common.middleware.service.JmsService;
 
 /**
@@ -38,16 +44,43 @@ public class AlarmPushWndController {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(AlarmPushWndController.class);
-	private final JmsService jmsService;
+	private final AlarmService alarmService;
 	private final ObjectMapper objectMapper;
 
 	private final Map<DeferredResult<List<String>>, String> alarmRequests = new ConcurrentHashMap<DeferredResult<List<String>>, String>();
 
 	@Autowired
-	public AlarmPushWndController(JmsService jmsService,
+	public AlarmPushWndController(AlarmService alarmService,
 			ObjectMapper objectMapper) {
-		this.jmsService = jmsService;
+		this.alarmService = alarmService;
 		this.objectMapper = objectMapper;
+		this.alarmService.addAlarmListener(new AlarmDataListener() {
+
+			@Override
+			public void onYX(YXData data) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFault(FaultRecord data) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onOffLimits(OffLimitsRecord data) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onFaultDiagnose(FaultDiagnoseRecord data) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 	}
 
 	/**
