@@ -1,5 +1,10 @@
 package com.ht.scada.web.mvc;
 
+import static org.easymock.EasyMock.anyObject;
+import static org.easymock.EasyMock.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,18 +20,16 @@ import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ht.scada.common.middleware.service.JmsService;
+import com.ht.scada.common.user.service.UserService;
 import com.ht.scada.util.AbstractShiroTest;
-
-import static org.easymock.EasyMock.*;
-import static org.springframework.test.web.servlet.MockMvc.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class AlarmPushWndControllerTest extends AbstractShiroTest {
 
 	private MockMvc mockMvc;
 	private JmsService jmsService;
+	private UserService userService;
 	private ObjectMapper objectMapper;
+	private MainController mainController;
 
 	@BeforeTest
 	public void beforeTest() {
@@ -46,11 +49,16 @@ public class AlarmPushWndControllerTest extends AbstractShiroTest {
 	@BeforeMethod
 	public void beforeMethod() {
 		this.jmsService = EasyMock.createMock(JmsService.class);
+		this.userService = EasyMock.createMock(UserService.class);
 		this.objectMapper = EasyMock.createMock(ObjectMapper.class);
 		//this.mockMvc = MockMvcBuilders.standaloneSetup(new AlarmPushWndController(jmsService, objectMapper)).build();
+		
+		mainController = new MainController();
+		mainController.setUserService(userService);
+		this.mockMvc = MockMvcBuilders.standaloneSetup(mainController).build();
 	}
 
-	@Test
+	//@Test
 	public void getAlarmMessages() throws Exception {
 		
 		List<String> messages = Arrays.asList("a", "b", "c");
@@ -59,19 +67,16 @@ public class AlarmPushWndControllerTest extends AbstractShiroTest {
 		
 		EasyMock.expect(this.objectMapper.writeValueAsString(anyObject())).andReturn("abc");
 		EasyMock.replay(this.objectMapper);
-
-		this.mockMvc.perform(get("/alarm/listening").param("area", "一矿"))
+		
+		this.mockMvc.perform(get("/alarm/listening").param("username", "一矿"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.request().asyncStarted())
 				.andExpect(MockMvcResultMatchers.request().asyncResult("abc"));
 
 		EasyMock.verify(this.jmsService);
 	}
 	
-	@Test
+//	@Test
 	public void getAlarmMessagesStartAsync() throws Exception {
-//		EasyMock.expect(this.jmsService.getLatestAlarmInfo(anyObject(String.class))).andReturn(Arrays.<String>asList());
-//		EasyMock.replay(this.jmsService);
 		
 		EasyMock.expect(this.objectMapper.writeValueAsString(anyObject())).andReturn("abc");
 		EasyMock.replay(this.objectMapper);
@@ -81,6 +86,24 @@ public class AlarmPushWndControllerTest extends AbstractShiroTest {
 
 		verify(this.jmsService);
 	}
+	
+	@Test
+	public void testJmss() throws Exception {
+		
+		EasyMock.expect(this.jmsService.test((String)anyObject())).andReturn("123");
+		EasyMock.replay(this.jmsService);
+		System.out.println(jmsService.test("bc"));
+		
+		
+		//assert this.mainController.main().equals("main/index");
+		
+		this.mockMvc.perform(get("/main").sessionAttr("username", "admin"))
+		.andExpect(MockMvcResultMatchers.status().isOk())
+		.andExpect(MockMvcResultMatchers.request().sessionAttribute("a", "B"))
+		.andExpect(MockMvcResultMatchers.model().attribute("username", "admin"))
+		.andExpect(MockMvcResultMatchers.forwardedUrl("main/index")) ;
+	}
+	
 	
 	@AfterTest
     public void tearDownSubject() {

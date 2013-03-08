@@ -24,13 +24,14 @@ import org.springframework.web.context.request.async.DeferredResult;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ht.scada.common.data.FaultDiagnoseRecord;
 import com.ht.scada.common.data.FaultRecord;
 import com.ht.scada.common.data.OffLimitsRecord;
 import com.ht.scada.common.data.YXData;
+import com.ht.scada.common.data.entity.FaultDiagnoseRecord;
 import com.ht.scada.common.middleware.AlarmDataListener;
 import com.ht.scada.common.middleware.service.AlarmService;
 import com.ht.scada.common.middleware.service.JmsService;
+import com.ht.scada.common.user.service.UserService;
 
 /**
  * 报警推画面控制器 报警信息通过http 长轮循的方式实时推送数据到浏览器端
@@ -45,20 +46,22 @@ public class AlarmPushWndController {
 	private static final Logger log = LoggerFactory
 			.getLogger(AlarmPushWndController.class);
 	private final AlarmService alarmService;
+	private final UserService userService;
 	private final ObjectMapper objectMapper;
 
 	private final Map<DeferredResult<List<String>>, String> alarmRequests = new ConcurrentHashMap<DeferredResult<List<String>>, String>();
 
 	@Autowired
 	public AlarmPushWndController(AlarmService alarmService,
+			UserService userService,
 			ObjectMapper objectMapper) {
 		this.alarmService = alarmService;
+		this.userService = userService;
 		this.objectMapper = objectMapper;
 		this.alarmService.addAlarmListener(new AlarmDataListener() {
 
 			@Override
 			public void onYX(YXData data) {
-				// TODO Auto-generated method stub
 				
 			}
 
@@ -90,16 +93,19 @@ public class AlarmPushWndController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public void getAlarmMessages(final AtmosphereResource event, String area)
+	public void getAlarmMessages(final AtmosphereResource event, String username)
 			throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("订阅报警信息");
-
-		AtmosphereUtils.suspend(event);
+		log.debug("订阅报警信息:{}",username);
 
 		final Broadcaster bc = event.getBroadcaster();
 		if (bc != null) {
+			//log.debug("" + userService);
+			bc.setID("/" + username);
 			log.debug("广播ID：{}", bc.getID());
 		}
+		
+		AtmosphereUtils.suspend(event);
+
 //
 //		final int numberOfClients = bc.getAtmosphereResources().size();
 //
@@ -114,13 +120,16 @@ public class AlarmPushWndController {
 	/**
 	 * TODO: 仅用于模拟推送数据时使用
 	 */
-	@Scheduled(fixedDelay=500000)
+	@Scheduled(fixedDelay=5000)
 	public void pollForMessages() {
 
 		String statusMessage = "A new message on " + new Date().toString();
 		try {
 			//log.debug("发送报警信息");
-			MetaBroadcaster.getDefault().broadcastTo("/", objectMapper.writeValueAsString(statusMessage));
+			//MetaBroadcaster.getDefault().broadcastTo("/", objectMapper.writeValueAsString(statusMessage));
+			MetaBroadcaster.getDefault().broadcastTo("/admin", "A:  " + objectMapper.writeValueAsString(statusMessage));
+			MetaBroadcaster.getDefault().broadcastTo("/admin", "A2:  " + objectMapper.writeValueAsString(statusMessage));
+			MetaBroadcaster.getDefault().broadcastTo("/B", "B:" + objectMapper.writeValueAsString(statusMessage));
 		} catch (JsonGenerationException e) {
 			throw new IllegalStateException(e);
 		} catch (JsonMappingException e) {

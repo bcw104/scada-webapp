@@ -23,15 +23,18 @@ $(document).ready(function() {
 		asyncHttpStatistics.numberOfTotalMessages++;
 		refresh();
 		var message = response.responseBody;
-		var result;
-
-		try {
-			result =  $.parseJSON(message);
-			$('#latestMessage').html(result);
-		} catch (e) {
-			asyncHttpStatistics.numberOfErrors++;
-			alert("An error ocurred while parsing the JSON Data: " + message.data + "; Error: " + e);
-			return;
+		if(message) {
+			$('#latestMessage').html(message);
+/*			var result;
+	
+			try {
+				result =  $.parseJSON(message);
+				$('#latestMessage').html(result);
+			} catch (e) {
+				asyncHttpStatistics.numberOfErrors++;
+				alert("An error ocurred while parsing the JSON Data: " + message.data + "; Error: " + e);
+				return;
+			}*/
 		}
 
 	}
@@ -42,7 +45,7 @@ $(document).ready(function() {
 	var websocketUrl = "${fn:replace(r.requestURL, r.requestURI, '')}${r.contextPath}/websockets/";
 
 	var request = {
-		url: "alarm/listening",
+		url: "alarm/listening?username=admin",
 		contentType : "application/json",
 		logLevel : 'debug',
 		//shared : 'true',
