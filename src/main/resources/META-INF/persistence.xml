@@ -6,9 +6,9 @@
 	<persistence-unit name="primary"  transaction-type="RESOURCE_LOCAL">
 <!--         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source> -->
-		<class>com.ht.scada.common.user.entity.User</class>
-		<class>com.ht.scada.common.user.entity.UserExtInfo</class>
-		<class>com.ht.scada.common.user.entity.UserRole</class>
+		<class>com.ht.scada.security.entity.User</class>
+		<class>com.ht.scada.security.entity.UserExtInfo</class>
+		<class>com.ht.scada.security.entity.UserRole</class>
 <!-- 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<property name="hibernate.show_sql" value="true" />

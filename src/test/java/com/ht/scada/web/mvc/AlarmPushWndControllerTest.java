@@ -21,7 +21,7 @@ import org.testng.annotations.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ht.scada.common.middleware.service.JmsService;
 import com.ht.scada.common.user.service.UserService;
-import com.ht.scada.util.AbstractShiroTest;
+import com.ht.scada.security.AbstractShiroTest;
 
 public class AlarmPushWndControllerTest extends AbstractShiroTest {
 
