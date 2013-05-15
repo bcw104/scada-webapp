@@ -1,12 +1,10 @@
 package com.ht.scada.web.mvc;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ht.scada.data.service.AlarmService;
+import com.ht.scada.security.service.UserService;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.atmosphere.cpr.Broadcaster;
 import org.atmosphere.cpr.MetaBroadcaster;
@@ -21,14 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.async.DeferredResult;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ht.scada.common.data.FaultRecord;
-import com.ht.scada.common.data.OffLimitsRecord;
-import com.ht.scada.common.data.YXData;
-import com.ht.scada.common.data.entity.FaultDiagnoseRecord;
-import com.ht.scada.common.user.service.UserService;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 报警推画面控制器 报警信息通过http 长轮循的方式实时推送数据到浏览器端
@@ -55,32 +51,6 @@ public class AlarmPushWndController {
 		this.alarmService = alarmService;
 		this.userService = userService;
 		this.objectMapper = objectMapper;
-		this.alarmService.addAlarmListener(new AlarmDataListener() {
-
-			@Override
-			public void onYX(YXData data) {
-				
-			}
-
-			@Override
-			public void onFault(FaultRecord data) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onOffLimits(OffLimitsRecord data) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onFaultDiagnose(FaultDiagnoseRecord data) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
 	}
 
 	/**

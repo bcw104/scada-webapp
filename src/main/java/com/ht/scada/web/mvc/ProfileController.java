@@ -1,7 +1,8 @@
 package com.ht.scada.web.mvc;
 
-import javax.validation.Valid;
-
+import com.ht.scada.security.ShiroDbRealm;
+import com.ht.scada.security.entity.User;
+import com.ht.scada.security.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ht.scada.common.user.entity.User;
-import com.ht.scada.common.user.security.ShiroDbRealm.ShiroUser;
-import com.ht.scada.common.user.service.UserService;
+import javax.validation.Valid;
 
 /**
  * 用户修改自己资料的Controller.
@@ -54,7 +53,7 @@ public class ProfileController {
 	 * 取出Shiro中的当前用户Id.
 	 */
 	private Integer getCurrentUserId() {
-		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		ShiroDbRealm.ShiroUser user = (ShiroDbRealm.ShiroUser) SecurityUtils.getSubject().getPrincipal();
 		return user.id;
 	}
 
@@ -62,7 +61,7 @@ public class ProfileController {
 	 * 更新Shiro中当前用户的用户名.
 	 */
 	private void updateCurrentUserName(String userName) {
-		ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		ShiroDbRealm.ShiroUser user = (ShiroDbRealm.ShiroUser) SecurityUtils.getSubject().getPrincipal();
 		user.name = userName;
 	}
 }

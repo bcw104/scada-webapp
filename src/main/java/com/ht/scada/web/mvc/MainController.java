@@ -1,8 +1,8 @@
 package com.ht.scada.web.mvc;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.ht.scada.security.entity.User;
+import com.ht.scada.security.entity.UserRole;
+import com.ht.scada.security.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ht.scada.common.user.entity.User;
-import com.ht.scada.common.user.entity.UserRole;
-import com.ht.scada.common.user.service.UserService;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 @RequestMapping(value = "/main")

@@ -1,29 +1,20 @@
 package com.ht.scada.web.mvc;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.ht.scada.security.entity.User;
+import com.ht.scada.security.entity.UserExtInfo;
+import com.ht.scada.security.entity.UserRole;
+import com.ht.scada.security.service.UserService;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ht.scada.common.user.entity.User;
-import com.ht.scada.common.user.entity.UserExtInfo;
-import com.ht.scada.common.user.entity.UserRole;
-import com.ht.scada.common.user.security.ShiroDbRealm;
-import com.ht.scada.common.user.service.UserService;
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 管理员管理用户的Controller.
