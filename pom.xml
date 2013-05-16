@@ -58,6 +58,12 @@
             <artifactId>scada-oildata</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -340,6 +346,7 @@
                 <configuration>
                     <charset>${project.build.sourceEncoding}</charset>
                     <url>http://localhost:8080/manager</url>
+                    <ignorePackaging>true</ignorePackaging>
                     <server>tomcat.server</server>
                     <path>/platform</path>
                     <port>8080</port>

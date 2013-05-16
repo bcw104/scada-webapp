@@ -30,7 +30,8 @@
 
 	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
 	<context:annotation-config/>
-	<context:component-scan base-package="com.ht.scada.common.user.entity, com.ht.scada.common.user.dao, com.ht.scada.common.user.service.impl, com.ht.scada.web.jms">
+	<context:component-scan base-package="com.ht.scada.security.entity, com.ht.scada.security.service.impl, com.ht.scada.common.tag.entity,
+	com.ht.scada.common.tag.service.impl, com.ht.scada.data.service.impl, com.ht.scada.oildata.service.impl">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
@@ -45,7 +46,7 @@
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
 		<property name="dataSource" ref="dataSource"/>
 		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
-		<property name="packagesToScan" value="com.ht.scada.common.user.entity, com.ht.scada.common.tag.entity"/>
+		<property name="packagesToScan" value="com.ht.scada.security.entity, com.ht.scada.common.tag.entity"/>
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
@@ -60,7 +61,7 @@
 	
 	
 	<!-- Spring Data Jpa配置 -->
- 	<jpa:repositories base-package="com.ht.scada.common.user.dao"  transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
+ 	<jpa:repositories base-package="com.ht.scada.security.dao,com.ht.scada.common.tag.dao"  transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
 	<bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator" />
 	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
    
@@ -116,7 +117,7 @@
           			  classpath*:/application.development.properties" />	
           			  
 		<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-			<property name="database" value="ORACLE" />
+			<property name="database" value="MYSQL" />
 		</bean>
 
 		<!-- DBCP连接池 -->
