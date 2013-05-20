@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ht.scada</groupId>
     <artifactId>scada-webapp</artifactId>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>scada-webapp</name>
@@ -291,6 +291,11 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 
