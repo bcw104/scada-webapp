@@ -86,26 +86,8 @@
                 }
                 return item;
             }
-            function creatGrid(json) {
-                mygrid = dhxLayout.cells("a").attachGrid();
-                mygrid.setImagePath("imgs/");
-                mygrid.setHeader("角色名称,角色说明");
-                mygrid.setInitWidths("90,*");
-                mygrid.setColAlign("left,left");
-                mygrid.setColTypes("txt,txt");
-                mygrid.setColSorting("str,str");
-                mygrid.init();
-                mygrid.parse(json, 'json');
-                mygrid.selectRow(0, true);
-                mygrid.attachEvent("onRowSelect", doOnRowSelected);
-            }
-            function doOnRowSelected() {
-//                var selectedId = mygrid.getSelectedRowId();
-//                if (selectedId == null) {
-//                    alertMessage("请选择用户");
-//                    return;
-//                }
 
+            function doOnRowSelected() {
                 $.post('${ctx}/admin/role/findUserRoleByID', {
                     roleId: $("#txtRoleID").val()
                 },
@@ -122,17 +104,21 @@
             function creatToolbar() {
                 toolbar = dhxLayout.cells("a").attachToolbar();
                 toolbar.setIconsPath("${ctx}/static/dhtmlx/imgs/");
-                toolbar.addButton("save", 1, "保存", 'filesave.png');
-                toolbar.addButton("cancel", 2, "返回", 'filesave.png');
+                toolbar.addText("title",1,"用户角色-${role.name}");
+                toolbar.addButton("save", 2, "保存", 'filesave.png');
+                toolbar.addButton("cancel", 3, "返回", 'filesave.png');
+                toolbar.addSpacer("title");
                 
-                toolbar.setAlign('right');
+
+                //toolbar.setAlign('right');
                 toolbar.attachEvent("onClick", doOnClick);
+
             }
             function clearcheck() {
                 $(".role_menutype").attr("checked", false);
                 $(".role_menuitem").attr("checked", false);
             }
-        //toolbar按钮调用
+            //toolbar按钮调用
             function doOnClick(itemId) {
                 if (itemId == 'save') {
                     var str = [];
@@ -142,16 +128,11 @@
                     saveMenu(str.join(','));
                     return;
                 }
-                if(itemId == 'cancel'){
+                if (itemId == 'cancel') {
                     window.location.href = "${ctx}/admin/role";
                 }
             }
             function saveMenu(menuStr) {
-//                var selectedId = mygrid.getSelectedRowId();
-//                if (selectedId == null) {
-//                    alertMessage("请选择用户");
-//                    return;
-//                }
                 $.post('${ctx}/admin/role/saveRoleMenu', {
                     roleId: $("#txtRoleID").val(),
                     permissionsStr: menuStr,
@@ -174,14 +155,7 @@
                     text: value
                 });
             }
-            function creatRuleToolbar() {
-                toolbar = dhxLayout.cells("a").attachToolbar();
-                toolbar.setIconsPath("${ctx}/static/dhtmlx/imgs/");
-                toolbar.addButton("add", 1, "添加角色", 'edit_add.png');
-                toolbar.addButton("update", 2, "编辑角色", 'pencil.png');
-                toolbar.addButton("drop", 3, "删除角色", 'edit_remove.png');
-                toolbar.attachEvent("onClick", doOnClick);
-            }
+
         </script>
     </head>
     <body onload="doOnLoad();">
