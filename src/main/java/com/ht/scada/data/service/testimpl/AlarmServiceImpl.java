@@ -1,7 +1,7 @@
 package com.ht.scada.data.service.testimpl;
 
-import com.ht.scada.data.kv.FaultRecord;
-import com.ht.scada.data.kv.OffLimitsRecord;
+import com.ht.scada.data.entity.FaultRecord;
+import com.ht.scada.data.entity.OffLimitsRecord;
 import com.ht.scada.data.kv.YXData;
 import com.ht.scada.data.service.AlarmService;
 import org.springframework.stereotype.Service;

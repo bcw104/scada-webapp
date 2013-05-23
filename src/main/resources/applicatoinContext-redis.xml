@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:redis="http://www.springframework.org/schema/redis"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/redis http://www.springframework.org/schema/redis/spring-redis.xsd">
+
+    <description>Spring 实时数据接口配置</description>
+
+	<!-- <context:load-time-weaver/> -->
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <property name="maxActive" value="${redis.maxActive}" />
+        <property name="maxWait" value="${redis.maxWait}" />
+        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
+    </bean>
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:hostName="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}" p:poolConfig-ref="poolConfig" />
+    <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+    <!--<context:property-placeholder location="classpath*:/redis.properties"/>-->
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
+          p:connectionFactory-ref="connectionFactory"/>
+
+    <!--json序列化器依赖json1.0版本，此处不建议采用-->
+    <!--<bean id="faultSerializer" class="com.ht.scada.data.redis.FaultRecordSerializer" />-->
+    <!--<bean id="offLimitsSerializer" class="com.ht.scada.data.redis.OffLimitsRecordSerializer" />-->
+
+    <redis:listener-container connection-factory="connectionFactory">
+        <!-- the method attribute can be skipped as the default method name is "handleMessage" -->
+        <redis:listener ref="alarmListener" method="handleFaultMessage" topic="FaultChannel" />
+        <redis:listener ref="alarmListener" method="handleOffLimitsMessage" topic="OffLimitsChannel" />
+        <redis:listener ref="alarmListener" method="handleYxChangeMessage" topic="YxChangeChannel" />
+    </redis:listener-container>
+
+    <bean id="alarmListener" class="com.ht.scada.data.RealtimeDataMessageDelegate"/>
+</beans>

@@ -26,161 +26,25 @@
 		http://www.springframework.org/schema/util/spring-util.xsd">
 
 
-	<description>Spring公共配置 </description>
+	<description>Spring公共配置</description>
+
+
+    <import resource="classpath:applicatoinContext-redis.xml" />
+    <import resource="classpath:applicatonContext-jpa.xml" />
+    <import resource="classpath:applicationContext-security.xml" />
 
 	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
 	<context:annotation-config/>
-	<context:component-scan base-package="com.ht.scada.security.entity, com.ht.scada.security.service.impl, com.ht.scada.common.tag.entity,
-	com.ht.scada.common.tag.service.impl, com.ht.scada.data.service.testimpl, com.ht.scada.oildata.service.impl">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    <!--<context:component-scan base-package="com.ht.scada.**.entity, com.ht.scada.**.service.impl">-->
+	<context:component-scan base-package="com.ht.scada.**.entity, com.ht.scada.common.**.service.impl,
+	com.ht.scada.security.**.service.impl, com.ht.scada.oildata.**.service.impl,
+	com.ht.scada.data.service.testimpl">
+		<!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
 	</context:component-scan>
-	
-	<!-- Jpa Entity Manager 配置 : JDNI name for EntityManagerFactory is defined in src/main/resources/META-INF/persistence.xml -->
-<!--     <jee:jndi-lookup jndi-name="java:jboss/spring-quickstart/persistence" id="entityManagerFactory"
-                     expected-type="javax.persistence.EntityManagerFactory" />
-	<bean id="entityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
-   		<property name="entityManagerFactory" ref="entityManagerFactory"/>
-	</bean> -->
-	
-	<!-- Jpa Entity Manager 配置 -->
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
-		<property name="dataSource" ref="dataSource"/>
-		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
-		<property name="packagesToScan" value="com.ht.scada.security.entity, com.ht.scada.common.tag.entity"/>
-		<property name="jpaProperties">
-			<props>
-				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
-<!-- 				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop> -->
-			</props>
-		</property>
-	</bean>
-	
-	
-	<!-- Spring Data Jpa配置 -->
- 	<jpa:repositories base-package="com.ht.scada.security.dao,com.ht.scada.common.tag.dao"  transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
-	<bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator" />
-	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
-   
-	<!-- Jpa 事务配置 -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory"/>
-	</bean>
 
-	<!-- 使用annotation定义事务 -->
-	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
-
-	<!-- JSR303 Validator定义 -->
- 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
- 	
 	<!-- 声明cacheManager -->
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" p:cacheManager-ref="ehcache" />
 	<!-- cacheManager工厂类，指定ehcache.xml的位置 -->
 	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:configLocation="classpath:/ehcache.xml" />
-	
-	<!-- production环境 -->
- 	<beans profile="production">
- 		<context:property-placeholder ignore-unresolvable="true" location="classpath*:/application.properties" />	
- 		
-		<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-			<property name="database" value="SQL_SERVER" />
-		</bean>
-		
-		<!-- 数据源配置, 使用DBCP数据库连接池 -->
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-			<!-- Connection Info -->
-			<property name="driverClassName" value="${jdbc.driver}" />
-			<property name="url" value="${jdbc.url}" />
-			<property name="username" value="${jdbc.username}" />
-			<property name="password" value="${jdbc.password}" />
-		
-			<!-- Connection Pooling Info -->
-			<property name="maxActive" value="${dbcp.maxActive}" />
-			<property name="maxIdle" value="${dbcp.maxIdle}" />
-			<property name="defaultAutoCommit" value="false" />
-			<!-- 连接Idle一个小时后超时 -->
-			<property name="timeBetweenEvictionRunsMillis" value="3600000" />
-			<property name="minEvictableIdleTimeMillis" value="3600000" />
-		</bean>
-		
-		<!-- 数据源配置,使用应用服务器的数据库连接池 -->
-<!-- 	<jee:jndi-lookup jndi-name="java:jboss/datasources/ExampleDS" id="dataSource" expected-type="javax.sql.DataSource"/> -->
-	</beans>
-	
-	<!-- local development环境 -->
-	<beans profile="development">
-		<context:property-placeholder ignore-resource-not-found="true"
-			location="classpath*:/application.properties,
-          			  classpath*:/application.development.properties" />	
-          			  
-		<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-			<property name="database" value="MYSQL" />
-		</bean>
-
-		<!-- DBCP连接池 -->
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-			<property name="driverClassName" value="${jdbc.driver}" />
-			<property name="url" value="${jdbc.url}" />
-			<property name="username" value="${jdbc.username}" />
-			<property name="password" value="${jdbc.password}" />
-			<property name="defaultAutoCommit" value="false" />
-		</bean>
-	</beans>
-	
-	<!-- functional test 环境 -->
-	<beans profile="functional">
-		<context:property-placeholder ignore-resource-not-found="true"
-			location="classpath*:/application.properties,
-          			  classpath*:/application.functional.properties,
-          			  classpath*:/application.functional-local.properties" />	
-          			  
-		<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-			<property name="database" value="H2" />
-		</bean>
-
-		<!-- DBCP连接池 -->
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-			<property name="driverClassName" value="${jdbc.driver}" />
-			<property name="url" value="${jdbc.url}" />
-			<property name="username" value="${jdbc.username}" />
-			<property name="password" value="${jdbc.password}" />
-			<property name="defaultAutoCommit" value="false" />
-		</bean>
-
-		<!-- 初始化数据表结构 -->
-		<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
-			<jdbc:script location="classpath:sql/import-data.sql" encoding="UTF-8"/>
-		</jdbc:initialize-database>	
-	</beans>
-	
-	<!-- unit test环境 -->
-	<beans profile="test">
-	 	<context:property-placeholder ignore-resource-not-found="true"
-			location="classpath*:/application.properties,
-          			  classpath*:/application.test.properties" />	
-          			  
-		<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-			<property name="database" value="H2" />
-		</bean>
-		
-		<!-- Simple连接池 -->
-<!-- 	<jdbc:embedded-database id="dataSource" type="H2" /> -->
-		<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-			<property name="driverClass" value="${jdbc.driver}" />
-			<property name="url" value="${jdbc.url}" />
-			<property name="username" value="${jdbc.username}" />
-			<property name="password" value="${jdbc.password}" />
-		</bean>
-
-		<!-- 初始化数据表结构 与默认数据-->
-		<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
-			<jdbc:script location="classpath:sql/import-data.sql" encoding="UTF-8"/>
-		</jdbc:initialize-database>
-	</beans>
-	
-	
 	
 </beans>

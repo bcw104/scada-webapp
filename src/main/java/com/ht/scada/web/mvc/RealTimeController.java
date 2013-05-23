@@ -55,7 +55,7 @@ public class RealTimeController {
                 map.put("type", endTag.getType());
                 map.put("subtype", endTag.getSubType());
                 map.put("major_tag_id",endTag.getMajorTag().getId());
-                map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), "YOU_JING", "QI_QING_ZHUANG_TAI"));
+                map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), "QI_QING_ZHUANG_TAI"));
                 //map.put("state","1");
                 list.add(map);
             }
