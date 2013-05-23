@@ -5,6 +5,7 @@ import com.ht.scada.common.tag.entity.MajorTag;
 import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.common.tag.service.MajorTagService;
 import com.ht.scada.common.tag.util.EndTagTypeEnum;
+import com.ht.scada.common.tag.util.VarGroupEnum;
 import com.ht.scada.common.tag.util.VarSubTypeEnum;
 import com.ht.scada.data.service.RealtimeDataService;
 import com.ht.scada.security.entity.User;
@@ -41,15 +42,19 @@ public class RealTimeController {
     @Autowired
     private RealtimeDataService realtimeDataService;
     
+    /**
+     * 按登录用户权限返回油井信息,返回格式为JSON
+     * 
+     * @return 当前用户有权限的油井信息
+     */
     @RequestMapping(value="youjing")
     @ResponseBody
-    public List<Map> youJingList(Model model){
+    public List<Map> youJingList(){
         User user = userService.getCurrentUser();
         Set<Integer> set = user.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);
-            //if(endTag.getType().equals("YOU_JING")){
             if(endTag.getType().equals(EndTagTypeEnum.YOU_JING.toString())){
                 HashMap map = new HashMap();
                 map.put("id", endTag.getId());
@@ -58,17 +63,21 @@ public class RealTimeController {
                 map.put("type", endTag.getType());
                 map.put("subtype", endTag.getSubType());
                 map.put("major_tag_id",endTag.getMajorTag().getId());
-                //map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), "QI_QING_ZHUANG_TAI"));
                 map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), VarSubTypeEnum.QI_TING_ZHUANG_TAI.toString()));
-                //map.put("state","1");
                 list.add(map);
             }
         }
         return list;
     }
+    
+    /**
+     * 按登录用户权限返回机构信息,返回格式为JSON
+     * 
+     * @return 当前用户有权限的机构信息
+     */
     @RequestMapping(value="majortag")
     @ResponseBody
-    public List<Map> majorTagList(Model model){
+    public List<Map> majorTagList(){
         User user = userService.getCurrentUser();
         Set<Integer> set = user.getMajorTagID();
         List<Map> list = new ArrayList<>();
@@ -82,15 +91,20 @@ public class RealTimeController {
         }
         return list;
     }
+    
+    /**
+     * 按登录用户权限返回增压站信息,返回格式为JSON
+     * 
+     * @return 当前用户有权限的增压站信息
+     */
     @RequestMapping(value="zengya")
     @ResponseBody
-    public List<Map> zengyaList(Model model){
+    public List<Map> zengyaList(){
         User user = userService.getCurrentUser();
         Set<Integer> set = user.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);
-            //if(endTag.getType().equals("ZENG_YA_ZHAN")){
             if(endTag.getType().equals(EndTagTypeEnum.ZENG_YA_ZHAN.toString())){
                 HashMap map = new HashMap();
                 map.put("id", endTag.getId());
@@ -98,8 +112,60 @@ public class RealTimeController {
                 map.put("name", endTag.getName());
                 map.put("type", endTag.getType());
                 map.put("major_tag_id",endTag.getMajorTag().getId());
-                //map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), "YOU_JING", "QI_QING_ZHUANG_TAI"));
-                //map.put("state","1");
+                map.putAll(realtimeDataService.getEndTagVarGroupInfo(endTag.getCode(), VarGroupEnum.ZYZ_YC.toString()));
+                list.add(map);
+            }
+        }
+        return list;
+    }
+    
+    /**
+     * 按登录用户权限返回注水站信息,返回格式为JSON
+     * 
+     * @return 当前用户有权限的注水站信息
+     */
+    @RequestMapping(value="zhushuizhan")
+    @ResponseBody
+    public List<Map> zhushuizhan(){
+        User user = userService.getCurrentUser();
+        Set<Integer> set = user.getEndTagID();
+        List<Map> list = new ArrayList<>();
+        for(int id : set){
+            EndTag endTag = endTagService.getById(id);
+            if(endTag.getType().equals(EndTagTypeEnum.ZHU_SHUI_ZHAN.toString())){
+                HashMap map = new HashMap();
+                map.put("id", endTag.getId());
+                map.put("code", endTag.getCode());
+                map.put("name", endTag.getName());
+                map.put("type", endTag.getType());
+                map.put("major_tag_id",endTag.getMajorTag().getId());
+                map.putAll(realtimeDataService.getEndTagVarGroupInfo(endTag.getCode(), VarGroupEnum.ZSZ_YC.toString()));
+                list.add(map);
+            }
+        }
+        return list;
+    }
+    /**
+     * 按登录用户权限返回接转站信息,返回格式为JSON
+     * 
+     * @return 当前用户有权限的接转站信息
+     */
+    @RequestMapping(value="jiezhuanzhan")
+    @ResponseBody
+    public List<Map> jiezhuanzhan(){
+        User user = userService.getCurrentUser();
+        Set<Integer> set = user.getEndTagID();
+        List<Map> list = new ArrayList<>();
+        for(int id : set){
+            EndTag endTag = endTagService.getById(id);
+            if(endTag.getType().equals(EndTagTypeEnum.JIE_ZHUAN_ZHAN.toString())){
+                HashMap map = new HashMap();
+                map.put("id", endTag.getId());
+                map.put("code", endTag.getCode());
+                map.put("name", endTag.getName());
+                map.put("type", endTag.getType());
+                map.put("major_tag_id",endTag.getMajorTag().getId());
+                map.putAll(realtimeDataService.getEndTagVarGroupInfo(endTag.getCode(), VarGroupEnum.JZZ_YC.toString()));
                 list.add(map);
             }
         }
