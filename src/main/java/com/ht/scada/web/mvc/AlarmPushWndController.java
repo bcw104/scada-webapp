@@ -3,6 +3,11 @@ package com.ht.scada.web.mvc;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ht.scada.data.RealtimeDataMessageDelegate;
+import com.ht.scada.data.RealtimeMessageListener;
+import com.ht.scada.data.entity.FaultRecord;
+import com.ht.scada.data.entity.OffLimitsRecord;
+import com.ht.scada.data.entity.YxRecord;
 import com.ht.scada.data.service.AlarmService;
 import com.ht.scada.security.service.UserService;
 import org.atmosphere.cpr.AtmosphereResource;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,11 +42,16 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequestMapping("/alarm/listening")
 public class AlarmPushWndController {
 
-	private static final Logger log = LoggerFactory
-			.getLogger(AlarmPushWndController.class);
+	private static final Logger log = LoggerFactory.getLogger(AlarmPushWndController.class);
 	private final AlarmService alarmService;
 	private final UserService userService;
 	private final ObjectMapper objectMapper;
+
+    /**
+     * 实时数据推送代理
+     */
+    @Inject
+    private RealtimeDataMessageDelegate messageDelegate;
 
 	private final Map<DeferredResult<List<String>>, String> alarmRequests = new ConcurrentHashMap<DeferredResult<List<String>>, String>();
 
@@ -91,6 +102,34 @@ public class AlarmPushWndController {
 	public void pollForMessages() {
 
 		String statusMessage = "A new message on " + new Date().toString();
+        RealtimeMessageListener listener = new RealtimeMessageListener() {
+            @Override
+            public void faultOccured(FaultRecord record) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public void faultResumed(FaultRecord record) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public void offLimitsOccured(OffLimitsRecord record) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public void offLimitsResumed(OffLimitsRecord record) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public void yxChanged(YxRecord record) {
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        };
+        messageDelegate.setListener(listener);
+
 		try {
 			//log.debug("发送报警信息");
 			//MetaBroadcaster.getDefault().broadcastTo("/", objectMapper.writeValueAsString(statusMessage));

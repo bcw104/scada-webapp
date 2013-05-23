@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ht.scada</groupId>
     <artifactId>scada-webapp</artifactId>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>scada-webapp</name>
@@ -34,6 +34,7 @@
         <version.slf4j>1.7.2</version.slf4j>
 
         <version.shiro>1.2.1</version.shiro>
+        <version.druid>0.2.17</version.druid>
         <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
     </properties>
 
@@ -216,6 +217,11 @@
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
             <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>${version.druid}</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.jtds</groupId>
