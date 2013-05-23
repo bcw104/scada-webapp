@@ -4,6 +4,8 @@ import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.common.tag.entity.MajorTag;
 import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.common.tag.service.MajorTagService;
+import com.ht.scada.common.tag.util.EndTagTypeEnum;
+import com.ht.scada.common.tag.util.VarSubTypeEnum;
 import com.ht.scada.data.service.RealtimeDataService;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
@@ -47,7 +49,8 @@ public class RealTimeController {
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);
-            if(endTag.getType().equals("YOU_JING")){
+            //if(endTag.getType().equals("YOU_JING")){
+            if(endTag.getType().equals(EndTagTypeEnum.YOU_JING.toString())){
                 HashMap map = new HashMap();
                 map.put("id", endTag.getId());
                 map.put("code", endTag.getCode());
@@ -55,7 +58,8 @@ public class RealTimeController {
                 map.put("type", endTag.getType());
                 map.put("subtype", endTag.getSubType());
                 map.put("major_tag_id",endTag.getMajorTag().getId());
-                map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), "QI_QING_ZHUANG_TAI"));
+                //map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), "QI_QING_ZHUANG_TAI"));
+                map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), VarSubTypeEnum.QI_TING_ZHUANG_TAI.toString()));
                 //map.put("state","1");
                 list.add(map);
             }
@@ -86,7 +90,8 @@ public class RealTimeController {
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);
-            if(endTag.getType().equals("ZENG_YA_ZHAN")){
+            //if(endTag.getType().equals("ZENG_YA_ZHAN")){
+            if(endTag.getType().equals(EndTagTypeEnum.ZENG_YA_ZHAN.toString())){
                 HashMap map = new HashMap();
                 map.put("id", endTag.getId());
                 map.put("code", endTag.getCode());
