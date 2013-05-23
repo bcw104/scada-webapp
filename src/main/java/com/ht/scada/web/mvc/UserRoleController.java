@@ -33,8 +33,9 @@ public class UserRoleController {
         return "sysmgr/userrole";
     }
     @RequestMapping(value="roleMenu")
-    
-    public String roleMenu(Model model){
+    public String roleMenu(@RequestParam("id") int id,Model model){
+        model.addAttribute("roleid", id);
+        model.addAttribute("role",userService.getUserRoleById(id));
         model.addAttribute("mtList", menuService.getAllMenuTypes());
         return "sysmgr/roleMenu";
         //return menuService.getAllMenuTypes();

@@ -35,7 +35,10 @@
 
 	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
 	<context:annotation-config/>
-	<context:component-scan base-package="com.ht.scada.common.tag.type, com.ht.scada.**.entity, com.ht.scada.**.service.impl">
+    <!--<context:component-scan base-package="com.ht.scada.**.entity, com.ht.scada.**.service.impl">-->
+	<context:component-scan base-package="com.ht.scada.**.entity, com.ht.scada.common.**.service.impl,
+	com.ht.scada.security.**.service.impl, com.ht.scada.oildata.**.service.impl,
+	com.ht.scada.data.service.testimpl">
 		<!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
 	</context:component-scan>
 

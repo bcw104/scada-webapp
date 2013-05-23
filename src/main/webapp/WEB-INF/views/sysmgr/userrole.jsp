@@ -83,11 +83,12 @@ function jsonManage(json){
 }
 function creatToolbar(){
 	toolbar=dhxLayout.cells("a").attachToolbar();
-        toolbar.setIconsPath("${ctx}/static/dhtmlx/imgs/");
+    toolbar.setIconsPath("${ctx}/static/dhtmlx/imgs/");
 	toolbar.addButton("add", 1, "添加角色",'edit_add.png');
   	toolbar.addButton("update", 2, "编辑角色",'pencil.png');
 	toolbar.addButton("drop", 3, "删除角色",'edit_remove.png');
-        toolbar.attachEvent("onClick", doOnClick);
+    toolbar.addButton("setup", 4, "权限设置",'edit_remove.png');
+    toolbar.attachEvent("onClick", doOnClick);
 }
 //toolbar按钮调用
 function doOnClick(itemId){
@@ -113,6 +114,13 @@ function doOnClick(itemId){
         addDiv("updateRole","编辑角色");
     }else if(itemId=='drop'){
         dropMessage();
+    }else if(itemId=='setup'){
+        var selectedId=mygrid.getSelectedRowId();
+        if(selectedId==null){
+            alertMessage("请选择用户");
+            return;
+        }
+        window.location.href="${ctx}/admin/role/roleMenu?id=" + selectedId;
     }
 }
 function addDiv(id,title){
@@ -185,7 +193,7 @@ function addRolseFormSubmit(){
 }
 function dropMessage(){
     var selectedId=mygrid.getSelectedRowId();
-        if(selectedId==null){
+    if(selectedId==null){
         alertMessage("请选择用户");
         return;
     }
