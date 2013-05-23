@@ -1,52 +1,68 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.apache.shiro.web.filter.authc.FormAuthenticationFilter"%>
-<%@ page import="org.apache.shiro.authc.ExcessiveAttemptsException"%>
-<%@ page import="org.apache.shiro.authc.IncorrectCredentialsException"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-
+<!DOCTYPE html>
 <html>
-<head>
-	<title>登录页</title>
-	<script>
-		$(document).ready(function() {
-			$("#loginForm").validate();
-		});
-	</script>
-</head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>登录</title>
+        <link href="${ctx}/static/style/style.css" rel="stylesheet" type="text/css" />
+    </head>
 
-<body>
-	<form id="loginForm" action="${ctx}/login" method="post" class="form-horizontal">
-	<%
-	String error = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
-	if(error != null){
-	%>
-		<div class="alert alert-error input-medium controls">
-			<button class="close" data-dismiss="alert">×</button>登录失败，请重试.
-		</div>
-	<%
-	}
-	%>
-		<div class="control-group">
-			<label for="username" class="control-label">名称:</label>
-			<div class="controls">
-				<input type="text" id="username" name="username"  value="${username}" class="input-medium required"/>
-			</div>
-		</div>
-		<div class="control-group">
-			<label for="password" class="control-label">密码:</label>
-			<div class="controls">
-				<input type="password" id="password" name="password"  value="${password}"  class="input-medium required"/>
-			</div>
-		</div>
-				
-		<div class="control-group">
-			<div class="controls">
-				<label class="checkbox" for="rememberMe"><input type="checkbox" id="rememberMe" name="rememberMe"/> 记住我</label>
-				<input id="submit_btn" class="btn btn-primary" type="submit" value="登录"/> <a class="btn" href="${ctx}/register">注册</a>
-			 	<span class="help-block">(管理员: <b>admin/admin</b>, 普通用户: <b>user/user</b>)</span>
-			</div>
-		</div>
-	</form>
-</body>
+    <body><br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <form id="loginForm" action="${ctx}/login" method="post" class="form-horizontal">
+            <div class="pda">
+                <div class="zitic"></div>
+            </div>
+            <div style="width:100%;" class="bgcolora gaoa">
+                <div class="fl" style="position: absolute; z-index:1">
+                    <img src="${ctx}/static/img/bjpica.jpg" width="846" height="240" />
+                </div>
+                <div class="fr bgcolora gaoa" style="position: absolute; left:730px; z-index:3;">
+                    <br />
+                    <br />
+                    <div class="kda mta">
+                        <div class="fl"><img src="${ctx}/static/img/pica.jpg" width="40" height="39" /></div>
+                        <div class="fl zitib tar" style="width:68px; padding:10px;">用户名：</div>
+                        <div class="fl pdb" ><input type="text" id="username" name="username"  value="${username}" class="inputa required"/></div>
+                        <br class="ld"/>
+                    </div>
+
+                    <div class="kda mta">
+                        <div class="fl"><img src="${ctx}/static/img/picb.jpg" width="40" height="39" /></div>
+                        <div class="fl zitib tar" style="width:68px;padding:10px;">密&nbsp;&nbsp;&nbsp;&nbsp;码：</div>
+                        <div class="fl pdb"><input type="password" id="password" name="password"  value="${password}"  class="inputa required"/></div>
+                        <br class="ld"/>
+                    </div>
+
+                    <div class="kda pdc">
+                        <div class="fr zitib" style="width:155px;">记住密码</div>
+                        <div class="fr">
+                            <input type="checkbox" id="rememberMe" name="rememberMe"/> 
+                        </div>
+                        <br class="ld"/>
+                    </div>
+
+
+
+                    <div class="kda">
+                        <div class="fr pdd"><input  type="reset" class="new-btm" value="" />
+                        </div>
+                        <div class="fr pde"><input type="submit" class="new-btn" value=""/></div>
+                    </div>
+
+
+
+                </div>
+                <br class="ld"/>
+            </div>
+        </form>
+    </body>
 </html>

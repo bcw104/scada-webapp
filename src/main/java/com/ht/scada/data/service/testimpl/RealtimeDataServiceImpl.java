@@ -1,6 +1,7 @@
 package com.ht.scada.data.service.testimpl;
 
 import com.ht.scada.data.service.RealtimeDataService;
+import java.util.HashMap;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +33,32 @@ public class RealtimeDataServiceImpl implements RealtimeDataService{
 
     @Override
     public Map<String, String> getEndTagVarGroupInfo(String code, String group) {
-        return null;
+        Map<String ,String > map = new HashMap<>();
+        if(code == null){
+            return null;
+        }
+        if(code.equals("zeng")){
+            map.put("attr01", "a");
+            map.put("attr02", "b");
+            map.put("attr03", "c");
+            map.put("attr04", "d");
+            return map;
+        }
+        if(code.equals("zhu")){
+            map.put("attr01", "a");
+            map.put("attr02", "b");
+            map.put("attr03", "c");
+            map.put("attr04", "d");
+            return map;
+        }
+        if(code.equals("jiezhuan")){
+            map.put("attr01", "a");
+            map.put("attr02", "b");
+            map.put("attr03", "c");
+            map.put("attr04", "d");
+            return map;
+        }
+        return map;
     }
 
     @Override

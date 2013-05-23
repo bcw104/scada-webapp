@@ -1,0 +1,115 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	margin:0px;
+	background-image:url(../img/bjpic.jpg);
+	background-repeat:no-repeat;
+	background-color:#1e6dd2;
+	}
+.zitia{
+	font-size:28px;
+	color:#FFF;
+	font-weight:bold;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:center;
+	}
+.zitib{
+	color:#1D6DD2; font-weight:bold;
+	}
+.zitic{
+width:720px;
+height:31px;
+margin:auto;
+background-image:url(../img/biaoti.png);
+_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,src="img/biaoti.png"); 
+_background:none;
+}
+.tar{
+	text-align:right;
+	}
+.fl{
+	float:left;
+	}
+.fr{
+	float:right;
+	}
+.ld{
+	clear:both;
+	}
+.inputa{
+	background-color:#1D6DD2;
+	background-image:url(../img/inputbg.jpg);
+	width:163px;
+	height:19px;
+	border:0px;
+	padding:4px;
+	color:#FFF;
+	}
+.kda{
+	width:300px;}
+.mta{
+	margin-top:8px;}
+.bgcolora{
+	background-color:#FFF;
+	}
+.gaoa{
+	height:241px;}
+.pda{
+	padding:8px 3px 8px 9px;
+	}
+.pdb{
+	padding:6px 0px 0px 0px;
+	}
+.pdc{
+     padding:10px 0px 0px 0px;}
+	 
+.pdd{
+	padding:13px 0px 8px 9px;
+	}
+
+.pde{
+	padding:13px 5px 8px 0px;
+	}		 	
+
+.new-btn{
+	background-image:url(../img/dla.jpg);
+	width:80px;
+	height:33px;
+	border:0px;
+}
+.new-btn:hover {
+	background-image: url(../img/dlb.jpg);
+	width:80px;
+	height:33px;
+	border:0px;
+}
+.new-btn:active {
+	background-image: url(../img/dlc.jpg);
+	width:80px;
+	height:33px;
+	border:0px;
+}
+
+
+
+
+
+.new-btm{
+	background-image:url(../img/cza.jpg);
+	width:80px;
+	height:33px;
+	border:0px;
+}
+.new-btm:hover {
+	background-image:url(../img/czb.jpg);
+	width:80px;
+	height:33px;
+	border:0px;
+}
+.new-btm:active {
+	background-image:url(../img/czc.jpg);
+	width:80px;
+	height:33px;
+	border:0px;
+}
