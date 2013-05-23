@@ -78,4 +78,26 @@ public class RealTimeController {
         }
         return list;
     }
+    @RequestMapping(value="zengya")
+    @ResponseBody
+    public List<Map> zengyaList(Model model){
+        User user = userService.getCurrentUser();
+        Set<Integer> set = user.getEndTagID();
+        List<Map> list = new ArrayList<>();
+        for(int id : set){
+            EndTag endTag = endTagService.getById(id);
+            if(endTag.getType().equals("ZENG_YA_ZHAN")){
+                HashMap map = new HashMap();
+                map.put("id", endTag.getId());
+                map.put("code", endTag.getCode());
+                map.put("name", endTag.getName());
+                map.put("type", endTag.getType());
+                map.put("major_tag_id",endTag.getMajorTag().getId());
+                //map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), "YOU_JING", "QI_QING_ZHUANG_TAI"));
+                //map.put("state","1");
+                list.add(map);
+            }
+        }
+        return list;
+    }
 }
