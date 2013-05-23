@@ -59,7 +59,8 @@
 	
 	<!-- production环境 -->
  	<beans profile="production">
- 		<context:property-placeholder ignore-unresolvable="true" location="classpath*:/application.properties" />	
+ 		<context:property-placeholder ignore-unresolvable="true" location="classpath*:/redis.properties,
+ 		classpath*:/application.properties" />
  		
 		<!-- 数据源配置, 使用Druid数据库连接池 -->
         <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -82,8 +83,8 @@
             <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
             <property name="minEvictableIdleTimeMillis" value="300000" />
 
-            <property name="validationQuery" value="SELECT 'x'" />
-            <property name="testWhileIdle" value="true" />
+            <!--<property name="validationQuery" value="SELECT 1" />-->
+            <property name="testWhileIdle" value="false" />
             <property name="testOnBorrow" value="false" />
             <property name="testOnReturn" value="false" />
 
@@ -102,7 +103,8 @@
 	<!-- local development环境 -->
 	<beans profile="development">
 		<context:property-placeholder ignore-resource-not-found="true"
-			location="classpath*:/application.properties,
+			location="classpath*:/redis.properties,
+			        classpath*:/application.properties,
           			  classpath*:/application.development.properties" />	
           			  
 		<!-- DBCP连接池 -->
@@ -115,6 +117,10 @@
             <property name="initialSize" value="${druid.initialSize}" />
             <property name="minIdle" value="${druid.minIdle}" />
             <property name="maxActive" value="${druid.maxActive}" />
+
+            <property name="testWhileIdle" value="false" />
+            <property name="testOnBorrow" value="false" />
+            <property name="testOnReturn" value="false" />
             <!-- 配置监控统计拦截的filters -->
             <property name="filters" value="stat,slf4j" />
         </bean>
@@ -123,7 +129,8 @@
 	<!-- functional test 环境 -->
 	<beans profile="functional">
 		<context:property-placeholder ignore-resource-not-found="true"
-			location="classpath*:/application.properties,
+			location="classpath*:/redis.properties,
+			classpath*:/application.properties,
           			  classpath*:/application.functional.properties" />
           			  
 		<!-- DBCP连接池 -->
@@ -132,6 +139,9 @@
             <property name="url" value="${jdbc.url}" />
             <property name="username" value="${jdbc.username}" />
             <property name="password" value="${jdbc.password}" />
+            <property name="testWhileIdle" value="false" />
+            <property name="testOnBorrow" value="false" />
+            <property name="testOnReturn" value="false" />
             <!-- 配置监控统计拦截的filters -->
             <property name="filters" value="stat,slf4j" />
         </bean>
@@ -145,7 +155,8 @@
 	<!-- unit test环境 -->
 	<beans profile="test">
 	 	<context:property-placeholder ignore-resource-not-found="true"
-			location="classpath*:/application.properties,
+			location="classpath*:/redis.properties,
+		    	classpath*:/application.properties,
           			  classpath*:/application.test.properties" />	
           			  
 		<!-- Simple连接池 -->

@@ -28,6 +28,7 @@
 
 	<description>Spring公共配置</description>
 
+    <context:property-placeholder ignore-unresolvable="true" location="classpath*:/redis.properties" />
 
     <import resource="classpath:applicatoinContext-redis.xml" />
     <import resource="classpath:applicatonContext-jpa.xml" />
