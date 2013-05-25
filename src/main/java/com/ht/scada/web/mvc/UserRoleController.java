@@ -1,7 +1,7 @@
 package com.ht.scada.web.mvc;
 
 import com.ht.scada.security.entity.UserRole;
-import com.ht.scada.security.service.MenuService;
+import com.ht.scada.web.service.MenuService;
 import com.ht.scada.security.service.UserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
