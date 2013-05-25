@@ -75,13 +75,14 @@ function jsonManage(json){
 }
 //创建toolbar
 function creatToolbar(){
-	toolbar=dhxLayout.cells("a").attachToolbar();
-        toolbar.setIconsPath(objUrl+"/static/dhtmlx/imgs/");
+    toolbar=dhxLayout.cells("a").attachToolbar();
+    toolbar.setIconsPath(objUrl+"/static/dhtmlx/imgs/");
 	toolbar.addButton("add", 1, "添加用户",'edit_add.png');
   	toolbar.addButton("update", 2, "编辑用户",'pencil.png');
   	toolbar.addButton("pass", 3, "修改密码",'password.png');
 	toolbar.addButton("drop", 4, "删除用户",'edit_remove.png');
-        toolbar.attachEvent("onClick", doOnClick);
+    toolbar.addButton("permission", 5, "用户权限",'permission.png');
+    toolbar.attachEvent("onClick", doOnClick);
 }
 //toolbar按钮调用
 function doOnClick(itemId){
@@ -125,6 +126,15 @@ function doOnClick(itemId){
         addDiv("passUser","修改密码");
     }else if(itemId=='drop'){
         dropMessage();
+    }else if(itemId=='permission'){
+        
+        var selectedId=mygrid.getSelectedRowId();
+        if(selectedId==null){
+            alertMessage("请选择用户");
+            return;
+        }
+        
+        window.location.href= objUrl+ "/admin/user/userPermissionList?id=" + selectedId;
     }
 }
 //新建用户
@@ -224,41 +234,63 @@ function getGridRowsData(){
 		  }
 	  });
 }
-//添加新用户
+// 添加新用户
 function addUserFormSubmit(){
+    
     var uName=$("#userName").val();
     var rName=$("#relName").val();
     var dption=dhxCombo.getSelectedValue();
     var pass=$("#newPassword").val();
     var rpass=$("#relPassword").val();
-    if(uName==''|| uName==null){
-        alertMessage("用户名不能为空");
-        
+    
+    // 用户名
+    if(uName==''|| uName==null){        
+        alertMessage("用户名不能为空");        
         return;
+    }else{
+        
+        $.post(objUrl+"/admin/user/checkUserName",
+            {
+              userName:uName
+            },
+            function(data){
+              if(data=='false'){
+
+                  alertMessage("用户名已经存在，请重新输入"); 
+                  return;
+              }
+            }
+        );
     }
-    if(rName==''|| rName==null){
+    // 姓名
+    if(rName==''|| rName==null){        
         alertMessage("姓名不能为空");
         return;
     }
+    // 角色
     if(dption==''|| dption==null){
         alertMessage("角色不能为空");
         return;
     }else{
         $("#description").val(dption);
     }
+    // 密码
     if(pass==''|| pass==null){
         alertMessage("密码不能为空");
         return;
     }
-     if(rpass==''|| rpass==null){
+    // 确认密码
+    if(rpass==''|| rpass==null){
         alertMessage("请确认密码！");
         return;
     }
+    // 密码与确认密码
     if(pass!=rpass){
-        alertMessage("新设密码与原始密码不相符，请重新输入！");
+        alertMessage("密码与确认密码不相符，请重新输入！");
         return;
     }
-     var options = {    
+    // 用户添加
+    var options = {    
         success:function(data) {   
             if(data=='true'){
                 alertMessage("添加用户成功");
@@ -269,9 +301,9 @@ function addUserFormSubmit(){
                 winClose();
             }
         }
-      }; 
-      $('#addForm').ajaxSubmit(options);
-      return false;
+    }; 
+    $('#addForm').ajaxSubmit(options);
+    return false;
 }
 //编辑用户
 function updateUserFormSubmit(){

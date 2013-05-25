@@ -10,6 +10,8 @@ import com.ht.scada.common.tag.util.VarSubTypeEnum;
 import com.ht.scada.data.service.RealtimeDataService;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
+import com.ht.scada.web.entity.UserExtInfo;
+import com.ht.scada.web.service.UserExtInfoService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +38,8 @@ public class RealTimeController {
     @Autowired
 	private UserService userService;
     @Autowired
+	private UserExtInfoService userExtInfoService;
+    @Autowired
     private EndTagService endTagService;
     @Autowired
     private MajorTagService majorTagService;
@@ -51,7 +55,8 @@ public class RealTimeController {
     @ResponseBody
     public List<Map> youJingList(){
         User user = userService.getCurrentUser();
-        Set<Integer> set = user.getEndTagID();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
+        Set<Integer> set = userExtInfo.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);
@@ -79,7 +84,8 @@ public class RealTimeController {
     @ResponseBody
     public List<Map> majorTagList(){
         User user = userService.getCurrentUser();
-        Set<Integer> set = user.getMajorTagID();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
+        Set<Integer> set = userExtInfo.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             MajorTag endTag = majorTagService.getById(id);
@@ -101,7 +107,8 @@ public class RealTimeController {
     @ResponseBody
     public List<Map> zengyaList(){
         User user = userService.getCurrentUser();
-        Set<Integer> set = user.getEndTagID();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
+        Set<Integer> set = userExtInfo.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);
@@ -128,7 +135,8 @@ public class RealTimeController {
     @ResponseBody
     public List<Map> zhushuizhan(){
         User user = userService.getCurrentUser();
-        Set<Integer> set = user.getEndTagID();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
+        Set<Integer> set = userExtInfo.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);
@@ -154,7 +162,8 @@ public class RealTimeController {
     @ResponseBody
     public List<Map> jiezhuanzhan(){
         User user = userService.getCurrentUser();
-        Set<Integer> set = user.getEndTagID();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
+        Set<Integer> set = userExtInfo.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);

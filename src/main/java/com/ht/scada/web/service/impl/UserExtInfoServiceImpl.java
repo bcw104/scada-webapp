@@ -18,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserExtInfoServiceImpl implements UserExtInfoService {
 
     @Inject
-    private UserDao userDao;
-    @Inject
     private UserExtInfoDao userExtInfoDao;
 
     @Override
@@ -37,4 +35,16 @@ public class UserExtInfoServiceImpl implements UserExtInfoService {
     public UserExtInfo findUserExtInfoByUserID(int id) {
         return userExtInfoDao.findByUserID(id);
     }
+
+    @Override
+    public UserExtInfo findUserExtInfoByUserName(String userName) {
+        return userExtInfoDao.findByUserName(userName);
+    }
+    
+    @Override
+    public void deleteUser(int userId) {
+         
+         UserExtInfo userExtInfo = userExtInfoDao.findByUserID(userId);
+         userExtInfoDao.delete(userExtInfo);
+     }
 }
