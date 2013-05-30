@@ -32,7 +32,9 @@
         <redis:listener ref="alarmListener" method="handleFaultMessage" topic="FaultChannel" />
         <redis:listener ref="alarmListener" method="handleOffLimitsMessage" topic="OffLimitsChannel" />
         <redis:listener ref="alarmListener" method="handleYxChangeMessage" topic="YxChangeChannel" />
+        <redis:listener ref="oilAlarmListener" method="handleMessage" topic="FaultDiagnoseChannel" />
     </redis:listener-container>
 
     <bean id="alarmListener" class="com.ht.scada.data.RealtimeDataMessageDelegate"/>
+    <bean id="oilAlarmListener" class="com.ht.scada.oildata.OilDataMessageDelegate"/>
 </beans>
