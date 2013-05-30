@@ -1,6 +1,7 @@
 package com.ht.scada.web.mvc;
 
 import com.ht.scada.common.tag.entity.EndTag;
+import com.ht.scada.common.tag.entity.EndTagExtInfo;
 import com.ht.scada.common.tag.entity.MajorTag;
 import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.common.tag.service.MajorTagService;
@@ -10,6 +11,8 @@ import com.ht.scada.common.tag.util.VarSubTypeEnum;
 import com.ht.scada.data.service.RealtimeDataService;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
+import com.ht.scada.web.entity.UserExtInfo;
+import com.ht.scada.web.service.UserExtInfoService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,6 +38,8 @@ public class RealTimeController {
     @Autowired
 	private UserService userService;
     @Autowired
+	private UserExtInfoService userExtInfoService;
+    @Autowired
     private EndTagService endTagService;
     @Autowired
     private MajorTagService majorTagService;
@@ -51,7 +55,8 @@ public class RealTimeController {
     @ResponseBody
     public List<Map> youJingList(){
         User user = userService.getCurrentUser();
-        Set<Integer> set = user.getEndTagID();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
+        Set<Integer> set = userExtInfo.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);
@@ -79,14 +84,22 @@ public class RealTimeController {
     @ResponseBody
     public List<Map> majorTagList(){
         User user = userService.getCurrentUser();
-        Set<Integer> set = user.getMajorTagID();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
+        Set<Integer> set = userExtInfo.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
-            MajorTag endTag = majorTagService.getById(id);
+            MajorTag majorTag = majorTagService.getById(id);
             HashMap map = new HashMap();
-            map.put("id", endTag.getId());
-            map.put("name", endTag.getName());
-            map.put("type", endTag.getType());
+            map.put("id", majorTag.getId());
+            map.put("name", majorTag.getName());
+            map.put("type", majorTag.getType());
+            MajorTag ptag = majorTag.getParent();
+            if(ptag == null){
+                map.put("pid", 0);
+            }else{
+                map.put("pid",ptag.getId());
+            }
+            
             list.add(map);
         }
         return list;
@@ -101,7 +114,8 @@ public class RealTimeController {
     @ResponseBody
     public List<Map> zengyaList(){
         User user = userService.getCurrentUser();
-        Set<Integer> set = user.getEndTagID();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
+        Set<Integer> set = userExtInfo.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);
@@ -128,7 +142,8 @@ public class RealTimeController {
     @ResponseBody
     public List<Map> zhushuizhan(){
         User user = userService.getCurrentUser();
-        Set<Integer> set = user.getEndTagID();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
+        Set<Integer> set = userExtInfo.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);
@@ -154,7 +169,8 @@ public class RealTimeController {
     @ResponseBody
     public List<Map> jiezhuanzhan(){
         User user = userService.getCurrentUser();
-        Set<Integer> set = user.getEndTagID();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
+        Set<Integer> set = userExtInfo.getEndTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             EndTag endTag = endTagService.getById(id);
@@ -170,5 +186,21 @@ public class RealTimeController {
             }
         }
         return list;
+    }
+    
+    @RequestMapping(value="etinfo")
+    @ResponseBody
+    public Map endTagExtInfo(String code){
+        EndTag endTag = endTagService.getByCode(code);
+        Map<String,String> map = new HashMap();
+        for(EndTagExtInfo info : endTag.getExtInfo()){
+            map.put(info.getName(), info.getValue());
+        }
+        return map;
+    }
+    @RequestMapping(value="etinfo")
+    @ResponseBody
+    public Map rtu(String code){
+        return null;
     }
 }
