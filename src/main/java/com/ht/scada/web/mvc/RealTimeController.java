@@ -3,8 +3,10 @@ package com.ht.scada.web.mvc;
 import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.common.tag.entity.EndTagExtInfo;
 import com.ht.scada.common.tag.entity.MajorTag;
+import com.ht.scada.common.tag.entity.TagCfgTpl;
 import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.common.tag.service.MajorTagService;
+import com.ht.scada.common.tag.service.TagService;
 import com.ht.scada.common.tag.type.service.TypeService;
 import com.ht.scada.common.tag.util.EndTagTypeEnum;
 import com.ht.scada.common.tag.util.VarGroupEnum;
@@ -48,6 +50,8 @@ public class RealTimeController {
     private RealtimeDataService realtimeDataService;
     @Autowired
     private TypeService typeService;
+    @Autowired
+    private TagService tagService;
     
     /**
      * 按登录用户权限返回油井信息,返回格式为JSON
@@ -71,7 +75,7 @@ public class RealTimeController {
                 map.put("type", endTag.getType());
                 map.put("subtype", endTag.getSubType());
                 map.put("major_tag_id",endTag.getMajorTag().getId());
-                map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), VarSubTypeEnum.QI_TING_ZHUANG_TAI.toString()));
+                map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), VarSubTypeEnum.QI_TING_ZHUANG_TAI.toString().toLowerCase()));
                 list.add(map);
             }
         }
@@ -201,14 +205,20 @@ public class RealTimeController {
         }
         return map;
     }
-    @RequestMapping(value="rtu")
+    @RequestMapping(value="groupinfo")
     @ResponseBody
-    public Map rtu(String code){
-        Map rtn = new HashMap<>();
-        Map<String,String> map = realtimeDataService.getEndTagVarGroupInfo(code, VarGroupEnum.RTU_ZHUANG_TAI.toString());
+    public List<Map> rtu(String code,String group){
+        List<Map> rtn = new ArrayList<>();
+        Map<String,String> map;
+        map = realtimeDataService.getEndTagVarGroupInfo(code, group);
         for(Map.Entry<String,String> entry : map.entrySet()){
-            
+            Map tmp = new HashMap<>();
+            tmp.put("key", entry.getKey());
+            tmp.put("value", entry.getValue());
+            TagCfgTpl cfgtpl = tagService.getTagCfgTplByCodeAndVarName(code, entry.getKey());
+            tmp.put("name", cfgtpl.getTagName());
+            rtn.add(tmp);
         }
-        return null;
+        return rtn;
     }
 }
