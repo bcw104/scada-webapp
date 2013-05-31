@@ -1,0 +1,5 @@
+.calcTable { width:100px; background-color:silver; border: 1px; black solid;  }
+	.calcButton { height:20px; cursor:pointer; text-align:center; background-color: gray; color:white; font-size:10px; font-weight:bold; border-top: 1px solid silver; border-right: 1px solid silver; }
+	.calcPressed { height:20px; cursor:pointer; text-align:center; background-color: gray; color:white; font-size:10px; font-weight:bold; border-top: 1px solid black; border-right: 1px solid black; }	
+	.calcInput{ background-color: white;  font-size:10px; font-weight:bold; font-family:tahoma,arial; }
+	.calkSubmit{ padding:2px; cursor:pointer; text-align:center; background-color: silver; color:white; font-size:10px; font-weight:bold; border-top: 1px solid white; border-right: 1px solid white; }	
