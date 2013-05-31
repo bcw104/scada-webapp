@@ -8,6 +8,7 @@ import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.common.tag.service.MajorTagService;
 import com.ht.scada.common.tag.service.TagService;
 import com.ht.scada.common.tag.type.service.TypeService;
+import com.ht.scada.common.tag.util.EndTagExtNameEnum;
 import com.ht.scada.common.tag.util.EndTagTypeEnum;
 import com.ht.scada.common.tag.util.VarGroupEnum;
 import com.ht.scada.common.tag.util.VarSubTypeEnum;
@@ -76,6 +77,13 @@ public class RealTimeController {
                 map.put("subtype", endTag.getSubType());
                 map.put("major_tag_id",endTag.getMajorTag().getId());
                 map.put("state",realtimeDataService.getEndTagVarInfo(endTag.getCode(), VarSubTypeEnum.QI_TING_ZHUANG_TAI.toString().toLowerCase()));
+                List<EndTagExtInfo> extList = endTag.getExtInfo();
+                for(EndTagExtInfo ext : extList){
+                    if(ext.getKeyName().equals(EndTagExtNameEnum.STAGE.toString())){
+                        map.put("stage", ext.getValue());
+                        break;
+                    }
+                }
                 list.add(map);
             }
         }
