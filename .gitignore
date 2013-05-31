@@ -8,3 +8,4 @@
 /.gitignore
 .settings
 .idea
+/src/main/webapp/static/img/Thumbs.db

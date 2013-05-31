@@ -10,20 +10,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
+
 @Transactional
 @Service("menuService")
-public class MenuServiceImpl implements MenuService{
-	@Inject
-	private MenuItemDao menuItemDao;
-        @Inject
-	private MenuTypeDao menuTypeDao;
-        @Override
-	public List<MenuType> getAllMenuTypes() {
-		return menuTypeDao.findAll();
-	}
-        @Override
-        public List<MenuItem> getAllMenuItem(){
-            return menuItemDao.findAll();
-        }
-       
+public class MenuServiceImpl implements MenuService {
+
+    @Inject
+    private MenuItemDao menuItemDao;
+    @Inject
+    private MenuTypeDao menuTypeDao;
+
+    @Override
+    public List<MenuType> getAllMenuTypes() {
+        return menuTypeDao.findAll();
+    }
+
+    @Override
+    public List<MenuItem> getAllMenuItem() {
+        return menuItemDao.findAll();
+    }
 }
