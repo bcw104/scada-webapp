@@ -46,6 +46,9 @@ public class AlarmPushWndController {
 	private final AlarmService alarmService;
 	private final UserService userService;
 	private final ObjectMapper objectMapper;
+	
+	@Inject
+	private RealtimeMessageListener realtimeImpl;
 
     /**
      * 实时数据推送代理
@@ -94,7 +97,16 @@ public class AlarmPushWndController {
 //
 //		bc.broadcast(objectMapper.writeValueAsString(statusMessage));
 	}
-
+	/*
+	 * 
+	 * 测试发送报警信息
+	 */
+	@Scheduled(fixedDelay=5000)
+	public void testSendMessages(){
+		OffLimitsRecord record = new OffLimitsRecord();
+		
+		realtimeImpl.offLimitsOccured(record);
+	}
 	/**
 	 * TODO: 仅用于模拟推送数据时使用
 	 */
@@ -102,6 +114,7 @@ public class AlarmPushWndController {
 	public void pollForMessages() {
 
 		String statusMessage = "A new message on " + new Date().toString();
+		/*
         RealtimeMessageListener listener = new RealtimeMessageListener() {
             @Override
             public void faultOccured(FaultRecord record) {
@@ -129,7 +142,7 @@ public class AlarmPushWndController {
             }
         };
         messageDelegate.setListener(listener);
-
+*/
 		try {
 			//log.debug("发送报警信息");
 			//MetaBroadcaster.getDefault().broadcastTo("/", objectMapper.writeValueAsString(statusMessage));

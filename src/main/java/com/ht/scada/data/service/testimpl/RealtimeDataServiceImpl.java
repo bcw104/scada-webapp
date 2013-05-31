@@ -1,9 +1,9 @@
 package com.ht.scada.data.service.testimpl;
 
 import com.ht.scada.data.service.RealtimeDataService;
-import java.util.HashMap;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -96,6 +96,16 @@ public class RealtimeDataServiceImpl implements RealtimeDataService{
     @Override
     public Object[][] getEndTagVarLineData(String code, String varName) {
         return new Object[0][];  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public float[] getEndTagVarYcArray(String code, String varName) {
+        return new float[0];  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Map<String, float[]> getEndTagVarYcArray(String code, List<String> varName) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
 }

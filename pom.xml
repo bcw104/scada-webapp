@@ -18,25 +18,6 @@
 
     <properties>
         <!-- Spring version -->
-        <version.spring>3.2.1.RELEASE</version.spring>
-
-        <!-- Spring Third Party dependencies -->
-        <version.aopalliance>1.0</version.aopalliance>
-
-        <!-- Hibernate dependencies -->
-        <version.hibernate>3.2.1.RELEASE</version.hibernate>
-
-        <!-- Third Party dependencies -->
-        <version.standard.taglibs>1.1.2</version.standard.taglibs>
-        <version.commons.logging>1.1.1</version.commons.logging>
-
-        <!-- JBoss AS plugin for deployment -->
-        <version.jboss.as.maven.plugin>7.1.1.Final</version.jboss.as.maven.plugin>
-
-        <version.slf4j>1.7.2</version.slf4j>
-
-        <version.shiro>1.2.1</version.shiro>
-        <version.druid>0.2.17</version.druid>
         <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
     </properties>
 
