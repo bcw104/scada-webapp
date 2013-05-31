@@ -26,11 +26,20 @@ public class MainController {
 		this.userService = userService;
 	}
 	
+    /**
+     * 进入管理系统主页
+     * @return 
+     */
 	@RequestMapping(method = RequestMethod.GET)
 	public String main() {
-		return "main/index";
+		return "main/ssjc";
+//        return "main/index";
 	}
-	
+	@RequestMapping(value="mgr")
+	public String mgr() {
+		//return "main/ssjc";
+        return "main/index";
+	}
 	@RequestMapping(value = "test")
 	public String test(RedirectAttributes redirectAttributes) {
 		log.debug("初始化用户：{}/{}", "admin", "admin");
