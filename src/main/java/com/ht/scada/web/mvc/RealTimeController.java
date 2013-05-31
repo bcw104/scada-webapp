@@ -88,7 +88,7 @@ public class RealTimeController {
     public List<Map> majorTagList(){
         User user = userService.getCurrentUser();
         UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
-        Set<Integer> set = userExtInfo.getEndTagID();
+        Set<Integer> set = userExtInfo.getMajorTagID();
         List<Map> list = new ArrayList<>();
         for(int id : set){
             MajorTag majorTag = majorTagService.getById(id);
