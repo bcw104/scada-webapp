@@ -99,15 +99,23 @@
         </style>
         <script>
             var dhLayout,toolbar,treeGrid,dhxTabbar,Grid,Grid1,Grid2,Grid3,Grid4,dhxWins;
+            
+            /**
+             * 生产监控信息初始化
+             * @returns {undefined}
+             */
             function ssjc(){
-                //createTabbar();
+                
+                // 井矿信息生成
                 createTreeGrid();
+                // 增压站信息生成
                 createGrid();
                 createGr();
                 creategr();
                 createWindow();
                 $(".cssdiv").addClass("s1");
             }
+            
             function createWindow(){
                 dhxWins = new dhtmlXWindows();
                 dhxWins.attachViewportTo(document.body);
@@ -118,10 +126,19 @@
                 dhxWins.window("win").hide();	
             }
             
+            // 油井信息
             var strYoujing;
+            // 组织机构信息
             var strMajorTag;
+            // 搜索井号
             var searchKeyword = ''; 
+            // 已选择组织机构
             var selMajorTagData = ',';
+            
+            /**
+             * 井矿信息生成
+             * @returns {undefined}
+             */
             function createTreeGrid(){
                 treeGrid= new dhtmlXGridObject('jdd');
                 treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/icons_greenfolders/";
@@ -132,23 +149,14 @@
                 treeGrid.setColSorting("str,str,str,str,str,str,str,str");
                 treeGrid.init();
                 
+                // 搜索井号（井矿信息）
                 searchKeyword = '';
+                // 已选择组织机构
                 selMajorTagData = ',';
                 
+                // 井矿信息
                 var wellData = new Object();
                 var wellDataAry = [];
-//                var sr=[{ "id":"1001","value":"九队","image":"folder.gif","zj":"5","kj":"3","tj":"2","fztj":"1","zyj":"0","gzj":"0","zcjf":"1"},
-//                    {"rowid":"001","rowvalue":"HJSH127-21","rowzj":"","rowkj":"1","rowtj":"","rowfztj":"","rowzyj":"","rowgzj":"","rowzcjf":"","ph":"1001"},
-//                    {"rowid":"002","rowvalue":"HJSH127-22","rowzj":"","rowkj":"1","rowtj":"","rowfztj":"","rowzyj":"","rowgzj":"","rowzcjf":"","ph":"1001"},
-//                    {"rowid":"003","rowvalue":"HJSH127-23","rowzj":"","rowkj":"","rowtj":"1","rowfztj":"1","rowzyj":"","rowgzj":"","rowzcjf":"","ph":"1001"},
-//                    {"rowid":"004","rowvalue":"HJSH127-24","rowzj":"","rowkj":"","rowtj":"1","rowfztj":"","rowzyj":"","rowgzj":"","rowzcjf":"","ph":"1001"},
-//                    {"rowid":"005","rowvalue":"HJSH127-25","rowzj":"","rowkj":"1","rowtj":"","rowfztj":"","rowzyj":"","rowgzj":"","rowzcjf":"","ph":"1001"},
-//                    {"rowid":"006","rowvalue":"HJSH127-26","rowzj":"","rowkj":"","rowtj":"","rowfztj":"","rowzyj":"","rowgzj":"","rowzcjf":"","ph":"1001"},
-//                    {"rowid":"007","rowvalue":"HJSH127-27","rowzj":"","rowkj":"","rowtj":"","rowfztj":"","rowzyj":"","rowgzj":"","rowzcjf":"","ph":"1001"},
-//                    { "id":"1002","value":"十队","image":"folder.gif","zj":"6","kj":"4","tj":"2","fztj":"1","zyj":"0","gzj":"1","zcjf":"0"},
-//                    { "id":"1003","value":"十一队","image":"folder.gif","zj":"6","kj":"4","tj":"2","fztj":"1","zyj":"0","gzj":"1","zcjf":"0"},
-//                    { "id":"1004","value":"十二队","image":"folder.gif","zj":"6","kj":"4","tj":"2","fztj":"1","zyj":"0","gzj":"1","zcjf":"0"},
-//                    { "id":"1005","value":"十三队","image":"folder.gif","zj":"6","kj":"4","tj":"2","fztj":"1","zyj":"0","gzj":"1","zcjf":"0"}];
                 
                 // 获得机构信息
                 $.ajax({
@@ -357,13 +365,13 @@
                     }
                 });
             }
-            
-            
-            
+                        
             /**
-            * 查询用Grid创建
-             * @returns {undefined}             */
+            * 井矿信息生成(查询用)
+             * @returns {undefined}             
+             */
             function createTreeGridBySearch(){
+            
                 treeGrid= new dhtmlXGridObject('jdd');
                 treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/icons_greenfolders/";
                 treeGrid.setHeader(["井队名称","总井数","开井数","停井数","非正常停井","作业井","故障井","正常交付井"]);
@@ -374,198 +382,201 @@
                 treeGrid.init();
                 
                 selMajorTagData = ',';
-                searchKeyword = document.getElementById("textfie").value;
+                searchKeyword = $.trim($("#textfie").val());
                 
                 var wellData = new Object();
                 var wellDataAry = [];
                 
                 // 封装井矿信息JSON
-                                    $.each(strMajorTag,function(keyMajorTag, valueMajorTag){
+                $.each(strMajorTag,function(keyMajorTag, valueMajorTag){
                                         
-                                        if(valueMajorTag.pid == 0){
+                    if(valueMajorTag.pid == 0){
                                             
-                                            var tmpMajorTag = new Object(); 
-                                            tmpMajorTag.id = valueMajorTag.id;
-                                            tmpMajorTag.open = 1;
-                                            tmpMajorTag.data = [];
-                                            // 名称设置
-                                            var majorTagName = {};
-                                            majorTagName.value = valueMajorTag.name;
-                                            majorTagName.image = 'folder.gif';                                            
-                                            tmpMajorTag.data.push(majorTagName);
-                                           
+                        var tmpMajorTag = new Object(); 
+                        tmpMajorTag.id = valueMajorTag.id;
+                        tmpMajorTag.open = 1;
+                        tmpMajorTag.data = [];
+                        // 名称设置
+                        var majorTagName = {};
+                        majorTagName.value = valueMajorTag.name;
+                        majorTagName.image = 'folder.gif';                                            
+                        tmpMajorTag.data.push(majorTagName);                                           
                                             
-                                            // 递归遍历子数据  
-                                            var tmpWellInfo = createGridItem(strMajorTag, tmpMajorTag);         
+                        // 递归遍历子数据  
+                        var tmpWellInfo = createGridItem(strMajorTag, tmpMajorTag);         
 
-                                            tmpMajorTag.rows = tmpWellInfo.data;
+                        tmpMajorTag.rows = tmpWellInfo.data;
                                                     
-                                            // 井参数信息
-                                            tmpMajorTag.data.push(tmpWellInfo.jing);
-                                            tmpMajorTag.data.push(tmpWellInfo.jingKai);
-                                            tmpMajorTag.data.push(tmpWellInfo.jingGuan);
-                                            tmpMajorTag.data.push(0);
-                                            tmpMajorTag.data.push(0);
-                                            tmpMajorTag.data.push(0);
-                                            tmpMajorTag.data.push(0); 
+                        // 井参数信息
+                        tmpMajorTag.data.push(tmpWellInfo.jing);
+                        tmpMajorTag.data.push(tmpWellInfo.jingKai);
+                        tmpMajorTag.data.push(tmpWellInfo.jingGuan);
+                        tmpMajorTag.data.push(0);
+                        tmpMajorTag.data.push(0);
+                        tmpMajorTag.data.push(0);
+                        tmpMajorTag.data.push(0); 
                                             
-                                            wellDataAry.push(tmpMajorTag);
-                                        }else{
+                        wellDataAry.push(tmpMajorTag);
+                    }else{
                                             
-                                            return true;
-                                        }                                    
-                                    });
+                        return true;
+                    }                                    
+                });
                                     
-                                    // 总数据格式设置
-                                    wellData.rows = wellDataAry;
+                // 总数据格式设置
+                wellData.rows = wellDataAry;
                                             
-                                    //var itemson=jsonManages(sr,jh);
-                                    treeGrid.clearAll();
-                                    treeGrid.parse(wellData,'json');
+                //var itemson=jsonManages(sr,jh);
+                treeGrid.clearAll();
+                treeGrid.parse(wellData,'json');
 
-                                    treeGrid.openItem("1001");
-                                    treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
-                                        alert(treeGrid.getFooterLabel(cInd));
-                                        if(cInd==0){
-                                            if(rId==001){
-                                                window.location.href="ssjcmain.html";
-                                            }else if(rId==002){
-                                                window.location.href="ssjcdqb.html";
-                                            }else if(rId==003){
-                                                window.location.href="ssjcyg.html";
-                                            }else if(rId==004){
-                                                window.location.href="ssjczq.html";
-                                            }else if(rId==005){
-                                                window.location.href="ssjczp.html";
-                                            }else if(rId==006){
-                                                window.location.href="ssjcmj.html";
-                                            }else if(rId==007){
-                                                window.location.href="ssjclxg.html";
-                                            }else{
-                                                return;
-                                            }
-                                        }else{
-                                            if(rId==1001){
-                                                dhxWins.window("win").show();
-                                                if(cInd==1){
-                                                    Grid3=dhxWins.window("win").attachGrid();
-                                                    Grid3.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid3.setHeader(["序号","油井名称","状态","关井原因"]);
-                                                    Grid3.setInitWidths("70,100,100,*");
-                                                    Grid3.setColAlign("center,center,center,center");
-                                                    Grid3.setColTypes("ed,ed,ed,ed");
-                                                    Grid3.init();
-                                                    Grid3.load('data/ssjcwin.json','json');
-                                                    var c= treeGrid.getFooterLabel(1);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else if(cInd==2){
-                                                    Grid4=dhxWins.window("win").attachGrid();;
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称"]);
-                                                    Grid4.setInitWidths("200,*");
-                                                    Grid4.setColAlign("center,center");
-                                                    Grid4.setColTypes("ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin2.json','json');
-                                                    var c= treeGrid.getFooterLabel(2);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else if(cInd==3){
-                                                    Grid4=dhxWins.window("win").attachGrid();;
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                                    Grid4.setInitWidths("100,100,100,*");
-                                                    Grid4.setColAlign("center,center,center,center");
-                                                    Grid4.setColTypes("ed,ed,ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin1.json','json');
-                                                    var c= treeGrid.getFooterLabel(3);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else if(cInd==4){
-                                                    Grid4=dhxWins.window("win").attachGrid();
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                                    Grid4.setInitWidths("100,100,100,*");
-                                                    Grid4.setColAlign("center,center,center,center");
-                                                    Grid4.setColTypes("ed,ed,ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin3.json','json');
-                                                    var c= treeGrid.getFooterLabel(4);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else if(cInd==7){
-                                                    Grid4=dhxWins.window("win").attachGrid();
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                                    Grid4.setInitWidths("100,100,100,*");
-                                                    Grid4.setColAlign("center,center,center,center");
-                                                    Grid4.setColTypes("ed,ed,ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin4.json','json');
-                                                    var c= treeGrid.getFooterLabel(7);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else{
-                                                    dhxWins.window("win").hide(); 
-                                                }
-                                            }else if(rId==1002){
-                                                dhxWins.window("win").show();
-                                                if(cInd==6){
-                                                    Grid4=dhxWins.window("win").attachGrid();;
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                                    Grid4.setInitWidths("100,100,100,*");
-                                                    Grid4.setColAlign("center,center,center,center");
-                                                    Grid4.setColTypes("ed,ed,ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin5.json','json');
-                                                    var c= treeGrid.getFooterLabel(6);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else{
-                                                    dhxWins.window("win").hide(); 
-                                                }
-                                            }else if(rId==1003){
-                                                dhxWins.window("win").show();
-                                                if(cInd==5){
-                                                    Grid4=dhxWins.window("win").attachGrid();;
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                                    Grid4.setInitWidths("100,100,100,*");
-                                                    Grid4.setColAlign("center,center,center,center");
-                                                    Grid4.setColTypes("ed,ed,ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin6.json','json');
-                                                    var c= treeGrid.getFooterLabel(5);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else{
-                                                    dhxWins.window("win").hide(); 
-                                                }
-                                            }else{
-                                                dhxWins.window("win").hide(); 
-                                            }
-                                        }
-                                    });
+                treeGrid.openItem("1001");
+                treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
+                    alert(treeGrid.getFooterLabel(cInd));
+                    if(cInd==0){
+                        if(rId==001){
+                            window.location.href="ssjcmain.html";
+                        }else if(rId==002){
+                            window.location.href="ssjcdqb.html";
+                        }else if(rId==003){
+                            window.location.href="ssjcyg.html";
+                        }else if(rId==004){
+                            window.location.href="ssjczq.html";
+                        }else if(rId==005){
+                            window.location.href="ssjczp.html";
+                        }else if(rId==006){
+                            window.location.href="ssjcmj.html";
+                        }else if(rId==007){
+                            window.location.href="ssjclxg.html";
+                        }else{
+                            return;
+                        }
+                    }else{
+                        if(rId==1001){
+                            dhxWins.window("win").show();
+                            if(cInd==1){
+                                Grid3=dhxWins.window("win").attachGrid();
+                                Grid3.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+                                Grid3.setHeader(["序号","油井名称","状态","关井原因"]);
+                                Grid3.setInitWidths("70,100,100,*");
+                                Grid3.setColAlign("center,center,center,center");
+                                Grid3.setColTypes("ed,ed,ed,ed");
+                                Grid3.init();
+                                Grid3.load('data/ssjcwin.json','json');
+                                var c= treeGrid.getFooterLabel(1);
+                                dhxWins.window("win").setText(c);
+                                dhxWins.attachEvent("onClose", function(win){
+                                    dhxWins.window("win").hide(); 
+                                });
+                            }else if(cInd==2){
+                                Grid4=dhxWins.window("win").attachGrid();;
+                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+                                Grid4.setHeader(["序号","油井名称"]);
+                                Grid4.setInitWidths("200,*");
+                                Grid4.setColAlign("center,center");
+                                Grid4.setColTypes("ed,ed");
+                                Grid4.init();
+                                Grid4.load('data/ssjcwin2.json','json');
+                                var c= treeGrid.getFooterLabel(2);
+                                dhxWins.window("win").setText(c);
+                                dhxWins.attachEvent("onClose", function(win){
+                                    dhxWins.window("win").hide(); 
+                                });
+                            }else if(cInd==3){
+                                Grid4=dhxWins.window("win").attachGrid();;
+                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+                                Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
+                                Grid4.setInitWidths("100,100,100,*");
+                                Grid4.setColAlign("center,center,center,center");
+                                Grid4.setColTypes("ed,ed,ed,ed");
+                                Grid4.init();
+                                Grid4.load('data/ssjcwin1.json','json');
+                                var c= treeGrid.getFooterLabel(3);
+                                dhxWins.window("win").setText(c);
+                                dhxWins.attachEvent("onClose", function(win){
+                                    dhxWins.window("win").hide(); 
+                                });
+                            }else if(cInd==4){
+                                Grid4=dhxWins.window("win").attachGrid();
+                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+                                Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
+                                Grid4.setInitWidths("100,100,100,*");
+                                Grid4.setColAlign("center,center,center,center");
+                                Grid4.setColTypes("ed,ed,ed,ed");
+                                Grid4.init();
+                                Grid4.load('data/ssjcwin3.json','json');
+                                var c= treeGrid.getFooterLabel(4);
+                                dhxWins.window("win").setText(c);
+                                dhxWins.attachEvent("onClose", function(win){
+                                    dhxWins.window("win").hide(); 
+                                });
+                            }else if(cInd==7){
+                                Grid4=dhxWins.window("win").attachGrid();
+                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+                                Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
+                                Grid4.setInitWidths("100,100,100,*");
+                                Grid4.setColAlign("center,center,center,center");
+                                Grid4.setColTypes("ed,ed,ed,ed");
+                                Grid4.init();
+                                Grid4.load('data/ssjcwin4.json','json');
+                                var c= treeGrid.getFooterLabel(7);
+                                dhxWins.window("win").setText(c);
+                                dhxWins.attachEvent("onClose", function(win){
+                                    dhxWins.window("win").hide(); 
+                                });
+                            }else{
+                                dhxWins.window("win").hide(); 
+                            }
+                        }else if(rId==1002){
+                            dhxWins.window("win").show();
+                            if(cInd==6){
+                                Grid4=dhxWins.window("win").attachGrid();;
+                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+                                Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
+                                Grid4.setInitWidths("100,100,100,*");
+                                Grid4.setColAlign("center,center,center,center");
+                                Grid4.setColTypes("ed,ed,ed,ed");
+                                Grid4.init();
+                                Grid4.load('data/ssjcwin5.json','json');
+                                var c= treeGrid.getFooterLabel(6);
+                                dhxWins.window("win").setText(c);
+                                dhxWins.attachEvent("onClose", function(win){
+                                    dhxWins.window("win").hide(); 
+                                });
+                            }else{
+                                dhxWins.window("win").hide(); 
+                            }
+                        }else if(rId==1003){
+                            dhxWins.window("win").show();
+                            if(cInd==5){
+                                Grid4=dhxWins.window("win").attachGrid();;
+                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+                                Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
+                                Grid4.setInitWidths("100,100,100,*");
+                                Grid4.setColAlign("center,center,center,center");
+                                Grid4.setColTypes("ed,ed,ed,ed");
+                                Grid4.init();
+                                Grid4.load('data/ssjcwin6.json','json');
+                                var c= treeGrid.getFooterLabel(5);
+                                dhxWins.window("win").setText(c);
+                                dhxWins.attachEvent("onClose", function(win){
+                                    dhxWins.window("win").hide(); 
+                                });
+                            }else{
+                                dhxWins.window("win").hide(); 
+                            }
+                        }else{
+                            dhxWins.window("win").hide(); 
+                        }
+                    }
+                });
             }
-            
-            // 以选择机构            
+
+            /**
+             * 井矿信息子级信息生成
+             * @param {type} p_MajorTagList 组织机构信息
+             * @param {type} p_MajorTagParent 上级组织机构
+             * @returns {Object}             */
             function createGridItem(p_MajorTagList, p_MajorTagParent){
                 // 机构数据
                 var tmpWellData = [];
@@ -576,13 +587,14 @@
                 tmpReturnWellData.jingGuan = 0;
                 
                 var youjingDuiCount = 0;
-                        var youjingKaiDuiCount = 0;
-                        var youjingGuanDuiCount = 0;
+                var youjingKaiDuiCount = 0;
+                var youjingGuanDuiCount = 0;
                         
                 // 封装井矿信息JSON
                 $.each(p_MajorTagList,function(keyMajorTagList, valueMajorTagList){
                                         
-                    if(valueMajorTagList.pid == p_MajorTagParent.id && (selMajorTagData.indexOf(',' + valueMajorTagList.id + ',') < 0)){
+                    if(valueMajorTagList.pid == p_MajorTagParent.id && (selMajorTagData.indexOf(',' + valueMajorTagList.id + ',') < 0))
+                    {
                                             
                         selMajorTagData += valueMajorTagList.id + ',';
                                             
@@ -595,10 +607,7 @@
                         majorTagName.value = valueMajorTagList.name;
                         majorTagName.image = 'folder.gif';                                            
                         tmpMajorTag.data.push(majorTagName);
-                            
-//                        var youjingDuiCount = 0;
-//                        var youjingKaiDuiCount = 0;
-//                        var youjingGuanDuiCount = 0;
+
                         // 递归遍历子数据
                         if(valueMajorTagList.type == 'DUI_LEVEL'){
                             
@@ -607,14 +616,14 @@
                             var youjingGuanCount = 0;
                             
                             var tmpYoujingData = [];
-                            $.each(strYoujing,function(keyYoujing, valueYoujing){
-
+                            $.each(strYoujing,function(keyYoujing, valueYoujing)
+                            {
                                 if(valueMajorTagList.id == valueYoujing.major_tag_id && (valueYoujing.name.indexOf(searchKeyword) >= 0)){
                                     
                                     youjingCount++;
                                     
                                     var tmpYoujingTag = new Object(); 
-                                    tmpYoujingTag.id = 'j_' + valueYoujing.id;
+                                    tmpYoujingTag.id = 'j||' + valueYoujing.id;
                                     tmpYoujingTag.open = 1;
                                     tmpYoujingTag.data = [];
                                     // 名称设置
@@ -660,10 +669,7 @@
                             youjingKaiDuiCount += youjingKaiCount;
                             youjingGuanDuiCount += youjingGuanCount;
                             tmpMajorTag.rows = tmpYoujingData;  
-                            
-//                            tmpMajorTag.jing = youjingDuiCount;
-//                            tmpMajorTag.jingKai = youjingKaiDuiCount;
-//                            tmpMajorTag.jingGuan = youjingGuanDuiCount;
+
                         }else{
 
                             var tmpWellInfo = createGridItem(p_MajorTagList, tmpMajorTag);         
@@ -684,7 +690,8 @@
                         }                      
                                             
                         tmpWellData.push(tmpMajorTag);
-                    }else{
+                    }
+                    else{
                         return true;
                     }
                 });
@@ -697,7 +704,17 @@
                 return tmpReturnWellData;
             }
 
+            // 站Json
+            var strZhan;
+            
+            /**
+             * 增压站信息生成
+             * @returns {undefined}             
+             * */
             function createGrid(){
+            
+                searchKeyword = $.trim($("#txtZenya").val()); 
+            
                 Grid2= new dhtmlXGridObject('zybz');
                 Grid2.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 Grid2.setHeader(["序号","增压站名称","入口温度(℃)","出口温度(℃)","外输压力(MPa)","原油含水率(%)","流量瞬时值(m³/s)","流量累计值(m³)","缓冲罐液位(m)","环境温度#1(℃)","环境温度#2(℃)","电动蝶阀值(0-100)"]);
@@ -706,8 +723,65 @@
                 Grid2.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
                 Grid2.init();
                 Grid2.setSkin("modern");
-//                Grid2.load('data/ssjcgrid2.json','json');
+                // 增压站数据封装
+                getZhanJson('zeng', Grid2);                
             }
+                
+            /**
+             * 站封装数据
+             * @param {type} p_code
+             * @param {type} p_grid
+             * @returns {undefined}
+             */   
+            function getZhanJson(p_code, p_grid){
+                        
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/zengya',
+                    dateType:'json',
+                    success: function(jsonZhan){
+
+                        strZhan = jsonZhan;  
+                         // 站封装数据
+                        var zhanData = new Object();
+                        zhanData.rows = [];
+                        // 封装井矿信息JSON
+                        $.each(strZhan,function(keyZhan, valueZhan){
+                            
+                            if(valueZhan.name.indexOf(searchKeyword) >= 0){
+                            
+                                switch(valueZhan.code){
+
+                                    // 增压站
+                                    case p_code:
+
+                                        var zhanItem = new Object();
+                                        zhanItem.id = valueZhan.id;
+                                        zhanItem.data = [];
+                                        zhanItem.data.push((keyZhan+1));
+                                        zhanItem.data.push(valueZhan.name);
+                                        zhanItem.data.push(valueZhan.ZYZ_RU_KOU_WEN_DU);
+                                        zhanItem.data.push(valueZhan.ZYZ_CHU_KOU_WEN_DU);
+                                        zhanItem.data.push(valueZhan.ZYZ_WAI_SHU_YA_LI);
+                                        zhanItem.data.push(valueZhan.ZYZ_HAN_SHUI_LV);
+                                        zhanItem.data.push(valueZhan.ZYZ_SHUN_SHI_LIU_LIANG);
+                                        zhanItem.data.push(valueZhan.ZYZ_LEI_JI_LIU_LIANG);
+                                        zhanItem.data.push(valueZhan.ZYZ_YE_WEI);
+                                        zhanItem.data.push(valueZhan.ZYZ_WEN_DU_1);
+                                        zhanItem.data.push(valueZhan.ZYZ_WEN_DU_2);
+                                        zhanItem.data.push(valueZhan.ZYZ_DIAN_DONG_DIE_FA);
+
+                                        zhanData.rows.push(zhanItem);
+                                        break;
+                                }
+                            }
+                        });
+                        
+                        p_grid.parse(zhanData,'json');
+                    }
+                });
+            }
+            
             function jsonManagezs(json,zs){
                 var itemson={rows:[]};
                 if(zs!=""){
@@ -1053,10 +1127,10 @@
                         &nbsp;&nbsp;&nbsp;增&nbsp;&nbsp;&nbsp;压&nbsp;&nbsp;&nbsp;站
                     </div>
                     <div id="zyzxx" style="width:100px; height:19px; background-color:#cced94; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#cced94; float:left" >
-                        <input type="text" name="textfield1" id="textfield1" style=" height:13px; width:80px;"/>
+                        <input type="text" name="txtZenya" id="txtZenya" style=" height:13px; width:80px;"/>
                     </div>
                     <div id="zyzxx1" style="width:50px; height:19px; background-color:#cced94; font-size:16px; font-weight:bold; border:solid; border-width:1px; border-color:#cced94; float:left" >
-                        <img src="images/chaxun.png" onclick="cregri();" style="cursor:pointer" />
+                        <img src="${ctx}/static/img/chaxun.png" onclick="createGrid();" style="cursor:pointer" />
                     </div>
                     <div id="zybz" style="width:1243px; height:578px;top: 10; border:solid; border-width:1px; border-color:#cced94; float:left">
                     </div> 
@@ -1073,7 +1147,7 @@
                         <input type="text" name="textfiezs" id="textfiezs" style=" height:13px; width:80px;"/>
                     </div>
                     <div id="zszxx1" style="width:50px; height:19px; background-color:#ffc8db; font-size:16px; font-weight:bold; border:solid; border-width:1px; border-color:#ffc8db; float:left" >
-                        <img src="images/chaxun.png" onclick="createGr();" style="cursor:pointer" />
+                        <img src="${ctx}/static/img/chaxun.png" onclick="createGr();" style="cursor:pointer" />
                     </div>
                     <div id="zsz" style="width:1243px; height:578px;top: 10;  border:solid; border-width:1px; border-color:#ffc8db; float:left">
                     </div>
@@ -1090,7 +1164,7 @@
                         <input type="text" name="textfiejz" id="textfiejz" style=" height:13px; width:80px;"/>
                     </div>
                     <div id="jzszxx1" style="width:50px; height:19px; background-color:#a9e2ff; font-size:16px; font-weight:bold; border:solid; border-width:1px; border-color:#a9e2ff; float:left" >
-                        <img src="images/chaxun.png" onclick="creategr();" style="cursor:pointer" />
+                        <img src="${ctx}/static/img/chaxun.png" onclick="creategr();" style="cursor:pointer" />
                     </div>
                     <div id="jzz" style="width:1243px; height:578px;top: 10;  border:solid; border-width:1px; border-color:#a9e2ff; float:left">
                     </div> 
@@ -1098,36 +1172,36 @@
             </div>     
             <!--地图-->
             <div id="dt" style="width:1280px;height:716px; border:solid; border-width:1px; float:left;" >
-                <img src="imagess/ditu.jpg"  style="width:1280px;height:716px;"/>
+                <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
             </div>
             <!--视频-->
             <div id="sp" style="width:1280px;height:716px; border:solid;  border-width:1px; float:left;" >
-                <img src="imagess/sp.png"  style="width:1280px;height:716px;"/>
+                <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
             </div>
         </div>
         <div id="yin" >
-            <img border="0"  src="imagess/1.png" />
+            <img border="0"  src="${ctx}/static/img/1.png" />
         </div>
         <div id="yin1" >
-            <a href="ssjczq.html" ><img border="0"  src="imagess/3.png" /></a>
+            <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
         </div>
         <div id="yin2" >
-            <a href="ssjczp.html"><img border="0" src="imagess/3.png" /></a>
+            <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
         </div>
         <div id="yin3" >
-            <a href="ssjcyg.html"><img border="0" src="imagess/9.png" /></a>
+            <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
         </div>
         <div id="yin4" >
-            <a href="ssjclxg.html"><img border="0" src="imagess/5.png" /></a>
+            <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
         </div>
         <div id="yin5" >
-            <a href="ssjcmj.html"><img border="0" src="imagess/3.png" /></a>
+            <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
         </div>
         <div id="yin6" >
-            <a href="ssjcdqb.html"><img border="0" src="imagess/4.png" /></a>
+            <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
         </div>
         <div id="yin12" >
-            <a href="ssjcmain.html"><img border="0" src="imagess/3.png" /></a>
+            <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
         </div>
     </body>
 </html>
