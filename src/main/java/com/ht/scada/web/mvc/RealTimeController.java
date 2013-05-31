@@ -5,6 +5,7 @@ import com.ht.scada.common.tag.entity.EndTagExtInfo;
 import com.ht.scada.common.tag.entity.MajorTag;
 import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.common.tag.service.MajorTagService;
+import com.ht.scada.common.tag.type.service.TypeService;
 import com.ht.scada.common.tag.util.EndTagTypeEnum;
 import com.ht.scada.common.tag.util.VarGroupEnum;
 import com.ht.scada.common.tag.util.VarSubTypeEnum;
@@ -45,6 +46,8 @@ public class RealTimeController {
     private MajorTagService majorTagService;
     @Autowired
     private RealtimeDataService realtimeDataService;
+    @Autowired
+    private TypeService typeService;
     
     /**
      * 按登录用户权限返回油井信息,返回格式为JSON
@@ -198,9 +201,14 @@ public class RealTimeController {
         }
         return map;
     }
-    @RequestMapping(value="etinfo")
+    @RequestMapping(value="rtu")
     @ResponseBody
     public Map rtu(String code){
+        Map rtn = new HashMap<>();
+        Map<String,String> map = realtimeDataService.getEndTagVarGroupInfo(code, VarGroupEnum.RTU_ZHUANG_TAI.toString());
+        for(Map.Entry<String,String> entry : map.entrySet()){
+            
+        }
         return null;
     }
 }
