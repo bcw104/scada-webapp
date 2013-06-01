@@ -109,7 +109,7 @@
                 // 井矿信息生成
                 createTreeGrid();
                 // 增压站信息生成
-                createGrid();
+                createGrio();
                 createGr();
                 creategr();
                 createWindow();
