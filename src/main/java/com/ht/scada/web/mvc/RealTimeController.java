@@ -229,4 +229,32 @@ public class RealTimeController {
         }
         return rtn;
     }
+    @RequestMapping(value="sensor")
+    @ResponseBody
+    public List<Map> sensor(String code){
+        List<Map> data = new ArrayList<>();
+        List<String> sensor= new ArrayList<>();
+        List<String> keyname= new ArrayList<>();
+        Map<String,String> map;
+        map = realtimeDataService.getEndTagVarGroupInfo(code, VarGroupEnum.SENSOR_RUN.toString());
+        for(String key:map.keySet()){
+            String[] arr =key.split("|");
+            if(!sensor.contains(arr[1])){
+                sensor.add(arr[1]);
+            }
+            if(!keyname.contains(arr[0])){
+                keyname.add(arr[0]);
+            }
+        }
+        for(String nickname:sensor){
+            Map tmp = new HashMap();
+            String name = "";
+            for(String key:keyname){
+                String val = map.get(key + "|" + nickname);
+                tmp.put(key, val);
+            }
+            data.add(tmp);
+        }
+        return data;
+    }
 }
