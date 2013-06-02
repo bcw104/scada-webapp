@@ -1,5 +1,7 @@
 package com.ht.scada.web.mvc;
 
+import com.ht.scada.common.tag.entity.EndTag;
+import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.entity.UserRole;
 import com.ht.scada.security.service.UserService;
@@ -13,6 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "/main")
@@ -21,6 +25,8 @@ public class MainController {
 
 	@Autowired
 	private UserService userService;
+    @Autowired
+    private EndTagService endTagService;
 	
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -40,6 +46,16 @@ public class MainController {
 		//return "main/ssjc";
         return "main/index";
 	}
+    
+    @RequestMapping(value="cyj")
+	public String cyj(@RequestParam("id") int id,Model model) {
+        
+        EndTag endTag = endTagService.getById(id);
+		model.addAttribute("id", id);
+        model.addAttribute("info", endTag);
+        return "main/ssjcmain";
+	}
+    
 	@RequestMapping(value = "test")
 	public String test(RedirectAttributes redirectAttributes) {
 		log.debug("初始化用户：{}/{}", "admin", "admin");

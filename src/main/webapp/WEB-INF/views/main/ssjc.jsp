@@ -109,7 +109,7 @@
                 // 井矿信息生成
                 createTreeGrid();
                 // 增压站信息生成
-                createGrio();
+                createGrid();
                 createGr();
                 creategr();
                 createWindow();
@@ -221,143 +221,38 @@
 
 //                                    treeGrid.openItem("1001");
                                     treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
-                                        alert(treeGrid.getFooterLabel(cInd));
-                                        if(cInd==0){
-                                            if(rId==001){
-                                                window.location.href="ssjcmain.html";
-                                            }else if(rId==002){
-                                                window.location.href="ssjcdqb.html";
-                                            }else if(rId==003){
-                                                window.location.href="ssjcyg.html";
-                                            }else if(rId==004){
-                                                window.location.href="ssjczq.html";
-                                            }else if(rId==005){
-                                                window.location.href="ssjczp.html";
-                                            }else if(rId==006){
-                                                window.location.href="ssjcmj.html";
-                                            }else if(rId==007){
-                                                window.location.href="ssjclxg.html";
-                                            }else{
-                                                return;
-                                            }
-                                        }else{
-                                            if(rId==1001){
-                                                dhxWins.window("win").show();
-                                                if(cInd==1){
-                                                    Grid3=dhxWins.window("win").attachGrid();
-                                                    Grid3.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid3.setHeader(["序号","油井名称","状态","关井原因"]);
-                                                    Grid3.setInitWidths("70,100,100,*");
-                                                    Grid3.setColAlign("center,center,center,center");
-                                                    Grid3.setColTypes("ed,ed,ed,ed");
-                                                    Grid3.init();
-                                                    Grid3.load('data/ssjcwin.json','json');
-                                                    var c= treeGrid.getFooterLabel(1);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else if(cInd==2){
-                                                    Grid4=dhxWins.window("win").attachGrid();;
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称"]);
-                                                    Grid4.setInitWidths("200,*");
-                                                    Grid4.setColAlign("center,center");
-                                                    Grid4.setColTypes("ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin2.json','json');
-                                                    var c= treeGrid.getFooterLabel(2);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else if(cInd==3){
-                                                    Grid4=dhxWins.window("win").attachGrid();;
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                                    Grid4.setInitWidths("100,100,100,*");
-                                                    Grid4.setColAlign("center,center,center,center");
-                                                    Grid4.setColTypes("ed,ed,ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin1.json','json');
-                                                    var c= treeGrid.getFooterLabel(3);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else if(cInd==4){
-                                                    Grid4=dhxWins.window("win").attachGrid();
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                                    Grid4.setInitWidths("100,100,100,*");
-                                                    Grid4.setColAlign("center,center,center,center");
-                                                    Grid4.setColTypes("ed,ed,ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin3.json','json');
-                                                    var c= treeGrid.getFooterLabel(4);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else if(cInd==7){
-                                                    Grid4=dhxWins.window("win").attachGrid();
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                                    Grid4.setInitWidths("100,100,100,*");
-                                                    Grid4.setColAlign("center,center,center,center");
-                                                    Grid4.setColTypes("ed,ed,ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin4.json','json');
-                                                    var c= treeGrid.getFooterLabel(7);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else{
-                                                    dhxWins.window("win").hide(); 
-                                                }
-                                            }else if(rId==1002){
-                                                dhxWins.window("win").show();
-                                                if(cInd==6){
-                                                    Grid4=dhxWins.window("win").attachGrid();;
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                                    Grid4.setInitWidths("100,100,100,*");
-                                                    Grid4.setColAlign("center,center,center,center");
-                                                    Grid4.setColTypes("ed,ed,ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin5.json','json');
-                                                    var c= treeGrid.getFooterLabel(6);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else{
-                                                    dhxWins.window("win").hide(); 
-                                                }
-                                            }else if(rId==1003){
-                                                dhxWins.window("win").show();
-                                                if(cInd==5){
-                                                    Grid4=dhxWins.window("win").attachGrid();;
-                                                    Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                                    Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                                    Grid4.setInitWidths("100,100,100,*");
-                                                    Grid4.setColAlign("center,center,center,center");
-                                                    Grid4.setColTypes("ed,ed,ed,ed");
-                                                    Grid4.init();
-                                                    Grid4.load('data/ssjcwin6.json','json');
-                                                    var c= treeGrid.getFooterLabel(5);
-                                                    dhxWins.window("win").setText(c);
-                                                    dhxWins.attachEvent("onClose", function(win){
-                                                        dhxWins.window("win").hide(); 
-                                                    });
-                                                }else{
-                                                    dhxWins.window("win").hide(); 
-                                                }
-                                            }else{
-                                                dhxWins.window("win").hide(); 
-                                            }
-                                        }
+                                        
+                                        var wellTypeInfo = rId.split('||');
+//                                        alert(wellTypeInfo[1] + "----" + wellTypeInfo[2] + "----" + wellTypeInfo[3]);
+
+                                        switch(wellTypeInfo[2]){
+                                            
+                                            case 'LUO_GAN_BENG':
+                                                alert(wellTypeInfo[3] + "--a");
+                                                break;
+                                            case 'DIAN_QIAN_BENG':
+                                                alert(wellTypeInfo[3] + "--b");
+                                                break;
+                                            case 'GU_LI_JING':
+                                                alert(wellTypeInfo[3] + "--b");
+                                                break;
+                                            default:
+                                                
+                                                switch(wellTypeInfo[3]){
+
+                                                    case '自喷':
+                                                        alert(wellTypeInfo[3] + "--1");
+                                                        break;
+                                                    case '注汽':
+                                                        alert(wellTypeInfo[3] + "--2");
+                                                        break;
+                                                    case '焖井':
+                                                        alert(wellTypeInfo[3] + "--3");
+                                                        break;
+                                                    default:
+                                                        window.location.href = '${ctx}/main/cyj?id=' + wellTypeInfo[1];
+                                                }                                                
+                                        }                                        
                                     });
                                 }
                             });
@@ -623,7 +518,7 @@
                                     youjingCount++;
                                     
                                     var tmpYoujingTag = new Object(); 
-                                    tmpYoujingTag.id = 'j||' + valueYoujing.id;
+                                    tmpYoujingTag.id = 'j||' + valueYoujing.id + '||' + valueYoujing.subtype + '||' + valueYoujing.stage;
                                     tmpYoujingTag.open = 1;
                                     tmpYoujingTag.data = [];
                                     // 名称设置
@@ -760,16 +655,16 @@
                                         zhanItem.data = [];
                                         zhanItem.data.push((keyZhan+1));
                                         zhanItem.data.push(valueZhan.name);
-                                        zhanItem.data.push(valueZhan.ZYZ_RU_KOU_WEN_DU);
-                                        zhanItem.data.push(valueZhan.ZYZ_CHU_KOU_WEN_DU);
-                                        zhanItem.data.push(valueZhan.ZYZ_WAI_SHU_YA_LI);
-                                        zhanItem.data.push(valueZhan.ZYZ_HAN_SHUI_LV);
-                                        zhanItem.data.push(valueZhan.ZYZ_SHUN_SHI_LIU_LIANG);
-                                        zhanItem.data.push(valueZhan.ZYZ_LEI_JI_LIU_LIANG);
-                                        zhanItem.data.push(valueZhan.ZYZ_YE_WEI);
-                                        zhanItem.data.push(valueZhan.ZYZ_WEN_DU_1);
-                                        zhanItem.data.push(valueZhan.ZYZ_WEN_DU_2);
-                                        zhanItem.data.push(valueZhan.ZYZ_DIAN_DONG_DIE_FA);
+                                        zhanItem.data.push(valueZhan.zyz_ru_kou_wen_du);
+                                        zhanItem.data.push(valueZhan.zyz_chu_kou_wen_du);
+                                        zhanItem.data.push(valueZhan.zyz_wai_shu_ya_li);
+                                        zhanItem.data.push(valueZhan.zyz_han_shui_lv);
+                                        zhanItem.data.push(valueZhan.zyz_shun_shi_liu_liang);
+                                        zhanItem.data.push(valueZhan.zyz_lei_ji_liu_liang);
+                                        zhanItem.data.push(valueZhan.zyz_ye_wei);
+                                        zhanItem.data.push(valueZhan.zyz_wen_du_1);
+                                        zhanItem.data.push(valueZhan.zyz_wen_du_2);
+                                        zhanItem.data.push(valueZhan.zyz_dian_dong_die_fa);
 
                                         zhanData.rows.push(zhanItem);
                                         break;
@@ -1058,29 +953,26 @@
                 <div id="ssjc" style="width:1280px; height:10;">
                     <img src="${ctx}/static/img/head.png"/>
                 </div>
-                <div id="tool" style="width:119px; height:20; background-color:#F00; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
+                <div id="tool" style="width:119px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <a href="ssjc.html" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
                 </div>
-                <div id="tool1" style="width:125px; height:20; background-color:#F00; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left">
+                <div id="tool1" style="width:125px; height:20;border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left">
                     <a href="bjxix.html" style="text-decoration:none"><img border="0" src="${ctx}/static/img/bjzt.png" /></a>
                 </div>
-                <div id="tool2" style="width:120px; height:20; background-color:#F00; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
+                <div id="tool2" style="width:120px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <a href="scdt.html" style="text-decoration:none"><img border="0" src="${ctx}/static/img/scdt.png" style="width:120px; height:33px;"/></a>
                 </div>
-                <div id="tool3" style="width:120px; height:20; background-color:#F00; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
+                <div id="tool3" style="width:120px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <a href="scjl.html" style="text-decoration:none"><img  border="0" src="${ctx}/static/img/scgl.png" style="width:120px; height:33px;"/></a>
                 </div>
-                <div id="tool4" style="width:120px; height:20; background-color:#F00; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
+                <div id="tool4" style="width:120px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <a href="wltp.html" style="text-decoration:none"><img border="0"  src="${ctx}/static/img/txwl.png" style="width:120px; height:33px;"/></a>
                 </div>
-                <div id="tool5" style="width:120px; height:20; background-color:#F00; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
+                <div id="tool5" style="width:120px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <img src="${ctx}/static/img/yjcz.png" style="width:120px; height:33px" />
                 </div>
-                <div id="tool6" style="width:120px; height:20; background-color:#F00; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                    <img src="${ctx}/static/img/xtgl.png" style="width:120px; height:33px" />
-                </div>
-                <div id="tool7" style="width:428px; height:20; background-color:#fce1cc;float:left" >
-                    <img src="${ctx}/static/img/tp.png" style="width:428px; height:33px" />
+                <div id="tool7" style="width:550px; height:20; float:left" >
+                    <img src="${ctx}/static/img/tp.png" style="width:550px; height:33px" />
                 </div>
                 <!--主页面-->
                 <div id="zy" style="width:35px; height:602px; float:left">
