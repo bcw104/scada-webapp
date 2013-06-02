@@ -238,7 +238,7 @@ public class RealTimeController {
         Map<String,String> map;
         map = realtimeDataService.getEndTagVarGroupInfo(code, VarGroupEnum.SENSOR_RUN.toString());
         for(String key:map.keySet()){
-            String[] arr =key.split("|");
+            String[] arr =key.split("\\|");
             if(!sensor.contains(arr[1])){
                 sensor.add(arr[1]);
             }
@@ -248,7 +248,9 @@ public class RealTimeController {
         }
         for(String nickname:sensor){
             Map tmp = new HashMap();
-            String name = "";
+            String name = nickname;
+            tmp.put("sensorname", name);
+            tmp.put("nickname", nickname);
             for(String key:keyname){
                 String val = map.get(key + "|" + nickname);
                 tmp.put(key, val);
