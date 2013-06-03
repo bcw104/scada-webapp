@@ -9,11 +9,13 @@ import com.ht.scada.oildata.entity.ChouYouGanShouLi;
 import com.ht.scada.oildata.entity.WellDGTData;
 import com.ht.scada.oildata.entity.WellData;
 import com.ht.scada.oildata.service.WellService;
+import org.springframework.stereotype.Service;
 
 /**
  * @author 赵磊
  *
  */
+@Service
 public class WellDataServiceImpl implements WellService {
 
 	@Override
@@ -72,7 +74,7 @@ public class WellDataServiceImpl implements WellService {
 		dgt.setPower(getArray());
 		dgt.setPower_factor(getArray());
 		dgt.setTime(new Date());
-		return null;
+		return dgt;
 	}
 	
 	private WellData getWellData() {

@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -321,7 +322,22 @@ public class RealTimeController {
     @ResponseBody
     public List<SensorDevice> sensorDevice(String code) {
         return tagService.getSensorDeviceByCode(code);
-        
     }
-    
+    /**
+     *
+     * @param code
+     * @return
+     */
+    @RequestMapping(value="arraywelldata")
+    @ResponseBody
+    public List<WellData> arrayWellData(String code) {
+        Date date = null;
+        List<WellData> rtn = null;
+        try {
+            rtn = wellService.getWellDataByWellNumAndDatetime(code,date,date);
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+        }
+        return rtn;
+    }
 }
