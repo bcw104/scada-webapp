@@ -113,6 +113,16 @@ public class RealtimeDataServiceImpl implements RealtimeDataService{
         return new Object[0][];  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    public float[] getEndTagVarYcArray(String code, String varName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Map<String, float[]> getEndTagVarYcArray(String code, List<String> varName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
 }

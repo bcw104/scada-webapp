@@ -2,7 +2,7 @@ package com.ht.scada.data.service.testimpl;
 
 import com.ht.scada.data.entity.FaultRecord;
 import com.ht.scada.data.entity.OffLimitsRecord;
-import com.ht.scada.data.kv.YXData;
+
 import com.ht.scada.data.service.AlarmService;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +26,5 @@ public class AlarmServiceImpl implements AlarmService {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
-    public List<YXData> getCurrentYXData(String code) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

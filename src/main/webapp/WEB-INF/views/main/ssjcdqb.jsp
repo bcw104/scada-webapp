@@ -107,6 +107,15 @@
                 createwind1();
                 createwind2();
                 createwi();
+<<<<<<< HEAD
+=======
+                //工况信息
+                creategkGr();
+                //RTU状态
+                creatertuGr();
+                // 设置电气参数
+                createDq();
+>>>>>>> 67b52431cb24939d6d6946ab783277fe02ecb488
             }
             
             /**
@@ -266,7 +275,7 @@
             * */
             function createGrid(){
                 Grid= new dhtmlXGridObject('cg');
-                Grid.setImagePath("js/gridcodebase/imgs/");
+                Grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
                 Grid.setInitWidths("158,158,158,120,120,120");
                 Grid.setColAlign("center,center,center,center,center,center");
@@ -476,7 +485,7 @@
                         <img src="${ctx}/static/img/head.png"/>
                     </div>
                     <div id="tool" style="width:119px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                        <a  href="ssjc.html" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
+                        <a  href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
                     </div>
                     <div id="tool1" style="width:125px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left">
                         <a href="bjxix.html" style="text-decoration:none"><img border="0" src="${ctx}/static/img/bjzt.png" /></a>
@@ -500,6 +509,7 @@
                         &nbsp;&nbsp;${info.majorTag.name}---${info.name}
                     </div>
                     <div id="cha" style="float:right; border-top-color:#1580db; border-top-style:solid; border-top-width:1px">
+<<<<<<< HEAD
                         <a href="${ctx}/main/ssjc.jsp"><img src="${ctx}/static/img/cha.png" border="0" style="height:28px;"/></a>
                     </div>
                 <!--浮上-->
@@ -528,6 +538,36 @@
                     <div id="ady" style="width:60px; height:25px; float:left; font-size:14px; background-color:#cde7ff;  font-weight:bold; line-height:23px">
                            <a style="cursor:hand"onclick="yctc();"> 远程调参</a>
                     </div>
+=======
+                        <a href="${ctx}/main"><img src="${ctx}/static/img/cha.png" border="0" style="height:28px;"/></a>
+                    </div>
+                <!--浮上-->
+                <div id="apDiv1">
+                <div id="ad" style="width:70px; height:10; float:left; font-size:14px; background-color:#cde7ff; font-weight:bold; line-height:25px">
+               &nbsp;&nbsp;&nbsp;井标识
+                </div>
+                <div id="ad2" style="width:350px; height:10;float:left;  background-color:#cde7ff; font-size:14px;line-height:25px">
+                运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障停井&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;非正常停井&nbsp;&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;计划停井&nbsp;&nbsp;<img src="${ctx}/static/img/juse.png" />
+                </div>
+                 <div id="ads" style="width:80px; height:10; float:left; background-color:#cde7ff;  font-size:14px; font-weight:bold; line-height:25px">
+               &nbsp;&nbsp;&nbsp;RTU标识
+                </div>
+                 <div id="adr" style="width:600px; height:10;float:left;  background-color:#cde7ff; font-size:14px;line-height:25px">
+                运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;校验&nbsp;&nbsp;<img src="${ctx}/static/img/lansee.png" />
+                </div>
+                <div id="adw" style="width:20px; height:22px; float:left;  background-color:#cde7ff; font-size:14px; font-weight:bold;padding-top:3px">
+                <img src="${ctx}/static/img/yck.png"/>
+                </div>
+                <div id="adq" style="width:80px; height:25px; float:left; background-color:#cde7ff;  font-size:14px; font-weight:bold; line-height:23px">
+                <a style="cursor:hand"onclick="yckz();">远程控制</a>
+                </div>
+                 <div id="adt" style="width:20px; height:22px; float:left; font-size:14px;  background-color:#cde7ff; font-weight:bold;padding-top:3px">
+                <img src="${ctx}/static/img/yct.png"/>
+                </div>
+                <div id="ady" style="width:60px; height:25px; float:left; font-size:14px; background-color:#cde7ff;  font-weight:bold; line-height:23px">
+               <a style="cursor:hand"onclick="yctc();"> 远程调参</a>
+                </div>
+>>>>>>> 67b52431cb24939d6d6946ab783277fe02ecb488
                 </div>
                 <!--标签页 监测信息-->
                 <div id="ba" style="width:1280px; height:5px;float:left" ></div>
@@ -586,11 +626,8 @@
                    <div id="dq5" class="cssdiv" onclick="qxa(5);"  style="width:113px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
                        C相电流：<span id="dq_i_c">0</span>
                    </div>
-                   <div id="dq6" class="cssdiv" onclick="qxa(6);"  style="width:114px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
+                   <div id="dq6" class="cssdiv" onclick="qxa(6);"  style="width:227px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
                        平均功率因数：<span id="dq_gl_ys">0</span>
-                   </div>
-                   <div id="dq6" class="cssdiv" style="width:113px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;background-color:#f5ffdc">
-                       &nbsp;&nbsp;&nbsp;
                    </div>
             </div>
             <div id="ba9" style="width:5px; height:154px;float:left" ></div>
