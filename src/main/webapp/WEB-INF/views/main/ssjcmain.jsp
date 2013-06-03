@@ -92,7 +92,7 @@
             }
         </style>
         <script>
-            var dhxWins,dhxWins1,dhxWins2,dhxd,dhxd1,dhxd2,dhxd3,dhxd4,dhxTabbar,dhLayout,lo,lc,ld,lh,Grid,Grid2,Grid3,gr,Gr,Grxn;
+            var dhxWins,dhxWins1,dhxWins2,dhxd,dhxd1,dhxd2,dhxd3,dhxd4,dhxTabbar,dhLayout,lo,lc,ld,lh,Grid,Grid2,Grid3,gr,Gr,Grxn,dqgr,dqgr1,dqgr2;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
             var dtu1='<div id="dt1" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/sgt.png"  style="width:100%; height:100%" /></div>';
             var dtu2='<div id="dt2" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/dlt.png"  style="width:100%; height:100%" /></div>';
@@ -127,7 +127,9 @@
                 createGrid();
                 // 设置井基本信息
                 createXinxi();
-                
+                createdqGr();
+                createdqGr2();
+                createdqGr3();
 //                createWindows();
 //                createWindows1();
 //                createWindow();
@@ -139,7 +141,112 @@
                 
                 
             }
-            
+            function createdqGr(){
+                dqgr=new dhtmlXGridObject('cs1');
+				dqgr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+				//dqgr.setNoHeader(true);//隐藏表头
+				dqgr.setHeader(["电力"]);
+				dqgr.setInitWidths("*");
+				dqgr.setColAlign("left");
+				dqgr.setColTypes("ro");
+				dqgr.init();
+				// 获得电力信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/groupinfo',
+                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    dateType:'json',
+                    success: function(json){
+
+                        var dataInfo = new Object();
+                        dataInfo.rows = [];
+
+                        $.each(json,function(key, value){
+
+                            var dataItem = new Object();
+                                dataItem.id = value.key;
+                                dataItem.data = [];
+                                dataItem.data.push(value.name + '：' + value.value);
+
+                                dataInfo.rows.push(dataItem);
+                        });
+
+                        dqgr.parse(dataInfo,'json');
+                    }
+                });  
+            }
+            function createdqGr2(){
+                dqgr1=new dhtmlXGridObject('cs2');
+				dqgr1.setImagePath("js/gridcodebase/imgs/");
+				//dqgr.setNoHeader(true);//隐藏表头
+				dqgr1.setHeader(["电量"]);
+				dqgr1.setInitWidths("*");
+				dqgr1.setColAlign("left");
+				dqgr1.setColTypes("ro");
+				dqgr1.init();
+				// 获得电量信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/groupinfo',
+                    data:{code:'${info.code}',group:'DIAN_YM'},
+                    dateType:'json',
+                    success: function(json){
+
+                        var dataInfo = new Object();
+                        dataInfo.rows = [];
+
+                        $.each(json,function(key, value){
+
+                            var dataItem = new Object();
+                                dataItem.id = value.key;
+                                dataItem.data = [];
+                                dataItem.data.push(value.name + '：' + value.value);
+
+                                dataInfo.rows.push(dataItem);
+                        });
+
+                        dqgr1.parse(dataInfo,'json');
+                    }
+                }); 
+            }
+            function createdqGr3(){
+                dqgr2=new dhtmlXGridObject('cs3');
+				dqgr2.setImagePath("js/gridcodebase/imgs/");
+				//dqgr.setNoHeader(true);//隐藏表头
+				dqgr2.setHeader(["谐波"]);
+				dqgr2.setInitWidths("*");
+				dqgr2.setColAlign("left");
+				dqgr2.setColTypes("ro");
+				dqgr2.init();
+				// 获得电量信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/groupinfo',
+                    data:{code:'${info.code}',group:'DIAN_XB'},
+                    dateType:'json',
+                    success: function(json){
+
+                        var dataInfo = new Object();
+                        dataInfo.rows = [];
+
+                        $.each(json,function(key, value){
+
+                            if(value.key.indexOf("_array") < 0){
+                                
+                            
+                            var dataItem = new Object();
+                                dataItem.id = value.key;
+                                dataItem.data = [];
+                                dataItem.data.push(value.name + '：' + value.value);
+
+                                dataInfo.rows.push(dataItem);
+                                }
+                        });
+
+                        dqgr2.parse(dataInfo,'json');
+                    }
+                });
+            }
             /**
              * 页面布局设置
              * @returns {undefined}
@@ -929,56 +1036,12 @@
                         <div id="bia4" style="width:5px; height:22px;  float:left; "></div>
                         <div id="bias" style="width:5px; height:140px;  float:left; "></div>
                         <div id="cs" style="width:1265px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
-                            <table cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td  style="width:250px; height:23px; background-color:#fde7fd; font-size:14px;border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspA相电流有效值：1.53</td>
-                                    <td  style="width:250px;background-color:#fde7fd;font-size:14px; border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspC相电压有效值：24</td>
-                                    <td  style="width:150px;background-color:#fde7fd; font-size:14px;border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;视在功率：49.98</td>
-                                    <td  style="width:200px;background-color:#fde7fd;font-size:14px; border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A相无功功率：0.32</td>
-                                    <td  style="width:250px;background-color:#fde7fd;font-size:14px; border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspB相电压总谐波含量：10</td>
-                                    <td  style="width:200px;background-color:#fde7fd;font-size:14px;" ><a ondblclick="cbb();" style="cursor:hand">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B相电压0～31次谐波</a></td>
-                                </tr>
-                                <tr>
-                                    <td  style="width:250px; height:23px;border-right-style:solid;font-size:14px; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspB相电流有效值：1.52</td>
-                                    <td  style="width:250px;border-right-style:solid;font-size:14px; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspAB线电压有效值：215</td>
-                                    <td  style="width:150px;border-right-style:solid;font-size:14px; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;功率因数：0.17</td>
-                                    <td  style="width:200px;border-right-style:solid;font-size:14px; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相无功功率：0.32</td>
-                                    <td  style="width:250px;border-right-style:solid; font-size:14px;border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspC相电压总谐波含量：20</td>
-                                    <td  style="width:150px;border-right-style:solid; font-size:14px;border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C相电压0～31次谐波</td>
-                                </tr>
-                                <tr>
-                                    <td  style="width:250px; height:23px;background-color:#fde7fd;font-size:14px; border-right-style:solid; border-right-color:#FCF; border-right-width:1px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspC相电流有效值：1.52</td>
-                                    <td  style="width:250px;background-color:#fde7fd;font-size:14px; border-right-style:solid; border-right-color:#FCF; border-right-width:1px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspBC线电压有效值：215</td>
-                                    <td  style="width:150px;background-color:#fde7fd;font-size:14px; border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;周波：40</td>
-                                    <td  style="width:200px;background-color:#fde7fd; font-size:14px;border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C相无功功率：0.31</td>
-                                    <td  style="width:250px;background-color:#fde7fd;font-size:14px; border-right-style:solid; border-right-color:#FCF; border-right-width:1px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspA相电流总谐波含量：12</td>
-                                    <td  style="width:200px;background-color:#fde7fd;font-size:14px; " >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A相电流0～31次谐波</td>
-                                </tr>
-                                <tr>
-                                    <td  style="width:250px; height:23px;font-size:14px;border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp3相不平衡电流：45</td>
-                                    <td  style="width:250px;border-right-style:solid;font-size:14px; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspCA线电压有效值：215</td>
-                                    <td  style="width:150px;border-right-style:solid;font-size:14px; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;A相有功功率：0.07</td>
-                                    <td  style="width:200px;border-right-style:solid;font-size:14px; border-right-color:#FCF; border-right-width:1px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A相视在功率：29</td>
-                                    <td  style="width:250px;border-right-style:solid;font-size:14px; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspB相电流总谐波含量：11</td>
-                                    <td  style="width:150px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B相电流0～31次谐波</td>
-                                </tr>
-                                <tr>
-                                    <td  style="width:250px; height:23px;background-color:#fde7fd;font-size:14px; border-right-style:solid; border-right-color:#FCF; border-right-width:1px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspA相电压有效值：51</td>
-                                    <td  style="width:250px;background-color:#fde7fd; font-size:14px;border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp有功功率：39</td>
-                                    <td  style="width:150px;background-color:#fde7fd; font-size:14px;border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;B相有功功率：0.05</td>
-                                    <td  style="width:200px;background-color:#fde7fd;font-size:14px; border-right-style:solid; border-right-color:#FCF; border-right-width:1px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B相视在功率：30</td>
-                                    <td  style="width:250px;background-color:#fde7fd; font-size:14px;border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspC相电流总谐波含量：13</td>
-                                    <td  style="width:150px;background-color:#fde7fd;font-size:14px; border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C相电流0～31次谐波</td>
-                                </tr>
-                                <tr>
-                                    <td  style="width:250px; height:23px;font-size:14px;border-right-style:solid; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbspB相电压有效值：56</td>
-                                    <td  style="width:250px;border-right-style:solid;font-size:14px; border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp无功功率：52</td>
-                                    <td  style="width:150px;border-right-style:solid; font-size:14px;border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;C相有功功率：0.06</td>
-                                    <td  style="width:200px;border-right-style:solid; font-size:14px;border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A相电压总谐波含量：26</td>
-                                    <td  style="width:248px;border-right-style:solid; font-size:14px;border-right-color:#FCF; border-right-width:1px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A相电压0～31次谐波</td>
-                                    <td  style="width:150px;font-size:14px;" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;反向有功峰电能</td>
-                                </tr>
-                            </table>
+                            <div id="cs1" style="width:420px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">                            
+                            </div>
+                            <div id="cs2" style="width:420px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">                            
+                            </div>
+                            <div id="cs3" style="width:418px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
+                            </div>
                         </div>
                         <div id="bia13" style="width:1340px; height:5px;float:left; "></div>
                         <div id="bia2" style="width:5px; height:22px; float:left "></div>
