@@ -259,4 +259,10 @@ public class RealTimeController {
         }
         return data;
     }
+    @RequestMapping(value="linedata")
+    @ResponseBody
+    public Object LineData(String code, String varName){
+        return realtimeDataService.getEndTagVarLineData(code, varName);
+    }
+    
 }
