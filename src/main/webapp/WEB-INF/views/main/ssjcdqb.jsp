@@ -11,7 +11,6 @@
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
         <script src="${ctx}/static/js/highcharts.src.js"></script>
         <script src="${ctx}/static/js/chart.js"></script>
-        <script src="${ctx}/static/js/chart1.js"></script>
         <style type="text/css">
             html, body {
                 width: 100%;
@@ -82,14 +81,6 @@
                 height:27px;
                 z-index:1;
             }
-            #apDiv1 {
-                position:absolute;
-                left:207px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
         </style>
         <script>
             var Grid,dhxWins,dhxd,dhxd1,dhxd2,dhxd3,gr,gr1;
@@ -105,6 +96,10 @@
              * @returns {undefined}
              */
             function dqb(){
+                //工况信息
+                creategkGr();
+                //RTU状态
+                creatertuGr();
                 //传感器运行
                 createGrid();
                 createWindows();
@@ -112,10 +107,6 @@
                 createwind1();
                 createwind2();
                 createwi();
-                //工况信息
-                creategkGr();
-                //RTU状态
-                //creatertuGr();
             }
             
             /**
@@ -509,34 +500,34 @@
                         &nbsp;&nbsp;${info.majorTag.name}---${info.name}
                     </div>
                     <div id="cha" style="float:right; border-top-color:#1580db; border-top-style:solid; border-top-width:1px">
-                        <a href="ssjc.html"><img src="${ctx}/static/img/cha.png" border="0" style="height:28px;"/></a>
+                        <a href="${ctx}/main/ssjc.jsp"><img src="${ctx}/static/img/cha.png" border="0" style="height:28px;"/></a>
                     </div>
                 <!--浮上-->
-                <div id="apDiv1">
-                <div id="ad" style="width:70px; height:10; float:left; font-size:14px; background-color:#cde7ff; font-weight:bold; line-height:25px">
-               &nbsp;&nbsp;&nbsp;井标识
-                </div>
-                <div id="ad2" style="width:350px; height:10;float:left;  background-color:#cde7ff; font-size:14px;line-height:25px">
-                运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障停井&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;非正常停井&nbsp;&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;计划停井&nbsp;&nbsp;<img src="${ctx}/static/img/juse.png" />
-                </div>
-                 <div id="ads" style="width:80px; height:10; float:left; background-color:#cde7ff;  font-size:14px; font-weight:bold; line-height:25px">
-               &nbsp;&nbsp;&nbsp;RTU标识
-                </div>
-                 <div id="adr" style="width:600px; height:10;float:left;  background-color:#cde7ff; font-size:14px;line-height:25px">
-                运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;校验&nbsp;&nbsp;<img src="${ctx}/static/img/lansee.png" />
-                </div>
-                <div id="adw" style="width:20px; height:22px; float:left;  background-color:#cde7ff; font-size:14px; font-weight:bold;padding-top:3px">
-                <img src="imagess/yck.png"/>
-                </div>
-                <div id="adq" style="width:80px; height:25px; float:left; background-color:#cde7ff;  font-size:14px; font-weight:bold; line-height:23px">
-                <a style="cursor:hand"onclick="yckz();">远程控制</a>
-                </div>
-                 <div id="adt" style="width:20px; height:22px; float:left; font-size:14px;  background-color:#cde7ff; font-weight:bold;padding-top:3px">
-                <img src="imagess/yct.png"/>
-                </div>
-                <div id="ady" style="width:60px; height:25px; float:left; font-size:14px; background-color:#cde7ff;  font-weight:bold; line-height:23px">
-               <a style="cursor:hand"onclick="yctc();"> 远程调参</a>
-                </div>
+                <div id="apDiv1" style=" background-color: black;">
+                    <div id="ad" style="width:70px; height:10; float:left; font-size:14px; background-color:#cde7ff; font-weight:bold; line-height:25px">
+                         &nbsp;&nbsp;&nbsp;井标识
+                    </div>
+                    <div id="ad2" style="width:350px; height:10;float:left;  background-color:#cde7ff; font-size:14px;line-height:25px">
+                            运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障停井&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;非正常停井&nbsp;&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;计划停井&nbsp;&nbsp;<img src="${ctx}/static/img/juse.png" />
+                    </div>
+                     <div id="ads" style="width:80px; height:10; float:left; background-color:#cde7ff;  font-size:14px; font-weight:bold; line-height:25px">
+                            &nbsp;&nbsp;&nbsp;RTU标识
+                    </div>
+                     <div id="adr" style="width:600px; height:10;float:left;  background-color:#cde7ff; font-size:14px;line-height:25px">
+                            运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;校验&nbsp;&nbsp;<img src="${ctx}/static/img/lansee.png" />
+                    </div>
+                    <div id="adw" style="width:20px; height:22px; float:left;  background-color:#cde7ff; font-size:14px; font-weight:bold;padding-top:3px">
+                            <img src="${ctx}/static/img/yck.png"/>
+                    </div>
+                    <div id="adq" style="width:80px; height:25px; float:left; background-color:#cde7ff;  font-size:14px; font-weight:bold; line-height:23px">
+                            <a style="cursor:hand"onclick="yckz();">远程控制</a>
+                    </div>
+                     <div id="adt" style="width:20px; height:22px; float:left; font-size:14px;  background-color:#cde7ff; font-weight:bold;padding-top:3px">
+                           <img src="${ctx}/static/img/yct.png"/>
+                    </div>
+                    <div id="ady" style="width:60px; height:25px; float:left; font-size:14px; background-color:#cde7ff;  font-weight:bold; line-height:23px">
+                           <a style="cursor:hand"onclick="yctc();"> 远程调参</a>
+                    </div>
                 </div>
                 <!--标签页 监测信息-->
                 <div id="ba" style="width:1280px; height:5px;float:left" ></div>
@@ -566,7 +557,7 @@
                     <div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
                         &nbsp;&nbsp;&nbsp;油井启停：<img id="youjingState" src="${ctx}/static/img/hongse.png" style="height:15px"/>
                     </div>
-                    <div id="gk" style="width:118px; height:107px; float:left">
+                    <div id="gk" style="width:118px; height:118px; float:left;">
                     </div>
                 </div>
          </div>
@@ -609,7 +600,7 @@
             <div id="ba14" style="width:1280px; height:5px; float:left" ></div>
             <div id="ba15" style="width:5px; height:22px;  float:left" ></div>
             <div id="ssqx3" style="width:1270px; font-size:14px; font-weight:bold; line-height:25px;height:22px; float:left; background-color:#9fdfae" align="left" class="ss2">
-                &nbsp实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp曲&nbsp;&nbsp;&nbsp线
+                &nbsp实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp数&nbsp;&nbsp;&nbsp据
             </div>	
             <div id="ba16" style="width:5px; height:22px;   float:left" ></div>
             <div id="ba17" style="width:5px; height:110px; float:left" ></div>
@@ -617,9 +608,9 @@
                     <div id="div1" style="width:100%;height:100%;">
                              <div id="container" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
                     </div>    
-                    <div id="div3" style="width:100%;height:100%; display:none">
+                     <div id="div3" style="width:100%;height:100%; display:none">
                              <div id="container2" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
-                    </div>
+                     </div>
             </div>
 </div>
 <!--地图-->
