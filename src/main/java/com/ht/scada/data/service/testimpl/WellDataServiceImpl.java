@@ -20,7 +20,7 @@ public class WellDataServiceImpl implements WellService {
 
 	@Override
 	public List<WellData> getWellDataByWellNumAndDatetime(String wellNum,
-			Date startTime, Date endTime) throws Exception {
+		Date startTime, Date endTime) throws Exception {
 		List<WellData> list = new ArrayList<>();
 		list.add(getWellData());
 		list.add(getWellData());

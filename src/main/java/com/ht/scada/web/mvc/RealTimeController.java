@@ -13,6 +13,7 @@ import com.ht.scada.common.tag.util.EndTagExtNameEnum;
 import com.ht.scada.common.tag.util.EndTagTypeEnum;
 import com.ht.scada.common.tag.util.VarGroupEnum;
 import com.ht.scada.common.tag.util.VarSubTypeEnum;
+import com.ht.scada.data.model.TimeSeriesDataModel;
 import com.ht.scada.data.service.HistoryDataService;
 import com.ht.scada.data.service.RealtimeDataService;
 import com.ht.scada.oildata.entity.ChouYouGanShouLi;
@@ -339,5 +340,11 @@ public class RealTimeController {
             log.error(ex.getMessage());
         }
         return rtn;
+    }
+    //TimeSeriesData
+    @RequestMapping(value="timeseriesdata")
+    @ResponseBody
+    public List<TimeSeriesDataModel> TimeSeriesData(String code,String group,String name) {
+        return historyDataService.getVarTimeSeriesData(code, VarGroupEnum.valueOf(group), name, null, null);
     }
 }
