@@ -231,7 +231,7 @@
                                                 alert(wellTypeInfo[3] + "--a");
                                                 break;
                                             case 'DIAN_QIAN_BENG':
-                                                alert(wellTypeInfo[3] + "--b");
+                                                window.location.href = '${ctx}/main/dqb?id=' + wellTypeInfo[1];
                                                 break;
                                             case 'GU_LI_JING':
                                                 alert(wellTypeInfo[3] + "--b");
