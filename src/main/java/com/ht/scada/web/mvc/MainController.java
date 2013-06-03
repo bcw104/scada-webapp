@@ -56,6 +56,15 @@ public class MainController {
         return "main/ssjcmain";
 	}
     
+    @RequestMapping(value="dqb")
+	public String dqb(@RequestParam("id") int id,Model model) {
+        
+        EndTag endTag = endTagService.getById(id);
+		model.addAttribute("id", id);
+        model.addAttribute("info", endTag);
+        return "main/ssjcdqb";
+	}
+    
 	@RequestMapping(value = "test")
 	public String test(RedirectAttributes redirectAttributes) {
 		log.debug("初始化用户：{}/{}", "admin", "admin");
