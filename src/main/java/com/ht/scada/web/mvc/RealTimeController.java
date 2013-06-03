@@ -12,12 +12,18 @@ import com.ht.scada.common.tag.util.EndTagExtNameEnum;
 import com.ht.scada.common.tag.util.EndTagTypeEnum;
 import com.ht.scada.common.tag.util.VarGroupEnum;
 import com.ht.scada.common.tag.util.VarSubTypeEnum;
+import com.ht.scada.data.service.HistoryDataService;
 import com.ht.scada.data.service.RealtimeDataService;
+import com.ht.scada.oildata.entity.WellDGTData;
+import com.ht.scada.oildata.entity.WellData;
+import com.ht.scada.oildata.service.WellService;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
 import com.ht.scada.web.entity.UserExtInfo;
 import com.ht.scada.web.service.UserExtInfoService;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +59,10 @@ public class RealTimeController {
     private TypeService typeService;
     @Autowired
     private TagService tagService;
-    
+    @Autowired
+    private HistoryDataService historyDataService;
+    @Autowired
+    private WellService wellService;
     /**
      * 按登录用户权限返回油井信息,返回格式为JSON
      * 
@@ -258,5 +267,36 @@ public class RealTimeController {
             data.add(tmp);
         }
         return data;
+    }
+    @RequestMapping(value="linedata")
+    @ResponseBody
+    public Object LineData(String code,String group, String varName){
+        Date endDate = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.HOUR, -1);
+        Date startDate = cal.getTime();
+        return historyDataService.getVarTimeSeriesData(code, VarGroupEnum.valueOf(group), varName, startDate, endDate);
+    }
+    @RequestMapping(value="welldata")
+    @ResponseBody
+    public WellData wellData(String code){
+        WellData wellData = null;
+        try {
+            wellData = wellService.getLatestWellDataByWellNum(code);
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+        }
+        return wellData;
+    }
+    @RequestMapping(value="welldgtdata")
+    @ResponseBody
+    public WellDGTData wellDGTData(String code){
+        WellDGTData wellDGTData = null;
+        try {
+            wellDGTData = wellService.getLatestWellDGTDataByWellNum(code);
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+        }
+        return wellDGTData;
     }
 }
