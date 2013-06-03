@@ -775,7 +775,7 @@
                         <img src="${ctx}/static/img/head.png"/>
                     </div>
                     <div id="tool" style="width:119px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                        <a  href="ssjc.html" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
+                        <a  href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
                     </div>
                     <div id="tool1" style="width:125px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left">
                         <a href="bjxix.html" style="text-decoration:none"><img border="0" src="${ctx}/static/img/bjzt.png" /></a>
@@ -799,7 +799,7 @@
                         &nbsp;&nbsp;${info.majorTag.name}---${info.name}
                     </div>
                     <div id="cha" style="float:right; border-top-color:#1580db; border-top-style:solid; border-top-width:1px">
-                        <a href="ssjc.html"><img src="${ctx}/static/img/cha.png" border="0" style="height:28px;"/></a>
+                        <a href="${ctx}/main"><img src="${ctx}/static/img/cha.png" border="0" style="height:28px;"/></a>
                     </div>
                     <!--标签页 监测信息-->
                     <div id="tabbl" style="width:1280px; height:570px; float:left" ></div>
