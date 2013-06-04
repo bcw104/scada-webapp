@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="kda pdc">
-                        <div class="fr zitib" style="width:155px;">记住密码</div>
+                        <div class="fr zitib" style="width:155px;">记住登录</div>
                         <div class="fr">
                             <input type="checkbox" id="rememberMe" name="rememberMe"/> 
                         </div>

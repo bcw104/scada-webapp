@@ -2,6 +2,7 @@ package com.ht.scada.data.service.testimpl;
 
 import com.ht.scada.data.entity.FaultRecord;
 import com.ht.scada.data.entity.OffLimitsRecord;
+
 import com.ht.scada.data.service.AlarmService;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,6 @@ public class AlarmServiceImpl implements AlarmService {
     public List<OffLimitsRecord> getCurrentOffLimitsRecord(String code) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
 
 }

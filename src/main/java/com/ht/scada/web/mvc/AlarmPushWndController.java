@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ht.scada.data.RealtimeDataMessageDelegate;
 import com.ht.scada.data.RealtimeMessageListener;
-import com.ht.scada.data.entity.FaultRecord;
 import com.ht.scada.data.entity.OffLimitsRecord;
-import com.ht.scada.data.entity.YxRecord;
 import com.ht.scada.data.service.AlarmService;
+import com.ht.scada.data.service.testimpl.TestData;
+import com.ht.scada.data.service.testimpl.TestDataDao;
 import com.ht.scada.security.service.UserService;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.atmosphere.cpr.Broadcaster;
@@ -46,7 +46,11 @@ public class AlarmPushWndController {
 	private final AlarmService alarmService;
 	private final UserService userService;
 	private final ObjectMapper objectMapper;
-
+	
+	@Inject
+	private RealtimeMessageListener realtimeImpl;
+    @Inject
+    private TestDataDao testDataDao;
     /**
      * 实时数据推送代理
      */
@@ -94,56 +98,71 @@ public class AlarmPushWndController {
 //
 //		bc.broadcast(objectMapper.writeValueAsString(statusMessage));
 	}
-
+	/*
+	 * 
+	 * 测试发送报警信息
+	 
+	@Scheduled(fixedDelay=5000)
+	public void testSendMessages(){
+		//OffLimitsRecord record = new OffLimitsRecord();
+		List<TestData> list;
+		//realtimeImpl.offLimitsOccured(record);
+        //list = testDataDao.findAll();
+        //list = testDataDao.findByCodeGroup("a", "a");
+        list = testDataDao.findByCodeName("a", "a");
+        log.info("当前测试数据有:" + list.size() + "条;");
+	}
+    * */
 	/**
 	 * TODO: 仅用于模拟推送数据时使用
 	 */
-	@Scheduled(fixedDelay=5000)
-	public void pollForMessages() {
-
-		String statusMessage = "A new message on " + new Date().toString();
-        RealtimeMessageListener listener = new RealtimeMessageListener() {
-            @Override
-            public void faultOccured(FaultRecord record) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void faultResumed(FaultRecord record) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void offLimitsOccured(OffLimitsRecord record) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void offLimitsResumed(OffLimitsRecord record) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void yxChanged(YxRecord record) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-        };
-        messageDelegate.setListener(listener);
-
-		try {
-			//log.debug("发送报警信息");
-			//MetaBroadcaster.getDefault().broadcastTo("/", objectMapper.writeValueAsString(statusMessage));
-			MetaBroadcaster.getDefault().broadcastTo("/admin", "A:  " + objectMapper.writeValueAsString(statusMessage));
-			MetaBroadcaster.getDefault().broadcastTo("/admin", "A2:  " + objectMapper.writeValueAsString(statusMessage));
-			MetaBroadcaster.getDefault().broadcastTo("/B", "B:" + objectMapper.writeValueAsString(statusMessage));
-		} catch (JsonGenerationException e) {
-			throw new IllegalStateException(e);
-		} catch (JsonMappingException e) {
-			throw new IllegalStateException(e);
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		}
-	}
+//	@Scheduled(fixedDelay=5000)
+//	public void pollForMessages() {
+//
+//		String statusMessage = "A new message on " + new Date().toString();
+//		/*
+//        RealtimeMessageListener listener = new RealtimeMessageListener() {
+//            @Override
+//            public void faultOccured(FaultRecord record) {
+//                //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//
+//            @Override
+//            public void faultResumed(FaultRecord record) {
+//                //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//
+//            @Override
+//            public void offLimitsOccured(OffLimitsRecord record) {
+//                //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//
+//            @Override
+//            public void offLimitsResumed(OffLimitsRecord record) {
+//                //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//
+//            @Override
+//            public void yxChanged(YxRecord record) {
+//                //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//        };
+//        messageDelegate.setListener(listener);
+//*/
+//		try {
+//			//log.debug("发送报警信息");
+//			//MetaBroadcaster.getDefault().broadcastTo("/", objectMapper.writeValueAsString(statusMessage));
+//			MetaBroadcaster.getDefault().broadcastTo("/admin", "A:  " + objectMapper.writeValueAsString(statusMessage));
+//			MetaBroadcaster.getDefault().broadcastTo("/admin", "A2:  " + objectMapper.writeValueAsString(statusMessage));
+//			MetaBroadcaster.getDefault().broadcastTo("/B", "B:" + objectMapper.writeValueAsString(statusMessage));
+//		} catch (JsonGenerationException e) {
+//			throw new IllegalStateException(e);
+//		} catch (JsonMappingException e) {
+//			throw new IllegalStateException(e);
+//		} catch (IOException e) {
+//			throw new IllegalStateException(e);
+//		}
+//	}
 
 	/**
 	 * 该部分仅用于学习参考，TODO: 产品发布之前删除
