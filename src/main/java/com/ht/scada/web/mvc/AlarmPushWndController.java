@@ -101,7 +101,7 @@ public class AlarmPushWndController {
 	/*
 	 * 
 	 * 测试发送报警信息
-	 */
+	 
 	@Scheduled(fixedDelay=5000)
 	public void testSendMessages(){
 		//OffLimitsRecord record = new OffLimitsRecord();
@@ -112,6 +112,7 @@ public class AlarmPushWndController {
         list = testDataDao.findByCodeName("a", "a");
         log.info("当前测试数据有:" + list.size() + "条;");
 	}
+    * */
 	/**
 	 * TODO: 仅用于模拟推送数据时使用
 	 */

@@ -3,6 +3,7 @@ package com.ht.scada.web.mvc;
 import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.common.tag.entity.EndTagExtInfo;
 import com.ht.scada.common.tag.entity.MajorTag;
+import com.ht.scada.common.tag.entity.SensorDevice;
 import com.ht.scada.common.tag.entity.TagCfgTpl;
 import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.common.tag.service.MajorTagService;
@@ -12,8 +13,10 @@ import com.ht.scada.common.tag.util.EndTagExtNameEnum;
 import com.ht.scada.common.tag.util.EndTagTypeEnum;
 import com.ht.scada.common.tag.util.VarGroupEnum;
 import com.ht.scada.common.tag.util.VarSubTypeEnum;
+import com.ht.scada.data.model.TimeSeriesDataModel;
 import com.ht.scada.data.service.HistoryDataService;
 import com.ht.scada.data.service.RealtimeDataService;
+import com.ht.scada.oildata.entity.ChouYouGanShouLi;
 import com.ht.scada.oildata.entity.WellDGTData;
 import com.ht.scada.oildata.entity.WellData;
 import com.ht.scada.oildata.service.WellService;
@@ -28,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -241,6 +245,7 @@ public class RealTimeController {
     @RequestMapping(value="sensor")
     @ResponseBody
     public List<Map> sensor(String code){
+        Date curDate = new Date();
         List<Map> data = new ArrayList<>();
         List<String> sensor= new ArrayList<>();
         List<String> keyname= new ArrayList<>();
@@ -255,9 +260,19 @@ public class RealTimeController {
                 keyname.add(arr[0]);
             }
         }
+        Calendar cal = Calendar.getInstance();
         for(String nickname:sensor){
             Map tmp = new HashMap();
-            String name = nickname;
+            SensorDevice sen = tagService.getSensorDeviceByCodeAndNickName(code, nickname);
+            cal.setTime(sen.getFixTime());
+            cal.add(Calendar.DATE, Integer.parseInt(sen.getCheckInterval()));
+            if(cal.before(curDate)){
+                map.put("biaoding", "1");
+            }else{
+                map.put("biaoding", "0");
+            }
+            String name = sen.getName();
+            //计算标定
             tmp.put("sensorname", name);
             tmp.put("nickname", nickname);
             for(String key:keyname){
@@ -298,5 +313,38 @@ public class RealTimeController {
             log.error(ex.getMessage());
         }
         return wellDGTData;
+    }
+    @RequestMapping(value="cygshouli")
+    @ResponseBody
+    public List<ChouYouGanShouLi> cygShouLi(String code){
+        return wellService.getLatestCYGShouLi(code);
+    }
+    @RequestMapping(value="sensordevice")
+    @ResponseBody
+    public List<SensorDevice> sensorDevice(String code) {
+        return tagService.getSensorDeviceByCode(code);
+    }
+    /**
+     *
+     * @param code
+     * @return
+     */
+    @RequestMapping(value="arraywelldata")
+    @ResponseBody
+    public List<WellData> arrayWellData(String code) {
+        Date date = null;
+        List<WellData> rtn = null;
+        try {
+            rtn = wellService.getWellDataByWellNumAndDatetime(code,date,date);
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+        }
+        return rtn;
+    }
+    //TimeSeriesData
+    @RequestMapping(value="timeseriesdata")
+    @ResponseBody
+    public List<TimeSeriesDataModel> TimeSeriesData(String code,String group,String name) {
+        return historyDataService.getVarTimeSeriesData(code, VarGroupEnum.valueOf(group), name, null, null);
     }
 }
