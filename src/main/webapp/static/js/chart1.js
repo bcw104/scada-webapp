@@ -1,268 +1,255 @@
-//闭合曲线
-$(function () {
-    var chart3;
-        chart3 = new Highcharts.Chart({
-            chart: {
-                renderTo: 'containerr',
-                type: 'spline',
-				//borderWidth:1,
-				plotBorderWidth:1,
-				reflow:'true',
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                 categories: ['0', '1','2','3','4','5','6','7','8','9'],
-				 gridLineWidth:1,
-            },
-            yAxis: {
-                title: {
-                    text: '&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;流&nbsp;(m)'
-                },
-				minPadding:0.5,
-				min:0,
-				
-            },
-           tooltip: {
-                formatter: function() {
-                        return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y +this.series.options.unit;//取得数据源中的值
-                }
-            },
-			legend: {
-			layout: 'horizontal',
-			align: 'center',
-			enabled:false,
-			verticalAlign: 'top',
-			x: -10,
-			y: -10,
-			borderWidth: 0
-		     },
-			plotOptions: {
-			spline: {
-				marker: {
-					enabled: false,
-					states: {
-						hover: {
-							enabled: true,
-							symbol: 'circle',
-							radius: 5,
-							lineWidth: 1
-						}
-					}	
-				}
+// 示功图
+var options = {
+    chart: {
+        renderTo: '',
+        type: 'spline',
+        //borderWidth:1,
+        plotBorderWidth:1,
+        reflow:'true'
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        categories: [],
+        gridLineWidth:1,
+    },
+    yAxis: {
+        title: {},
+        min:0				
+    },
+    tooltip: {
+        formatter: function() {
+        return '<b>'+ this.series.name +'</b><br/>'+
+        this.x +': '+ this.y +this.series.options.unit;//取得数据源中的值
+        }
+    },
+    legend: {
+        layout: 'horizontal',
+        align: 'center',
+        enabled:false,
+        verticalAlign: 'top',
+        x: -10,
+        y: -10,
+		borderWidth: 0
+    },
+    plotOptions: {
+        spline: {
+            marker: {
+                enabled: false,
+                states: {
+                    hover: {
+                        enabled: true,
+                        symbol: 'circle',
+						radius: 5,
+						lineWidth: 1
+					}
+				}	
 			}
-		},
-            series: [{
-				name:'示工图',
-				unit:'m',
-                data: [
-				[1,5],[2,4],[3,5],[4,4],[5,2],[6,4],[7,3],[8,5],[ 9,2],[1,1],[2,2],[1,5]
-				]
-            }]
-        });
-    
-});
-//闭合曲线
-$(function () {
-    var chart3;
-        chart3 = new Highcharts.Chart({
-            chart: {
-                renderTo: 'containerr1',
-                type: 'spline',
-				//borderWidth:1,
-				plotBorderWidth:1,
-				reflow:'true',
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                 categories: ['0', '1','2','3','4','5','6','7','8','9'],
-				 gridLineWidth:1,
-            },
-            yAxis: {
-                title: {
-                    text: '&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;流&nbsp;(m)'
-                },
-				minPadding:0.5,
-				min:0,
-				
-            },
-           tooltip: {
-                formatter: function() {
-                        return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y +this.series.options.unit;//取得数据源中的值
-                }
-            },
-			legend: {
-			layout: 'horizontal',
-			align: 'center',
-			enabled:false,
-			verticalAlign: 'top',
-			x: -10,
-			y: -10,
-			borderWidth: 0
-		     },
-			plotOptions: {
-			spline: {
-				marker: {
-					enabled: false,
-					states: {
-						hover: {
-							enabled: true,
-							symbol: 'circle',
-							radius: 5,
-							lineWidth: 1
-						}
-					}	
-				}
-			}
-		},
-            series: [{
-				name:'示工图',
-				unit:'m',
-                data: [
-				[1,5],[2,4],[3,5],[4,4],[5,2],[6,4],[7,3],[8,5],[ 9,2],[1,1],[2,2],[1,5]
-				]
-            }]
-        });
-    
-});
+		}
+	},
+    series: []
+}
 
-//闭合曲线
-$(function () {
-    var chart3;
-        chart3 = new Highcharts.Chart({
-            chart: {
-                renderTo: 'containerr2',
-                type: 'spline',
-				//borderWidth:1,
-				plotBorderWidth:1,
-				reflow:'true',
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                 categories: ['0', '1','2','3','4','5','6','7','8','9'],
-				 gridLineWidth:1,
-            },
-            yAxis: {
-                title: {
-                    text: '&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;流&nbsp;(m)'
-                },
-				minPadding:0.5,
-				min:0,
-				
-            },
-           tooltip: {
-                formatter: function() {
-                        return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y +this.series.options.unit;//取得数据源中的值
-                }
-            },
-			legend: {
-			layout: 'horizontal',
-			align: 'center',
-			enabled:false,
-			verticalAlign: 'top',
-			x: -10,
-			y: -10,
-			borderWidth: 0
-		     },
-			plotOptions: {
-			spline: {
-				marker: {
-					enabled: false,
-					states: {
-						hover: {
-							enabled: true,
-							symbol: 'circle',
-							radius: 5,
-							lineWidth: 1
-						}
-					}	
-				}
-			}
-		},
-            series: [{
-				name:'示工图',
-				unit:'m',
-                data: [
-				[1,5],[2,4],[3,5],[4,4],[5,2],[6,4],[7,3],[8,5],[ 9,2],[1,1],[2,2],[1,5]
-				]
-            }]
-        });
+/**
+ * 创建示功图
+ * @param {type} p_code
+ * @returns {undefined}
+ */
+function createSg(p_code) {
     
-});
-//闭合曲线
-$(function () {
-    var chart3;
-        chart3 = new Highcharts.Chart({
-            chart: {
-                renderTo: 'containerr3',
-                type: 'spline',
-				//borderWidth:1,
-				plotBorderWidth:1,
-				reflow:'true',
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                 categories: ['0', '1','2','3','4','5','6','7','8','9'],
-				 gridLineWidth:1,
-            },
-            yAxis: {
-                title: {
-                    text: '&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;流&nbsp;(m)'
-                },
-				minPadding:0.5,
-				min:0,
-				
-            },
-           tooltip: {
-                formatter: function() {
-                        return '<b>'+ this.series.name +'</b><br/>'+
-                        this.x +': '+ this.y +this.series.options.unit;//取得数据源中的值
-                }
-            },
-			legend: {
-			layout: 'horizontal',
-			align: 'center',
-			enabled:false,
-			verticalAlign: 'top',
-			x: -10,
-			y: -10,
-			borderWidth: 0
-		     },
-			plotOptions: {
-			spline: {
-				marker: {
-					enabled: false,
-					states: {
-						hover: {
-							enabled: true,
-							symbol: 'circle',
-							radius: 5,
-							lineWidth: 1
-						}
-					}	
-				}
-			}
-		},
-            series: [{
-				name:'示工图',
-				unit:'m',
-                data: [
-				[1,5],[2,4],[3,5],[4,4],[5,2],[6,4],[7,3],[8,5],[ 9,2],[1,1],[2,2],[1,5]
-				]
-            }]
-        });
+    // 载荷，示功图纵坐标
+    var str_xAxis = [];
+    // 位移，示功图横坐标
+    var str_yAxis = [];
+
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/realtime/welldata',
+        data:{code:p_code},
+        dateType:'json',
+        success: function(json){
+
+            var series = { 
+                data: []            
+            };            
+            
+            $.each(json, function(key, value) {   
+                
+                if(key == 'zaihe'){
+                    
+                    str_xAxis = value;
+                }else if(key == 'weiyi'){
+                    
+                    str_yAxis = value;
+                }else if($("#" + key).length > 0){
+                    
+                    $("#" + key).html(value);
+                    
+                    if($("#" + key + "_fu").length > 0){                    
+                        $("#" + key + "_fu").html(value);
+                    }     
+                }          
+            });   
+            
+            options.series = [];
+            series.name = '示功图';
+            series.unit = 'm';
+            for (var i=0; i<str_xAxis.length; i++){
+                
+                series.data.push([str_xAxis[i],str_yAxis[i]]);
+            }
+            options.chart.renderTo = 'containerr';
+            options.yAxis.title.text = '示&nbsp;&nbsp;功&nbsp;&nbsp;图';
+            options.series.push(series);
+            new Highcharts.Chart(options);
+        }
+    });
+}
+
+/**
+ * 创建电流曲线
+ * @param {type} p_code
+ * @returns {undefined}
+ */
+function createDl(p_code) {
     
-});
+    // 载荷，示功图纵坐标
+    var str_xAxis = [];
+    // 位移，示功图横坐标
+    var str_yAxis = [];
 
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/realtime/welldgtdata',
+        data:{code:p_code},
+        dateType:'json',
+        success: function(json){
 
+            var series = { 
+                data: []            
+            };            
+            
+            $.each(json, function(key, value) {   
+                
+                if(key == 'ib'){
+                    
+                    str_xAxis = value;
+                }else if(key == 'weiyi'){
+                    
+                    str_yAxis = value;
+                }           
+            });   
+            
+            options.series = [];
+            series.name = '电流曲线';
+            series.unit = 'm';
+            for (var i=0; i<str_xAxis.length; i++){
+                
+                series.data.push([str_xAxis[i],str_yAxis[i]]);
+            }
+            options.chart.renderTo = 'containerr1';
+            options.yAxis.title.text = '电&nbsp;&nbsp;流&nbsp;&nbsp;曲&nbsp;&nbsp;线';
+            options.series.push(series);
+            new Highcharts.Chart(options);
+        }
+    });
+}
 
+/**
+ * 创建电功图
+ * @param {type} p_code
+ * @returns {undefined}
+ */
+function createDg(p_code) {
+    
+    // 载荷，电功图纵坐标
+    var str_xAxis = [];
+    // 位移，电功图横坐标
+    var str_yAxis = [];
+
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/realtime/welldgtdata',
+        data:{code:p_code},
+        dateType:'json',
+        success: function(json){
+
+            var series = { 
+                data: []            
+            };            
+            
+            $.each(json, function(key, value) {   
+                
+                if(key == 'power'){
+                    
+                    str_xAxis = value;
+                }else if(key == 'weiyi'){
+                    
+                    str_yAxis = value;
+                }           
+            });   
+            
+            options.series = [];
+            series.name = '电功图';
+            series.unit = 'm';
+            for (var i=0; i<str_xAxis.length; i++){
+                
+                series.data.push([str_xAxis[i],str_yAxis[i]]);
+            }
+            options.chart.renderTo = 'containerr2';
+            options.yAxis.title.text = '电&nbsp;&nbsp;功&nbsp;&nbsp;图';
+            options.series.push(series);
+            new Highcharts.Chart(options);
+        }
+    });
+}
+
+/**
+ * 创建有功功率曲线
+ * @param {type} p_code
+ * @returns {undefined}
+ */
+function createYggl(p_code) {
+    
+    // 载荷，示功图纵坐标
+    var str_xAxis = [];
+    // 位移，示功图横坐标
+    var str_yAxis = [];
+
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/realtime/welldgtdata',
+        data:{code:p_code},
+        dateType:'json',
+        success: function(json){
+
+            var series = { 
+                data: []            
+            };            
+            
+            $.each(json, function(key, value) {   
+                
+                if(key == 'power_factor'){
+                    
+                    str_xAxis = value;
+                }else if(key == 'weiyi'){
+                    
+                    str_yAxis = value;
+                }           
+            });   
+            
+            options.series = [];
+            series.name = '有功功率曲线';
+            series.unit = 'm';
+            for (var i=0; i<str_xAxis.length; i++){
+                
+                series.data.push([str_xAxis[i],str_yAxis[i]]);
+            }
+            options.chart.renderTo = 'containerr3';
+            options.yAxis.title.text = '有&nbsp;&nbsp;功&nbsp;&nbsp;功&nbsp;&nbsp;率&nbsp;&nbsp;曲&nbsp;&nbsp;线';
+            options.series.push(series);
+            new Highcharts.Chart(options);
+        }
+    });
+}
