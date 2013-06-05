@@ -228,26 +228,26 @@
                                         switch(wellTypeInfo[2]){
                                             
                                             case 'LUO_GAN_BENG':
-                                                alert(wellTypeInfo[3] + "--a");
+                                                window.location.href = '${ctx}/main/lgb?id=' + wellTypeInfo[1];
                                                 break;
                                             case 'DIAN_QIAN_BENG':
                                                 window.location.href = '${ctx}/main/dqb?id=' + wellTypeInfo[1];
                                                 break;
                                             case 'GU_LI_JING':
-                                                alert(wellTypeInfo[3] + "--b");
+                                                window.location.href = '${ctx}/main/glj?id=' + wellTypeInfo[1];
                                                 break;
                                             default:
                                                 
                                                 switch(wellTypeInfo[3]){
 
                                                     case '自喷':
-                                                        alert(wellTypeInfo[3] + "--1");
+                                                        window.location.href = '${ctx}/main/zp?id=' + wellTypeInfo[1];
                                                         break;
                                                     case '注汽':
-                                                        alert(wellTypeInfo[3] + "--2");
+                                                        window.location.href = '${ctx}/main/zq?id=' + wellTypeInfo[1];
                                                         break;
                                                     case '焖井':
-                                                        alert(wellTypeInfo[3] + "--3");
+                                                        window.location.href = '${ctx}/main/mj?id=' + wellTypeInfo[1];
                                                         break;
                                                     default:
                                                         window.location.href = '${ctx}/main/cyj?id=' + wellTypeInfo[1];

@@ -25,6 +25,8 @@ import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
 import com.ht.scada.web.entity.UserExtInfo;
 import com.ht.scada.web.service.UserExtInfoService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -287,7 +289,8 @@ public class RealTimeController {
     }
     @RequestMapping(value="linedata")
     @ResponseBody
-    public Object LineData(String code,String group, String varName){
+    public Object LineData(String code,String group, String varName) {
+        
         Date endDate = new Date();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.HOUR, -1);
@@ -333,11 +336,11 @@ public class RealTimeController {
      */
     @RequestMapping(value="arraywelldata")
     @ResponseBody
-    public List<WellData> arrayWellData(String code) {
-        Date date = null;
+    public List<WellData> arrayWellData(String code,String startDate,String endDate) {
         List<WellData> rtn = null;
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         try {
-            rtn = wellService.getWellDataByWellNumAndDatetime(code,date,date);
+            rtn = wellService.getWellDataByWellNumAndDatetime(code, formatDate.parse(startDate), formatDate.parse(endDate));
         } catch (Exception ex) {
             log.error(ex.getMessage());
         }
