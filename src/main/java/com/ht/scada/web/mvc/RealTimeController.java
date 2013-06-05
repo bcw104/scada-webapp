@@ -16,6 +16,7 @@ import com.ht.scada.common.tag.util.VarSubTypeEnum;
 import com.ht.scada.data.model.TimeSeriesDataModel;
 import com.ht.scada.data.service.HistoryDataService;
 import com.ht.scada.data.service.RealtimeDataService;
+import com.ht.scada.data.service.UrlService;
 import com.ht.scada.oildata.entity.ChouYouGanShouLi;
 import com.ht.scada.oildata.entity.WellDGTData;
 import com.ht.scada.oildata.entity.WellData;
@@ -31,7 +32,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +67,8 @@ public class RealTimeController {
     private HistoryDataService historyDataService;
     @Autowired
     private WellService wellService;
+    @Autowired
+    private UrlService urlService;
     /**
      * 按登录用户权限返回油井信息,返回格式为JSON
      * 
@@ -346,5 +348,11 @@ public class RealTimeController {
     @ResponseBody
     public List<TimeSeriesDataModel> TimeSeriesData(String code,String group,String name) {
         return historyDataService.getVarTimeSeriesData(code, VarGroupEnum.valueOf(group), name, null, null);
+    }
+    
+    @RequestMapping(value="svgviewurl")
+    @ResponseBody
+    public String SvgViewUrl(String code) {
+        return urlService.getSvgViewUrl(code);
     }
 }

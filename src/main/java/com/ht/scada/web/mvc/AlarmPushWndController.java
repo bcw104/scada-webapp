@@ -105,12 +105,13 @@ public class AlarmPushWndController {
 	@Scheduled(fixedDelay=5000)
 	public void testSendMessages(){
 		//OffLimitsRecord record = new OffLimitsRecord();
-		List<TestData> list;
+		//List<TestData> list;
 		//realtimeImpl.offLimitsOccured(record);
         //list = testDataDao.findAll();
         //list = testDataDao.findByCodeGroup("a", "a");
-        list = testDataDao.findByCodeName("a", "a");
-        log.info("当前测试数据有:" + list.size() + "条;");
+        //list = testDataDao.findByCodeName("a", "a");
+        //log.info("当前测试数据有:" + list.size() + "条;");
+        
 	}
     * */
 	/**
