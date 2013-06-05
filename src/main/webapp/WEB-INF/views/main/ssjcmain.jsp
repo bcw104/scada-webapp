@@ -1380,15 +1380,16 @@
                         <!--功图-->
                         <div id="ba6" style="width:7px; height:154px; float:left"></div>
                         <div id="gt" style="width:630px; height:365px; border:solid; border-width:1px; border-color:#96c2ff; float:left">
-                            <div style="width:629px;height:30px; background-color:#eef7ff;">
-                                <div id="gt3" style="width:125px; height:10; float:left; padding-top:6px; padding-left:8px">
-                                    <img src="${ctx}/static/img/jsgt.png" border="0" align="middle"/>&nbsp;&nbsp;<a onclick="run1();" style="cursor: hand;font-size:14px">即时功能读取</a>
+                            <div style="width:629px;height:30px; background-color:#eef7ff;padding-top: 10px;padding-left:20px;">
+                                <div id="gt3" style="width:125px; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/jsgt.png);">
+          
+                                    <a onclick="run1();" style="cursor: hand;font-size:14px;">&nbsp;&nbsp;即时功能读取</a>
                                 </div>
-                                <div id="gt4" style="width:105px; height:10; float:left; padding-top:5px; ">
-                                    <img  border="0" src="${ctx}/static/img/gtdb.png" align="middle"/>&nbsp;&nbsp;<a  onclick="sj();" style="cursor: hand;font-size:14px">功图对比</a>
+                                <div id="gt4" style="width:105px; height:10; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/gtdb.png);">
+                                    <a  onclick="sj();" style="cursor: hand;font-size:14px">&nbsp;功图对比</a>
                                 </div>
-                                <div id="gt5" style="width:131px; height:10; float:left;padding-top:5px;">
-                                    <img src="${ctx}/static/img/cygsl.png" align="middle"/>&nbsp;&nbsp;<a onclick="cyfslfx()" style=" cursor: hand;font-size:14px">抽油杆受力分析</a>
+                                <div id="gt5" style="width:131px; height:10; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/cygsl.png);">
+                                    <a onclick="cyfslfx()" style=" cursor: hand;font-size:14px">&nbsp;抽油杆受力分析</a>
                                 </div>
                                 <div id="gt6" style="width:265px; height:10; float:left">              
                                 </div>
