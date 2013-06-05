@@ -16,6 +16,7 @@ import com.ht.scada.common.tag.util.VarSubTypeEnum;
 import com.ht.scada.data.model.TimeSeriesDataModel;
 import com.ht.scada.data.service.HistoryDataService;
 import com.ht.scada.data.service.RealtimeDataService;
+import com.ht.scada.data.service.UrlService;
 import com.ht.scada.oildata.entity.ChouYouGanShouLi;
 import com.ht.scada.oildata.entity.WellDGTData;
 import com.ht.scada.oildata.entity.WellData;
@@ -24,6 +25,8 @@ import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
 import com.ht.scada.web.entity.UserExtInfo;
 import com.ht.scada.web.service.UserExtInfoService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +34,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,8 @@ public class RealTimeController {
     private HistoryDataService historyDataService;
     @Autowired
     private WellService wellService;
+    @Autowired
+    private UrlService urlService;
     /**
      * 按登录用户权限返回油井信息,返回格式为JSON
      * 
@@ -285,7 +289,8 @@ public class RealTimeController {
     }
     @RequestMapping(value="linedata")
     @ResponseBody
-    public Object LineData(String code,String group, String varName){
+    public Object LineData(String code,String group, String varName) {
+        
         Date endDate = new Date();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.HOUR, -1);
@@ -331,11 +336,11 @@ public class RealTimeController {
      */
     @RequestMapping(value="arraywelldata")
     @ResponseBody
-    public List<WellData> arrayWellData(String code) {
-        Date date = null;
+    public List<WellData> arrayWellData(String code,String startDate,String endDate) {
         List<WellData> rtn = null;
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         try {
-            rtn = wellService.getWellDataByWellNumAndDatetime(code,date,date);
+            rtn = wellService.getWellDataByWellNumAndDatetime(code, formatDate.parse(startDate), formatDate.parse(endDate));
         } catch (Exception ex) {
             log.error(ex.getMessage());
         }
@@ -346,5 +351,11 @@ public class RealTimeController {
     @ResponseBody
     public List<TimeSeriesDataModel> TimeSeriesData(String code,String group,String name) {
         return historyDataService.getVarTimeSeriesData(code, VarGroupEnum.valueOf(group), name, null, null);
+    }
+    
+    @RequestMapping(value="svgviewurl")
+    @ResponseBody
+    public String SvgViewUrl(String code) {
+        return urlService.getSvgViewUrl(code);
     }
 }

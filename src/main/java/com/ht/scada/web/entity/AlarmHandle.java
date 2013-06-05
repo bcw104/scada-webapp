@@ -1,5 +1,6 @@
 package com.ht.scada.web.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import com.ht.scada.security.entity.User;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 @Entity
 @Table(name="T_Alarm_Handle")
 public class AlarmHandle extends AbstractPersistable<Integer>{
@@ -25,12 +28,17 @@ public class AlarmHandle extends AbstractPersistable<Integer>{
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="alarmrecord_id")
+    @JsonIgnore
 	private AlarmRecord alarmRecord;
 	
 	@Column(name = "confirm_time")
+    @Temporal(TemporalType.DATE)
 	private Date confirmTime;	//确定时间
     @Column(name = "handle_time")
+    @Temporal(TemporalType.DATE)
 	private Date handleTime;	//处理时间
+    
+    
 	public User getUser() {
 		return user;
 	}

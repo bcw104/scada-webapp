@@ -47,4 +47,9 @@ public class UserExtInfoServiceImpl implements UserExtInfoService {
          UserExtInfo userExtInfo = userExtInfoDao.findByUserID(userId);
          userExtInfoDao.delete(userExtInfo);
      }
+    
+    @Override
+    public List<UserExtInfo> getUserExtInfoByEndTag(int endTagId){
+        return userExtInfoDao.findByEndTagId(endTagId);
+    }
 }
