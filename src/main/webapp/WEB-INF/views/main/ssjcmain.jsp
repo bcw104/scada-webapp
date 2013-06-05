@@ -1406,7 +1406,6 @@
                                 &nbsp有&nbsp功&nbsp功&nbsp率&nbsp曲&nbsp线
                             </div>
                             <div id="gtt" style="width:158px; height:150px; line-height:30px;float:left">
-<<<<<<< HEAD
                             <div id="containerr" style="height:158px;width:150px; "></div>
                              </div>
                              <div id="gtt1" style="width:158px; height:10; float:left">
@@ -1418,19 +1417,6 @@
                                <div id="gtt3" style="width:120px; height:10; float:left " >
                                <div id="containerr3" style="height:158px;width:150px; "></div>
                                </div>
-=======
-                                <div id="containerr" style="height:158px;width:150px; "></div>
-                            </div>
-                            <div id="gtt1" style="width:158px; height:10; float:left">
-                                <div id="containerr1" style="height:158px;width:150px; "></div>
-                            </div>
-                            <div id="gtt2" style="width:158px; height:10; float:left ">
-                                <div id="containerr2" style="height:158px;width:150px; "></div>
-                            </div>
-                            <div id="gtt3" style="width:120px; height:10; float:left " >
-                                <div id="containerr3" style="height:158px;width:150px; "></div>
-                            </div>
->>>>>>> 7426b5b155987e10910a736173ef4bee6eaae347
                             <div id="gtcs" style="width:630px; height:25px; float:left;line-height:30px;font-size:14px; background-color:#deeeff">
                                 <table>
                                     <tr style="height:10px">
@@ -1438,7 +1424,7 @@
                                     </tr>
                                 </table>
                             </div>
-                                <div id="gtc1" onclick="showGtqx('maxZaihe', '最大载荷');" style="cursor:hand; width:210px;line-height:25px; height:25px; font-size:14px;float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px " >
+                           <div id="gtc1" onclick="showGtqx('maxZaihe', '最大载荷');" style="cursor:hand; width:210px;line-height:25px; height:25px; font-size:14px;float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px " >
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp最大载荷(KN)：<span id="maxZaihe"></span>
                             </div>
                             <div id="gtc2" onclick="showGtqx('minZaihe', '最小载荷');" style="cursor:hand; width:210px; line-height:25px;height:25px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px;font-size:14px ">
