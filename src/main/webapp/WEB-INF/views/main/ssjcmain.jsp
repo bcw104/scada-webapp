@@ -199,7 +199,7 @@
                     });                    
                 }  
                 
-                /**
+            /**
              * 信息点击
              * @param {type} gr_rId
              * @param {type} gr_cInd
@@ -238,7 +238,7 @@
                     });                    
                 }  
                 
-                /**
+           /**
              * 信息点击
              * @param {type} gr_rId
              * @param {type} gr_cInd
