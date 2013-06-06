@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ht.scada.data.RealtimeDataMessageDelegate;
 import com.ht.scada.data.RealtimeMessageListener;
+import com.ht.scada.data.entity.FaultRecord;
 import com.ht.scada.data.entity.OffLimitsRecord;
 import com.ht.scada.data.service.AlarmService;
 import com.ht.scada.data.service.testimpl.TestData;
@@ -30,6 +31,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -101,9 +103,16 @@ public class AlarmPushWndController {
 	/*
 	 * 
 	 * 测试发送报警信息
-	 
+	 * */
 	@Scheduled(fixedDelay=5000)
 	public void testSendMessages(){
+        //FaultRecord record = new FaultRecord();
+        //record.setActionTime(new Date());
+        //record.setCode("youjing");
+        //record.setInfo("hello");
+        //record.setName("aaa");
+        //record.setId(UUID.randomUUID().toString());
+        realtimeImpl.faultOccured(null);
 		//OffLimitsRecord record = new OffLimitsRecord();
 		//List<TestData> list;
 		//realtimeImpl.offLimitsOccured(record);
@@ -113,7 +122,7 @@ public class AlarmPushWndController {
         //log.info("当前测试数据有:" + list.size() + "条;");
         
 	}
-    * */
+    
 	/**
 	 * TODO: 仅用于模拟推送数据时使用
 	 */
