@@ -1346,9 +1346,7 @@
                                     A相电压：<span id="dq_u_a">0</span>
                                 </div>
                                 <div id="dq1" class="cssdiv" style="cursor:hand; width:160px; height:23px;font-size:14px;line-height:30px;float:left;cursor:pointer" onclick="showDyqx('u_b', 'B相电压');">
-                                    <a onclick="showDyqx('u_b', 'B相电压');return false;" style="cursor:hand">
-                                        B相电压：<span id="dq_u_b">0</span>
-                                    </a>
+                                    B相电压：<span id="dq_u_b">0</span>
                                 </div>
                                 <div id="dq2" class="cssdiv" style="width:160px; height:23px;font-size:14px;line-height:30px;float:left;cursor:pointer" onclick="showDyqx('u_c', 'C相电压');">
                                     C相电压：<span id="dq_u_c">0</span>
