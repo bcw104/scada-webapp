@@ -137,10 +137,39 @@
                Grid2= new dhtmlXGridObject('gr');
                Grid2.setImagePath("js/gridcodebase/imgs/");
                Grid2.setHeader(["设备名称","出厂厂家","型号","序号","设备地址"]);
-               Grid2.setInitWidths("120,120,120,120,*");
+               Grid2.setInitWidths("120,150,120,120,*");
                Grid2.setColAlign("center,center,center,center,center");
                Grid2.setColTypes("ro,ro,ro,ro,ro");
                Grid2.init();
+               
+                // 获得传感器设备信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/sensordevice',
+                    data:{code:'${info.code}'},
+                    dateType:'json',
+                    success: function(json){
+
+                        var dataInfo = new Object();
+                        dataInfo.rows = [];
+
+                        $.each(json,function(key, value){
+
+                            var dataItem = new Object();
+                            dataItem.id = value.id;
+                            dataItem.data = [];
+                            dataItem.data.push(value.name);
+                            dataItem.data.push(value.manufacture);                                    
+                            dataItem.data.push(value.type);
+                            dataItem.data.push(value.number);
+                            dataItem.data.push(value.address); 
+
+                            dataInfo.rows.push(dataItem);
+                        });
+
+                        Grid2.parse(dataInfo,'json');
+                    }
+                });
             }
             function createlgbdqGr(){
                 lgbgr1=new dhtmlXGridObject('lgbdq1');
@@ -162,9 +191,8 @@
                         dataInfo.rows = [];
 
                         $.each(json,function(key, value){
-
-                            var dataItem = new Object();
-                                dataItem.id = value.key;
+                                var dataItem = new Object();
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
                                 dataItem.data = [];
                                 dataItem.data.push(value.name + '：' + value.value);
 
@@ -172,9 +200,50 @@
                         });
 
                         lgbgr1.parse(dataInfo,'json');
+                        if(lgbgr1.getRowsNum() > 0){
+                            
+                            doFzGrClick(lgbgr1.getRowId(0), 0);
+                        }
                     }
                 });  
+                 // 事件绑定
+                lgbgr1.attachEvent('onRowSelect', doFzGrClick); 
             }
+            /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doFzGrClick(gr_rId, gr_cInd){
+                    var tmpName = gr_rId.split('||');
+                    $("#dqqxTitle").html( tmpName[1] + '曲线');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+
+                            var colors = Highcharts.getOptions().colors;
+                            var ys;
+                            ys = colors[j];		
+                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }  
             function createlgbdqGr1(){
                 lgbgr2=new dhtmlXGridObject('lgbdq2');
                 lgbgr2.setImagePath("js/gridcodebase/imgs/");
@@ -197,7 +266,7 @@
                         $.each(json,function(key, value){
 
                             var dataItem = new Object();
-                                dataItem.id = value.key;
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_YM';
                                 dataItem.data = [];
                                 dataItem.data.push(value.name + '：' + value.value);
 
@@ -207,7 +276,45 @@
                         lgbgr2.parse(dataInfo,'json');
                     }
                 }); 
+                
+                // 事件绑定
+                lgbgr2.attachEvent('onRowSelect', doFzGrClick); 
             }
+            /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doFzGrClick(gr_rId, gr_cInd){
+                    
+                    var tmpName = gr_rId.split('||');
+                    $("#dqqxTitle").html( tmpName[1] + '曲线');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+                            var colors = Highcharts.getOptions().colors;
+                            var ys;
+                            ys = colors[j];	
+                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }  
             function createlgbdqGr2(){
                 lgbgr3=new dhtmlXGridObject('lgbdq3');
                 lgbgr3.setImagePath("js/gridcodebase/imgs/");
@@ -232,9 +339,9 @@
 
                             if(value.key.indexOf("_array") < 0){
                                 
-                            
-                            var dataItem = new Object();
-                                dataItem.id = value.key;
+                            xbJson=json;
+                           var dataItem = new Object();
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_XB';
                                 dataItem.data = [];
                                 dataItem.data.push(value.name + '：' + value.value);
 
@@ -245,7 +352,54 @@
                         lgbgr3.parse(dataInfo,'json');
                     }
                 });
+                
+                 // 事件绑定
+                lgbgr3.attachEvent('onRowSelect', doFzZzGrClick); 
             }
+             var xbJson;
+             /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doFzZzGrClick(gr_rId, gr_cInd){
+            
+                    var tmpName = gr_rId.split('||');
+                    $("#dqqxTitle").html( tmpName[1] );
+                    
+                    var xAxisData = [];
+                    var yAxisData = [];
+                    
+                    var colors = Highcharts.getOptions().colors;
+                    $.each(xbJson, function(key, value){
+
+                        if(value.key == (tmpName[0] + '_array')){
+                        
+                            var valueTmp = value.value.split(',');
+                            for(var loopTmp = 0; loopTmp < valueTmp.length; loopTmp++){
+                                
+                                xAxisData.push(loopTmp + 1); 
+                                
+                                var dataTmp = new Object();
+                                dataTmp.y = Number(valueTmp[loopTmp]);
+                                dataTmp.color = colors[loopTmp];
+
+                                yAxisData.push(dataTmp);
+                            }
+                            
+                            return false;
+                        }                        
+                    });
+
+                    var ys;
+                    if(j > 2){
+                        j = 0;
+                    }
+                    ys = yse[j];	
+                    te1(xAxisData, tmpName[1], '', ys, yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
+                    j += 1;
+                }  
             /**
              * 页面布局设置
              * @returns {undefined}
@@ -299,7 +453,7 @@
                             }else{
 
                                 var youjingItem = new Object();
-                                youjingItem.id = value.key;
+                                youjingItem.id = value.key + '||' + value.name + '||YOU_JING';
                                 youjingItem.data = [];
                                 youjingItem.data.push(value.name + '：' + value.value);
 
@@ -308,32 +462,51 @@
                         });
 
                         gr.parse(youjingData,'json');
+                        //单击事件
+                        if(gr.getRowsNum() > 0){
+                            
+                            doGrClick(gr.getRowId(0), 0);
+                        }
                     }
-                });                        
-                 
+                }); 
                 // 事件绑定
-                gr.attachEvent('onRowDblClicked', function(rId, cInd){
-                
-                    $("#ssqx4").css("display","block");
-					$("#gtdb").css("display","none");
-					var gid=rId;
-					var liename=gr.cells(rId,cInd).getValue();
-					//从分号截取字符串
-					//var zf=liename.split("：");
-					var zf=liename.split("(");
-					var qname=zf[0];
-					var r=zf[1].split(")");
-					var qdw=r[0];
-					var ys;
-					if(j>2){
-						j=0;
-						}
-					ys=yse[j];	
-					te(dyDate,qname,qdw,ys);
-					j+=1;
-                });
+                gr.attachEvent('onRowSelect', doGrClick);
             }
-            
+             /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doGrClick(gr_rId, gr_cInd){
+                    var tmpName = gr_rId.split('||');
+                    $("#ssqxTitle").html( tmpName[1] + '曲线');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+
+                             var colors = Highcharts.getOptions().colors;
+                            var ys;
+                            ys = colors[j];		
+                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }               
             /**
              * 设置RTU状态
              * @returns {undefined}
@@ -362,8 +535,8 @@
 
                         $.each(json,function(key, value){
 
-                            var youjingItem = new Object();
-                            youjingItem.id = value.key;
+                             var youjingItem = new Object();
+                            youjingItem.id = value.key + '||' + value.name + '||RTU_ZHUANG_TAI';
                             youjingItem.data = [];
                             youjingItem.data.push(value.name);
                             
@@ -381,11 +554,44 @@
                 });  
                    
                 // 事件绑定
-                rtugr.attachEvent('onRowDblClicked', function(rId, cInd){
-                    alert(rId);
-                });
+                rtugr.attachEvent('onRowSelect', doGrClick);
             }
-            
+            /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doGrClick(gr_rId, gr_cInd){
+                    
+                    var tmpName = gr_rId.split('||');
+                    $("#ssqxTitle").html( tmpName[1] + '曲线');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+
+                            var colors = Highcharts.getOptions().colors;
+                            var ys;
+                            ys = colors[j];	
+                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }               
             // 电气参数标题项目
             var strDqTitle = ',u_a,u_b,u_c,i_a,i_b,i_c,gl_ys,';
             /**
@@ -666,19 +872,44 @@
                                              });
                      dhxWins.window("win").attachHTMLString(dtu);
                     }
-            function qxa(i){
-                $("#ssqx4").css("display","block");
-                $("#gtdb").css("display","none");
-                var dqcs= document.all("dq"+i).innerHTML; 
-                var qname=dqcs.split('：');
-                var dqname=qname[0];
-                if(j>2){
-                    j=0;
-                    }
-                var ys=yse[j];
-                te(dyDate,dqname,"V",ys);
-                j+=1;
-            }
+            /**
+              * 电气参数信息点击
+              * @param {type} dy_code
+              * @param {type} dy_title
+              * @returns {undefined}
+              */
+            function showDyqx(dy_code, dy_title){
+
+//                    $("#container").html('');
+                    $("#ssqxTitle").html('&nbsp&nbsp&nbsp（' + dy_title + '曲线）');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:'DIAN_YC',varName:dy_code},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+
+                            var ys;
+                            if(j > 2){
+                                j = 0;
+                            }
+                            ys = yse[j];	
+                            te(xAxisData, dy_title, '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }
         </script>
         <STYLE type=text/css>
             div.objbox { 
@@ -775,25 +1006,25 @@
                          </div>
                       <div id="ba8" style="width:5px; height:154px;float:left" ></div>
                       <div id="dqcs" style="width:228px; height:154px; float:right; border:solid; border-width:1px; float:left; border-color:#b4da72; background-color:#fbfff3">
-                      <div id="dq0" class="cssdiv"  onclick="qxa(0);" style="width:114px;cursor:pointer; height:38px;font-size:14px ;line-height:40px;float:left;border-right-style:solid; border-right-color:#cced94; border-right-width:1px; ">
+                      <div id="dq0" class="cssdiv"  onclick="showDyqx('u_a', 'A相电压');" style="width:114px;cursor:pointer; height:38px;font-size:14px ;line-height:40px;float:left;border-right-style:solid; border-right-color:#cced94; border-right-width:1px; ">
                           A相电压：<span id="dq_u_a">0</span>
                       </div>
-                      <div id="dq1" class="cssdiv"  onclick="qxa(1);" style="width:113px;cursor:pointer; height:38px;font-size:14px;line-height:40px;float:left">
+                      <div id="dq1" class="cssdiv"  onclick="showDyqx('u_a', 'A相电流');" style="width:113px;cursor:pointer; height:38px;font-size:14px;line-height:40px;float:left">
                          A相电流：<span id="dq_i_a">0</span>
                       </div>
-                      <div id="dq2" class="cssdiv"  onclick="qxa(2);" style="width:114px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc; border-right-style:solid; border-right-width:1px">
+                      <div id="dq2" class="cssdiv" onclick="showDyqx('u_b', 'B相电压');" style="width:114px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc; border-right-style:solid; border-right-width:1px">
                          B相电压：<span id="dq_u_b">0</span>
                       </div>
-                      <div id="dq3" class="cssdiv"  onclick="qxa(3);" style="width:113px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;background-color:#f5ffdc">
+                      <div id="dq3" class="cssdiv"  onclick="showDyqx('i_b', 'B相电流');" style="width:113px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;background-color:#f5ffdc">
                          B相电流：<span id="dq_i_b">0</span>
                       </div>
-                      <div id="dq4" class="cssdiv"  onclick="qxa(4);" style="width:114px;cursor:pointer; height:38px;font-size:14px;line-height:40px;float:left; border-right-color:#cced94;border-right-style:solid; border-right-width:1px">
+                      <div id="dq4" class="cssdiv"  onclick="showDyqx('u_c', 'C相电压');" style="width:114px;cursor:pointer; height:38px;font-size:14px;line-height:40px;float:left; border-right-color:#cced94;border-right-style:solid; border-right-width:1px">
                           C相电压：<span id="dq_u_c">0</span>
                       </div>
-                      <div id="dq5" class="cssdiv"  onclick="qxa(5);" style="width:113px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left">
+                      <div id="dq5" class="cssdiv"  onclick="showDyqx('i_c', 'C相电流');" style="width:113px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left">
                            C相电流：<span id="dq_i_c">0</span>
                       </div>
-                      <div id="dq6" class="cssdiv"  onclick="qxa(6);" style="width:227px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
+                      <div id="dq6" class="cssdiv"  onclick="showDyqx('gl_ys', '平均功率因数');" style="width:227px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
                            平均功率因数：<span id="dq_gl_ys">0</span>
                       </div>
                    </div>
@@ -873,7 +1104,7 @@
                         <div id="bia13" style="width:1340px; height:5px;float:left; "></div>
                         <div id="bia2" style="width:5px; height:22px; float:left "></div>
                         <div id="dqcsqx" style=" width:1268px; height:20px; font-size:14px;border-width:1px; background-color:#9fdfae; font-weight:bold;float:left">
-                            &nbsp;电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数&nbsp;&nbsp;&nbsp曲&nbsp;&nbsp;&nbsp线
+                            <span id="dqqxTitle"></span>
                         </div>
                         <div id="bia2" style="width:5px; height:20px; float:left;" ></div>
                         <div id="dqcsqxt" style=" width:1266px; height:95px; border-style:solid; border-color:#9fdfae; border-width:1px;  float:left" >

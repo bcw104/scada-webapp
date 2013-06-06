@@ -401,7 +401,7 @@
                             if(value.key.indexOf("_array") < 0){                                
                             
                                 var dataItem = new Object();
-                                dataItem.id = value.key + '||' + value.name + '||DIAN_YM';
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_XB';
                                 dataItem.data = [];
                                 dataItem.data.push(value.name + '：' + value.value);
 
@@ -482,7 +482,6 @@
              * @returns {undefined}             
              * */
             function doGrClick(gr_rId, gr_cInd){
-                
                     $("#ssqx4").css("display","block");
 					$("#gtdb").css("display","none");
                     
@@ -1347,9 +1346,7 @@
                                     A相电压：<span id="dq_u_a">0</span>
                                 </div>
                                 <div id="dq1" class="cssdiv" style="cursor:hand; width:160px; height:23px;font-size:14px;line-height:30px;float:left;cursor:pointer" onclick="showDyqx('u_b', 'B相电压');">
-                                    <a onclick="showDyqx('u_b', 'B相电压');return false;" style="cursor:hand">
-                                        B相电压：<span id="dq_u_b">0</span>
-                                    </a>
+                                    B相电压：<span id="dq_u_b">0</span>
                                 </div>
                                 <div id="dq2" class="cssdiv" style="width:160px; height:23px;font-size:14px;line-height:30px;float:left;cursor:pointer" onclick="showDyqx('u_c', 'C相电压');">
                                     C相电压：<span id="dq_u_c">0</span>
@@ -1380,15 +1377,16 @@
                         <!--功图-->
                         <div id="ba6" style="width:7px; height:154px; float:left"></div>
                         <div id="gt" style="width:630px; height:365px; border:solid; border-width:1px; border-color:#96c2ff; float:left">
-                            <div style="width:629px;height:30px; background-color:#eef7ff;">
-                                <div id="gt3" style="width:125px; height:10; float:left; padding-top:6px; padding-left:8px">
-                                    <img src="${ctx}/static/img/jsgt.png" border="0" align="middle"/>&nbsp;&nbsp;<a onclick="run1();" style="cursor: hand;font-size:14px">即时功能读取</a>
+                            <div style="width:629px;height:20px; background-color:#eef7ff;padding-top:10px;padding-left:20px;">
+                                <div id="gt3" style="width:125px; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/jsgt.png);">
+          
+                                    <a onclick="run1();" style="cursor: hand;font-size:14px;">&nbsp;&nbsp;即时功能读取</a>
                                 </div>
-                                <div id="gt4" style="width:105px; height:10; float:left; padding-top:5px; ">
-                                    <img  border="0" src="${ctx}/static/img/gtdb.png" align="middle"/>&nbsp;&nbsp;<a  onclick="sj();" style="cursor: hand;font-size:14px">功图对比</a>
+                                <div id="gt4" style="width:105px; height:10; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/gtdb.png);">
+                                    <a  onclick="sj();" style="cursor: hand;font-size:14px">&nbsp;功图对比</a>
                                 </div>
-                                <div id="gt5" style="width:131px; height:10; float:left;padding-top:5px;">
-                                    <img src="${ctx}/static/img/cygsl.png" align="middle"/>&nbsp;&nbsp;<a onclick="cyfslfx()" style=" cursor: hand;font-size:14px">抽油杆受力分析</a>
+                                <div id="gt5" style="width:131px; height:10; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/cygsl.png);">
+                                    <a onclick="cyfslfx()" style=" cursor: hand;font-size:14px">&nbsp;抽油杆受力分析</a>
                                 </div>
                                 <div id="gt6" style="width:265px; height:10; float:left">              
                                 </div>
@@ -1406,7 +1404,6 @@
                                 &nbsp有&nbsp功&nbsp功&nbsp率&nbsp曲&nbsp线
                             </div>
                             <div id="gtt" style="width:158px; height:150px; line-height:30px;float:left">
-<<<<<<< HEAD
                             <div id="containerr" style="height:158px;width:150px; "></div>
                              </div>
                              <div id="gtt1" style="width:158px; height:10; float:left">
@@ -1418,19 +1415,6 @@
                                <div id="gtt3" style="width:120px; height:10; float:left " >
                                <div id="containerr3" style="height:158px;width:150px; "></div>
                                </div>
-=======
-                                <div id="containerr" style="height:158px;width:150px; "></div>
-                            </div>
-                            <div id="gtt1" style="width:158px; height:10; float:left">
-                                <div id="containerr1" style="height:158px;width:150px; "></div>
-                            </div>
-                            <div id="gtt2" style="width:158px; height:10; float:left ">
-                                <div id="containerr2" style="height:158px;width:150px; "></div>
-                            </div>
-                            <div id="gtt3" style="width:120px; height:10; float:left " >
-                                <div id="containerr3" style="height:158px;width:150px; "></div>
-                            </div>
->>>>>>> 7426b5b155987e10910a736173ef4bee6eaae347
                             <div id="gtcs" style="width:630px; height:25px; float:left;line-height:30px;font-size:14px; background-color:#deeeff">
                                 <table>
                                     <tr style="height:10px">
@@ -1438,7 +1422,7 @@
                                     </tr>
                                 </table>
                             </div>
-                                <div id="gtc1" onclick="showGtqx('maxZaihe', '最大载荷');" style="cursor:hand; width:210px;line-height:25px; height:25px; font-size:14px;float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px " >
+                           <div id="gtc1" onclick="showGtqx('maxZaihe', '最大载荷');" style="cursor:hand; width:210px;line-height:25px; height:25px; font-size:14px;float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px " >
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp最大载荷(KN)：<span id="maxZaihe"></span>
                             </div>
                             <div id="gtc2" onclick="showGtqx('minZaihe', '最小载荷');" style="cursor:hand; width:210px; line-height:25px;height:25px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px;font-size:14px ">
@@ -1555,7 +1539,7 @@
                         <div id="bia13" style="width:1340px; height:5px;float:left; "></div>
                         <div id="bia2" style="width:5px; height:22px; float:left "></div>
                         <div id="dqcsqx" style=" width:1268px; height:20px; font-size:14px;border-width:1px; background-color:#9fdfae; font-weight:bold;float:left">
-                            &nbsp;电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数&nbsp;&nbsp;&nbsp曲&nbsp;&nbsp;&nbsp线
+                           
                             <span id="dqqxTitle"></span>
                         </div>
                         <div id="bia2" style="width:5px; height:20px; float:left;" ></div>
