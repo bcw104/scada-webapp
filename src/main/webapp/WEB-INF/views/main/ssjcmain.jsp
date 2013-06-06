@@ -482,7 +482,6 @@
              * @returns {undefined}             
              * */
             function doGrClick(gr_rId, gr_cInd){
-                
                     $("#ssqx4").css("display","block");
 					$("#gtdb").css("display","none");
                     
@@ -1378,7 +1377,7 @@
                         <!--功图-->
                         <div id="ba6" style="width:7px; height:154px; float:left"></div>
                         <div id="gt" style="width:630px; height:365px; border:solid; border-width:1px; border-color:#96c2ff; float:left">
-                            <div style="width:629px;height:30px; background-color:#eef7ff;padding-top: 10px;padding-left:20px;">
+                            <div style="width:629px;height:20px; background-color:#eef7ff;padding-top:10px;padding-left:20px;">
                                 <div id="gt3" style="width:125px; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/jsgt.png);">
           
                                     <a onclick="run1();" style="cursor: hand;font-size:14px;">&nbsp;&nbsp;即时功能读取</a>
@@ -1540,7 +1539,7 @@
                         <div id="bia13" style="width:1340px; height:5px;float:left; "></div>
                         <div id="bia2" style="width:5px; height:22px; float:left "></div>
                         <div id="dqcsqx" style=" width:1268px; height:20px; font-size:14px;border-width:1px; background-color:#9fdfae; font-weight:bold;float:left">
-                            &nbsp;电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数&nbsp;&nbsp;&nbsp曲&nbsp;&nbsp;&nbsp线
+                           
                             <span id="dqqxTitle"></span>
                         </div>
                         <div id="bia2" style="width:5px; height:20px; float:left;" ></div>
