@@ -158,41 +158,61 @@
                                 }
                             }else{
 
-                                var youjingItem = new Object();
-                                youjingItem.id = value.key;
+                                 var youjingItem = new Object();
+                                youjingItem.id = value.key + '||' + value.name + '||YOU_JING';
                                 youjingItem.data = [];
                                 youjingItem.data.push(value.name + '：' + value.value);
+
                                 youjingData.rows.push(youjingItem);
                             }
                         });
 
                         gr.parse(youjingData,'json');
+                        //单击事件
+                        if(gr.getRowsNum() > 0){
+                            
+                            doGrClick(gr.getRowId(0), 0);
+                        }
                     }
-                });                        
-                 
+                }); 
                 // 事件绑定
-                gr.attachEvent('onRowDblClicked', function(rId, cInd){
-                
-                    $("#ssqx4").css("display","block");
-					$("#gtdb").css("display","none");
-					var gid=rId;
-					var liename=gr.cells(rId,cInd).getValue();
-					//从分号截取字符串
-					//var zf=liename.split("：");
-					var zf=liename.split("(");
-					var qname=zf[0];
-					var r=zf[1].split(")");
-					var qdw=r[0];
-					var ys;
-					if(j>2){
-						j=0;
-						}
-					ys=yse[j];	
-					te(dyDate,qname,qdw,ys);
-					j+=1;
-                });
+                gr.attachEvent('onRowSelect', doGrClick);
             }
-            
+            /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doGrClick(gr_rId, gr_cInd){
+                    var tmpName = gr_rId.split('||');
+                    $("#ssqxTitle").html( tmpName[1] + '曲线');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+
+                             var colors = Highcharts.getOptions().colors;
+                            var ys;
+                            ys = colors[j];		
+                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }               
             /**
              * 设置RTU状态
              * @returns {undefined}
@@ -220,8 +240,8 @@
 
                         $.each(json,function(key, value){
 
-                            var youjingItem = new Object();
-                            youjingItem.id = value.key;
+                           var youjingItem = new Object();
+                            youjingItem.id = value.key + '||' + value.name + '||RTU_ZHUANG_TAI';
                             youjingItem.data = [];
                             youjingItem.data.push(value.name);
                             
@@ -237,8 +257,48 @@
                         gr1.parse(youjingData,'json');
                     }
                 });  
+                   
+                // 事件绑定
+                gr1.attachEvent('onRowSelect', doGrClick);
             }
+             /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doGrClick(gr_rId, gr_cInd){
             
+                    var tmpName = gr_rId.split('||');
+                    $("#ssqxTitle").html(tmpName[1] + '曲线');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+
+                            var ys;
+                            if(j > 2){
+                                j = 0;
+                            }
+                            ys = yse[j];	
+                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }               
             // 电气参数标题项目
             var strDqTitle = ',u_a,u_b,u_c,i_a,i_b,i_c,gl_ys,';
             /**
@@ -265,7 +325,44 @@
                     }
                 }); 
             }
-            
+            /**
+              * 电气参数信息点击
+              * @param {type} dy_code
+              * @param {type} dy_title
+              * @returns {undefined}
+              */
+            function showDyqx(dy_code, dy_title){
+
+//                    $("#container").html('');
+                    $("#ssqxTitle").html( dy_title + '曲线');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:'DIAN_YC',varName:dy_code},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+
+                            var ys;
+                            if(j > 2){
+                                j = 0;
+                            }
+                            ys = yse[j];	
+                            te(xAxisData, dy_title, '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }
             /**
             * 设置传感器运行信息
             * @returns {undefined}             
@@ -574,25 +671,25 @@
           </div>
           <div id="ba8" style="width:5px; height:154px;float:left" ></div>
             <div id="dqcs" style="width:228px; height:154px; float:right; border:solid; border-width:1px; float:left; border-color:#b4da72; background-color:#fbfff3">
-                   <div id="dq0"  class="cssdiv"  onclick="qxa(0);" style="width:114px; height:38px;cursor:pointer;font-size:14px ;line-height:40px;float:left;border-right-style:solid; border-right-color:#cced94; border-right-width:1px; ">
+                   <div id="dq0"  class="cssdiv"   onclick="showDyqx('u_a', 'A相电压');" style="width:114px; height:38px;cursor:pointer;font-size:14px ;line-height:40px;float:left;border-right-style:solid; border-right-color:#cced94; border-right-width:1px; ">
                         A相电压：<span id="dq_u_a">0</span>
                    </div>
-                   <div id="dq1" class="cssdiv" onclick="qxa(1);"  style="width:113px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
+                   <div id="dq1" class="cssdiv"  onclick="showDyqx('u_a', 'A相电流');"  style="width:113px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
                        A相电流：<span id="dq_i_a">0</span>
                    </div>
-                   <div id="dq2"  class="cssdiv" onclick="qxa(2);" style="width:114px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc; border-right-style:solid; border-right-width:1px">
+                   <div id="dq2"  class="cssdiv" onclick="showDyqx('u_b', 'B相电压');" style="width:114px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc; border-right-style:solid; border-right-width:1px">
                        B相电压：<span id="dq_u_b">0</span>
                    </div>
-                   <div id="dq3" class="cssdiv" onclick="qxa(3);"  style="width:113px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;background-color:#f5ffdc">
+                   <div id="dq3" class="cssdiv" onclick="showDyqx('i_b', 'B相电流');"  style="width:113px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;background-color:#f5ffdc">
                        B相电流：<span id="dq_i_b">0</span>
                    </div>
-                   <div id="dq4" class="cssdiv" onclick="qxa(4);"  style="width:114px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left; border-right-color:#cced94;border-right-style:solid; border-right-width:1px">
+                   <div id="dq4" class="cssdiv"  onclick="showDyqx('u_c', 'C相电压');"  style="width:114px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left; border-right-color:#cced94;border-right-style:solid; border-right-width:1px">
                        C相电压：<span id="dq_u_c">0</span>
                    </div>
-                   <div id="dq5" class="cssdiv" onclick="qxa(5);"  style="width:113px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
+                   <div id="dq5" class="cssdiv" onclick="showDyqx('i_c', 'C相电流');" style="width:113px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
                        C相电流：<span id="dq_i_c">0</span>
                    </div>
-                   <div id="dq6" class="cssdiv" onclick="qxa(6);"  style="width:227px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
+                   <div id="dq6" class="cssdiv" onclick="showDyqx('gl_ys', '平均功率因数');" style="width:227px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
                        平均功率因数：<span id="dq_gl_ys">0</span>
                    </div>
             </div>
@@ -603,7 +700,7 @@
             <div id="ba14" style="width:1280px; height:5px; float:left" ></div>
             <div id="ba15" style="width:5px; height:22px;  float:left" ></div>
             <div id="ssqx3" style="width:1270px; font-size:14px; font-weight:bold; line-height:25px;height:22px; float:left; background-color:#9fdfae" align="left" class="ss2">
-                &nbsp实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp数&nbsp;&nbsp;&nbsp据
+                <span id="ssqxTitle"></span>
             </div>	
             <div id="ba16" style="width:5px; height:22px;   float:left" ></div>
             <div id="ba17" style="width:5px; height:110px; float:left" ></div>
