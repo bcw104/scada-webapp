@@ -110,6 +110,74 @@
                 createzqdqGr1();
                 createzqdqGr2();
             }
+            
+            /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doZqGrClick(gr_rId, gr_cInd){    
+
+                    var tmpVarName;
+                    var tmpVarTtitle;
+                    switch(gr_cInd){
+                        case 0:
+                            tmpVarName = 'zc_zqll_sh';
+                            tmpVarTtitle = '蒸汽流量瞬时值';
+                            break;
+                        case 1:
+                            tmpVarName = 'zc_zqll_lj';
+                            tmpVarTtitle = '蒸汽流量累计值';
+                            break;
+                        case 2:
+                            tmpVarName = 'zc_zqyl';
+                            tmpVarTtitle = '蒸汽压力';
+                            break;
+                        case 3:
+                            tmpVarName = 'zc_zqwd';
+                            tmpVarTtitle = '蒸汽温度';
+                            break;
+                        case 4:
+                            tmpVarName = 'zc_zqgd';
+                            tmpVarTtitle = '蒸汽干度';
+                            break;
+                    }
+                    
+                    $("#ssqxTitle").html('&nbsp&nbsp&nbsp（' + tmpVarTtitle + '曲线）');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:'ZHU_CAI',varName:tmpVarName},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+
+                            var ys;
+                            if(j > 2){
+                                j = 0;
+                            }
+                            ys = yse[j];	
+                            te(xAxisData, tmpVarTtitle, '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }  
+                
+            /**
+             * 获得注气参数
+             * @returns {undefined}
+             */
             function createGrid(){
                 Grid= new dhtmlXGridObject('dqcs');
                 Grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs");
@@ -118,7 +186,91 @@
                 Grid.setColAlign("center,center,center,center,center");
                 Grid.setColTypes("ro,ro,ro,ro,ro");
                 Grid.init();
+                
+                // 获得注气参数信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/groupinfo',
+                    data:{code:'${info.code}',group:'ZHU_CAI'},
+                    dateType:'json',
+                    success: function(json){
+
+                        var youjingData = new Object();
+                        youjingData.rows = [];
+
+                        var youjingItem = new Object();
+                        youjingItem.id = 1;
+                        youjingItem.data = new Array(5);
+                        
+                        $.each(json,function(key, value){
+
+                            switch(value.key){
+                            
+                                case 'zc_zqll_sh':
+                                    youjingItem.data[0] = value.value;
+                                    break;
+                                case 'zc_zqll_lj':
+                                    youjingItem.data[1] = value.value;
+                                    break;
+                                case 'zc_zqyl':
+                                    youjingItem.data[2] = value.value;
+                                    break;
+                                case 'zc_zqwd':
+                                    youjingItem.data[3] = value.value;
+                                    break;
+                                case 'zc_zqgd':
+                                    youjingItem.data[4] = value.value;
+                                    break;
+                            }                        
+                        });
+//                        alert(youjingItem.data);
+                        youjingData.rows.push(youjingItem);
+                        Grid.parse(youjingData,'json');
+                    }
+                }); 
+                
+                // 事件绑定
+                Grid.attachEvent('onRowSelect', doZqGrClick); 
             }
+            
+            /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doGrClick(gr_rId, gr_cInd){                    
+                    var tmpName = gr_rId.split('||');
+                    $("#ssqxTitle").html('&nbsp&nbsp&nbsp（' + tmpName[1] + '曲线）');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+
+                            var ys;
+                            if(j > 2){
+                                j = 0;
+                            }
+                            ys = yse[j];	
+                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }  
+                
             /**
              * 页面布局设置
              * @returns {undefined}
@@ -161,7 +313,7 @@
                             }else{
 
                                 var youjingItem = new Object();
-                                youjingItem.id = value.key;
+                                youjingItem.id = value.key + '||' + value.name + '||YOU_JING';
                                 youjingItem.data = [];
                                 youjingItem.data.push(value.name + '：' + value.value);
                                 youjingData.rows.push(youjingItem);
@@ -169,8 +321,16 @@
                         });
 
                         gr.parse(youjingData,'json');
+                        
+                        if(gr.getRowsNum() > 0){
+                            
+                            doGrClick(gr.getRowId(0), 0);
+                        }
                     }
-                });                   
+                });    
+                
+                // 事件绑定
+                gr.attachEvent('onRowSelect', doGrClick);
                 }
              function createzqdqGr(){
                 zqdq=new dhtmlXGridObject('zqdq');
@@ -195,7 +355,7 @@
                         $.each(json,function(key, value){
 
                             var dataItem = new Object();
-                                dataItem.id = value.key;
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
                                 dataItem.data = [];
                                 dataItem.data.push(value.name + '：' + value.value);
 
@@ -204,7 +364,10 @@
 
                         zqdq.parse(dataInfo,'json');
                     }
-                });  
+                }); 
+                
+                // 事件绑定
+                zqdq.attachEvent('onRowSelect', doGrClick); 
             }
             function createzqdqGr1(){
                 zqdq1=new dhtmlXGridObject('zqdq1');
@@ -229,7 +392,7 @@
                         $.each(json,function(key, value){
 
                             var dataItem = new Object();
-                                dataItem.id = value.key;
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
                                 dataItem.data = [];
                                 dataItem.data.push(value.name + '：' + value.value);
 
@@ -239,7 +402,57 @@
                         zqdq1.parse(dataInfo,'json');
                     }
                 }); 
+                
+                // 事件绑定
+                zqdq1.attachEvent('onRowSelect', doGrClick); 
             }
+            
+                /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doFzZzGrClick(gr_rId, gr_cInd){
+                    
+                    var tmpName = gr_rId.split('||');
+                    $("#dqqxTitle").html('&nbsp&nbsp&nbsp（' + tmpName[1] + '）');
+                    
+                    var xAxisData = [];
+                    var yAxisData = [];
+                    
+                    var colors = Highcharts.getOptions().colors;
+                    
+                    $.each(xbJson, function(key, value){
+
+                        if(value.key == (tmpName[0] + '_array')){
+                        
+                            var valueTmp = value.value.split(',');// alert(valueTmp);
+                            for(var loopTmp = 0; loopTmp < valueTmp.length; loopTmp++){
+                                
+                                xAxisData.push(loopTmp + 1); 
+                                
+                                var dataTmp = new Object();
+                                dataTmp.y = Number(valueTmp[loopTmp]);
+                                dataTmp.color = colors[loopTmp];
+
+                                yAxisData.push(dataTmp);
+                            }
+                            
+                            return false;
+                        }                        
+                    });
+
+                    var ys;
+                    if(j > 2){
+                        j = 0;
+                    }
+                    ys = yse[j];	
+                    te1(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
+                    j += 1;
+                } 
+              
+            var xbJson;
             function createzqdqGr2(){
                 zqdq2=new dhtmlXGridObject('zqdq2');
 				zqdq2.setImagePath("js/gridcodebase/imgs/");
@@ -257,6 +470,7 @@
                     dateType:'json',
                     success: function(json){
 
+                        xbJson = json;
                         var dataInfo = new Object();
                         dataInfo.rows = [];
 
@@ -266,7 +480,7 @@
                                 
                             
                             var dataItem = new Object();
-                                dataItem.id = value.key;
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_XB';
                                 dataItem.data = [];
                                 dataItem.data.push(value.name + '：' + value.value);
 
@@ -277,6 +491,9 @@
                         zqdq2.parse(dataInfo,'json');
                     }
                 });
+                
+                // 事件绑定
+                zqdq2.attachEvent('onRowSelect', doFzZzGrClick); 
             }
            function createwind(){
                         dhxd = new dhtmlXWindows();
@@ -547,6 +764,7 @@
             <div id="dqcsqx1" style=" width:1269px; height:185px;float:left;; border:solid; border-width:1px; border-color:#cced94;">
             <div id="dqcsqx" style=" width:1269px; height:20px; font-size:14px; background-color:#9fdfae; font-weight:bold;float:left">
             &nbsp;实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp曲&nbsp;&nbsp;&nbsp线
+            <span id="ssqxTitle"></span>
             </div>
             <div id="dqcsqxt" style=" width:1268px; height:165px; border-style:solid; border-color:#9fdfae; border-width:1px;  float:left" >
     			<div id="div1" style="width:100%;height:100%;">
