@@ -308,9 +308,9 @@
                             var baojingItem = new Object();
                             baojingItem.id = value.id;
                             baojingItem.data = [];
-                            baojingItem.data.push(value.endTag.id);
+                            baojingItem.data.push(value.id);
                             baojingItem.data.push(value.endTag.name);
-                            baojingItem.data.push('');
+                            baojingItem.data.push(value.endTag.device.name);//待定
                             baojingItem.data.push(value.info);
                             baojingItem.data.push(value.actionTime);
 //                            alert(value.alarmHandleList.length);
@@ -333,7 +333,7 @@
                                 fuzerenInfoItem.data.push(alarmvalue.user.name);
                                 fuzerenInfoItem.data.push(alarmvalue.confirmTime);
                                 fuzerenInfoItem.data.push(alarmvalue.handleTime);
-                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');//待定
                                 
                                 baojingItem.rows.push(fuzerenInfoItem);
                             });                          
