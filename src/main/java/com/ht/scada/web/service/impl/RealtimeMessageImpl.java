@@ -36,7 +36,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
 	public void faultOccured(FaultRecord record) {
         log.info("接收报警信息——faultOccured");
         
-        /*AlarmRecord alarm = new AlarmRecord();
+        AlarmRecord alarm = new AlarmRecord();
         alarm.setAlarmType(ALARM_FAULT);
         alarm.setAlarmId(record.getId());
         EndTag endTag = endTagService.getByCode(record.getCode());
@@ -47,9 +47,9 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
         alarm.setRemark(record.getInfo());
         
         alarmInfoService.saveAlarmRecord(alarm);
-        */
+
         
-        this.pushAlarm(alarmInfoService.getAlarmByID(1));
+        this.pushAlarm(alarm);
 	}
 
 	@Override
@@ -81,14 +81,6 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
         List<UserExtInfo> list = userExtInfoService.getUserExtInfoByEndTag(alarm.getEndTag().getId());
         for(UserExtInfo extInfo:list){
             User user = extInfo.getUser();
-            try{
-                log.debug(JSONSerializer.toJSON(alarm).toString());
-            }catch(Exception ex){
-                log.debug("json error");
-                log.debug("=========================================================================================");
-                log.debug(ex.getMessage());
-                log.debug("=========================================================================================");
-            }
             MetaBroadcaster.getDefault().broadcastTo("/" + user.getUsername(), alarm.getId().toString());
         }
         //MetaBroadcaster.getDefault().broadcastTo("/admin", "aaa");

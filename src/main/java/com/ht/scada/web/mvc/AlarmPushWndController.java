@@ -6,14 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ht.scada.data.RealtimeDataMessageDelegate;
 import com.ht.scada.data.RealtimeMessageListener;
 import com.ht.scada.data.entity.FaultRecord;
-import com.ht.scada.data.entity.OffLimitsRecord;
 import com.ht.scada.data.service.AlarmService;
-import com.ht.scada.data.service.testimpl.TestData;
 import com.ht.scada.data.service.testimpl.TestDataDao;
 import com.ht.scada.security.service.UserService;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.atmosphere.cpr.Broadcaster;
-import org.atmosphere.cpr.MetaBroadcaster;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,13 +103,10 @@ public class AlarmPushWndController {
 	 * */
 	@Scheduled(fixedDelay=5000)
 	public void testSendMessages(){
-        //FaultRecord record = new FaultRecord();
-        //record.setActionTime(new Date());
-        //record.setCode("youjing");
-        //record.setInfo("hello");
-        //record.setName("aaa");
-        //record.setId(UUID.randomUUID().toString());
-        realtimeImpl.faultOccured(null);
+        FaultRecord record = new FaultRecord("youjing", "aaa", "hello", true, new Date());
+
+        record.setId(UUID.randomUUID().toString());
+        realtimeImpl.faultOccured(record);
 		//OffLimitsRecord record = new OffLimitsRecord();
 		//List<TestData> list;
 		//realtimeImpl.offLimitsOccured(record);
