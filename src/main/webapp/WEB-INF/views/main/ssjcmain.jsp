@@ -906,6 +906,7 @@
                     return;
                 }
                 
+                
                 var startDate = new Date($("#gtStart").val().replace("时", "") + ':00:00');
                 var endDate = new Date($("#gtEnd").val().replace("时", "") + ':00:00');
                 
