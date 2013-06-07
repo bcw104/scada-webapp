@@ -23,4 +23,8 @@ public class AlarmInfoServiceImpl implements AlarmInfoService{
     public void saveAlarmRecord(AlarmRecord alarmRecord){
         alarmRecordDao.save(alarmRecord);
     }
+    @Override
+    public AlarmRecord getAlarmByID(int id){
+        return alarmRecordDao.findOne(id);
+    }
 }

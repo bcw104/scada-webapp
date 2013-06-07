@@ -61,6 +61,10 @@ public class AlarmInfoController {
         }
         return alarmList;
     }
-    
+    @RequestMapping(value="getAlarmById")
+	@ResponseBody
+    public AlarmRecord getAlarmById(int id){
+        return alarmInfoService.getAlarmByID(id);
+    }
     
 }

@@ -10,4 +10,5 @@ public interface AlarmInfoService {
 
     void saveAlarmRecord(AlarmRecord alarmRecord);
     
+    public AlarmRecord getAlarmByID(int id);
 }
