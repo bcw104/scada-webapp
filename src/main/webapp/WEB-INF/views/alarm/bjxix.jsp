@@ -153,7 +153,7 @@
                     {
                         type: 'line',
                         name: 'Regression Line',
-                        data: [[Date.UTC(2013,4,3,13,14), 0], [Date.UTC(2013,4,3,13,14),1],[Date.UTC(2013,4,3,13,20),1]],
+                        data:[],
                         marker: {
                             enabled: false
                         },
@@ -167,7 +167,7 @@
                         type: 'scatter',
                         name: '你好',
                         unit:'D',
-                        data: [[Date.UTC(2013,4,3,13,14),1], [Date.UTC(2013,4,3,13,15),1], [Date.UTC(2013,4,3,13,20),1]],
+                        data:[],
                         marker: {
                             radius: 4
                         }
@@ -198,20 +198,52 @@
                     success: function(json){
                         
                         // 曲线参数
-                        var series = [];
-                        // 曲线参数
-                        var seriesItme1 = new Object();
-                        seriesItme1.type = 'line';
-                        seriesItme1.name = '';
-                        seriesItme1.data = [];
-
+                        var seriesItme1;
+                        // 报警参数
+                        var seriesItme2;
                         $.each(json,function(key, value){
                             
-                            if(key == 0){
-                                seriesItme1.data.push([value.actionTime, 0]);
-                            }else{
-                                seriesItme1.data.push([value.actionTime, 1]);
-                            }
+                            // 曲线参数
+                            seriesItme1 = [];
+                            // 报警参数
+                            seriesItme2 = [];
+                            
+                            seriesItme1.push([Number(value.actionTime), 0]);
+                            seriesItme1.push([Number(value.actionTime), 1]);
+
+                            seriesItme1.push([Number(dateNow), 1]);
+                            
+                            seriesItme2.push([Number(value.actionTime), 1]);
+                            $.each(value.alarmHandleList,function(alarmkey, alarmvalue){
+                                
+                                // 回复时间
+                                if(alarmvalue.confirmTime != null && alarmvalue.confirmTime != ''){
+                                    seriesItme2.push([Number(alarmvalue.confirmTime), 1]);
+                                }
+                                // 处理时间
+                                if(alarmvalue.handleTime != null && alarmvalue.handleTime != ''){
+                                    seriesItme2.push([Number(alarmvalue.handleTime), 1]);
+                                }
+                            });  
+                            
+                            var strDivHtml = '  <div id="jxxtp_' + key + '" style="width:1245px; height:193px;  float:left; ">';
+                            strDivHtml += '         <div id="mcxxll1_' + key + '" style="float:left; height:193px; width:190px">';
+                            strDivHtml += '             <div id="mcxxt1_' + key + '" style="height:22px; width:190px; background-color:#e3f5ff; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
+                            strDivHtml += '                 <strong>井号：' + value.endTag.name + '</strong>';
+                            strDivHtml += '             </div>';
+                            strDivHtml += '             <div id="mcxx11_' + key + '" style=" height:81px; width:188px; background-color:#0C3;" ></div>';
+                            strDivHtml += '             <div id="mcxx12_' + key + '" style=" height:81px; width:188px; background-color:#03C;" ></div>';
+                            strDivHtml += '         </div>';
+                            strDivHtml += '         <div id="mcltb1_' + key + '" style=" height:193px; width:1055px; margin-left:190px;"></div>';
+                            strDivHtml += '     </div>';
+                            
+                            $("#qxContent").append(strDivHtml);                            
+//                            alert($("#qxContent").html());
+//alert('mcltb1_' + key + '----' + $('#mcltb1_' + key).length);
+                            options.chart.renderTo = 'mcltb1_' + key;
+                            options.series[0].data = seriesItme1;
+                            options.series[1].data = seriesItme2;
+                            new Highcharts.Chart(options);
                         });
                     }
                 });     
@@ -233,78 +265,6 @@
 //                grid4();
 //                grid5();
 //                grid6();
-            }
-            
-            function grid1(){
-                grid= new dhtmlXGridObject('mcxx11');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["报警对象"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("mt");
-                grid.load('data/dfyx11.json','json');
-            }
-            
-            function grid2(){
-                grid= new dhtmlXGridObject('mcxx12');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["负 责 人"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("mt");
-                grid.load('data/dfyx12.json','json');
-            }
-            
-            function grid3(){
-                grid= new dhtmlXGridObject('mcxx21');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["报警对象"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("modern");
-                grid.load('data/dfyx11.json','json');
-            }
-            
-            function grid4(){
-                grid= new dhtmlXGridObject('mcxx22');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["负 责 人"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("modern");
-                grid.load('data/dfyx12.json','json');
-            }
-            
-            function grid5(){
-                grid= new dhtmlXGridObject('mcxx31');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["报警对象"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("mt");
-                grid.load('data/dfyx11.json','json');
-            }
-            
-            function grid6(){
-                grid= new dhtmlXGridObject('mcxx32');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["负 责 人"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("mt");
-                grid.load('data/dfyx12.json','json');
             }
             
             function jk(cdiv){
@@ -408,7 +368,7 @@
     <body onload="bjxx();">
         <div id="zy"  style="width:3845px; height:717px;border:solid; border-width:1px">
             <!--数据-->
-            <div id="scdt" style="width:1280px; height:69px;  float:left " class="ssjkd">
+            <div id="scdt" style="width:1280px; height:69px;  float:left; font-size: 0 " class="ssjkd">
                 <!--logo-->
                 <div id="ssjc" style="width:1280px; height:10">
                     <img src="${ctx}/static/img/head.png"/>
