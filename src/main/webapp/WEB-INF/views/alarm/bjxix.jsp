@@ -174,8 +174,21 @@
                     }
                 ]
             }
+            
+            // 当前系统时间
+            var dateNow;
             // 曲线初始化
             $(function () {
+                
+                // 获得系统时间
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/alarm/now',
+                    dateType:'json',
+                    success: function(json){
+                        dateNow = json;
+                    }
+                });
                 
                 // 获得实时报警信息
                 $.ajax({
@@ -193,8 +206,12 @@
                         seriesItme1.data = [];
 
                         $.each(json,function(key, value){
-
                             
+                            if(key == 0){
+                                seriesItme1.data.push([value.actionTime, 0]);
+                            }else{
+                                seriesItme1.data.push([value.actionTime, 1]);
+                            }
                         });
                     }
                 });     
