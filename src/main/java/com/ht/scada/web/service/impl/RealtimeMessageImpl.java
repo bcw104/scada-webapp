@@ -16,7 +16,6 @@ import com.ht.scada.web.service.AlarmInfoService;
 import com.ht.scada.web.service.UserExtInfoService;
 import java.util.List;
 import javax.inject.Inject;
-import net.sf.json.JSONSerializer;
 import org.atmosphere.cpr.MetaBroadcaster;
 
 
@@ -45,20 +44,35 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
         alarm.setVarName(record.getName());
         alarm.setRemark(record.getInfo());
         alarmInfoService.saveAlarmRecord(alarm);
-        this.pushAlarm(alarm);
+        pushAlarm(alarm);
 	}
 
 	@Override
 	public void faultResumed(FaultRecord record) {
 		// TODO Auto-generated method stub
 		log.info("报警信息解除--faultResumed");
-        //AlarmRecord alarm = alarmInfoService.getAlarmByID(id);
+        AlarmRecord alarm = alarmInfoService.getAlarmByAlarmId(record.getId());
+        alarm.setResumeTime(record.getResumeTime());
+        alarm.setStatus(1);
+        alarmInfoService.saveAlarmRecord(alarm);
+        pushAlarm(alarm);
 	}
 
 	@Override
 	public void offLimitsOccured(OffLimitsRecord record) {
 		// TODO Auto-generated method stub
 		log.info("接收报警信息——offLimitsOccured");
+        AlarmRecord alarm = new AlarmRecord();
+        alarm.setAlarmType(ALARM_FAULT);
+        alarm.setAlarmId(record.getId());
+        EndTag endTag = endTagService.getByCode(record.getCode());
+        alarm.setEndTag(endTag);
+        alarm.setActionTime(record.getActionTime());
+		alarm.setInfo(record.getInfo());
+        alarm.setVarName(record.getName());
+        alarm.setRemark(record.getInfo());
+        alarmInfoService.saveAlarmRecord(alarm);
+        pushAlarm(alarm);
 	}
 
 	@Override
@@ -71,6 +85,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
 	public void yxChanged(YxRecord record) {
 		// TODO Auto-generated method stub
 		log.info("接收报警信息——yxChanged");
+        
 	}
 
     private void pushAlarm(AlarmRecord alarm){

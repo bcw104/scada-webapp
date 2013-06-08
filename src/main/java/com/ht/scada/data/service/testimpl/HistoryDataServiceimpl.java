@@ -59,5 +59,11 @@ public class HistoryDataServiceimpl implements HistoryDataService{
     public List<VarGroupData> getVarGroupData(String code, VarGroupEnum varGroup, Date start, Date end, int limit) {
         return null;
     }
+
+    @Override
+    public VarGroupData getVarGroupData(String code, VarGroupEnum varGroup, Date start) {
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
