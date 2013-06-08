@@ -71,7 +71,6 @@ public class AlarmInfoController {
                     tmplist = new ArrayList<>();
                     map.put(endTag.getCode(), tmplist);
                 }
-                
                 tmplist.add(rec);
             }
         }

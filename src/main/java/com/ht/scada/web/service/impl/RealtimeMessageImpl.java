@@ -9,6 +9,8 @@ import com.ht.scada.data.RealtimeMessageListener;
 import com.ht.scada.data.entity.FaultRecord;
 import com.ht.scada.data.entity.OffLimitsRecord;
 import com.ht.scada.data.entity.YxRecord;
+import com.ht.scada.oildata.OilDataMessageListener;
+import com.ht.scada.oildata.entity.FaultDiagnoseRecord;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.web.entity.AlarmRecord;
 import com.ht.scada.web.entity.UserExtInfo;
@@ -19,10 +21,17 @@ import javax.inject.Inject;
 import org.atmosphere.cpr.MetaBroadcaster;
 
 
-public class RealtimeMessageImpl implements RealtimeMessageListener {
+public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessageListener {
 	
 	private static final Logger log = LoggerFactory.getLogger(RealtimeMessageImpl.class);
 	private static final String ALARM_FAULT = "ALARM_FAULT";
+    private static final String ALARM_OFFLIMITS = "ALARM_OFFLIMITS";
+    private static final String ALARM_YXCHANGED = "ALARM_YXCHANGED";
+    private static final String ALARM_FAULTDIAGNOSE = "ALARM_FAULTDIAGNOSE";
+    
+    
+    private static final int ALARM_STATUS_OCCURED = 0;
+    private static final int ALARM_STATUS_RESUMED = 1;
     
     @Inject
     private EndTagService endTagService;
@@ -53,7 +62,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
 		log.info("报警信息解除--faultResumed");
         AlarmRecord alarm = alarmInfoService.getAlarmByAlarmId(record.getId());
         alarm.setResumeTime(record.getResumeTime());
-        alarm.setStatus(1);
+        alarm.setStatus(ALARM_STATUS_RESUMED);
         alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
 	}
@@ -63,7 +72,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
 		// TODO Auto-generated method stub
 		log.info("接收报警信息——offLimitsOccured");
         AlarmRecord alarm = new AlarmRecord();
-        alarm.setAlarmType(ALARM_FAULT);
+        alarm.setAlarmType(ALARM_OFFLIMITS);
         alarm.setAlarmId(record.getId());
         EndTag endTag = endTagService.getByCode(record.getCode());
         alarm.setEndTag(endTag);
@@ -79,22 +88,62 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
 	public void offLimitsResumed(OffLimitsRecord record) {
 		// TODO Auto-generated method stub
 		log.info("报警信息解除——offLimitsResumed");
+        AlarmRecord alarm = alarmInfoService.getAlarmByAlarmId(record.getId());
+        alarm.setResumeTime(record.getResumeTime());
+        alarm.setStatus(ALARM_STATUS_RESUMED);
+        alarmInfoService.saveAlarmRecord(alarm);
+        pushAlarm(alarm);
 	}
 
 	@Override
 	public void yxChanged(YxRecord record) {
 		// TODO Auto-generated method stub
 		log.info("接收报警信息——yxChanged");
-        
+        //ALARM_YXCHANGED
+        AlarmRecord alarm = new AlarmRecord();
+        alarm.setAlarmType(ALARM_YXCHANGED);
+        alarm.setAlarmId(record.getId());
+        EndTag endTag = endTagService.getByCode(record.getCode());
+        alarm.setEndTag(endTag);
+        alarm.setActionTime(record.getDatetime());
+        alarm.setResumeTime(record.getDatetime());
+        alarm.setStatus(ALARM_STATUS_RESUMED);
+		alarm.setInfo(record.getInfo());
+        alarm.setVarName(record.getName());
+        alarm.setRemark(record.getInfo());
+        alarmInfoService.saveAlarmRecord(alarm);
+        pushAlarm(alarm);
 	}
 
     private void pushAlarm(AlarmRecord alarm){
-        //JSONSerializer jsonSerializer = new JSONSerializer();
         List<UserExtInfo> list = userExtInfoService.getUserExtInfoByEndTag(alarm.getEndTag().getId());
         for(UserExtInfo extInfo:list){
             User user = extInfo.getUser();
             MetaBroadcaster.getDefault().broadcastTo("/" + user.getUsername(), alarm.getId().toString());
         }
-        //MetaBroadcaster.getDefault().broadcastTo("/admin", "aaa");
+    }
+
+    @Override
+    public void faultOccured(FaultDiagnoseRecord record) {
+        AlarmRecord alarm = new AlarmRecord();
+        alarm.setAlarmType(ALARM_FAULTDIAGNOSE);
+        alarm.setAlarmId(record.getId());
+        EndTag endTag = endTagService.getByCode(record.getCode());
+        alarm.setEndTag(endTag);
+        alarm.setActionTime(record.getActionTime());
+		alarm.setInfo(record.getInfo());
+        alarm.setVarName(record.getName());
+        alarm.setRemark(record.getInfo());
+        alarmInfoService.saveAlarmRecord(alarm);
+        pushAlarm(alarm);
+    }
+
+    @Override
+    public void faultResumed(FaultDiagnoseRecord record) {
+        AlarmRecord alarm = alarmInfoService.getAlarmByAlarmId(record.getId());
+        alarm.setResumeTime(record.getResumeTime());
+        alarm.setStatus(ALARM_STATUS_RESUMED);
+        alarmInfoService.saveAlarmRecord(alarm);
+        pushAlarm(alarm);
     }
 }

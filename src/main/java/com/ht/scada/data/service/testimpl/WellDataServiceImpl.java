@@ -120,5 +120,17 @@ public class WellDataServiceImpl implements WellService {
 		
 		return f;
 	}
+
+    @Override
+    public WellDGTData geWellDGTDataByWellNumAndDatetime(String wellNum, Date time) {
+        		WellDGTData dgt = new WellDGTData();
+		dgt.setCode(wellNum);
+		dgt.setWeiyi(getArray());
+		dgt.setIb(getArray());
+		dgt.setPower(getArray());
+		dgt.setPower_factor(getArray());
+		dgt.setTime(new Date());
+		return dgt;
+    }
 	
 }
