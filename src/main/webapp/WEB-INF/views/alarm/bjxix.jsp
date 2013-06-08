@@ -103,75 +103,101 @@
             }
         </style>
         <script type="text/javascript">
-            $(function () {
-                var chart;
-                $(document).ready(function() {
-                    chart = new Highcharts.Chart({
-                        chart: {
-                            renderTo: 'mcltb1',
-                            type: 'spline'
-                        },
-                        title: {
-                            text: ''
-                        },
-                        subtitle: {
-                            text: ''
-                        },
-                        xAxis: {
-                            type: 'datetime',
-                        },
-                        yAxis: {
-                            title: {
-                                text:null
-                            },
-                            min: 0,
-                            gridLineWidth:0,
-                            max:6,
-                            lineWidth:1,
-                        },
-                         legend: {
+            // 曲线参数
+            var options = {
+                chart: {
+                    renderTo: ''
+                },
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: '',
+                },
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: {
+                    min:0,
+                    title:'',
+                    lineWidth :1,
+                    gridLineWidth:0,
+                    labels: {
+                        formatter: function() {
+                            return '';
+                        }
+                    },
+                },
+                legend: {
+                    enabled: false,
+                },
+                tooltip: {
+                    formatter: function() {
+                        if(this.series.name.indexOf("日")==0){
+                            var index=$.inArray(this.point,this.series.data) ;
+                            return '<b>' + this.series.name + '</b><br/>' 
+                                    + this.x + ': ' + this.y + this.series.options.unit + "<br/>"
+                                    + '<b>去年同期 </b><br/>' + this.series.options.data1[index]
+                                    + this.series.options.unit;
+                        }else{
+                            return '<b>' + '报警时间' + ':' + Highcharts.dateFormat('%e. %b %Y, %H:00') + '</b><br/>' 
+                                    + this.x +': '+ this.y +this.series.options.unit;
+
+                            }
+                        }
+                },
+                plotOptions: {
+                    pointInterval: 3600000
+                },
+                series: [
+                    {
+                        type: 'line',
+                        name: 'Regression Line',
+                        data: [[Date.UTC(2013,4,3,13,14), 0], [Date.UTC(2013,4,3,13,14),1],[Date.UTC(2013,4,3,13,20),1]],
+                        marker: {
                             enabled: false
                         },
-                        plotOptions: {
-                            //未选线，线效果
-                            spline: {
-                                lineWidth: 4,
-                                //选线，线效果
-                                states: {
-                                    hover: {
-                                        lineWidth: 4
-                                    }
-                                },
-                                marker: {
-                                    enabled: false,
-                                   //选点，点效果
-                                    states: {
-                                        hover: {
-                                            enabled: true,
-                                            symbol: 'circle',
-                                            radius: 1,
-                                            lineWidth: 0
-                                        }
-                                    }
-                                },
-                                pointInterval: 3600000, // one hour
-                                pointStart: Date.UTC(2013, 3, 6, 0, 0, 0)
+                        states: {
+                            hover: {
+                                lineWidth: 0
                             }
                         },
-                        series: [{
-                            name: '井口温度越线',
-                            data: [
-                                [Date.UTC(13,00,00), 0],
-                                [Date.UTC(13,00,00), 1],
-                                [Date.UTC(14,00,00), 1],
-                                [Date.UTC(15,00,00), 1],
-                                [Date.UTC(16,00,00), 1],
-                                [Date.UTC(17,00,00), 1],
-                                [Date.UTC(17,00,00), 0]
-                            ]
-                        }]
-                    });
-                });    
+                        enableMouseTracking: false
+                     }, {
+                        type: 'scatter',
+                        name: '你好',
+                        unit:'D',
+                        data: [[Date.UTC(2013,4,3,13,14),1], [Date.UTC(2013,4,3,13,15),1], [Date.UTC(2013,4,3,13,20),1]],
+                        marker: {
+                            radius: 4
+                        }
+                    }
+                ]
+            }
+            // 曲线初始化
+            $(function () {
+                
+                // 获得实时报警信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/alarm/realtime',
+                    dateType:'json',
+                    success: function(json){
+                        
+                        // 曲线参数
+                        var series = [];
+                        // 曲线参数
+                        var seriesItme1 = new Object();
+                        seriesItme1.type = 'line';
+                        seriesItme1.name = '';
+                        seriesItme1.data = [];
+
+                        $.each(json,function(key, value){
+
+                            
+                        });
+                    }
+                });     
             });
 		</script>
         <script>
@@ -427,47 +453,7 @@
                             <div id="jxx" style="width:1245px; height:20px; background-color:#8ed4ff; font-size:14px; font-weight:bold; line-height:20px;float:left">
                                 &nbsp;&nbsp;实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp信&nbsp;&nbsp;&nbsp息
                             </div>
-                            <div id="jxxtp" style="width:1245px; height:193px;  float:left; ">
-                                <div id="mcxxll1" style="float:left; height:193px; width:190px">
-                                    <div id="mcxxt1" style="height:22px; width:190px; background-color:#e3f5ff; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">
-                                        <strong>井号：HJSH127-23</strong>
-                                    </div>
-                                    <div id="mcxx11" style=" height:81px; width:188px; background-color:#0C3;" >
-                                    </div>
-                                    <div id="mcxx12" style=" height:81px; width:188px; background-color:#03C;" >
-                                    </div>
-                                </div>
-                                <div id="mcltb1" style=" height:193px; width:1055px; margin-left:190px;">
-                                    1
-                                </div>
-                            </div>
-                            <div id="djxxtp" style="width:1245px; height:193px; float:left; background-color:#0F0;">
-                                <div id="mcxxll2" style="float:left; height:193px; width:190px">
-                                    <div id="mcxxt2" style="height:22px; width:190px; background-color:#f5ffdc; text-align:center;cursor:hand; font-size:14px; padding-top:6px;" >
-                                        <strong>井号：HJSH127-24</strong>
-                                    </div>
-                                    <div id="mcxx21" style=" height:81px; width:188px; background-color:#0C3;" >
-                                    </div>
-                                    <div id="mcxx22" style=" height:81px; width:188px; background-color:#03C;" >
-                                    </div>
-                                </div>
-                                <div id="mcltb2" style=" height:193px; width:1055px; margin-left:190px; background-color:#90F;">
-                                    1
-                                </div>
-                            </div>
-                            <div id="zyztp"  style="width:1245px; height:193px; float:left; background-color:#00F;">
-                                <div id="mcxxll3" style="float:left; height:193px; width:190px">
-                                    <div id="mcxxt1" style="height:22px; width:190px; background-color:#e3f5ff; text-align:center;cursor:hand; font-size:14px; padding-top:6px;" >
-                                    <strong>井号：HJSH127-25</strong>
-                                    </div>
-                                    <div id="mcxx31" style=" height:81px; width:188px; background-color:#0C3;" >
-                                    </div>
-                                    <div id="mcxx32" style=" height:81px; width:188px; background-color:#03C;" >
-                                    </div>
-                                </div>
-                                <div id="mcltb3" style=" height:193px; width:1055px; margin-left:190px; background-color:#90F;">
-                                1
-                                </div>
+                            <div id="qxContent">            
                             </div>
                         </div> 
                     </div>
