@@ -32,10 +32,10 @@ public class AlarmHandle extends AbstractPersistable<Integer>{
 	private AlarmRecord alarmRecord;
 	
 	@Column(name = "confirm_time")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
 	private Date confirmTime;	//确定时间
     @Column(name = "handle_time")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
 	private Date handleTime;	//处理时间
     
     
