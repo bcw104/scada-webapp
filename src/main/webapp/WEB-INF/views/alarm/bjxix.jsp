@@ -12,7 +12,7 @@
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
         <script src="${ctx}/static/js/highcharts.src.js"></script>
-        <script src="${ctx}/static/js/exporting.js"></script>
+        <script src="${ctx}/static/js/map.js" type="text/javascript"></script>
         <style type="text/css">
             html, body {
                 width: 100%;
@@ -103,6 +103,8 @@
             }
         </style>
         <script type="text/javascript">
+            var treeGrid,dhxWins,dhxWins1,grid1,grid2,grid3,grid4,grid5,grid6;
+            
             // 曲线参数
             var options = {
                 chart: {
@@ -133,26 +135,19 @@
                 },
                 tooltip: {
                     formatter: function() {
-                        if(this.series.name.indexOf("日")==0){
-                            var index=$.inArray(this.point,this.series.data) ;
-                            return '<b>' + this.series.name + '</b><br/>' 
-                                    + this.x + ': ' + this.y + this.series.options.unit + "<br/>"
-                                    + '<b>去年同期 </b><br/>' + this.series.options.data1[index]
-                                    + this.series.options.unit;
-                        }else{
-                            return '<b>' + '报警时间' + ':' + Highcharts.dateFormat('%e. %b %Y, %H:00') + '</b><br/>' 
-                                    + this.x +': '+ this.y +this.series.options.unit;
 
-                            }
-                        }
+                        return '<b>' + this.series.name.get(this.key) + '</b>';
+                    }
                 },
                 plotOptions: {
                     pointInterval: 3600000
                 },
-                series: [
-                    {
+                series:[]
+            }
+            
+            var series1 = {
                         type: 'line',
-                        name: 'Regression Line',
+                        name: '',
                         data:[],
                         marker: {
                             enabled: false
@@ -163,18 +158,18 @@
                             }
                         },
                         enableMouseTracking: false
-                     }, {
+                     };
+            var series2 = {
                         type: 'scatter',
-                        name: '你好',
+                        name: '',
                         unit:'D',
                         data:[],
                         marker: {
                             radius: 4
                         }
-                    }
-                ]
-            }
+                    };
             
+                        var mapPoint;
             // 当前系统时间
             var dateNow;
             // 曲线初始化
@@ -196,61 +191,172 @@
                     url: '${ctx}/alarm/realtime',
                     dateType:'json',
                     success: function(json){
+                        var loopIndex = 0;
+                        var dateTmp;
                         
+                        // 井名称
+                        var jingName;
                         // 曲线参数
                         var seriesItme1;
+                        var seriesItme1Tmp;
                         // 报警参数
                         var seriesItme2;
+                        var seriesItme2Tmp;
+                        
+                        var seriesItme2Name;
+                        // 报警对象
+                        var baojingData;
+                        // 负责人
+                        var fuzerenData;
+                        
+                        // 遍历井
                         $.each(json,function(key, value){
                             
                             // 曲线参数
                             seriesItme1 = [];
                             // 报警参数
                             seriesItme2 = [];
-                            
-                            seriesItme1.push([Number(value.actionTime), 0]);
-                            seriesItme1.push([Number(value.actionTime), 1]);
-
-                            seriesItme1.push([Number(dateNow), 1]);
-                            
-                            seriesItme2.push([Number(value.actionTime), 1]);
-                            $.each(value.alarmHandleList,function(alarmkey, alarmvalue){
+                            seriesItme2Name = [];
+                            // 报警对象
+                            baojingData = new Object();
+                            baojingData.rows = [];
+                            // 负责人
+                            fuzerenData = new Object();
+                            fuzerenData.rows = [];
                                 
-                                // 回复时间
-                                if(alarmvalue.confirmTime != null && alarmvalue.confirmTime != ''){
-                                    seriesItme2.push([Number(alarmvalue.confirmTime), 1]);
-                                }
-                                // 处理时间
-                                if(alarmvalue.handleTime != null && alarmvalue.handleTime != ''){
-                                    seriesItme2.push([Number(alarmvalue.handleTime), 1]);
-                                }
-                            });  
+                            // 遍历报警信息
+                            $.each(value,function(itemkey, itemvalue){                         
+
+                                mapPoint = new Map();
+                                seriesItme1Tmp = [];
+                                seriesItme2Tmp = [];
+                                jingName = itemvalue.endTag.name;
+                                
+                                seriesItme1Tmp.push([Number(itemvalue.actionTime), 0]);
+                                seriesItme1Tmp.push([Number(itemvalue.actionTime), (value.length - itemkey)]);
+                                seriesItme1Tmp.push([Number(dateNow), (value.length - itemkey)]);
+                                
+                                seriesItme1.push(seriesItme1Tmp);
+
+                                seriesItme2Tmp.push([Number(itemvalue.actionTime), (value.length - itemkey)]);
+                                dateTmp = new Date(itemvalue.actionTime);
+                                mapPoint.set(itemvalue.actionTime, '报警时间:' + dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes() 
+                                        + '<br/>' + '报警原因:' + itemvalue.info);
+                                        
+                                $.each(itemvalue.alarmHandleList,function(alarmkey, alarmvalue){
+
+                                    // 回复时间
+                                    if(alarmvalue.confirmTime != null && alarmvalue.confirmTime != ''){
+                                        seriesItme2Tmp.push([Number(alarmvalue.confirmTime), (value.length - itemkey)]);
+                                        dateTmp = new Date(alarmvalue.confirmTime);
+                                        mapPoint.set(alarmvalue.confirmTime, '回复时间:' + dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                                + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes() 
+                                                + '<br/>' + '负责人:' + alarmvalue.user.name);
+                                    }
+                                    // 处理时间
+                                    if(alarmvalue.handleTime != null && alarmvalue.handleTime != ''){
+                                        seriesItme2Tmp.push([Number(alarmvalue.handleTime), (value.length - itemkey)]);
+                                        dateTmp = new Date(alarmvalue.confirmTime);
+                                        mapPoint.set(alarmvalue.handleTime, '处理时间:' + dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                                + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes() 
+                                                + '<br/>' + '负责人:' + alarmvalue.user.name);
+                                    }
+                                    
+                                    // 报警对象
+                                    var fuzerenItem = new Object();
+                                    fuzerenItem.id = alarmvalue.user.id;
+                                    fuzerenItem.data = [alarmvalue.user.name];
+                                    fuzerenData.rows.push(fuzerenItem);
+                                });
+                                
+                                seriesItme2.push(seriesItme2Tmp);
+                                seriesItme2Name.push(mapPoint);
+                                
+                                // 报警对象
+                                var baojingItem = new Object();
+                                baojingItem.id = itemvalue.endTag.id + '||' + itemkey;
+                                baojingItem.data = [itemvalue.info];
+                                baojingData.rows.push(baojingItem);
+                            }); 
                             
                             var strDivHtml = '  <div id="jxxtp_' + key + '" style="width:1245px; height:193px;  float:left; ">';
                             strDivHtml += '         <div id="mcxxll1_' + key + '" style="float:left; height:193px; width:190px">';
-                            strDivHtml += '             <div id="mcxxt1_' + key + '" style="height:22px; width:190px; background-color:#e3f5ff; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
-                            strDivHtml += '                 <strong>井号：' + value.endTag.name + '</strong>';
+                            
+                            if(loopIndex % 2 === 0){                            
+                                strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#e3f5ff; height:22px; width:190px; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
+                            }else{
+                                strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#f5ffdc; height:22px; width:190px; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
+                            }
+                            
+//                            strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#e3f5ff; height:22px; width:190px; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
+                            strDivHtml += '                 <strong>井号：' + jingName + '</strong>';
                             strDivHtml += '             </div>';
                             strDivHtml += '             <div id="mcxx11_' + key + '" style=" height:81px; width:188px; background-color:#0C3;" ></div>';
                             strDivHtml += '             <div id="mcxx12_' + key + '" style=" height:81px; width:188px; background-color:#03C;" ></div>';
                             strDivHtml += '         </div>';
                             strDivHtml += '         <div id="mcltb1_' + key + '" style=" height:193px; width:1055px; margin-left:190px;"></div>';
                             strDivHtml += '     </div>';
-                            
+
                             $("#qxContent").append(strDivHtml);                            
-//                            alert($("#qxContent").html());
-//alert('mcltb1_' + key + '----' + $('#mcltb1_' + key).length);
-                            options.chart.renderTo = 'mcltb1_' + key;
-                            options.series[0].data = seriesItme1;
-                            options.series[1].data = seriesItme2;
+  
+                            // 报警对象
+                            grid1 = new dhtmlXGridObject('mcxx11_' + key);
+                            grid1.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+                            grid1.setHeader(["报警对象"]);
+                            grid1.setInitWidths("188");
+                            grid1.setColAlign("center");
+                            grid1.setColTypes("ro");
+                            grid1.init();
+                            
+                            // 负责人
+                            grid2 = new dhtmlXGridObject('mcxx12_' + key);
+                            grid2.setImagePath("js/gridcodebase/imgs/");
+                            grid2.setHeader(["负 责 人"]);
+                            grid2.setInitWidths("188");
+                            grid2.setColAlign("center");
+                            grid2.setColTypes("ro");
+                            grid2.init();
+                            
+                            if(loopIndex % 2 === 0){                            
+                                grid1.setSkin("mt");
+                                grid2.setSkin("mt");
+                            }else{
+                                grid1.setSkin("modern");
+                                grid2.setSkin("modern");
+                            }
+                            
+                            grid1.parse(baojingData,'json');                            
+                            grid2.parse(fuzerenData,'json');
+                            loopIndex++;
+    
+                            options.chart.renderTo = 'mcltb1_' + key;                            
+                            options.series = [];
+                            series1.data = [];
+                            series2.data = [];
+                            
+                            for(var i = 0; i < seriesItme1.length; i++){
+                                
+                                var series1Tmp = new Object();
+                                var series2Tmp = new Object();
+                                
+                                $.extend(series1Tmp, series1);
+                                $.extend(series2Tmp, series2);
+
+                                series1Tmp.data = seriesItme1[i];
+                                series2Tmp.name = seriesItme2Name[i];
+                                series2Tmp.data = seriesItme2[i];
+                                
+                                options.series.push(series1Tmp);
+                                options.series.push(series2Tmp);
+                            }
                             new Highcharts.Chart(options);
                         });
                     }
                 });     
             });
 		</script>
-        <script>
-            var treeGrid,dhxWins,dhxWins1,grid1,grid2,grid3,grid4,grid5,grid6;
+        <script>          
             
             /**
              * 报警信息初始化
@@ -259,12 +365,6 @@
             function bjxx(){
                 createTreeGrid();
                 $(".cssdiv1").addClass("s1");
-//                grid1();
-//                grid2();
-//                grid3();
-//                grid4();
-//                grid5();
-//                grid6();
             }
             
             function jk(cdiv){
@@ -315,8 +415,11 @@
                             baojingItem.data.push(value.endTag.name);
                             baojingItem.data.push(value.endTag.device.name);//待定
                             baojingItem.data.push(value.info);
-                            baojingItem.data.push(value.actionTime);
-//                            alert(value.alarmHandleList.length);
+                            
+                            dateTmp = new Date(value.actionTime);
+                            baojingItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
+
                             // 负责人信息设置
                             var fuzerenInfo = {};
                             fuzerenInfo.value = value.alarmHandleList.length + '人';
@@ -334,8 +437,13 @@
                                 fuzerenInfoItem.data.push('');
                                 fuzerenInfoItem.data.push('');
                                 fuzerenInfoItem.data.push(alarmvalue.user.name);
-                                fuzerenInfoItem.data.push(alarmvalue.confirmTime);
-                                fuzerenInfoItem.data.push(alarmvalue.handleTime);
+                                
+                                dateTmp = new Date(alarmvalue.confirmTime);
+                                fuzerenInfoItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
+                                dateTmp = new Date(alarmvalue.handleTime);
+                                fuzerenInfoItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
                                 fuzerenInfoItem.data.push('');//待定
                                 
                                 baojingItem.rows.push(fuzerenInfoItem);
