@@ -10,7 +10,9 @@ import com.ht.scada.web.service.AlarmInfoService;
 import com.ht.scada.web.service.UserExtInfoService;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,19 +53,30 @@ public class AlarmInfoController {
     }
     @RequestMapping(value="realtime")
 	@ResponseBody
-    public List<AlarmRecord> realtime(){
+    public Map<String,List>  realtime(){
         List<AlarmRecord> list = alarmInfoService.getHistoryAlarmRecord(0);
         List<AlarmRecord> alarmList = new ArrayList<>();
+        Map<String,List> map = new HashMap<>();
         User user = userService.getCurrentUser();
         UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
         Set<Integer> endTagIDs= userExtInfo.getEndTagID();
         for(AlarmRecord rec :list){
             EndTag endTag = rec.getEndTag();
             if(endTagIDs.contains(endTag.getId())){
-                alarmList.add(rec);
+                //按井分类,增加到列表
+                List<AlarmRecord> tmplist;
+                if(map.containsKey(endTag.getCode())){
+                    tmplist = map.get(endTag.getCode());
+                }else{
+                    tmplist = new ArrayList<>();
+                    map.put(endTag.getCode(), tmplist);
+                }
+                
+                tmplist.add(rec);
             }
         }
-        return alarmList;
+
+        return map;
     }
     @RequestMapping(value="getAlarmById")
 	@ResponseBody
