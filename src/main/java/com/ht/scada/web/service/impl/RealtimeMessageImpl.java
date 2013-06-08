@@ -45,14 +45,18 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
         alarm.setVarName(record.getName());
         alarm.setRemark(record.getInfo());
         alarmInfoService.saveAlarmRecord(alarm);
-        this.pushAlarm(alarm);
+        pushAlarm(alarm);
 	}
 
 	@Override
 	public void faultResumed(FaultRecord record) {
 		// TODO Auto-generated method stub
 		log.info("报警信息解除--faultResumed");
-        //AlarmRecord alarm = alarmInfoService.getAlarmByID(id);
+        AlarmRecord alarm = alarmInfoService.getAlarmByAlarmId(record.getId());
+        alarm.setResumeTime(record.getResumeTime());
+        alarm.setStatus(1);
+        alarmInfoService.saveAlarmRecord(alarm);
+        pushAlarm(alarm);
 	}
 
 	@Override

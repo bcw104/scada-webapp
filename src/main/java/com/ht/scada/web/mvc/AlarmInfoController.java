@@ -3,6 +3,7 @@ package com.ht.scada.web.mvc;
 import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
+import com.ht.scada.web.entity.AlarmHandle;
 import com.ht.scada.web.entity.AlarmRecord;
 import com.ht.scada.web.entity.UserExtInfo;
 import com.ht.scada.web.service.AlarmInfoService;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/alarm")
 public class AlarmInfoController {
     private static final Logger log = LoggerFactory.getLogger(AlarmInfoController.class);
+    private static final String STR_CONFIRM = "confirm";
+    private static final String STR_HANDLE = "handle";
     
     @Autowired
     private AlarmInfoService alarmInfoService;
@@ -68,8 +71,35 @@ public class AlarmInfoController {
         return alarmInfoService.getAlarmByID(id);
     }
     @RequestMapping(value="confirm")
-    public void confirm(int alarmId,String user,String type){
-        
+    @ResponseBody
+    public boolean confirm(int alarmId,String user,String type){
+        AlarmRecord alarm = alarmInfoService.getAlarmByID(alarmId);
+        Date curDate = new Date();
+        AlarmHandle record = null;
+        for(AlarmHandle rec:alarm.getAlarmHandleList()){
+            if(rec.getUser().getUsername().equals(user)){
+                record = rec;
+            }
+        }
+        if(record == null){
+            record = new AlarmHandle();
+            User usr = userService.getUserByUsername(user);
+            record.setUser(usr);
+            record.setAlarmRecord(alarm);
+            //alarm.getAlarmHandleList().add(record);
+        }
+        if(type.equals(STR_CONFIRM)){
+            //报警回复
+            record.setConfirmTime(curDate);
+            alarmInfoService.saveAlarmHandle(record);
+        }else if(type.equals(STR_HANDLE)){
+            //报警处理
+            record.setHandleTime(curDate);
+            alarmInfoService.saveAlarmHandle(record);
+        }else{
+            return false;
+        }
+        return true;
     }
     @RequestMapping(value="now")
     @ResponseBody
