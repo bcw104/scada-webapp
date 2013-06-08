@@ -100,7 +100,7 @@ public class AlarmPushWndController {
 	/*
 	 * 
 	 * 测试发送报警信息
-	 * */
+	 
 	@Scheduled(fixedDelay=5000)
 	public void testSendMessages(){
         FaultRecord record = new FaultRecord("youjing", "aaa", "hello", true, new Date());
@@ -116,7 +116,7 @@ public class AlarmPushWndController {
         //log.info("当前测试数据有:" + list.size() + "条;");
         
 	}
-    
+    * */
 	/**
 	 * TODO: 仅用于模拟推送数据时使用
 	 */

@@ -8,6 +8,7 @@ import com.ht.scada.web.entity.UserExtInfo;
 import com.ht.scada.web.service.AlarmInfoService;
 import com.ht.scada.web.service.UserExtInfoService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import org.slf4j.Logger;
@@ -66,5 +67,13 @@ public class AlarmInfoController {
     public AlarmRecord getAlarmById(int id){
         return alarmInfoService.getAlarmByID(id);
     }
-    
+    @RequestMapping(value="confirm")
+    public void confirm(int alarmId,String user,String type){
+        
+    }
+    @RequestMapping(value="now")
+    @ResponseBody
+    public Date now(){
+        return new Date();
+    }
 }
