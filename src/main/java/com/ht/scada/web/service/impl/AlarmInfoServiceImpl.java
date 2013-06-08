@@ -27,4 +27,7 @@ public class AlarmInfoServiceImpl implements AlarmInfoService{
     public AlarmRecord getAlarmByID(int id){
         return alarmRecordDao.findOne(id);
     }
+    public AlarmRecord getAlarmByAlarmId(String alarmId){
+        return alarmRecordDao.findByAlarmId(alarmId);
+    }
 }

@@ -35,7 +35,6 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
 	@Override
 	public void faultOccured(FaultRecord record) {
         log.info("接收报警信息——faultOccured");
-        
         AlarmRecord alarm = new AlarmRecord();
         alarm.setAlarmType(ALARM_FAULT);
         alarm.setAlarmId(record.getId());
@@ -45,10 +44,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
 		alarm.setInfo(record.getInfo());
         alarm.setVarName(record.getName());
         alarm.setRemark(record.getInfo());
-        
         alarmInfoService.saveAlarmRecord(alarm);
-
-        
         this.pushAlarm(alarm);
 	}
 
@@ -56,6 +52,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener {
 	public void faultResumed(FaultRecord record) {
 		// TODO Auto-generated method stub
 		log.info("报警信息解除--faultResumed");
+        //AlarmRecord alarm = alarmInfoService.getAlarmByID(id);
 	}
 
 	@Override
