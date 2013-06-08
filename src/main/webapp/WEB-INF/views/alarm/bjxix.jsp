@@ -12,7 +12,7 @@
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
         <script src="${ctx}/static/js/highcharts.src.js"></script>
-        <script src="${ctx}/static/js/exporting.js"></script>
+        <script src="${ctx}/static/js/map.js" type="text/javascript"></script>
         <style type="text/css">
             html, body {
                 width: 100%;
@@ -103,79 +103,260 @@
             }
         </style>
         <script type="text/javascript">
-            $(function () {
-                var chart;
-                $(document).ready(function() {
-                    chart = new Highcharts.Chart({
-                        chart: {
-                            renderTo: 'mcltb1',
-                            type: 'spline'
-                        },
-                        title: {
-                            text: ''
-                        },
-                        subtitle: {
-                            text: ''
-                        },
-                        xAxis: {
-                            type: 'datetime',
-                        },
-                        yAxis: {
-                            title: {
-                                text:null
-                            },
-                            min: 0,
-                            gridLineWidth:0,
-                            max:6,
-                            lineWidth:1,
-                        },
-                         legend: {
+            var treeGrid,dhxWins,dhxWins1,grid1,grid2,grid3,grid4,grid5,grid6;
+            
+            // 曲线参数
+            var options = {
+                chart: {
+                    renderTo: ''
+                },
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: '',
+                },
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: {
+                    min:0,
+                    title:'',
+                    lineWidth :1,
+                    gridLineWidth:0,
+                    labels: {
+                        formatter: function() {
+                            return '';
+                        }
+                    },
+                },
+                legend: {
+                    enabled: false,
+                },
+                tooltip: {
+                    formatter: function() {
+
+                        return '<b>' + this.series.name.get(this.key) + '</b>';
+                    }
+                },
+                plotOptions: {
+                    pointInterval: 3600000
+                },
+                series:[]
+            }
+            
+            var series1 = {
+                        type: 'line',
+                        name: '',
+                        data:[],
+                        marker: {
                             enabled: false
                         },
-                        plotOptions: {
-                            //未选线，线效果
-                            spline: {
-                                lineWidth: 4,
-                                //选线，线效果
-                                states: {
-                                    hover: {
-                                        lineWidth: 4
-                                    }
-                                },
-                                marker: {
-                                    enabled: false,
-                                   //选点，点效果
-                                    states: {
-                                        hover: {
-                                            enabled: true,
-                                            symbol: 'circle',
-                                            radius: 1,
-                                            lineWidth: 0
-                                        }
-                                    }
-                                },
-                                pointInterval: 3600000, // one hour
-                                pointStart: Date.UTC(2013, 3, 6, 0, 0, 0)
+                        states: {
+                            hover: {
+                                lineWidth: 0
                             }
                         },
-                        series: [{
-                            name: '井口温度越线',
-                            data: [
-                                [Date.UTC(13,00,00), 0],
-                                [Date.UTC(13,00,00), 1],
-                                [Date.UTC(14,00,00), 1],
-                                [Date.UTC(15,00,00), 1],
-                                [Date.UTC(16,00,00), 1],
-                                [Date.UTC(17,00,00), 1],
-                                [Date.UTC(17,00,00), 0]
-                            ]
-                        }]
-                    });
-                });    
+                        enableMouseTracking: false
+                     };
+            var series2 = {
+                        type: 'scatter',
+                        name: '',
+                        unit:'D',
+                        data:[],
+                        marker: {
+                            radius: 4
+                        }
+                    };
+            
+                        var mapPoint;
+            // 当前系统时间
+            var dateNow;
+            // 曲线初始化
+            $(function () {
+                
+                // 获得系统时间
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/alarm/now',
+                    dateType:'json',
+                    success: function(json){
+                        dateNow = json;
+                    }
+                });
+                
+                // 获得实时报警信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/alarm/realtime',
+                    dateType:'json',
+                    success: function(json){
+                        var loopIndex = 0;
+                        var dateTmp;
+                        
+                        // 井名称
+                        var jingName;
+                        // 曲线参数
+                        var seriesItme1;
+                        var seriesItme1Tmp;
+                        // 报警参数
+                        var seriesItme2;
+                        var seriesItme2Tmp;
+                        
+                        var seriesItme2Name;
+                        // 报警对象
+                        var baojingData;
+                        // 负责人
+                        var fuzerenData;
+                        
+                        // 遍历井
+                        $.each(json,function(key, value){
+                            
+                            // 曲线参数
+                            seriesItme1 = [];
+                            // 报警参数
+                            seriesItme2 = [];
+                            seriesItme2Name = [];
+                            // 报警对象
+                            baojingData = new Object();
+                            baojingData.rows = [];
+                            // 负责人
+                            fuzerenData = new Object();
+                            fuzerenData.rows = [];
+                                
+                            // 遍历报警信息
+                            $.each(value,function(itemkey, itemvalue){                         
+
+                                mapPoint = new Map();
+                                seriesItme1Tmp = [];
+                                seriesItme2Tmp = [];
+                                jingName = itemvalue.endTag.name;
+                                
+                                seriesItme1Tmp.push([Number(itemvalue.actionTime), 0]);
+                                seriesItme1Tmp.push([Number(itemvalue.actionTime), (value.length - itemkey)]);
+                                seriesItme1Tmp.push([Number(dateNow), (value.length - itemkey)]);
+                                
+                                seriesItme1.push(seriesItme1Tmp);
+
+                                seriesItme2Tmp.push([Number(itemvalue.actionTime), (value.length - itemkey)]);
+                                dateTmp = new Date(itemvalue.actionTime);
+                                mapPoint.set(itemvalue.actionTime, '报警时间:' + dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes() 
+                                        + '<br/>' + '报警原因:' + itemvalue.info);
+                                        
+                                $.each(itemvalue.alarmHandleList,function(alarmkey, alarmvalue){
+
+                                    // 回复时间
+                                    if(alarmvalue.confirmTime != null && alarmvalue.confirmTime != ''){
+                                        seriesItme2Tmp.push([Number(alarmvalue.confirmTime), (value.length - itemkey)]);
+                                        dateTmp = new Date(alarmvalue.confirmTime);
+                                        mapPoint.set(alarmvalue.confirmTime, '回复时间:' + dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                                + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes() 
+                                                + '<br/>' + '负责人:' + alarmvalue.user.name);
+                                    }
+                                    // 处理时间
+                                    if(alarmvalue.handleTime != null && alarmvalue.handleTime != ''){
+                                        seriesItme2Tmp.push([Number(alarmvalue.handleTime), (value.length - itemkey)]);
+                                        dateTmp = new Date(alarmvalue.confirmTime);
+                                        mapPoint.set(alarmvalue.handleTime, '处理时间:' + dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                                + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes() 
+                                                + '<br/>' + '负责人:' + alarmvalue.user.name);
+                                    }
+                                    
+                                    // 报警对象
+                                    var fuzerenItem = new Object();
+                                    fuzerenItem.id = alarmvalue.user.id;
+                                    fuzerenItem.data = [alarmvalue.user.name];
+                                    fuzerenData.rows.push(fuzerenItem);
+                                });
+                                
+                                seriesItme2.push(seriesItme2Tmp);
+                                seriesItme2Name.push(mapPoint);
+                                
+                                // 报警对象
+                                var baojingItem = new Object();
+                                baojingItem.id = itemvalue.endTag.id + '||' + itemkey;
+                                baojingItem.data = [itemvalue.info];
+                                baojingData.rows.push(baojingItem);
+                            }); 
+                            
+                            var strDivHtml = '  <div id="jxxtp_' + key + '" style="width:1245px; height:193px;  float:left; ">';
+                            strDivHtml += '         <div id="mcxxll1_' + key + '" style="float:left; height:193px; width:190px">';
+                            
+                            if(loopIndex % 2 === 0){                            
+                                strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#e3f5ff; height:22px; width:190px; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
+                            }else{
+                                strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#f5ffdc; height:22px; width:190px; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
+                            }
+                            
+//                            strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#e3f5ff; height:22px; width:190px; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
+                            strDivHtml += '                 <strong>井号：' + jingName + '</strong>';
+                            strDivHtml += '             </div>';
+                            strDivHtml += '             <div id="mcxx11_' + key + '" style=" height:81px; width:188px; background-color:#0C3;" ></div>';
+                            strDivHtml += '             <div id="mcxx12_' + key + '" style=" height:81px; width:188px; background-color:#03C;" ></div>';
+                            strDivHtml += '         </div>';
+                            strDivHtml += '         <div id="mcltb1_' + key + '" style=" height:193px; width:1055px; margin-left:190px;"></div>';
+                            strDivHtml += '     </div>';
+
+                            $("#qxContent").append(strDivHtml);                            
+  
+                            // 报警对象
+                            grid1 = new dhtmlXGridObject('mcxx11_' + key);
+                            grid1.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+                            grid1.setHeader(["报警对象"]);
+                            grid1.setInitWidths("188");
+                            grid1.setColAlign("center");
+                            grid1.setColTypes("ro");
+                            grid1.init();
+                            
+                            // 负责人
+                            grid2 = new dhtmlXGridObject('mcxx12_' + key);
+                            grid2.setImagePath("js/gridcodebase/imgs/");
+                            grid2.setHeader(["负 责 人"]);
+                            grid2.setInitWidths("188");
+                            grid2.setColAlign("center");
+                            grid2.setColTypes("ro");
+                            grid2.init();
+                            
+                            if(loopIndex % 2 === 0){                            
+                                grid1.setSkin("mt");
+                                grid2.setSkin("mt");
+                            }else{
+                                grid1.setSkin("modern");
+                                grid2.setSkin("modern");
+                            }
+                            
+                            grid1.parse(baojingData,'json');                            
+                            grid2.parse(fuzerenData,'json');
+                            loopIndex++;
+    
+                            options.chart.renderTo = 'mcltb1_' + key;                            
+                            options.series = [];
+                            series1.data = [];
+                            series2.data = [];
+                            
+                            for(var i = 0; i < seriesItme1.length; i++){
+                                
+                                var series1Tmp = new Object();
+                                var series2Tmp = new Object();
+                                
+                                $.extend(series1Tmp, series1);
+                                $.extend(series2Tmp, series2);
+
+                                series1Tmp.data = seriesItme1[i];
+                                series2Tmp.name = seriesItme2Name[i];
+                                series2Tmp.data = seriesItme2[i];
+                                
+                                options.series.push(series1Tmp);
+                                options.series.push(series2Tmp);
+                            }
+                            new Highcharts.Chart(options);
+                        });
+                    }
+                });     
             });
 		</script>
-        <script>
-            var treeGrid,dhxWins,dhxWins1,grid1,grid2,grid3,grid4,grid5,grid6;
+        <script>          
             
             /**
              * 报警信息初始化
@@ -184,84 +365,6 @@
             function bjxx(){
                 createTreeGrid();
                 $(".cssdiv1").addClass("s1");
-//                grid1();
-//                grid2();
-//                grid3();
-//                grid4();
-//                grid5();
-//                grid6();
-            }
-            
-            function grid1(){
-                grid= new dhtmlXGridObject('mcxx11');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["报警对象"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("mt");
-                grid.load('data/dfyx11.json','json');
-            }
-            
-            function grid2(){
-                grid= new dhtmlXGridObject('mcxx12');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["负 责 人"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("mt");
-                grid.load('data/dfyx12.json','json');
-            }
-            
-            function grid3(){
-                grid= new dhtmlXGridObject('mcxx21');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["报警对象"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("modern");
-                grid.load('data/dfyx11.json','json');
-            }
-            
-            function grid4(){
-                grid= new dhtmlXGridObject('mcxx22');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["负 责 人"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("modern");
-                grid.load('data/dfyx12.json','json');
-            }
-            
-            function grid5(){
-                grid= new dhtmlXGridObject('mcxx31');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["报警对象"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("mt");
-                grid.load('data/dfyx11.json','json');
-            }
-            
-            function grid6(){
-                grid= new dhtmlXGridObject('mcxx32');
-                grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                grid.setHeader(["负 责 人"]);
-                grid.setInitWidths("188");
-                grid.setColAlign("center");
-                grid.setColTypes("ro");
-                grid.init();
-                grid.setSkin("mt");
-                grid.load('data/dfyx12.json','json');
             }
             
             function jk(cdiv){
@@ -312,8 +415,11 @@
                             baojingItem.data.push(value.endTag.name);
                             baojingItem.data.push(value.endTag.device.name);//待定
                             baojingItem.data.push(value.info);
-                            baojingItem.data.push(value.actionTime);
-//                            alert(value.alarmHandleList.length);
+                            
+                            dateTmp = new Date(value.actionTime);
+                            baojingItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
+
                             // 负责人信息设置
                             var fuzerenInfo = {};
                             fuzerenInfo.value = value.alarmHandleList.length + '人';
@@ -331,8 +437,13 @@
                                 fuzerenInfoItem.data.push('');
                                 fuzerenInfoItem.data.push('');
                                 fuzerenInfoItem.data.push(alarmvalue.user.name);
-                                fuzerenInfoItem.data.push(alarmvalue.confirmTime);
-                                fuzerenInfoItem.data.push(alarmvalue.handleTime);
+                                
+                                dateTmp = new Date(alarmvalue.confirmTime);
+                                fuzerenInfoItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
+                                dateTmp = new Date(alarmvalue.handleTime);
+                                fuzerenInfoItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
                                 fuzerenInfoItem.data.push('');//待定
                                 
                                 baojingItem.rows.push(fuzerenInfoItem);
@@ -365,7 +476,7 @@
     <body onload="bjxx();">
         <div id="zy"  style="width:3845px; height:717px;border:solid; border-width:1px">
             <!--数据-->
-            <div id="scdt" style="width:1280px; height:69px;  float:left " class="ssjkd">
+            <div id="scdt" style="width:1280px; height:69px;  float:left; font-size: 0 " class="ssjkd">
                 <!--logo-->
                 <div id="ssjc" style="width:1280px; height:10">
                     <img src="${ctx}/static/img/head.png"/>
@@ -427,47 +538,7 @@
                             <div id="jxx" style="width:1245px; height:20px; background-color:#8ed4ff; font-size:14px; font-weight:bold; line-height:20px;float:left">
                                 &nbsp;&nbsp;实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp信&nbsp;&nbsp;&nbsp息
                             </div>
-                            <div id="jxxtp" style="width:1245px; height:193px;  float:left; ">
-                                <div id="mcxxll1" style="float:left; height:193px; width:190px">
-                                    <div id="mcxxt1" style="height:22px; width:190px; background-color:#e3f5ff; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">
-                                        <strong>井号：HJSH127-23</strong>
-                                    </div>
-                                    <div id="mcxx11" style=" height:81px; width:188px; background-color:#0C3;" >
-                                    </div>
-                                    <div id="mcxx12" style=" height:81px; width:188px; background-color:#03C;" >
-                                    </div>
-                                </div>
-                                <div id="mcltb1" style=" height:193px; width:1055px; margin-left:190px;">
-                                    1
-                                </div>
-                            </div>
-                            <div id="djxxtp" style="width:1245px; height:193px; float:left; background-color:#0F0;">
-                                <div id="mcxxll2" style="float:left; height:193px; width:190px">
-                                    <div id="mcxxt2" style="height:22px; width:190px; background-color:#f5ffdc; text-align:center;cursor:hand; font-size:14px; padding-top:6px;" >
-                                        <strong>井号：HJSH127-24</strong>
-                                    </div>
-                                    <div id="mcxx21" style=" height:81px; width:188px; background-color:#0C3;" >
-                                    </div>
-                                    <div id="mcxx22" style=" height:81px; width:188px; background-color:#03C;" >
-                                    </div>
-                                </div>
-                                <div id="mcltb2" style=" height:193px; width:1055px; margin-left:190px; background-color:#90F;">
-                                    1
-                                </div>
-                            </div>
-                            <div id="zyztp"  style="width:1245px; height:193px; float:left; background-color:#00F;">
-                                <div id="mcxxll3" style="float:left; height:193px; width:190px">
-                                    <div id="mcxxt1" style="height:22px; width:190px; background-color:#e3f5ff; text-align:center;cursor:hand; font-size:14px; padding-top:6px;" >
-                                    <strong>井号：HJSH127-25</strong>
-                                    </div>
-                                    <div id="mcxx31" style=" height:81px; width:188px; background-color:#0C3;" >
-                                    </div>
-                                    <div id="mcxx32" style=" height:81px; width:188px; background-color:#03C;" >
-                                    </div>
-                                </div>
-                                <div id="mcltb3" style=" height:193px; width:1055px; margin-left:190px; background-color:#90F;">
-                                1
-                                </div>
+                            <div id="qxContent">            
                             </div>
                         </div> 
                     </div>
