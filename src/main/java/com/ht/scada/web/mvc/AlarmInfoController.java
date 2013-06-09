@@ -1,6 +1,9 @@
 package com.ht.scada.web.mvc;
 
 import com.ht.scada.common.tag.entity.EndTag;
+import com.ht.scada.common.tag.entity.EndTagExtInfo;
+import com.ht.scada.common.tag.service.EndTagService;
+import com.ht.scada.common.tag.util.EndTagExtNameEnum;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
 import com.ht.scada.web.entity.AlarmHandle;
@@ -34,6 +37,8 @@ public class AlarmInfoController {
 	private UserService userService;
     @Autowired
 	private UserExtInfoService userExtInfoService;
+    @Autowired
+    private EndTagService endTagService;
     
     @RequestMapping(value="history")
 	@ResponseBody
@@ -117,5 +122,16 @@ public class AlarmInfoController {
     @ResponseBody
     public Date now(){
         return new Date();
+    }
+    @RequestMapping(value="endTagExtInfo")
+    @ResponseBody
+    public Map<String,String> endTagExtInfo(String code){
+        Map<String,String> map =new HashMap<>();
+        EndTag endTag = endTagService.getByCode(code);
+        List<EndTagExtInfo> extList = endTag.getExtInfo();
+        for(EndTagExtInfo ext : extList){
+            map.put(ext.getKeyName().toLowerCase(), ext.getValue());
+        }
+        return map;
     }
 }

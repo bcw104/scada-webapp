@@ -3,10 +3,10 @@ package com.ht.scada.data.service.testimpl;
 import com.ht.scada.data.service.RealtimeDataService;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.inject.Inject;
 
 /**
  *
@@ -18,20 +18,13 @@ public class RealtimeDataServiceImpl implements RealtimeDataService{
 
     @Inject
     private TestDataDao testDataDao;
-    @Override
-    public String getValue(String key) {
-        return null;
-    }
-
-    @Override
-    public List<String> getMultiValue(List<String> key) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 
     @Override
     public List<String> getEndTagMultiVarValue(String code, List<String> name) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
+
 
     @Override
     public Map<String, String> getEndTagVarGroupInfo(String code, String group) {
@@ -120,6 +113,16 @@ public class RealtimeDataServiceImpl implements RealtimeDataService{
 
     @Override
     public Map<String, float[]> getEndTagVarYcArray(String code, List<String> varName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getValue(String key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<String> getMultiValue(List<String> key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
