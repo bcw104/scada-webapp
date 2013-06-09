@@ -12,6 +12,10 @@
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_math.js"></script>
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.messager.js"></script>
+        <script src="${ctx}/static/application.js"></script>
         <style type="text/css">
             html, body {
                 width: 100%;
@@ -99,7 +103,9 @@
         </style>
         <script>
             var dhLayout,toolbar,treeGrid,dhxTabbar,Grid,Grid1,Grid2,Grid3,Grid4,dhxWins;
-            
+            var objUrl='${ctx}';
+            var username='${username}';
+
             /**
              * 生产监控信息初始化
              * @returns {undefined}

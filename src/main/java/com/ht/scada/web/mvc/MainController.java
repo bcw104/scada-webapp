@@ -36,7 +36,9 @@ public class MainController {
      * @return 
      */
 	@RequestMapping(method = RequestMethod.GET)
-	public String main() {
+	public String main(Model model) {
+        
+        model.addAttribute("username", userService.getCurrentUser().getUsername());        
 		return "main/ssjc";
 //        return "main/index";
 	}
@@ -52,6 +54,7 @@ public class MainController {
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "main/ssjcmain";
 	}
     
@@ -61,6 +64,7 @@ public class MainController {
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "main/ssjcdqb";
 	}
     
@@ -70,6 +74,7 @@ public class MainController {
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "main/ssjczp";
 	}
     
@@ -79,6 +84,7 @@ public class MainController {
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "main/ssjcmj";
 	}
     
@@ -88,6 +94,7 @@ public class MainController {
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "main/ssjclgb";
 	}
     
@@ -97,6 +104,7 @@ public class MainController {
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "main/ssjczq";
 	}
     
@@ -106,6 +114,7 @@ public class MainController {
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "main/ssjcglj";
 	}
 	@RequestMapping(value = "test")
