@@ -90,6 +90,22 @@
                 <td><input type="password" name="relPass" id="relPassword"></input></td>
             </tr>
             <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">是否为负责人：</td>
+                <td>
+                    <input name="headflg" type="radio" value="1" checked />是
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input name="headflg" type="radio" value="0" />否
+                </td>
+           </tr>
+            <tr>
+                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">是否接收信息：</td>
+                <td>
+                    <input name="receiveflg" type="radio" value="1" checked />是
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input name="receiveflg" type="radio" value="0" />否
+                </td>
+           </tr>
+            <tr>
                   <td colspan="2" height="30" align="center"> 
                       <input id="submit_btn"  type="button" onclick="addUserFormSubmit()"  value="提交"/>
                   </td>
@@ -134,6 +150,22 @@
                 <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">角色：</td>
                 <td valign="middle" style="padding-top:3px"><input type="hidden" name="role_id" id="update_description" value=""></input><div id="combo_zone5" style="width:100px; height:25px;"></div></td>
               </tr>
+                <tr>
+                    <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">是否为负责人：</td>
+                    <td>
+                        <input name="headflg" type="radio" value="1" checked />是
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input name="headflg" type="radio" value="0" />否
+                    </td>
+               </tr>
+                <tr>
+                    <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">是否接收信息：</td>
+                    <td>
+                        <input name="receiveflg" type="radio" value="1" checked />是
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input name="receiveflg" type="radio" value="0" />否
+                    </td>
+               </tr>
               <tr>
                   <td colspan="2" height="30" align="center"> <input id="update_btn"  type="button" onclick="updateUserFormSubmit()"  value="提交"/></td>
               </tr>

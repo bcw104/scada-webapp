@@ -14,108 +14,115 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import com.ht.scada.common.tag.entity.EndTag;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="T_Alarm_Record")
-public class AlarmRecord extends AbstractPersistable<Integer>{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7462892564700833086L;
+@Table(name = "T_Alarm_Record")
+public class AlarmRecord extends AbstractPersistable<Integer> {
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="endtag_id")
-	private EndTag endTag;
-	
-	@Column(name = "alarm_type")
-	private String alarmType;	//报警类型
-	@Column(name = "var_name")
-	private String varName;		//变量名（英文）
-	private String info;		//故障信息
-	private String remark;		//备注 详细信息
-	@Column(name = "action_time")
-	private Date actionTime;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7462892564700833086L;
+    @Column(nullable = false, unique = true)
+    private String alarmId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "endtag_id")
+    private EndTag endTag;
+    @Column(name = "alarm_type")
+    private String alarmType;	//报警类型
+    @Column(name = "var_name")
+    private String varName;		//变量名（英文）
+    private String info;		//故障信息
+    private String remark;		//备注 详细信息
+    @Column(name = "action_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date actionTime;
     @Column(name = "resume_time")
-	private Date resumeTime;
-    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date resumeTime;
     private int status = 0;	//0未解除，1解除
-    
-    @OneToMany(mappedBy="alarmRecord")
+    @OneToMany(mappedBy = "alarmRecord")
     private List<AlarmHandle> alarmHandleList;
 
-	public EndTag getEndTag() {
-		return endTag;
-	}
+    public String getAlarmId() {
+        return alarmId;
+    }
 
-	public void setEndTag(EndTag endTag) {
-		this.endTag = endTag;
-	}
+    public void setAlarmId(String alarmId) {
+        this.alarmId = alarmId;
+    }
 
-	public String getAlarmType() {
-		return alarmType;
-	}
+    public EndTag getEndTag() {
+        return endTag;
+    }
 
-	public void setAlarmType(String alarmType) {
-		this.alarmType = alarmType;
-	}
+    public void setEndTag(EndTag endTag) {
+        this.endTag = endTag;
+    }
 
-	public String getVarName() {
-		return varName;
-	}
+    public String getAlarmType() {
+        return alarmType;
+    }
 
-	public void setVarName(String varName) {
-		this.varName = varName;
-	}
+    public void setAlarmType(String alarmType) {
+        this.alarmType = alarmType;
+    }
 
-	public String getInfo() {
-		return info;
-	}
+    public String getVarName() {
+        return varName;
+    }
 
-	public void setInfo(String info) {
-		this.info = info;
-	}
+    public void setVarName(String varName) {
+        this.varName = varName;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
+    public String getInfo() {
+        return info;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
-	public Date getActionTime() {
-		return actionTime;
-	}
+    public String getRemark() {
+        return remark;
+    }
 
-	public void setActionTime(Date actionTime) {
-		this.actionTime = actionTime;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public Date getResumeTime() {
-		return resumeTime;
-	}
+    public Date getActionTime() {
+        return actionTime;
+    }
 
-	public void setResumeTime(Date resumeTime) {
-		this.resumeTime = resumeTime;
-	}
+    public void setActionTime(Date actionTime) {
+        this.actionTime = actionTime;
+    }
 
-	public int getStatus() {
-		return status;
-	}
+    public Date getResumeTime() {
+        return resumeTime;
+    }
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+    public void setResumeTime(Date resumeTime) {
+        this.resumeTime = resumeTime;
+    }
 
-	public List<AlarmHandle> getAlarmHandleList() {
-		return alarmHandleList;
-	}
+    public int getStatus() {
+        return status;
+    }
 
-	public void setAlarmHandleList(List<AlarmHandle> alarmHandleList) {
-		this.alarmHandleList = alarmHandleList;
-	}
-    
-    
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
+    public List<AlarmHandle> getAlarmHandleList() {
+        return alarmHandleList;
+    }
+
+    public void setAlarmHandleList(List<AlarmHandle> alarmHandleList) {
+        this.alarmHandleList = alarmHandleList;
+    }
 }

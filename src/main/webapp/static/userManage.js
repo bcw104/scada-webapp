@@ -106,7 +106,7 @@ function doOnClick(itemId){
             $('[name="gender"]:radio').each(
                 function() { 
                    if (this.value == userItem.gender) { this.checked = true;} 
-            });
+            });            
             $("#update_department").val(userItem.department);
             $("#update_address").val(userItem.address);
             $("#update_email").val(userItem.email);
@@ -114,6 +114,15 @@ function doOnClick(itemId){
             $("#update_description").val(userItem.user.userRole.id);
             dhxComboUpdate.setComboValue(userItem.user.userRole.id);
             dhxComboUpdate.setComboText(userItem.user.userRole.name);
+            
+            $('[name="headflg"]:radio').each(
+                function() { 
+                   if (this.value == userItem.headflg) { this.checked = true;} 
+            });    
+            $('[name="receiveflg"]:radio').each(
+                function() { 
+                   if (this.value == userItem.receiveflg) { this.checked = true;} 
+            });  
         });
         addDiv("updateUser","编辑用户");
     }else if(itemId=='pass'){

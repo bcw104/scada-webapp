@@ -33,4 +33,6 @@ public interface UserExtInfoService {
      * 2013-05-25 赵玮 追加
      */
     void deleteUser(int userId);
+
+    List<UserExtInfo> getUserExtInfoByEndTag(int endTagId);
 }

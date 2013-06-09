@@ -5,14 +5,12 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ht.scada.data.RealtimeDataMessageDelegate;
 import com.ht.scada.data.RealtimeMessageListener;
-import com.ht.scada.data.entity.OffLimitsRecord;
+import com.ht.scada.data.entity.FaultRecord;
 import com.ht.scada.data.service.AlarmService;
-import com.ht.scada.data.service.testimpl.TestData;
 import com.ht.scada.data.service.testimpl.TestDataDao;
 import com.ht.scada.security.service.UserService;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.atmosphere.cpr.Broadcaster;
-import org.atmosphere.cpr.MetaBroadcaster;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -104,13 +103,18 @@ public class AlarmPushWndController {
 	 
 	@Scheduled(fixedDelay=5000)
 	public void testSendMessages(){
+        FaultRecord record = new FaultRecord("youjing", "aaa", "hello", true, new Date());
+
+        record.setId(UUID.randomUUID().toString());
+        realtimeImpl.faultOccured(record);
 		//OffLimitsRecord record = new OffLimitsRecord();
-		List<TestData> list;
+		//List<TestData> list;
 		//realtimeImpl.offLimitsOccured(record);
         //list = testDataDao.findAll();
         //list = testDataDao.findByCodeGroup("a", "a");
-        list = testDataDao.findByCodeName("a", "a");
-        log.info("当前测试数据有:" + list.size() + "条;");
+        //list = testDataDao.findByCodeName("a", "a");
+        //log.info("当前测试数据有:" + list.size() + "条;");
+        
 	}
     * */
 	/**

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value = "/main")
 public class MainController {
 	private static final Logger log = LoggerFactory.getLogger(RegisterController.class);
-
 	@Autowired
 	private UserService userService;
     @Autowired
@@ -43,7 +42,7 @@ public class MainController {
 	}
 	@RequestMapping(value="mgr")
 	public String mgr() {
-		//return "main/ssjc";
+	//return "main/ssjc";
         return "main/index";
 	}
     
@@ -65,6 +64,50 @@ public class MainController {
         return "main/ssjcdqb";
 	}
     
+    @RequestMapping(value="zp")
+	public String zp(@RequestParam("id") int id,Model model) {
+        
+        EndTag endTag = endTagService.getById(id);
+		model.addAttribute("id", id);
+        model.addAttribute("info", endTag);
+        return "main/ssjczp";
+	}
+    
+    @RequestMapping(value="mj")
+	public String mj(@RequestParam("id") int id,Model model) {
+        
+        EndTag endTag = endTagService.getById(id);
+		model.addAttribute("id", id);
+        model.addAttribute("info", endTag);
+        return "main/ssjcmj";
+	}
+    
+    @RequestMapping(value="lgb")
+	public String lgb(@RequestParam("id") int id,Model model) {
+        
+        EndTag endTag = endTagService.getById(id);
+		model.addAttribute("id", id);
+        model.addAttribute("info", endTag);
+        return "main/ssjclgb";
+	}
+    
+    @RequestMapping(value="zq")
+	public String zq(@RequestParam("id") int id,Model model) {
+        
+        EndTag endTag = endTagService.getById(id);
+		model.addAttribute("id", id);
+        model.addAttribute("info", endTag);
+        return "main/ssjczq";
+	}
+    
+    @RequestMapping(value="glj")
+	public String glj(@RequestParam("id") int id,Model model) {
+        
+        EndTag endTag = endTagService.getById(id);
+		model.addAttribute("id", id);
+        model.addAttribute("info", endTag);
+        return "main/ssjcglj";
+	}
 	@RequestMapping(value = "test")
 	public String test(RedirectAttributes redirectAttributes) {
 		log.debug("初始化用户：{}/{}", "admin", "admin");

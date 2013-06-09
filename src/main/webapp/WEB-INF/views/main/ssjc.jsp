@@ -228,26 +228,26 @@
                                         switch(wellTypeInfo[2]){
                                             
                                             case 'LUO_GAN_BENG':
-                                                alert(wellTypeInfo[3] + "--a");
+                                                window.location.href = '${ctx}/main/lgb?id=' + wellTypeInfo[1];
                                                 break;
                                             case 'DIAN_QIAN_BENG':
                                                 window.location.href = '${ctx}/main/dqb?id=' + wellTypeInfo[1];
                                                 break;
                                             case 'GU_LI_JING':
-                                                alert(wellTypeInfo[3] + "--b");
+                                                window.location.href = '${ctx}/main/glj?id=' + wellTypeInfo[1];
                                                 break;
                                             default:
                                                 
                                                 switch(wellTypeInfo[3]){
 
                                                     case '自喷':
-                                                        alert(wellTypeInfo[3] + "--1");
+                                                        window.location.href = '${ctx}/main/zp?id=' + wellTypeInfo[1];
                                                         break;
                                                     case '注汽':
-                                                        alert(wellTypeInfo[3] + "--2");
+                                                        window.location.href = '${ctx}/main/zq?id=' + wellTypeInfo[1];
                                                         break;
                                                     case '焖井':
-                                                        alert(wellTypeInfo[3] + "--3");
+                                                        window.location.href = '${ctx}/main/mj?id=' + wellTypeInfo[1];
                                                         break;
                                                     default:
                                                         window.location.href = '${ctx}/main/cyj?id=' + wellTypeInfo[1];
@@ -954,10 +954,10 @@
                     <img src="${ctx}/static/img/head.png"/>
                 </div>
                 <div id="tool" style="width:119px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                    <a href="ssjc.html" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
+                    <a href="#" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
                 </div>
                 <div id="tool1" style="width:125px; height:20;border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left">
-                    <a href="bjxix.html" style="text-decoration:none"><img border="0" src="${ctx}/static/img/bjzt.png" /></a>
+                    <a href="${ctx}/alarmpage" style="text-decoration:none"><img border="0" src="${ctx}/static/img/bjzt.png" /></a>
                 </div>
                 <div id="tool2" style="width:120px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <a href="scdt.html" style="text-decoration:none"><img border="0" src="${ctx}/static/img/scdt.png" style="width:120px; height:33px;"/></a>
