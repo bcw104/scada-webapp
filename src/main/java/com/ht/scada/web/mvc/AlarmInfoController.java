@@ -130,7 +130,7 @@ public class AlarmInfoController {
         EndTag endTag = endTagService.getByCode(code);
         List<EndTagExtInfo> extList = endTag.getExtInfo();
         for(EndTagExtInfo ext : extList){
-            map.put(ext.getKeyName(), ext.getValue());
+            map.put(ext.getKeyName().toLowerCase(), ext.getValue());
         }
         return map;
     }
