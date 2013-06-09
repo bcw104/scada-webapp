@@ -24,10 +24,7 @@ public class RealtimeDataServiceImpl implements RealtimeDataService{
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
-    public Map<String, String> getEndTagAllVarValue(String code) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+
 
     @Override
     public Map<String, String> getEndTagVarGroupInfo(String code, String group) {
@@ -116,6 +113,16 @@ public class RealtimeDataServiceImpl implements RealtimeDataService{
 
     @Override
     public Map<String, float[]> getEndTagVarYcArray(String code, List<String> varName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getValue(String key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<String> getMultiValue(List<String> key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
