@@ -37,10 +37,10 @@ public class AlarmRecord extends AbstractPersistable<Integer> {
     private String info;		//故障信息
     private String remark;		//备注 详细信息
     @Column(name = "action_time")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date actionTime;
     @Column(name = "resume_time")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date resumeTime;
     private int status = 0;	//0未解除，1解除
     @OneToMany(mappedBy = "alarmRecord")

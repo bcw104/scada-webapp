@@ -28,8 +28,10 @@ public class UserExtInfo extends AbstractPersistable<Integer> {
 	private String email;
 	private String address;
 	private String realName;
+    
+    private String headflg;
+    private String receiveflg;
 	
-	@Digits(fraction = 0, integer = 12)
 	private String telphone;
 	
 	@OneToOne(cascade=CascadeType.ALL)
@@ -115,5 +117,21 @@ public class UserExtInfo extends AbstractPersistable<Integer> {
 
     public void setEndTagID(Set<Integer> endTagID) {
         this.endTagID = endTagID;
+    }
+
+    public String getHeadflg() {
+        return headflg;
+    }
+
+    public void setHeadflg(String headflg) {
+        this.headflg = headflg;
+    }
+
+    public String getReceiveflg() {
+        return receiveflg;
+    }
+
+    public void setReceiveflg(String receiveflg) {
+        this.receiveflg = receiveflg;
     }
 }

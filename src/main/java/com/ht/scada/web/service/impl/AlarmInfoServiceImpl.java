@@ -2,6 +2,7 @@ package com.ht.scada.web.service.impl;
 
 import com.ht.scada.web.dao.AlarmHandleDao;
 import com.ht.scada.web.dao.AlarmRecordDao;
+import com.ht.scada.web.entity.AlarmHandle;
 import com.ht.scada.web.entity.AlarmRecord;
 import com.ht.scada.web.service.AlarmInfoService;
 import java.util.List;
@@ -26,5 +27,14 @@ public class AlarmInfoServiceImpl implements AlarmInfoService{
     @Override
     public AlarmRecord getAlarmByID(int id){
         return alarmRecordDao.findOne(id);
+    }
+    @Override
+    public AlarmRecord getAlarmByAlarmId(String alarmId){
+        return alarmRecordDao.findByAlarmId(alarmId);
+    }
+    
+    @Override
+    public AlarmHandle saveAlarmHandle(AlarmHandle alarmHandle){
+        return alarmHandleDao.save(alarmHandle);
     }
 }

@@ -204,7 +204,8 @@ public class UserAdminController {
 	}
     
     @ModelAttribute("preloadUserExtInfo")
-    public UserExtInfo preloadUserExtInfo(@RequestParam(value = "user_id", required = false) Integer user_id,@RequestParam(value = "role_id", required = false)Integer role_id){
+    public UserExtInfo preloadUserExtInfo(@RequestParam(value = "user_id", required = false) Integer user_id, 
+        @RequestParam(value = "role_id", required = false)Integer role_id){
         if(user_id  != null){
             UserExtInfo extInfo = userExtInfoService.findUserExtInfoByUserID(user_id);
             extInfo.getUser().setUserRole(userService.getUserRoleById(role_id));

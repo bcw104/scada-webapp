@@ -5,6 +5,7 @@
 package com.ht.scada.data.service.testimpl;
 
 import com.ht.scada.common.tag.util.VarGroupEnum;
+import com.ht.scada.data.kv.VarGroupData;
 import com.ht.scada.data.model.TimeSeriesDataModel;
 import com.ht.scada.data.service.HistoryDataService;
 import java.text.ParseException;
@@ -52,6 +53,17 @@ public class HistoryDataServiceimpl implements HistoryDataService{
     @Override
     public Map<String, List<TimeSeriesDataModel>> getVarTimeSeriesData(String code, VarGroupEnum varGroup, List<String> varName, Date start, Date end) {
         return null;
+    }
+
+    @Override
+    public List<VarGroupData> getVarGroupData(String code, VarGroupEnum varGroup, Date start, Date end, int limit) {
+        return null;
+    }
+
+    @Override
+    public VarGroupData getVarGroupData(String code, VarGroupEnum varGroup, Date start) {
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
