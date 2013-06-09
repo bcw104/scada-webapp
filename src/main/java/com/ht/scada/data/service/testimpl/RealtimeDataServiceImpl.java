@@ -3,10 +3,10 @@ package com.ht.scada.data.service.testimpl;
 import com.ht.scada.data.service.RealtimeDataService;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.inject.Inject;
 
 /**
  *
@@ -18,18 +18,14 @@ public class RealtimeDataServiceImpl implements RealtimeDataService{
 
     @Inject
     private TestDataDao testDataDao;
-    @Override
-    public String getValue(String key) {
-        return null;
-    }
 
     @Override
-    public List<String> getMultiValue(List<String> key) {
+    public List<String> getEndTagMultiVarValue(String code, List<String> name) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public List<String> getEndTagMultiVarValue(String code, List<String> name) {
+    public Map<String, String> getEndTagAllVarValue(String code) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
