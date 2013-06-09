@@ -292,7 +292,7 @@ public class RealTimeController {
     @ResponseBody
     public Object LineData(String code,String group, String varName,String date) {
         Date endDate = new Date();
-        if(date == null){
+        if(date != null){
             SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd HH:mm");
             try {
                 endDate = formatDate.parse(date);
