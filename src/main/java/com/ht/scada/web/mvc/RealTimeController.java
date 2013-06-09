@@ -429,4 +429,52 @@ public class RealTimeController {
         return map;
         
     }
+    @RequestMapping(value="sensorbydate")
+    @ResponseBody
+    public List<Map> sensorByDae(String code,String date){
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        Date curDate = new Date();
+        try {
+            curDate = formatDate.parse(date);
+        } catch (ParseException ex) {
+            log.debug(ex.getMessage());
+        }
+        List<Map> data = new ArrayList<>();
+        List<String> sensor= new ArrayList<>();
+        List<String> keyname= new ArrayList<>();
+        Map<String,String> map;
+        //map = convert(historyDataService.getVarGroupData(code, VarGroupEnum.SENSOR_RUN.toString(), curDate));
+        map = realtimeDataService.getEndTagVarGroupInfo(code, VarGroupEnum.SENSOR_RUN.toString());
+        for(String key:map.keySet()){
+            String[] arr =key.split("\\|");
+            if(!sensor.contains(arr[1])){
+                sensor.add(arr[1]);
+            }
+            if(!keyname.contains(arr[0])){
+                keyname.add(arr[0]);
+            }
+        }
+        Calendar cal = Calendar.getInstance();
+        for(String nickname:sensor){
+            Map tmp = new HashMap();
+            SensorDevice sen = tagService.getSensorDeviceByCodeAndNickName(code, nickname);
+            cal.setTime(sen.getFixTime());
+            cal.add(Calendar.DATE, Integer.parseInt(sen.getCheckInterval()));
+            if(cal.before(curDate)){
+                map.put("biaoding", "1");
+            }else{
+                map.put("biaoding", "0");
+            }
+            String name = sen.getName();
+            //计算标定
+            tmp.put("sensorname", name);
+            tmp.put("nickname", nickname);
+            for(String key:keyname){
+                String val = map.get(key + "|" + nickname);
+                tmp.put(key, val);
+            }
+            data.add(tmp);
+        }
+        return data;
+    }
 }
