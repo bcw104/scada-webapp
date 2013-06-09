@@ -672,8 +672,8 @@
                 // 获得传感器运行信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/sensor',
-                    data:{code:'${info.code}'},
+                    url: '${ctx}/realtime/sensorbydate',
+                    data:{code:'${info.code}',date:datePar},
                     dateType:'json',
                     success: function(json){
 

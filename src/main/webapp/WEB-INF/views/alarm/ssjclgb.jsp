@@ -104,6 +104,12 @@
             var yt='<div id="y"style="width:186px;height:100px;float:left;font-size:14px;"><table><tr><td style="width:250px" align="left">&nbsp;&nbsp;&nbsp;用户名:&nbsp;<input name="" type="text" value="admin" style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input name="" type="password" value="admin"  style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;操作原因:&nbsp;<input name="" type="text" value="参数改变"  style="width:80px;"/></td></tr><tr style="height:10px"></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qd1();">确定</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qx1();">取消</button><td></tr></table></div>';
             var yc='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc();">调参</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tj();">取消</button><td></tr></table></div>';
             var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input name="" type="text" value="4" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input name="" type="text" value="2.1" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input name="" type="text" value="3.9" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input name="" type="text" value="2" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';            
+            
+            // 报警时间
+             var dateAction = new Date(${actionTime});   
+             var datePar = dateAction.getFullYear() + '/' + (dateAction.getMonth() + 1) + '/' 
+                + dateAction.getDate() + ' ' + dateAction.getHours() + ':' + dateAction.getMinutes();
+        
             /**
              * 页面初始化
              * @returns {undefined}
@@ -182,8 +188,8 @@
 				// 获得电力信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'DIAN_YC',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -222,7 +228,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
+                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0],date:datePar},
                         dateType:'json',
                         success: function(json){
 
@@ -255,8 +261,8 @@
 				// 获得电量信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YM'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'DIAN_YM',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -294,7 +300,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
+                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0],date:datePar},
                         dateType:'json',
                         success: function(json){
 
@@ -327,8 +333,8 @@
 				// 获得电量信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_XB'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'DIAN_XB',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -434,8 +440,8 @@
                 // 获得工况信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'YOU_JING'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'YOU_JING',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -485,7 +491,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0],date:datePar},
                         dateType:'json',
                         success: function(json){
 
@@ -525,8 +531,8 @@
                 // 获得RTU状态信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'RTU_ZHUANG_TAI'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'RTU_ZHUANG_TAI',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -570,7 +576,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0],date:datePar},
                         dateType:'json',
                         success: function(json){
 
@@ -603,8 +609,8 @@
                 // 获得电气参数信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'DIAN_YC',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -643,8 +649,8 @@
                 // 获得传感器运行信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/sensor',
-                    data:{code:'${info.code}'},
+                    url: '${ctx}/realtime/sensorbydate',
+                    data:{code:'${info.code}',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -886,7 +892,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'DIAN_YC',varName:dy_code},
+                        data:{code:'${info.code}',group:'DIAN_YC',varName:dy_code,date:datePar},
                         dateType:'json',
                         success: function(json){
 

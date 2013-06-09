@@ -181,30 +181,30 @@
             function doGrClick(gr_rId, gr_cInd){
             
                 var tmpName = gr_rId.split('||');
-                alert(tmpName[0] + '---' + tmpName[1] + '---' + tmpName[2] + '---' + tmpName[3] + '---' + tmpName[4]);
+//                alert(tmpName[0] + '---' + tmpName[1] + '---' + tmpName[2] + '---' + tmpName[3] + '---' + tmpName[4]);
 
                 switch(tmpName[3]){
                                             
                     case 'LUO_GAN_BENG':
-                        window.location.href = '${ctx}/alarmpage/lgb?id=' + tmpName[0];
+                        window.location.href = '${ctx}/alarmpage/lgb?id=' + tmpName[0] + '&actionTime=' + tmpName[4];
                         break;
                     case 'DIAN_QIAN_BENG':
-                        window.location.href = '${ctx}/alarmpage/dqb?id=' + tmpName[0];
+                        window.location.href = '${ctx}/alarmpage/dqb?id=' + tmpName[0] + '&actionTime=' + tmpName[4];
                         break;
                     case 'GU_LI_JING':
-                        window.location.href = '${ctx}/alarmpage/glj?id=' + tmpName[0];
+                        window.location.href = '${ctx}/alarmpage/glj?id=' + tmpName[0] + '&actionTime=' + tmpName[4];
                         break;
                     default:                                                
                         switch(tmpName[2]){
 
                             case '自喷':
-                                window.location.href = '${ctx}/alarmpage/zp?id=' + tmpName[0];
+                                window.location.href = '${ctx}/alarmpage/zp?id=' + tmpName[0] + '&actionTime=' + tmpName[4];
                                 break;
                             case '注汽':
-                                window.location.href = '${ctx}/alarmpage/zq?id=' + tmpName[0];
+                                window.location.href = '${ctx}/alarmpage/zq?id=' + tmpName[0] + '&actionTime=' + tmpName[4];
                                 break;
                             case '焖井':
-                                window.location.href = '${ctx}/alarmpage/mj?id=' + tmpName[0];
+                                window.location.href = '${ctx}/alarmpage/mj?id=' + tmpName[0] + '&actionTime=' + tmpName[4];
                                 break;
                             default:
                                 window.location.href = '${ctx}/alarmpage/cyj?id=' + tmpName[0] + '&actionTime=' + tmpName[4];

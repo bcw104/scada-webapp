@@ -37,56 +37,62 @@ public class AlarmPageController {
 	}
     
     @RequestMapping(value="dqb")
-	public String dqb(@RequestParam("id") int id,Model model) {
+	public String dqb(@RequestParam("id") int id,@RequestParam("actionTime") String actionTime, Model model) {
         
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("actionTime", actionTime);
         return "alarm/ssjcdqb";
 	}
     
     @RequestMapping(value="zp")
-	public String zp(@RequestParam("id") int id,Model model) {
+	public String zp(@RequestParam("id") int id, @RequestParam("actionTime") String actionTime, Model model) {
         
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("actionTime", actionTime);
         return "alarm/ssjczp";
 	}
     
     @RequestMapping(value="mj")
-	public String mj(@RequestParam("id") int id,Model model) {
+	public String mj(@RequestParam("id") int id, @RequestParam("actionTime") String actionTime, Model model) {
         
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("actionTime", actionTime);
         return "alarm/ssjcmj";
 	}
     
     @RequestMapping(value="lgb")
-	public String lgb(@RequestParam("id") int id,Model model) {
+	public String lgb(@RequestParam("id") int id, @RequestParam("actionTime") String actionTime, Model model) {
         
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("actionTime", actionTime);
         return "alarm/ssjclgb";
 	}
     
     @RequestMapping(value="zq")
-	public String zq(@RequestParam("id") int id,Model model) {
+	public String zq(@RequestParam("id") int id, @RequestParam("actionTime") String actionTime, Model model) {
         
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("actionTime", actionTime);
         return "alarm/ssjczq";
 	}
     
     @RequestMapping(value="glj")
-	public String glj(@RequestParam("id") int id,Model model) {
+	public String glj(@RequestParam("id") int id, @RequestParam("actionTime") String actionTime, Model model) {
         
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
+        model.addAttribute("actionTime", actionTime);
         return "alarm/ssjcglj";
 	}
 }
