@@ -40,11 +40,15 @@ public class MainController {
         
         model.addAttribute("username", userService.getCurrentUser().getUsername());        
 		return "main/ssjc";
-//        return "main/index";
 	}
+    
+    /**
+     * 进入管理系统--系统管理部分
+     * @return 
+     */
 	@RequestMapping(value="mgr")
 	public String mgr() {
-	//return "main/ssjc";
+
         return "main/index";
 	}
     

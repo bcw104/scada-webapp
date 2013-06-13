@@ -333,143 +333,37 @@
 
                 treeGrid.openItem("1001");
                 treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
-                    alert(treeGrid.getFooterLabel(cInd));
-                    if(cInd==0){
-                        if(rId==001){
-                            window.location.href="ssjcmain.html";
-                        }else if(rId==002){
-                            window.location.href="ssjcdqb.html";
-                        }else if(rId==003){
-                            window.location.href="ssjcyg.html";
-                        }else if(rId==004){
-                            window.location.href="ssjczq.html";
-                        }else if(rId==005){
-                            window.location.href="ssjczp.html";
-                        }else if(rId==006){
-                            window.location.href="ssjcmj.html";
-                        }else if(rId==007){
-                            window.location.href="ssjclxg.html";
-                        }else{
-                            return;
-                        }
-                    }else{
-                        if(rId==1001){
-                            dhxWins.window("win").show();
-                            if(cInd==1){
-                                Grid3=dhxWins.window("win").attachGrid();
-                                Grid3.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                Grid3.setHeader(["序号","油井名称","状态","关井原因"]);
-                                Grid3.setInitWidths("70,100,100,*");
-                                Grid3.setColAlign("center,center,center,center");
-                                Grid3.setColTypes("ed,ed,ed,ed");
-                                Grid3.init();
-                                Grid3.load('data/ssjcwin.json','json');
-                                var c= treeGrid.getFooterLabel(1);
-                                dhxWins.window("win").setText(c);
-                                dhxWins.attachEvent("onClose", function(win){
-                                    dhxWins.window("win").hide(); 
-                                });
-                            }else if(cInd==2){
-                                Grid4=dhxWins.window("win").attachGrid();;
-                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                Grid4.setHeader(["序号","油井名称"]);
-                                Grid4.setInitWidths("200,*");
-                                Grid4.setColAlign("center,center");
-                                Grid4.setColTypes("ed,ed");
-                                Grid4.init();
-                                Grid4.load('data/ssjcwin2.json','json');
-                                var c= treeGrid.getFooterLabel(2);
-                                dhxWins.window("win").setText(c);
-                                dhxWins.attachEvent("onClose", function(win){
-                                    dhxWins.window("win").hide(); 
-                                });
-                            }else if(cInd==3){
-                                Grid4=dhxWins.window("win").attachGrid();;
-                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                Grid4.setInitWidths("100,100,100,*");
-                                Grid4.setColAlign("center,center,center,center");
-                                Grid4.setColTypes("ed,ed,ed,ed");
-                                Grid4.init();
-                                Grid4.load('data/ssjcwin1.json','json');
-                                var c= treeGrid.getFooterLabel(3);
-                                dhxWins.window("win").setText(c);
-                                dhxWins.attachEvent("onClose", function(win){
-                                    dhxWins.window("win").hide(); 
-                                });
-                            }else if(cInd==4){
-                                Grid4=dhxWins.window("win").attachGrid();
-                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                Grid4.setInitWidths("100,100,100,*");
-                                Grid4.setColAlign("center,center,center,center");
-                                Grid4.setColTypes("ed,ed,ed,ed");
-                                Grid4.init();
-                                Grid4.load('data/ssjcwin3.json','json');
-                                var c= treeGrid.getFooterLabel(4);
-                                dhxWins.window("win").setText(c);
-                                dhxWins.attachEvent("onClose", function(win){
-                                    dhxWins.window("win").hide(); 
-                                });
-                            }else if(cInd==7){
-                                Grid4=dhxWins.window("win").attachGrid();
-                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                Grid4.setInitWidths("100,100,100,*");
-                                Grid4.setColAlign("center,center,center,center");
-                                Grid4.setColTypes("ed,ed,ed,ed");
-                                Grid4.init();
-                                Grid4.load('data/ssjcwin4.json','json');
-                                var c= treeGrid.getFooterLabel(7);
-                                dhxWins.window("win").setText(c);
-                                dhxWins.attachEvent("onClose", function(win){
-                                    dhxWins.window("win").hide(); 
-                                });
-                            }else{
-                                dhxWins.window("win").hide(); 
-                            }
-                        }else if(rId==1002){
-                            dhxWins.window("win").show();
-                            if(cInd==6){
-                                Grid4=dhxWins.window("win").attachGrid();;
-                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                Grid4.setInitWidths("100,100,100,*");
-                                Grid4.setColAlign("center,center,center,center");
-                                Grid4.setColTypes("ed,ed,ed,ed");
-                                Grid4.init();
-                                Grid4.load('data/ssjcwin5.json','json');
-                                var c= treeGrid.getFooterLabel(6);
-                                dhxWins.window("win").setText(c);
-                                dhxWins.attachEvent("onClose", function(win){
-                                    dhxWins.window("win").hide(); 
-                                });
-                            }else{
-                                dhxWins.window("win").hide(); 
-                            }
-                        }else if(rId==1003){
-                            dhxWins.window("win").show();
-                            if(cInd==5){
-                                Grid4=dhxWins.window("win").attachGrid();;
-                                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                                Grid4.setHeader(["序号","油井名称","状态","开井原因"]);
-                                Grid4.setInitWidths("100,100,100,*");
-                                Grid4.setColAlign("center,center,center,center");
-                                Grid4.setColTypes("ed,ed,ed,ed");
-                                Grid4.init();
-                                Grid4.load('data/ssjcwin6.json','json');
-                                var c= treeGrid.getFooterLabel(5);
-                                dhxWins.window("win").setText(c);
-                                dhxWins.attachEvent("onClose", function(win){
-                                    dhxWins.window("win").hide(); 
-                                });
-                            }else{
-                                dhxWins.window("win").hide(); 
-                            }
-                        }else{
-                            dhxWins.window("win").hide(); 
-                        }
-                    }
+                                        
+                    var wellTypeInfo = rId.split('||');
+//                  alert(wellTypeInfo[1] + "----" + wellTypeInfo[2] + "----" + wellTypeInfo[3]);
+
+                    switch(wellTypeInfo[2]){
+                                            
+                        case 'LUO_GAN_BENG':
+                            window.location.href = '${ctx}/main/lgb?id=' + wellTypeInfo[1];
+                            break;
+                        case 'DIAN_QIAN_BENG':
+                            window.location.href = '${ctx}/main/dqb?id=' + wellTypeInfo[1];
+                            break;
+                        case 'GU_LI_JING':
+                            window.location.href = '${ctx}/main/glj?id=' + wellTypeInfo[1];
+                            break;
+                        default:
+                            switch(wellTypeInfo[3]){
+
+                                case '自喷':
+                                    window.location.href = '${ctx}/main/zp?id=' + wellTypeInfo[1];
+                                    break;
+                                case '注汽':
+                                    window.location.href = '${ctx}/main/zq?id=' + wellTypeInfo[1];
+                                    break;
+                                case '焖井':
+                                    window.location.href = '${ctx}/main/mj?id=' + wellTypeInfo[1];
+                                    break;
+                                default:
+                                    window.location.href = '${ctx}/main/cyj?id=' + wellTypeInfo[1];
+                            }                                                
+                    }                                        
                 });
             }
 
