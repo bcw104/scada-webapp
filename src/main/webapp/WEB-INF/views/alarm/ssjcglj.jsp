@@ -663,13 +663,7 @@
                 Grid.setColTypes("ro,ro,ro,ro,ro,img");
                 Grid.init();
             
-                Grid2= new dhtmlXGridObject('gr');
-                Grid2.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid2.setHeader(["设备名称","出厂厂家","型号","序号","设备地址"]);
-                Grid2.setInitWidths("120,120,120,120,*");
-                Grid2.setColAlign("center,center,center,center,center");
-                Grid2.setColTypes("ro,ro,ro,ro,ro");
-                Grid2.init();
+                
             
                 // 获得传感器运行信息
                 $.ajax({
@@ -715,7 +709,7 @@
                 Grid2= new dhtmlXGridObject('gr');
                 Grid2.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 Grid2.setHeader(["设备名称","出厂厂家","型号","序号","设备地址"]);
-                Grid2.setInitWidths("120,120,120,120,*");
+                Grid2.setInitWidths("120,150,120,120,*");
                 Grid2.setColAlign("center,center,center,center,center");
                 Grid2.setColTypes("ro,ro,ro,ro,ro");
                 Grid2.init();
