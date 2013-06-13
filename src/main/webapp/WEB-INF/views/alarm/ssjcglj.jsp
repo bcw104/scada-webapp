@@ -658,7 +658,7 @@
                 Grid= new dhtmlXGridObject('cgqyx2');
                 Grid.setImagePath("js/gridcodebase/imgs/");
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
-                Grid.setInitWidths("158,158,158,120,120,120");
+                Grid.setInitWidths("158,160,158,120,120,120");
                 Grid.setColAlign("center,center,center,center,center,center");
                 Grid.setColTypes("ro,ro,ro,ro,ro,img");
                 Grid.init();
@@ -709,7 +709,7 @@
                 Grid2= new dhtmlXGridObject('gr');
                 Grid2.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 Grid2.setHeader(["设备名称","出厂厂家","型号","序号","设备地址"]);
-                Grid2.setInitWidths("120,150,120,120,*");
+                Grid2.setInitWidths("120,200,120,120,*");
                 Grid2.setColAlign("center,center,center,center,center");
                 Grid2.setColTypes("ro,ro,ro,ro,ro");
                 Grid2.init();
