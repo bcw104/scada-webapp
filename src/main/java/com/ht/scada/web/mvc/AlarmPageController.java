@@ -2,6 +2,7 @@ package com.ht.scada.web.mvc;
 
 import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.common.tag.service.EndTagService;
+import com.ht.scada.security.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,14 @@ public class AlarmPageController {
 	private static final Logger log = LoggerFactory.getLogger(RegisterController.class);	
     
     @Autowired
+	private UserService userService;
+    @Autowired
     private EndTagService endTagService;
     
 	@RequestMapping(method = RequestMethod.GET)
-	public String main() {
+	public String main(Model model) {
 
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/bjxix";
 	}
     
@@ -33,6 +37,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjcmain";
 	}
     
@@ -43,6 +48,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjcdqb";
 	}
     
@@ -53,6 +59,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjczp";
 	}
     
@@ -63,6 +70,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjcmj";
 	}
     
@@ -73,6 +81,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjclgb";
 	}
     
@@ -83,6 +92,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjczq";
 	}
     
@@ -93,6 +103,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjcglj";
 	}
 }
