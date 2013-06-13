@@ -112,6 +112,11 @@
             var objUrl='${ctx}';
             var username='${username}';
             
+            // 报警时间
+             var dateAction = new Date(${actionTime});   
+             var datePar = dateAction.getFullYear() + '/' + (dateAction.getMonth() + 1) + '/' 
+                + dateAction.getDate() + ' ' + dateAction.getHours() + ':' + dateAction.getMinutes();
+        
             /**
              * 页面初始化
              * @returns {undefined}
@@ -190,8 +195,8 @@
 				// 获得电力信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'DIAN_YC',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -230,7 +235,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
+                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0],date:datePar},
                         dateType:'json',
                         success: function(json){
 
@@ -263,8 +268,8 @@
 				// 获得电量信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YM'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'DIAN_YM',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -302,7 +307,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
+                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0],date:datePar},
                         dateType:'json',
                         success: function(json){
 
@@ -335,8 +340,8 @@
 				// 获得电量信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_XB'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'DIAN_XB',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -442,8 +447,8 @@
                 // 获得工况信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'YOU_JING'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'YOU_JING',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -493,7 +498,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0],date:datePar},
                         dateType:'json',
                         success: function(json){
 
@@ -533,8 +538,8 @@
                 // 获得RTU状态信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'RTU_ZHUANG_TAI'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'RTU_ZHUANG_TAI',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -578,7 +583,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0],date:datePar},
                         dateType:'json',
                         success: function(json){
 
@@ -611,8 +616,8 @@
                 // 获得电气参数信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'DIAN_YC',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -651,8 +656,8 @@
                 // 获得传感器运行信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/sensor',
-                    data:{code:'${info.code}'},
+                    url: '${ctx}/realtime/sensorbydate',
+                    data:{code:'${info.code}',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -894,7 +899,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'DIAN_YC',varName:dy_code},
+                        data:{code:'${info.code}',group:'DIAN_YC',varName:dy_code,date:datePar},
                         dateType:'json',
                         success: function(json){
 

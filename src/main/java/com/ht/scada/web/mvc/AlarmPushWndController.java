@@ -96,13 +96,15 @@ public class AlarmPushWndController {
 	/*
 	 * 
 	 * 测试发送报警信息
-	 
-	@Scheduled(fixedDelay=5000)
-	public void testSendMessages(){
+	 * */
+	@RequestMapping(value="push")
+    @ResponseBody
+	public String  testSendMessages(){
         FaultRecord record = new FaultRecord("youjing", "aaa", "hello", true, new Date());
 
         record.setId(UUID.randomUUID().toString());
         realtimeImpl.faultOccured(record);
+        return "OK";
 		//OffLimitsRecord record = new OffLimitsRecord();
 		//List<TestData> list;
 		//realtimeImpl.offLimitsOccured(record);
@@ -112,7 +114,7 @@ public class AlarmPushWndController {
         //log.info("当前测试数据有:" + list.size() + "条;");
         
 	}
-    * */
+    
 	/**
 	 * TODO: 仅用于模拟推送数据时使用
 	 */

@@ -87,7 +87,7 @@
             }
         </style>
         <script>
-            var dhxWins,Grid,dhxWins,dhxWins1,dhxd,dhxd1,dhxd2,dhxd3,gr,mjge,mjgr1,mjgr2;
+            var dhxWins,Grid,dhxWins,dhxWins1,dhxd,dhxd1,dhxd2,dhxd3,gr,zqdq,zqdq1,zqdq2;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="images/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
             var xb='<div id="gtc"  style="width:100%;height:100%;border-style:groove; border-width:1px;float:left" ><table><tr><td  style="width:250px" align="center">B相电压5次谐波:0.1</td><td  style="width:250px" align="center">B相电压7次谐波:0.2</td></tr><tr><td  style=" width:250px" align="center">B相电压11次谐波:0.3</td><td  style="width:250px" align="center">B相电压13次谐波:0.4</td></tr><tr><td  style="width:250px" align="center">B相电压17次谐波:0.5</td><td  style="width:250px" align="center">B相电压19次谐波:0.6</td></tr></table></div>';
             var ew='<div id="y" style="width:186px;height:100px;float:left;font-size:14px;"><table><tr><td style="width:250px" align="left">&nbsp;&nbsp;&nbsp;用户名:&nbsp;<input name="" type="text" value="admin" style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input name="" type="password" value="admin"  style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;操作原因:&nbsp;<input name="" type="text" value="摄像头"  style="width:80px;"/></td></tr><tr style="height:10px"></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qd();">确定</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qx();">取消</button><td></tr></table></div>';
@@ -95,15 +95,21 @@
             var sd='<div id="y"style="width:180px;height:30px;float:left;"><table><tr><td style="width:250px" align="center">油井状态:开井</td></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qdd();">确定</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qxx();">取消</button><td></tr></table></div>';
             var yt='<div id="y"style="width:186px;height:100px;float:left;font-size:14px;"><table><tr><td style="width:250px" align="left">&nbsp;&nbsp;&nbsp;用户名:&nbsp;<input name="" type="text" value="admin" style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input name="" type="password" value="admin"  style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;操作原因:&nbsp;<input name="" type="text" value="参数改变"  style="width:80px;"/></td></tr><tr style="height:10px"></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qd1();">确定</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qx1();">取消</button><td></tr></table></div>';
             var yc='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc();">调参</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tj();">取消</button><td></tr></table></div>';
-            var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input name="" type="text" value="4" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input name="" type="text" value="2.1" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input name="" type="text" value="3.9" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input name="" type="text" value="2" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';            
-            
-            var objUrl='${ctx}';
+            var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input name="" type="text" value="4" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input name="" type="text" value="2.1" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input name="" type="text" value="3.9" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input name="" type="text" value="2" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';             
+             
+             var objUrl='${ctx}';
             var username='${username}';
-            /**
-             * 页面初始化
+            
+             // 报警时间
+             var dateAction = new Date(${actionTime});   
+             var datePar = dateAction.getFullYear() + '/' + (dateAction.getMonth() + 1) + '/' 
+                + dateAction.getDate() + ' ' + dateAction.getHours() + ':' + dateAction.getMinutes();
+    
+            /* 页面初始化
              * @returns {undefined}
              */
-            function mj(){
+            function zp(){
+                createGrid();
                 createWindows();
                 createWindows1();
                 createwind();
@@ -111,13 +117,173 @@
                 createwind2();
                 createwi();
                 //工况信息
-                createmjGr();
+                createzqGr();
                 //电气参数
-                createmjdqgr();
-                createmjdqgr1();
-                createmjdqgr2();
+                createzqdqGr();
+                createzqdqGr1();
+                createzqdqGr2();
             }
             
+            /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doZqGrClick(gr_rId, gr_cInd){    
+
+                    var tmpVarName;
+                    var tmpVarTtitle;
+                    switch(gr_cInd){
+                        case 0:
+                            tmpVarName = 'zc_zqll_sh';
+                            tmpVarTtitle = '蒸汽流量瞬时值';
+                            break;
+                        case 1:
+                            tmpVarName = 'zc_zqll_lj';
+                            tmpVarTtitle = '蒸汽流量累计值';
+                            break;
+                        case 2:
+                            tmpVarName = 'zc_zqyl';
+                            tmpVarTtitle = '蒸汽压力';
+                            break;
+                        case 3:
+                            tmpVarName = 'zc_zqwd';
+                            tmpVarTtitle = '蒸汽温度';
+                            break;
+                        case 4:
+                            tmpVarName = 'zc_zqgd';
+                            tmpVarTtitle = '蒸汽干度';
+                            break;
+                    }
+                    
+                    $("#ssqxTitle").html('&nbsp&nbsp&nbsp（' + tmpVarTtitle + '曲线）');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:'ZHU_CAI',varName:tmpVarName,date:datePar},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+
+                            var ys;
+                            if(j > 2){
+                                j = 0;
+                            }
+                            ys = yse[j];	
+                            te(xAxisData, tmpVarTtitle, '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }  
+                
+            /**
+             * 获得注气参数
+             * @returns {undefined}
+             */
+            function createGrid(){
+                Grid= new dhtmlXGridObject('dqcs');
+                Grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs");
+                Grid.setHeader(["注采蒸汽流量瞬时值(m³/s)","注采蒸汽流量累计值（m³）","注采压力（MPa）","注采温度（℃）","注采干度（%）"]);
+                Grid.setInitWidths("182,182,179,179,*");
+                Grid.setColAlign("center,center,center,center,center");
+                Grid.setColTypes("ro,ro,ro,ro,ro");
+                Grid.init();
+                
+                // 获得注气参数信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'ZHU_CAI',date:datePar},
+                    dateType:'json',
+                    success: function(json){
+
+                        var youjingData = new Object();
+                        youjingData.rows = [];
+
+                        var youjingItem = new Object();
+                        youjingItem.id = 1;
+                        youjingItem.data = new Array(5);
+                        
+                        $.each(json,function(key, value){
+
+                            switch(value.key){
+                            
+                                case 'zc_zqll_sh':
+                                    youjingItem.data[0] = value.value;
+                                    break;
+                                case 'zc_zqll_lj':
+                                    youjingItem.data[1] = value.value;
+                                    break;
+                                case 'zc_zqyl':
+                                    youjingItem.data[2] = value.value;
+                                    break;
+                                case 'zc_zqwd':
+                                    youjingItem.data[3] = value.value;
+                                    break;
+                                case 'zc_zqgd':
+                                    youjingItem.data[4] = value.value;
+                                    break;
+                            }                        
+                        });
+//                        alert(youjingItem.data);
+                        youjingData.rows.push(youjingItem);
+                        Grid.parse(youjingData,'json');
+                    }
+                }); 
+                
+                // 事件绑定
+                Grid.attachEvent('onRowSelect', doZqGrClick); 
+            }
+            
+            /**
+             * 信息点击
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             
+             * */
+            function doGrClick(gr_rId, gr_cInd){                    
+                    var tmpName = gr_rId.split('||');
+                    $("#ssqxTitle").html('&nbsp&nbsp&nbsp（' + tmpName[1] + '曲线）');
+                    // 获得工况信息
+                    $.ajax({
+                        type: 'POST',
+                        url: '${ctx}/realtime/linedata',
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0],date:datePar},
+                        dateType:'json',
+                        success: function(json){
+
+                            var xAxisData = [];
+                            var yAxisData = [];
+                            $.each(json,function(key, value){
+
+                                xAxisData.push(value.value);
+                                
+                                var dateTmp = new Date(value.date)
+                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            });
+
+                            var ys;
+                            if(j > 2){
+                                j = 0;
+                            }
+                            ys = yse[j];	
+                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
+                            j += 1;
+                        }
+                    });                    
+                }  
+                
             /**
              * 页面布局设置
              * @returns {undefined}
@@ -129,8 +295,8 @@
              * 设置工况信息
              * @returns {undefined}
              */
-            function createmjGr(){
-                gr=new dhtmlXGridObject('mj');
+            function createzqGr(){
+                gr=new dhtmlXGridObject('zq');
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);//隐藏表头
                 gr.setHeader(["序号"]);
@@ -141,8 +307,8 @@
                  // 获得工况信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'YOU_JING'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'YOU_JING',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -163,66 +329,36 @@
                                 youjingItem.id = value.key + '||' + value.name + '||YOU_JING';
                                 youjingItem.data = [];
                                 youjingItem.data.push(value.name + '：' + value.value);
-
                                 youjingData.rows.push(youjingItem);
                             }
                         });
 
                         gr.parse(youjingData,'json');
-                        //单击事件
+                        
                         if(gr.getRowsNum() > 0){
                             
                             doGrClick(gr.getRowId(0), 0);
                         }
                     }
-                });  
+                });    
+                
                 // 事件绑定
                 gr.attachEvent('onRowSelect', doGrClick);
                 }
-             function doGrClick(gr_rId, gr_cInd){
-             
-                var tmpName = gr_rId.split('||');
-                    $("#ssqxTitle").html( tmpName[1] + '曲线');
-                    // 获得工况信息
-                    $.ajax({
-                        type: 'POST',
-                        url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
-                        dateType:'json',
-                        success: function(json){
-
-                            var xAxisData = [];
-                            var yAxisData = [];
-                            $.each(json,function(key, value){
-
-                                xAxisData.push(value.value);
-                                
-                                var dateTmp = new Date(value.date)
-                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
-                            });
-
-                             var colors = Highcharts.getOptions().colors;
-                            var ys;
-                            ys = colors[j];		
-                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
-                            j += 1;
-                        }
-                    });                    
-             }   
-             function createmjdqgr(){
-                mjgr=new dhtmlXGridObject('mjdq1');
-				mjgr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+             function createzqdqGr(){
+                zqdq=new dhtmlXGridObject('zqdq');
+				zqdq.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
 				//dqgr.setNoHeader(true);//隐藏表头
-				mjgr.setHeader(["电力"]);
-				mjgr.setInitWidths("*");
-				mjgr.setColAlign("left");
-				mjgr.setColTypes("ro");
-				mjgr.init();
+				zqdq.setHeader(["电力"]);
+				zqdq.setInitWidths("*");
+				zqdq.setColAlign("left");
+				zqdq.setColTypes("ro");
+				zqdq.init();
 				// 获得电力信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'DIAN_YC',date:datePar},
                     dateType:'json',
                     success: function(json){
 
@@ -231,7 +367,7 @@
 
                         $.each(json,function(key, value){
 
-                             var dataItem = new Object();
+                            var dataItem = new Object();
                                 dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
                                 dataItem.data = [];
                                 dataItem.data.push(value.name + '：' + value.value);
@@ -239,179 +375,72 @@
                                 dataInfo.rows.push(dataItem);
                         });
 
-                        mjgr.parse(dataInfo,'json');
-                    }
-                });  
-                 // 事件绑定
-                mjgr.attachEvent('onRowSelect', doFzGrClick); 
-            }
-             /**
-             * 信息点击
-             * @param {type} gr_rId
-             * @param {type} gr_cInd
-             * @returns {undefined}             
-             * */
-            function doFzGrClick(gr_rId, gr_cInd){
-                    var tmpName = gr_rId.split('||');
-                    $("#ssqxTitle").html( tmpName[1] + '曲线');
-                    // 获得工况信息
-                    $.ajax({
-                        type: 'POST',
-                        url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
-                        dateType:'json',
-                        success: function(json){
-
-                            var xAxisData = [];
-                            var yAxisData = [];
-                            $.each(json,function(key, value){
-
-                                xAxisData.push(value.value);
-                                
-                                var dateTmp = new Date(value.date)
-                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
-                            });
-
-                            var colors = Highcharts.getOptions().colors;
-                            var ys;
-                            ys = colors[j];		
-                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
-                            j += 1;
-                        }
-                    });                    
-                }  
-            function createmjdqgr1(){
-                mjgr1=new dhtmlXGridObject('mjdq2');
-				mjgr1.setImagePath("js/gridcodebase/imgs/");
-				//dqgr.setNoHeader(true);//隐藏表头
-				mjgr1.setHeader(["电量"]);
-				mjgr1.setInitWidths("*");
-				mjgr1.setColAlign("left");
-				mjgr1.setColTypes("ro");
-				mjgr1.init();
-				// 获得电量信息
-                $.ajax({
-                    type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YM'},
-                    dateType:'json',
-                    success: function(json){
-
-                        var dataInfo = new Object();
-                        dataInfo.rows = [];
-
-                        $.each(json,function(key, value){
-
-                           var dataItem = new Object();
-                                dataItem.id = value.key + '||' + value.name + '||DIAN_YM';
-                                dataItem.data = [];
-                                dataItem.data.push(value.name + '：' + value.value);
-
-                                dataInfo.rows.push(dataItem);
-                        });
-
-                        mjgr1.parse(dataInfo,'json');
+                        zqdq.parse(dataInfo,'json');
                     }
                 }); 
+                
                 // 事件绑定
-                mjgr1.attachEvent('onRowSelect', doFzGrClick); 
+                zqdq.attachEvent('onRowSelect', doGrClick); 
             }
-             /**
-             * 信息点击
-             * @param {type} gr_rId
-             * @param {type} gr_cInd
-             * @returns {undefined}             
-             * */
-            function doFzGrClick(gr_rId, gr_cInd){
-                    
-                    var tmpName = gr_rId.split('||');
-                    $("#ssqxTitle").html( tmpName[1] + '曲线');
-                    // 获得工况信息
-                    $.ajax({
-                        type: 'POST',
-                        url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
-                        dateType:'json',
-                        success: function(json){
-
-                            var xAxisData = [];
-                            var yAxisData = [];
-                            $.each(json,function(key, value){
-
-                                xAxisData.push(value.value);
-                                
-                                var dateTmp = new Date(value.date)
-                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
-                            });
-                            var colors = Highcharts.getOptions().colors;
-                            var ys;
-                            ys = colors[j];	
-                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
-                            j += 1;
-                        }
-                    });                    
-                }  
-            function createmjdqgr2(){
-                mjgr2=new dhtmlXGridObject('mjdq3');
-				mjgr2.setImagePath("js/gridcodebase/imgs/");
+            function createzqdqGr1(){
+                zqdq1=new dhtmlXGridObject('zqdq1');
+				zqdq1.setImagePath("js/gridcodebase/imgs/");
 				//dqgr.setNoHeader(true);//隐藏表头
-				mjgr2.setHeader(["谐波"]);
-				mjgr2.setInitWidths("*");
-				mjgr2.setColAlign("left");
-				mjgr2.setColTypes("ro");
-				mjgr2.init();
+				zqdq1.setHeader(["电量"]);
+				zqdq1.setInitWidths("*");
+				zqdq1.setColAlign("left");
+				zqdq1.setColTypes("ro");
+				zqdq1.init();
 				// 获得电量信息
                 $.ajax({
                     type: 'POST',
-                    url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_XB'},
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'DIAN_YM',date:datePar},
                     dateType:'json',
                     success: function(json){
-                        xbJson = json;
+
                         var dataInfo = new Object();
                         dataInfo.rows = [];
 
                         $.each(json,function(key, value){
 
-                            if(value.key.indexOf("_array") < 0){
-                                
-                            
-                           var dataItem = new Object();
-                                dataItem.id = value.key + '||' + value.name + '||DIAN_XB';
+                            var dataItem = new Object();
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
                                 dataItem.data = [];
                                 dataItem.data.push(value.name + '：' + value.value);
 
                                 dataInfo.rows.push(dataItem);
-                                }
                         });
 
-                        mjgr2.parse(dataInfo,'json');
+                        zqdq1.parse(dataInfo,'json');
                     }
-                });
-                 // 事件绑定
-                mjgr2.attachEvent('onRowSelect', doFzZzGrClick); 
+                }); 
+                
+                // 事件绑定
+                zqdq1.attachEvent('onRowSelect', doGrClick); 
             }
-            var xbJson;
-             /**
+            
+                /**
              * 信息点击
              * @param {type} gr_rId
              * @param {type} gr_cInd
              * @returns {undefined}             
              * */
             function doFzZzGrClick(gr_rId, gr_cInd){
-            
+                    
                     var tmpName = gr_rId.split('||');
-                    $("#ssqxTitle").html( tmpName[1]+'谐波' );
+                    $("#dqqxTitle").html('&nbsp&nbsp&nbsp（' + tmpName[1] + '）');
                     
                     var xAxisData = [];
                     var yAxisData = [];
                     
                     var colors = Highcharts.getOptions().colors;
+                    
                     $.each(xbJson, function(key, value){
 
                         if(value.key == (tmpName[0] + '_array')){
                         
-                            var valueTmp = value.value.split(',');
+                            var valueTmp = value.value.split(',');// alert(valueTmp);
                             for(var loopTmp = 0; loopTmp < valueTmp.length; loopTmp++){
                                 
                                 xAxisData.push(loopTmp + 1); 
@@ -434,15 +463,59 @@
                     ys = yse[j];	
                     te1(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
                     j += 1;
-                }  
-            function createwind(){
-                dhxd = new dhtmlXWindows();
-                dhxd.attachViewportTo(document.body);
-                dhxd.createWindow("wi",1000,200,200,180);
-                dhxd.window("wi").button('minmax2').hide();
-                dhxd.window("wi").button('minmax1').hide();
-                dhxd.window("wi").button('park').hide();
-                dhxd.window("wi").hide();
+                } 
+              
+            var xbJson;
+            function createzqdqGr2(){
+                zqdq2=new dhtmlXGridObject('zqdq2');
+				zqdq2.setImagePath("js/gridcodebase/imgs/");
+				//dqgr.setNoHeader(true);//隐藏表头
+				zqdq2.setHeader(["谐波"]);
+				zqdq2.setInitWidths("*");
+				zqdq2.setColAlign("left");
+				zqdq2.setColTypes("ro");
+				zqdq2.init();
+				// 获得电量信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/groupbydate',
+                    data:{code:'${info.code}',group:'DIAN_XB',date:datePar},
+                    dateType:'json',
+                    success: function(json){
+
+                        xbJson = json;
+                        var dataInfo = new Object();
+                        dataInfo.rows = [];
+
+                        $.each(json,function(key, value){
+
+                            if(value.key.indexOf("_array") < 0){
+                                
+                            
+                            var dataItem = new Object();
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_XB';
+                                dataItem.data = [];
+                                dataItem.data.push(value.name + '：' + value.value);
+
+                                dataInfo.rows.push(dataItem);
+                                }
+                        });
+
+                        zqdq2.parse(dataInfo,'json');
+                    }
+                });
+                
+                // 事件绑定
+                zqdq2.attachEvent('onRowSelect', doFzZzGrClick); 
+            }
+           function createwind(){
+                        dhxd = new dhtmlXWindows();
+                        dhxd.attachViewportTo(document.body);
+                        dhxd.createWindow("wi",1000,200,200,180);
+                        dhxd.window("wi").button('minmax2').hide();
+                        dhxd.window("wi").button('minmax1').hide();
+                        dhxd.window("wi").button('park').hide();
+                        dhxd.window("wi").hide();
                 }
             function createwind1(){
                     dhxd1 = new dhtmlXWindows();
@@ -597,7 +670,7 @@
             }
         </STYLE>
     </head>
-    <body onload="mj();">
+    <body onload="zp();">
         <!--主界面-->
         <div id="zz" style="width:3845px; height:717px;border:solid; border-color:#000; border-width:1px">
         <!--数据-->
@@ -631,57 +704,65 @@
                     </div>
                 </div>
     <!--标签页 监测信息-->
-    <div id="ba" style="width:1280px; height:5px;float:left" ></div>
+      <div id="ba" style="width:1280px; height:5px;float:left" ></div>
     <div id="ba1" style="width:4px; height:22px;float:left" ></div>
-    <div id="gk1" style="width:366px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
+     <div id="gk1" style="width:366px; height:174px;font-size:14px;line-height:25px;border:solid; border-color:#FFBC6C; border-width:1px;  float:left">
+        <div id="gk1" style="width:366px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
          &nbsp工&nbsp;&nbsp;&nbsp况
-    </div>
-    <div id="ba4" style="width:5px; height:22px;  float:left" ></div>
-    <div id="gk2" style="width:900px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#fdb4fd; float:left">
-         &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
-    </div>
-     <div id="ba5" style="width:5px; height:22px; float:left" ></div>
-    <div id="ba56" style="width:4px; height:154px;float:left"></div>
-    <div id="gk4" style="width:364px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
-        <div id="gkk" style="width:245px; height:152px; float:left ">
+        </div>
+        <div id="gkk" style="width:248px; height:152px; float:left ">
            <a  ondblclick="ztwin();" style="cursor:hand;text-decoration:none"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:151px" /></a>
         </div>
-        <div id="gkk1" style="width:110px;height:153px; float:left">
-      	    <div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
-              &nbsp;&nbsp;&nbsp;油井启停：<img  id="youjingState" src="${ctx}/static/img/hongse.png" style="height:15px"/>
+        <div id="gkk1" style="width:110px;height:153px;  float:left">
+      		<div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
+              &nbsp;&nbsp;&nbsp;油井启停：<img src="${ctx}/static/img/hongse.png" style="height:15px"/>
             </div>
-            <div id="mj" style="width:118px; height:107px; float:left">
+            <div id="zq" style="width:118px; height:107px; float:left">
             </div>
+     	 </div>
+     </div>
+     <div id="b" style="width:5px; height:176px;float:left"></div>
+     <div id="gk2" style="width:895px;font-size:14px;line-height:25px;border:solid; border-width:1px; border-color:#e6d5ff; font-weight:bold; height:174px;float:left">
+         <div id="gk2" style="width:895px;font-size:14px;line-height:25px;border:solid; border-width:1px; border-color:#e6d5ff; font-weight:bold; height:22px; background-color:#e6d5ff; float:left">
+         &nbsp注&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
         </div>
+        <div id="dqcs" style="width:895px; height:150px;border:solid; border-width:1px; border-color:#e6d5ff;float:left">
+         </div>
     </div>
-    <div id="b" style="width:5px; height:154px;  float:left"></div>
-            <div id="cs" style="width:898px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
-                    <div id="mjdq1" style="width:299px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">        		
-                    </div>
-                    <div id="mjdq2" style="width:299px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left"> 
-                    </div>
-                    <div id="mjdq3" style="width:294px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
-                    </div>
+    <div id="s" style="width:5px; height:177px;float:left"></div>
+    <div id="xia" style="width:1280px; height:5px; float:left"></div>
+    <div id="xi" style="width:5px; height:21px; float:left"></div>
+    <div id="jdm1" style="width:1269px; height:10;top: 10; background-color:#fdb4fd; font-size:16px; font-weight:bold; border:solid; border-width:1px; border-color:#fdb4fd; float:left">
+          &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
+    </div>
+    <div id="xi" style="width:5px; height:140px;float:left"></div>
+            <div id="cs" style="width:1268px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
+           	 <div id="zqdq" style="width:420px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">        		 </div>
+                 <div id="zqdq1" style="width:420px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">         		 </div>
+                 <div id="zqdq2" style="width:422px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
+                 </div>
             </div>
-    <div id="xi1" style="width:5px; height:140px;float:left"></div>
+            <div id="xi1" style="width:5px; height:140px;float:left"></div>
             <div id="xi2" style="width:1280px; height:5px;float:left"></div>
-            <div id="xi3" style="width:5px; height:20px;  float:left"></div>
-            <div id="dqcsqx" style=" width:1270px; height:20px; line-height:20px; font-size:14px;border-width:1px; background-color:#9fdfae; font-weight:bold;float:left">
-                    <span id="ssqxTitle"></span>
+            <div id="xi3" style="width:5px; height:190px;float:left"></div>
+            <div id="dqcsqx1" style=" width:1269px; height:185px;float:left;; border:solid; border-width:1px; border-color:#cced94;">
+            <div id="dqcsqx" style=" width:1269px; height:20px; font-size:14px; background-color:#9fdfae; font-weight:bold;float:left">
+            &nbsp;实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp曲&nbsp;&nbsp;&nbsp线
+            <span id="ssqxTitle"></span>
             </div>
-            <div id="xi4" style="width:5px; height:20px;   float:left"></div>
-            <div id="xi5" style="width:5px; height:200px;  float:left"></div>
-               <div id="dqcsqxt" style=" width:1268px; height:330px; border-style:solid; border-color:#9fdfae; border-width:1px;  float:left" >
+            <div id="dqcsqxt" style=" width:1268px; height:165px; border-style:solid; border-color:#9fdfae; border-width:1px;  float:left" >
     			<div id="div1" style="width:100%;height:100%;">
-                            <div id="container" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
-                        </div>
-                        <div id="div2" style="width:100%;height:100%; display:none ">
-                            <div id="container1" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
-                        </div>
-                        <div id="div4" style="width:100%;height:100%; display:none ">
-                            <div id="container1122" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
-                        </div>
+                    <div id="container" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
+                </div>
+                <div id="div2" style="width:100%;height:100%; display:none ">
+                    <div id="container1" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
+                </div>
+                <div id="div4" style="width:100%;height:100%; display:none ">
+                    <div id="container1122" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
+                </div>
+                <div id="container2" style="display:none;"></div>
     		</div>
+            </div>
 </div>
 <!--地图-->
 <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >

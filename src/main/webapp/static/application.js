@@ -12,19 +12,52 @@ $(document).ready(function() {
 
 		//alert("Refreshing data tables...");
 
-		$('#transportType').html(asyncHttpStatistics.transportType);
-		$('#responseState').html(asyncHttpStatistics.responseState);
-		$('#numberOfCallbackInvocations').html(asyncHttpStatistics.numberOfTotalMessages);
-		$('#numberOfErrors').html(asyncHttpStatistics.numberOfErrors);
+		//$('#transportType').html(asyncHttpStatistics.transportType);
+		//$('#responseState').html(asyncHttpStatistics.responseState);
+		//$('#numberOfCallbackInvocations').html(asyncHttpStatistics.numberOfTotalMessages);
+		//$('#numberOfErrors').html(asyncHttpStatistics.numberOfErrors);
 
 	}
+
+    function confirmMessageShow(p_alarmId){
+//        alert('dd');
+        $.ajax({
+            type: 'POST',
+            url: objUrl + '/alarm/confirm',
+            data:{alarmId:p_alarmId, user:username, type:'confirm'},
+            dateType:'json',
+            success: function(json){
+                $('#confirmLink' + p_alarmId).hide();                
+            }
+        });
+    }
 
 	function onMessage(response) {
 		asyncHttpStatistics.numberOfTotalMessages++;
 		refresh();
 		var message = response.responseBody;
-		if(message) {
-			$('#latestMessage').html(message);
+
+        $.ajax({
+            type: 'POST',
+            url: objUrl + '/alarm/getAlarmById',
+            data:{id:message},
+            dateType:'json',
+            success: function(json){
+//               alert(json.info + '----' + json.endTag.name);
+                var strHtml = json.endTag.name + "产生报警,错误信息：<br />" + json.endTag.name + '<br />' 
+                        + '<a href="' + objUrl + '/alarmpage">查看</a>&nbsp;&nbsp;' 
+                        + '<a id="confirmLink' + message + '" href="javascript:void(0);" >回复</a> ';
+                $.messager.show('预警提示', strHtml, 0);
+                $('#confirmLink' + message).bind('click', function(){confirmMessageShow(message)});
+            }
+        });
+
+
+        
+
+
+		//if(message) {
+			//$('#latestMessage').html(message);
 /*			var result;
 	
 			try {
@@ -35,7 +68,7 @@ $(document).ready(function() {
 				alert("An error ocurred while parsing the JSON Data: " + message.data + "; Error: " + e);
 				return;
 			}*/
-		}
+		//}
 
 	}
 		
@@ -55,7 +88,7 @@ $(document).ready(function() {
 		//callback: callback,
 		onMessage: onMessage,
 		onOpen: function(response) {
-			alert('Atmosphere onOpen: Atmosphere connected using ' + response.transport);
+			//alert('Atmosphere onOpen: Atmosphere connected using ' + response.transport);
 			transport = response.transport;
 			asyncHttpStatistics.transportType = response.transport;
 			refresh();
@@ -64,12 +97,11 @@ $(document).ready(function() {
 			//alert("Atmosphere onReconnect: Reconnecting");
 	    },
 		onClose: function(response) {
-			alert('Atmosphere onClose executed');
+			//alert('Atmosphere onClose executed');
 		},
 
 		onError: function(response) {
-			alert('Atmosphere onError: Sorry, but there is some problem with your '
-				+ 'socket or the server is down');
+			//alert('Atmosphere onError: Sorry, but there is some problem with your '+ 'socket or the server is down');
 		}
 	};
 
