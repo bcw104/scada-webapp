@@ -181,9 +181,9 @@ public class UserAdminController {
     
     @RequestMapping(value="delUserExtInfo")
     @ResponseBody
-	public String delUserExtInfo(int userid) {
+	public String delUserExtInfo(int id) {
         
-        userExtInfoService.deleteUser(userid);
+        userExtInfoService.deleteUser(id);
         return "true";
 	}
     @RequestMapping(value="findUserExtInfoByUserID")

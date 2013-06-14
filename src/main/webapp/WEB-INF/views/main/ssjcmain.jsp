@@ -445,7 +445,9 @@
               * @returns {undefined}
               */
             function showDyqx(dy_code, dy_title){
-
+                            
+                    $("#ssqx4").css("display","block");
+                    $("#gtdb").css("display","none");
 //                    $("#container").html('');
                     $("#ssqxTitle").html('&nbsp&nbsp&nbsp（' + dy_title + '曲线）');
                     // 获得工况信息
@@ -473,9 +475,6 @@
                             ys = yse[j];	
                             te(xAxisData, dy_title, '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
                             j += 1;
-                            
-                            $("#ssqx4").css("display","block");
-                            $("#gtdb").css("display","none");
                         }
                     });                    
                 }
