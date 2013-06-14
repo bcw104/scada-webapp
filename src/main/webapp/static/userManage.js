@@ -202,7 +202,7 @@ function drop(selectedId){
    $.ajax({
         type: 'POST',
         url: objUrl+'/admin/user/delUserExtInfo',
-        data:"userid="+selectedId,
+        data:"id="+selectedId,
         success: function(json){
              if(json=='true'){
                  alertMessage("删除成功!");
