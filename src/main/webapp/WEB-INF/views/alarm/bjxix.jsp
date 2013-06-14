@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>报警信息</title>
-        <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z-bjxix.css">
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/dhtmlxtreegrid.js"></script>
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
@@ -343,20 +343,20 @@
                                         baojingData.rows.push(baojingItem);
                                     }); 
 
-                                    var strDivHtml = '  <div id="jxxtp_' + key + '" style="width:1245px; height:193px;  float:left; ">';
+                                    var strDivHtml = '  <div id="jxxtp_' + key + '" style="width:1245px; height:193px;border:solid; border-width:1px; border-color:#e6d5ff;  float:left; ">';
                                     strDivHtml += '         <div id="mcxxll1_' + key + '" style="float:left; height:193px; width:190px">';
 
                                     if(loopIndex % 2 === 0){                            
-                                        strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#e3f5ff; height:22px; width:190px; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
+                                        strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#e3f5ff; height:22px; width:190px; text-align:center; font-size:14px; padding-top:6px;">';
                                     }else{
-                                        strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#f5ffdc; height:22px; width:190px; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
+                                        strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#f5ffdc; height:22px; width:190px; text-align:center; font-size:14px; padding-top:6px;" >';
                                     }
 
         //                            strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#e3f5ff; height:22px; width:190px; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
                                     strDivHtml += '                 <strong>井号：' + jingName + '</strong>';
                                     strDivHtml += '             </div>';
-                                    strDivHtml += '             <div id="mcxx11_' + key + '" style=" height:81px; width:188px; background-color:#0C3;" ></div>';
-                                    strDivHtml += '             <div id="mcxx12_' + key + '" style=" height:81px; width:188px; background-color:#03C;" ></div>';
+                                    strDivHtml += '             <div id="mcxx11_' + key + '" style=" height:81px; width:188px;cursor:pointer ; background-color:#0C3;" ></div>';
+                                    strDivHtml += '             <div id="mcxx12_' + key + '" style=" height:81px; width:188px;cursor:pointer ; background-color:#03C;" ></div>';
                                     strDivHtml += '         </div>';
                                     strDivHtml += '         <div id="mcltb1_' + key + '" style=" height:193px; width:1055px; margin-left:190px;"></div>';
                                     strDivHtml += '     </div>';
@@ -367,7 +367,7 @@
                                     grid1 = new dhtmlXGridObject('mcxx11_' + key);
                                     grid1.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                                     grid1.setHeader(["报警对象"]);
-                                    grid1.setInitWidths("188");
+                                    grid1.setInitWidths("*");
                                     grid1.setColAlign("center");
                                     grid1.setColTypes("ro");
                                     grid1.init();
@@ -376,7 +376,7 @@
                                     grid2 = new dhtmlXGridObject('mcxx12_' + key);
                                     grid2.setImagePath("js/gridcodebase/imgs/");
                                     grid2.setHeader(["负 责 人"]);
-                                    grid2.setInitWidths("188");
+                                    grid2.setInitWidths("*");
                                     grid2.setColAlign("center");
                                     grid2.setColTypes("ro");
                                     grid2.init();
