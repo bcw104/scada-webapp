@@ -73,15 +73,14 @@ public class AlarmPushWndController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public void getAlarmMessages(final AtmosphereResource event, String username)
-			throws JsonGenerationException, JsonMappingException, IOException {
-		log.debug("订阅报警信息:{}",username);
+	public void getAlarmMessages(final AtmosphereResource event, String username) throws JsonGenerationException, JsonMappingException, IOException {
+		//log.debug("订阅报警信息:{}",username);
 
 		final Broadcaster bc = event.getBroadcaster();
 		if (bc != null) {
 			//log.debug("" + userService);
 			bc.setID("/" + username);
-			log.debug("广播ID：{}", bc.getID());
+			//log.debug("广播ID：{}", bc.getID());
 		}
 		
 		AtmosphereUtils.suspend(event);
