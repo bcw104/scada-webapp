@@ -23,7 +23,14 @@
 
 	<!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
 	<mvc:default-servlet-handler />
-	
+
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <!-- fastjosn spring support -->
+            <ref bean="jsonConverter"></ref>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
 	<!-- Handles HTTP GET requests for /static/** by efficiently serving up static resources in the ${webappRoot}/static/ directory -->
 	<!-- <resources mapping="/static/**" location="/static/" /> -->
 
@@ -36,17 +43,27 @@
 	<!-- 定义无Controller的path<->view直接映射 -->
 	<mvc:view-controller path="/" view-name="redirect:/main" />
 
+    <!--<bean id="jaxbJacksonObjectMapper" class="org.springframework.mvc.atmosphere.support.JaxbJacksonObjectMapper" />-->
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-					<property name="objectMapper" ref="jaxbJacksonObjectMapper" />
-				</bean>
+                <ref bean="jsonConverter"></ref>
+				<!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+					<!--<property name="objectMapper" ref="jaxbJacksonObjectMapper" />-->
+				<!--</bean>-->
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="jaxbJacksonObjectMapper" class="org.springframework.mvc.atmosphere.support.JaxbJacksonObjectMapper" />
+
+    <bean id="jsonConverter" class="com.alibaba.fastjson.spring.support.MappingFastJsonHttpMessageConverter">
+        <property name="supportedMediaTypes" value="application/json" />
+        <property name="serializerFeature">
+            <list>
+                <value>WriteMapNullValue</value>
+                <value>QuoteFieldNames</value>
+            </list>
+        </property>
+    </bean>
 
 	<task:executor id="executor" pool-size="5" />
 	<task:scheduler id="scheduler" pool-size="5" />
