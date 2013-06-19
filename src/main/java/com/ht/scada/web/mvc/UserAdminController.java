@@ -160,7 +160,7 @@ public class UserAdminController {
     @RequestMapping(value="updatePass")
 	@ResponseBody
 	public String updatePass(String newPass,String rePass,int userID) {
-                if(!rePass.equals(newPass)){	
+        if(!rePass.equals(newPass)){	
 			return "passWorng";
 		}
 		userService.updateUserPassword(new Sha256Hash(newPass).toHex(), userID);
@@ -181,9 +181,9 @@ public class UserAdminController {
     
     @RequestMapping(value="delUserExtInfo")
     @ResponseBody
-	public String delUserExtInfo(int userid) {
+	public String delUserExtInfo(int id) {
         
-        userExtInfoService.deleteUser(userid);
+        userExtInfoService.deleteUser(id);
         return "true";
 	}
     @RequestMapping(value="findUserExtInfoByUserID")

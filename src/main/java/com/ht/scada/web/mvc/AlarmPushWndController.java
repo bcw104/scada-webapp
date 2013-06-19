@@ -2,6 +2,7 @@ package com.ht.scada.web.mvc;
 
 import com.ht.scada.data.RealtimeDataMessageDelegate;
 import com.ht.scada.data.RealtimeMessageListener;
+import com.ht.scada.data.entity.FaultRecord;
 import com.ht.scada.data.service.AlarmService;
 import com.ht.scada.data.service.testimpl.TestDataDao;
 import com.ht.scada.security.service.UserService;
@@ -19,9 +20,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -51,8 +50,7 @@ public class AlarmPushWndController {
 	private final Map<DeferredResult<List<String>>, String> alarmRequests = new ConcurrentHashMap<DeferredResult<List<String>>, String>();
 
 	@Autowired
-	public AlarmPushWndController(AlarmService alarmService,
-			UserService userService) {
+	public AlarmPushWndController(AlarmService alarmService, UserService userService) {
 		this.alarmService = alarmService;
 		this.userService = userService;
 	}
@@ -66,13 +64,13 @@ public class AlarmPushWndController {
 	@ResponseBody
 	public void getAlarmMessages(final AtmosphereResource event, String username)
 			throws IOException {
-		log.debug("订阅报警信息:{}",username);
+		//log.debug("订阅报警信息:{}",username);
 
 		final Broadcaster bc = event.getBroadcaster();
 		if (bc != null) {
 			//log.debug("" + userService);
 			bc.setID("/" + username);
-			log.debug("广播ID：{}", bc.getID());
+			//log.debug("广播ID：{}", bc.getID());
 		}
 		
 		AtmosphereUtils.suspend(event);
@@ -90,12 +88,12 @@ public class AlarmPushWndController {
 	/*
 	 * 
 	 * 测试发送报警信息
-	 
-	@Scheduled(fixedDelay=5000)
-	public void testSendMessages(){
+	 * */
+	@RequestMapping(value="push")
+    @ResponseBody
+	public String  testSendMessages(){
         FaultRecord record = new FaultRecord("youjing", "aaa", "hello", true, new Date());
-
-        record.setId(UUID.randomUUID().toString());
+        //record.setId(UUID.randomUUID().toString());
         realtimeImpl.faultOccured(record);
 		//OffLimitsRecord record = new OffLimitsRecord();
 		//List<TestData> list;
@@ -104,9 +102,10 @@ public class AlarmPushWndController {
         //list = testDataDao.findByCodeGroup("a", "a");
         //list = testDataDao.findByCodeName("a", "a");
         //log.info("当前测试数据有:" + list.size() + "条;");
-        
+
+        return "OK";
 	}
-    * */
+    
 	/**
 	 * TODO: 仅用于模拟推送数据时使用
 	 */

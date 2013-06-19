@@ -24,6 +24,9 @@
 		<property name="successUrl" value="/" />
 		<property name="filterChainDefinitions">
 			<value>
+                    /alarm/mobileLogin = anon
+                    /alarm/confirm = anon
+                    /alarm/mobile = anon
                     /test/** = anon
                     /main/test = anon
                     /login = authc

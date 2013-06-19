@@ -118,8 +118,10 @@ public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessa
     private void pushAlarm(AlarmRecord alarm){
         List<UserExtInfo> list = userExtInfoService.getUserExtInfoByEndTag(alarm.getEndTag().getId());
         for(UserExtInfo extInfo:list){
-            User user = extInfo.getUser();
-            MetaBroadcaster.getDefault().broadcastTo("/" + user.getUsername(), alarm.getId().toString());
+            if(extInfo.getHeadflg() == "1"){
+                User user = extInfo.getUser();
+                MetaBroadcaster.getDefault().broadcastTo("/" + user.getUsername(), alarm.getId().toString());
+            }
         }
     }
 
