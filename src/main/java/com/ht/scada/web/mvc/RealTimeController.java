@@ -272,9 +272,9 @@ public class RealTimeController {
             cal.setTime(sen.getFixTime());
             cal.add(Calendar.DATE, Integer.parseInt(sen.getCheckInterval()));
             if(cal.before(curDate)){
-                map.put("biaoding", "1");
+                tmp.put("biaoding", "1");
             }else{
-                map.put("biaoding", "0");
+                tmp.put("biaoding", "0");
             }
             String name = sen.getName();
             //计算标定
@@ -461,9 +461,9 @@ public class RealTimeController {
             cal.setTime(sen.getFixTime());
             cal.add(Calendar.DATE, Integer.parseInt(sen.getCheckInterval()));
             if(cal.before(curDate)){
-                map.put("biaoding", "1");
+                tmp.put("biaoding", "1");
             }else{
-                map.put("biaoding", "0");
+                tmp.put("biaoding", "0");
             }
             String name = sen.getName();
             //计算标定
