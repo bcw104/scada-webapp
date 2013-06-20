@@ -3,7 +3,6 @@ package com.ht.scada.web.mvc;
 import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.common.tag.entity.EndTagExtInfo;
 import com.ht.scada.common.tag.service.EndTagService;
-import com.ht.scada.common.tag.util.EndTagExtNameEnum;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
 import com.ht.scada.web.entity.AlarmHandle;
@@ -17,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,6 +131,43 @@ public class AlarmInfoController {
         List<EndTagExtInfo> extList = endTag.getExtInfo();
         for(EndTagExtInfo ext : extList){
             map.put(ext.getKeyName().toLowerCase(), ext.getValue());
+        }
+        return map;
+    }
+    /*
+     * 提供给android客户端报警信息的接口
+     */
+    @RequestMapping(value="mobile")
+    @ResponseBody
+    public List<AlarmRecord> mobile(String username){
+        List<AlarmRecord> alarmList = new ArrayList<>();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserName(username);
+        if(!userExtInfo.getHeadflg().equals("1")){
+            return alarmList;
+        }
+        List<AlarmRecord> list = alarmInfoService.getHistoryAlarmRecord(0);
+        Set<Integer> endTagIDs= userExtInfo.getEndTagID();
+        for(AlarmRecord record : list){
+            //判断如果井不属于用户管理,则跳过
+            if(!endTagIDs.contains(record.getEndTag().getId())){
+                continue;
+            }
+            alarmList.add(record);
+        }
+        return alarmList;
+    }
+    @RequestMapping(value="mobileLogin")
+    @ResponseBody
+    public Map<String,String> mobileLogin(String username,String password) {
+        //new Sha256Hash(oldpass).toHex())
+        Map<String,String> map = new HashMap<>();
+        User user = userService.getUserByUsername(username);
+        if(user.getPassword().equals(new Sha256Hash(password).toHex())){
+            map.put("state", "1");
+            map.put("username",user.getUsername());
+            map.put("realname", user.getName());
+        }else{
+            map.put("state", "0");
         }
         return map;
     }

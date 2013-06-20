@@ -144,13 +144,13 @@
                 // 设置电气参数
                 createDq();
                 // 示功图
-                createSg('${info.code}');
+                createSg('${info.tpl}');
                 // 电流曲线
-                createDl('${info.code}');
+                createDl('${info.tpl}');
                 // 电功图
-                createDg('${info.code}');
+                createDg('${info.tpl}');
                 // 有功功率曲线
-                createYggl('${info.code}');
+                createYggl('${info.tpl}');
                 // 设置传感器设备信息
                 createCgqGrid();
             }
@@ -169,7 +169,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'DIAN_YC',varName:dy_code},
+                        data:{code:'${info.tpl}',group:'DIAN_YC',varName:dy_code},
                         dateType:'json',
                         success: function(json){
 
@@ -215,7 +215,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/arraywelldata',
-                    data:{code:'${info.code}', startDate:startDate, endDate:endDate},
+                    data:{code:'${info.tpl}', startDate:startDate, endDate:endDate},
                     dateType:'json',
                     success: function(json){
                         // 横坐标
@@ -260,7 +260,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
+                        data:{code:'${info.tpl}',group:'YOU_JING',varName:tmpName[0]},
                         dateType:'json',
                         success: function(json){
 
@@ -298,7 +298,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    data:{code:'${info.tpl}',group:'DIAN_YC'},
                     dateType:'json',
                     success: function(json){
 
@@ -340,7 +340,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YM'},
+                    data:{code:'${info.tpl}',group:'DIAN_YM'},
                     dateType:'json',
                     success: function(json){
 
@@ -423,7 +423,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_XB'},
+                    data:{code:'${info.tpl}',group:'DIAN_XB'},
                     dateType:'json',
                     success: function(json){
 
@@ -485,7 +485,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        data:{code:'${info.tpl}',group:tmpName[2],varName:tmpName[0]},
                         dateType:'json',
                         success: function(json){
 
@@ -529,7 +529,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'YOU_JING'},
+                    data:{code:'${info.tpl}',group:'YOU_JING'},
                     dateType:'json',
                     success: function(json){
 
@@ -587,7 +587,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'RTU_ZHUANG_TAI'},
+                    data:{code:'${info.tpl}',group:'RTU_ZHUANG_TAI'},
                     dateType:'json',
                     success: function(json){
 
@@ -630,7 +630,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    data:{code:'${info.tpl}',group:'DIAN_YC'},
                     dateType:'json',
                     success: function(json){
 
@@ -670,7 +670,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/sensor',
-                    data:{code:'${info.code}'},
+                    data:{code:'${info.tpl}'},
                     dateType:'json',
                     success: function(json){
 
@@ -719,7 +719,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/sensordevice',
-                    data:{code:'${info.code}'},
+                    data:{code:'${info.tpl}'},
                     dateType:'json',
                     success: function(json){
 
@@ -763,7 +763,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/etinfo',
-                    data:{code:'${info.code}'},
+                    data:{code:'${info.tpl}'},
                     dateType:'json',
                     success: function(json){
 
@@ -973,7 +973,7 @@ function createWindow(){
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/cygshouli',
-                    data:{code:'${info.code}'},
+                    data:{code:'${info.tpl}'},
                     dateType:'json',
                     success: function(json){
 
@@ -1058,13 +1058,13 @@ function wins(){
             * */
             function run1(){
                 // 示功图
-                createSg('${info.code}');
+                createSg('${info.tpl}');
                 // 电流曲线
-                createDl('${info.code}');
+                createDl('${info.tpl}');
                 // 电功图
-                createDg('${info.code}');
+                createDg('${info.tpl}');
                 // 有功功率曲线
-                createYggl('${info.code}');
+                createYggl('${info.tpl}');
             }
             
             // 示功图
@@ -1149,7 +1149,7 @@ function wins(){
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/arraywelldata',
-                    data:{code:'${info.code}', startDate:$("#gtStart").val().replace("时", "") + ':00', endDate:$("#gtEnd").val().replace("时", "") + ':00'},
+                    data:{code:'${info.tpl}', startDate:$("#gtStart").val().replace("时", "") + ':00', endDate:$("#gtEnd").val().replace("时", "") + ':00'},
                     dateType:'json',
                     success: function(json){
                         // 载荷，示功图纵坐标

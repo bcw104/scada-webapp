@@ -545,7 +545,7 @@
                             
                             if(valueZhan.name.indexOf(searchKeyword) >= 0){
                             
-                                switch(valueZhan.code){
+                                switch(valueZhan.tpl){
 
                                     // 增压站
                                     case p_code:
