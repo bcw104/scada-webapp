@@ -157,7 +157,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'ZHU_CAI',varName:tmpVarName},
+                        data:{code:'${info.tpl}',group:'ZHU_CAI',varName:tmpVarName},
                         dateType:'json',
                         success: function(json){
 
@@ -199,7 +199,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'ZHU_CAI'},
+                    data:{code:'${info.tpl}',group:'ZHU_CAI'},
                     dateType:'json',
                     success: function(json){
 
@@ -254,7 +254,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        data:{code:'${info.tpl}',group:tmpName[2],varName:tmpName[0]},
                         dateType:'json',
                         success: function(json){
 
@@ -303,7 +303,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'YOU_JING'},
+                    data:{code:'${info.tpl}',group:'YOU_JING'},
                     dateType:'json',
                     success: function(json){
 
@@ -353,7 +353,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    data:{code:'${info.tpl}',group:'DIAN_YC'},
                     dateType:'json',
                     success: function(json){
 
@@ -390,7 +390,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YM'},
+                    data:{code:'${info.tpl}',group:'DIAN_YM'},
                     dateType:'json',
                     success: function(json){
 
@@ -474,7 +474,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_XB'},
+                    data:{code:'${info.tpl}',group:'DIAN_XB'},
                     dateType:'json',
                     success: function(json){
 

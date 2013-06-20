@@ -1,8 +1,5 @@
 package com.ht.scada.web.mvc;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ht.scada.data.RealtimeDataMessageDelegate;
 import com.ht.scada.data.RealtimeMessageListener;
 import com.ht.scada.data.entity.FaultRecord;
@@ -23,11 +20,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -43,8 +36,7 @@ public class AlarmPushWndController {
 	private static final Logger log = LoggerFactory.getLogger(AlarmPushWndController.class);
 	private final AlarmService alarmService;
 	private final UserService userService;
-	private final ObjectMapper objectMapper;
-	
+
 	@Inject
 	private RealtimeMessageListener realtimeImpl;
     @Inject
@@ -58,12 +50,9 @@ public class AlarmPushWndController {
 	private final Map<DeferredResult<List<String>>, String> alarmRequests = new ConcurrentHashMap<DeferredResult<List<String>>, String>();
 
 	@Autowired
-	public AlarmPushWndController(AlarmService alarmService,
-			UserService userService,
-			ObjectMapper objectMapper) {
+	public AlarmPushWndController(AlarmService alarmService, UserService userService) {
 		this.alarmService = alarmService;
 		this.userService = userService;
-		this.objectMapper = objectMapper;
 	}
 
 	/**
@@ -73,7 +62,8 @@ public class AlarmPushWndController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public void getAlarmMessages(final AtmosphereResource event, String username) throws JsonGenerationException, JsonMappingException, IOException {
+	public void getAlarmMessages(final AtmosphereResource event, String username)
+			throws IOException {
 		//log.debug("订阅报警信息:{}",username);
 
 		final Broadcaster bc = event.getBroadcaster();
@@ -103,10 +93,8 @@ public class AlarmPushWndController {
     @ResponseBody
 	public String  testSendMessages(){
         FaultRecord record = new FaultRecord("youjing", "aaa", "hello", true, new Date());
-
-        record.setId(UUID.randomUUID().toString());
+        //record.setId(UUID.randomUUID().toString());
         realtimeImpl.faultOccured(record);
-        return "OK";
 		//OffLimitsRecord record = new OffLimitsRecord();
 		//List<TestData> list;
 		//realtimeImpl.offLimitsOccured(record);
@@ -114,7 +102,8 @@ public class AlarmPushWndController {
         //list = testDataDao.findByCodeGroup("a", "a");
         //list = testDataDao.findByCodeName("a", "a");
         //log.info("当前测试数据有:" + list.size() + "条;");
-        
+
+        return "OK";
 	}
     
 	/**

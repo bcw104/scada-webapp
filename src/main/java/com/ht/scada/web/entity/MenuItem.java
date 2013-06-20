@@ -1,6 +1,6 @@
 package com.ht.scada.web.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
@@ -35,7 +35,7 @@ public class MenuItem extends AbstractPersistable<Integer> {
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="type_id")
-    @JsonIgnore
+    @JSONField(serialize = false)
 	private MenuType menuType;
 
 	public String getMenuItemName() {

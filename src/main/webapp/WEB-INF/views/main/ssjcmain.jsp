@@ -139,13 +139,13 @@
                 createXinxi();
                 
                 // 示功图
-                createSg('${info.code}');
+                createSg('${info.tpl}');
                 // 电流曲线
-                createDl('${info.code}');
+                createDl('${info.tpl}');
                 // 电功图
-                createDg('${info.code}');
+                createDg('${info.tpl}');
                 // 有功功率曲线
-                createYggl('${info.code}');
+                createYggl('${info.tpl}');
                 // 功图对比查询框生成
                 createWin();
                 // 电气参数（电力）
@@ -179,7 +179,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
+                        data:{code:'${info.tpl}',group:'YOU_JING',varName:tmpName[0]},
                         dateType:'json',
                         success: function(json){
 
@@ -218,7 +218,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
+                        data:{code:'${info.tpl}',group:'YOU_JING',varName:tmpName[0]},
                         dateType:'json',
                         success: function(json){
 
@@ -304,7 +304,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    data:{code:'${info.tpl}',group:'DIAN_YC'},
                     dateType:'json',
                     success: function(json){
 
@@ -350,7 +350,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YM'},
+                    data:{code:'${info.tpl}',group:'DIAN_YM'},
                     dateType:'json',
                     success: function(json){
 
@@ -393,7 +393,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_XB'},
+                    data:{code:'${info.tpl}',group:'DIAN_XB'},
                     dateType:'json',
                     success: function(json){
 
@@ -454,7 +454,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'DIAN_YC',varName:dy_code},
+                        data:{code:'${info.tpl}',group:'DIAN_YC',varName:dy_code},
                         dateType:'json',
                         success: function(json){
 
@@ -495,7 +495,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
+                        data:{code:'${info.tpl}',group:tmpName[2],varName:tmpName[0]},
                         dateType:'json',
                         success: function(json){
 
@@ -539,7 +539,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'YOU_JING'},
+                    data:{code:'${info.tpl}',group:'YOU_JING'},
                     dateType:'json',
                     success: function(json){
 
@@ -597,7 +597,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'RTU_ZHUANG_TAI'},
+                    data:{code:'${info.tpl}',group:'RTU_ZHUANG_TAI'},
                     dateType:'json',
                     success: function(json){
 
@@ -640,7 +640,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    data:{code:'${info.tpl}',group:'DIAN_YC'},
                     dateType:'json',
                     success: function(json){
 
@@ -672,7 +672,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/sensor',
-                    data:{code:'${info.code}'},
+                    data:{code:'${info.tpl}'},
                     dateType:'json',
                     success: function(json){
 
@@ -722,7 +722,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/sensordevice',
-                    data:{code:'${info.code}'},
+                    data:{code:'${info.tpl}'},
                     dateType:'json',
                     success: function(json){
 
@@ -766,7 +766,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/etinfo',
-                    data:{code:'${info.code}'},
+                    data:{code:'${info.tpl}'},
                     dateType:'json',
                     success: function(json){
 
@@ -807,13 +807,13 @@
             * */
             function run1(){
                 // 示功图
-                createSg('${info.code}');
+                createSg('${info.tpl}');
                 // 电流曲线
-                createDl('${info.code}');
+                createDl('${info.tpl}');
                 // 电功图
-                createDg('${info.code}');
+                createDg('${info.tpl}');
                 // 有功功率曲线
-                createYggl('${info.code}');
+                createYggl('${info.tpl}');
             }
             
             /**
@@ -926,7 +926,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/arraywelldata',
-                    data:{code:'${info.code}', startDate:$("#gtStart").val().replace("时", "") + ':00', endDate:$("#gtEnd").val().replace("时", "") + ':00'},
+                    data:{code:'${info.tpl}', startDate:$("#gtStart").val().replace("时", "") + ':00', endDate:$("#gtEnd").val().replace("时", "") + ':00'},
                     dateType:'json',
                     success: function(json){
                         // 载荷，示功图纵坐标
@@ -985,7 +985,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/arraywelldata',
-                    data:{code:'${info.code}', startDate:startDate, endDate:endDate},
+                    data:{code:'${info.tpl}', startDate:startDate, endDate:endDate},
                     dateType:'json',
                     success: function(json){
                         // 横坐标
@@ -1052,7 +1052,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/cygshouli',
-                    data:{code:'${info.code}'},
+                    data:{code:'${info.tpl}'},
                     dateType:'json',
                     success: function(json){
 
@@ -1276,36 +1276,7 @@
             <div id="zz" style="width:3845px; height:717px;border:solid; border-color:#000; border-width:1px">
                 <!--数据-->
                 <div id="ssjcm" style="width:1280px; height:69px;  float:left; font-size: 0 " >
-                    <div id="ssjc" style="width:1280px; height:10">
-                        <img src="${ctx}/static/img/head.png"/>
-                    </div>
-                    <div id="tool" style="width:119px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                        <a  href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
-                    </div>
-                    <div id="tool1" style="width:125px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left">
-                        <a href="${ctx}/alarmpage" style="text-decoration:none"><img border="0" src="${ctx}/static/img/bjzt.png" /></a>
-                    </div>
-                    <div id="tool2" style="width:120px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                        <a  href="scdt.html" style="text-decoration:none"><img border="0" src="${ctx}/static/img/scdt.png" style="width:120px; height:33px;"/></a>
-                    </div>
-                    <div id="tool3" style="width:120px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                        <a  href="scjl.html" style="text-decoration:none"><img  border="0" src="${ctx}/static/img/scgl.png" style="width:120px; height:33px;"/></a>
-                    </div>
-                    <div id="tool4" style="width:120px; height:20;border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                        <a  href="wltp.html" style="text-decoration:none"><img border="0"  src="${ctx}/static/img/txwl.png" style="width:120px; height:33px;"/></a>
-                    </div>
-                    <div id="tool5" style="width:120px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                        <img src="${ctx}/static/img/yjcz.png" style="width:120px; height:33px" />
-                    </div>
-                    <div id="tool7" style="width:550px; height:20; float:left" >
-                        <img src="${ctx}/static/img/tp.png" style="width:550px; height:33px" />
-                    </div>
-                    <div id="bt" style="width:1246px; height:28px; font-size:14px;  border-top-color:#1580db; border-top-style:solid; border-top-width:1px;font-weight:bold; line-height:30px; background-color:#a9d3ff; float:left">
-                        &nbsp;&nbsp;${info.majorTag.name}---${info.name}
-                    </div>
-                    <div id="cha" style="float:right; border-top-color:#1580db; border-top-style:solid; border-top-width:1px">
-                        <a href="${ctx}/main"><img src="${ctx}/static/img/cha.png" border="0" style="height:28px;"/></a>
-                    </div>
+                    <%@ include file="ssjcCommon.jsp"%> 
                     <!--标签页 监测信息-->
                     <div id="tabbl" style="width:1280px; height:570px; float:left" ></div>
                     <div id="gk" style="width:1280px; height:560px" >
