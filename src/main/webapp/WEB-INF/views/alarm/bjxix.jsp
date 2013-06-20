@@ -560,7 +560,7 @@
                     </a>
                 </div>
                 <div id="tool2" style="width:126px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" class="a3">
-                    <a  href="scdt.html" style="text-decoration:none">
+                    <a  href="${ctx}/performancepage" style="text-decoration:none">
                         <img  border="0" src="${ctx}/static/img/scdt.png" style="width:126px; height:33px"/>
                     </a>
                 </div>
