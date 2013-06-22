@@ -1,20 +1,11 @@
 package com.ht.scada.web.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
+import com.alibaba.fastjson.annotation.JSONField;
+import com.ht.scada.security.entity.User;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import com.ht.scada.security.entity.User;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+import java.util.Date;
 @Entity
 @Table(name="T_Alarm_Handle")
 public class AlarmHandle extends AbstractPersistable<Integer>{
@@ -28,7 +19,6 @@ public class AlarmHandle extends AbstractPersistable<Integer>{
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="alarmrecord_id")
-    @JsonIgnore
 	private AlarmRecord alarmRecord;
 	
 	@Column(name = "confirm_time")
@@ -45,6 +35,7 @@ public class AlarmHandle extends AbstractPersistable<Integer>{
 	public void setUser(User user) {
 		this.user = user;
 	}
+    @JSONField(serialize = false)
 	public AlarmRecord getAlarmRecord() {
 		return alarmRecord;
 	}
