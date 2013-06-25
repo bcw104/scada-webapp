@@ -13,24 +13,22 @@ import java.util.Map;
  * @author
  * admin
  */
-@Service
-public class RealtimeDataServiceImpl implements RealtimeDataService{
+@Service("testRealtimeDataService")
+public class RealtimeDataServiceImpl {
 
     @Inject
     private TestDataDao testDataDao;
 
-    @Override
     public List<String> getEndTagMultiVarValue(String code, List<String> name) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
+
     public Map<String, String> getEndTagAllVarValue(String code) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
 
-    @Override
     public Map<String, String> getEndTagVarGroupInfo(String code, String group) {
         
         Map<String ,String > map = new HashMap<>();
@@ -73,7 +71,6 @@ public class RealtimeDataServiceImpl implements RealtimeDataService{
         return map;
     }
 
-    @Override
     public String getEndTagVarInfo(String code, String varName) {
         if(code == null || varName == null){
             return "1";
@@ -100,25 +97,22 @@ public class RealtimeDataServiceImpl implements RealtimeDataService{
         */
     }
 
-    @Override
     public Map<String, String> getEndTagVarInfo(List<String> code, String varName) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
     public Object[][] getEndTagVarLineData(String code, String varName) {
         return new Object[0][];  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
     public float[] getEndTagVarYcArray(String code, String varName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public Map<String, float[]> getEndTagVarYcArray(String code, List<String> varName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 
 
 }

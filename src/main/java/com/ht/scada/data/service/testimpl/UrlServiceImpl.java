@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  *
  * @author admin
  */
-@Service
+@Service("testUrlService")
 public class UrlServiceImpl implements UrlService{
 
     @Override

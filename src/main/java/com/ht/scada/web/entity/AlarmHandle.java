@@ -1,6 +1,6 @@
 package com.ht.scada.web.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.alibaba.fastjson.annotation.JSONField;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -28,7 +28,6 @@ public class AlarmHandle extends AbstractPersistable<Integer>{
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="alarmrecord_id")
-    @JsonIgnore
 	private AlarmRecord alarmRecord;
 	
 	@Column(name = "confirm_time")
@@ -45,6 +44,7 @@ public class AlarmHandle extends AbstractPersistable<Integer>{
 	public void setUser(User user) {
 		this.user = user;
 	}
+    @JSONField(serialize = false)
 	public AlarmRecord getAlarmRecord() {
 		return alarmRecord;
 	}

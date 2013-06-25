@@ -69,6 +69,7 @@ public class MappingFastJsonHttpMessageConverter extends AbstractHttpMessageConv
     protected void writeInternal(Object o, HttpOutputMessage outputMessage)
             throws IOException, HttpMessageNotWritableException {
         String jsonString = JSON.toJSONString(o, serializerFeature);
+        System.out.println(jsonString);
         OutputStream out = outputMessage.getBody();
         out.write(jsonString.getBytes(DEFAULT_CHARSET));
         out.flush();

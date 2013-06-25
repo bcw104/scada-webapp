@@ -24,10 +24,10 @@ import org.springframework.stereotype.Service;
  *
  * @author admin
  */
-@Service
-public class HistoryDataServiceimpl implements HistoryDataService{
+@Service("testHistoryDataService")
+public class HistoryDataServiceimpl {
 
-    @Override
+    //@Override
     public List<TimeSeriesDataModel> getVarTimeSeriesData(String code, VarGroupEnum varGroup, String varName, Date start, Date end){
        SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         
@@ -50,17 +50,17 @@ public class HistoryDataServiceimpl implements HistoryDataService{
         return list;
     }
 
-    @Override
+    //@Override
     public Map<String, List<TimeSeriesDataModel>> getVarTimeSeriesData(String code, VarGroupEnum varGroup, List<String> varName, Date start, Date end) {
         return null;
     }
 
-    @Override
+    //@Override
     public List<VarGroupData> getVarGroupData(String code, VarGroupEnum varGroup, Date start, Date end, int limit) {
         return null;
     }
 
-    @Override
+    //@Override
     public VarGroupData getVarGroupData(String code, VarGroupEnum varGroup, Date start) {
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -34,7 +34,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AlarmPushWndController {
 
 	private static final Logger log = LoggerFactory.getLogger(AlarmPushWndController.class);
-	private final AlarmService alarmService;
+	@Inject
+    private final AlarmService alarmService;
+    @Inject
 	private final UserService userService;
 
 	@Inject

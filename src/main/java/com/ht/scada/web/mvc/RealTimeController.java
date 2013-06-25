@@ -38,6 +38,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -244,8 +245,29 @@ public class RealTimeController {
             TagCfgTpl cfgtpl = tagService.getTagCfgTplByCodeAndVarName(code, entry.getKey());
             tmp.put("name", cfgtpl.getTagName());
             rtn.add(tmp);
+            
+        }
+        if(group.equals(VarGroupEnum.DIAN_XB.toString())){
+            ArrayList<String> keys = new ArrayList<>();
+            for(String key : map.keySet()){
+                keys.add(key + "_array");
+            }
+            Map<String,float[]> maps = realtimeDataService.getEndTagVarYcArray(code, keys);
+            for(Map.Entry<String,float[]> entry : maps.entrySet()){
+                Map tmp = new HashMap<>();
+                tmp.put("key", entry.getKey());
+                tmp.put("value", entry.getValue());
+                TagCfgTpl cfgtpl = tagService.getTagCfgTplByCodeAndVarName(code, entry.getKey());
+                tmp.put("name", cfgtpl.getTagName());
+                rtn.add(tmp);
+            }
         }
         return rtn;
+    }
+    @RequestMapping(value="varinfo")
+    @ResponseBody
+    public String varInfo(String code,String varname){
+        return realtimeDataService.getEndTagVarInfo(code, varname);
     }
     @RequestMapping(value="sensor")
     @ResponseBody
@@ -257,12 +279,14 @@ public class RealTimeController {
         Map<String,String> map;
         map = realtimeDataService.getEndTagVarGroupInfo(code, VarGroupEnum.SENSOR_RUN.toString());
         for(String key:map.keySet()){
-            String[] arr =key.split("\\|");
-            if(!sensor.contains(arr[1])){
-                sensor.add(arr[1]);
+            int index = key.lastIndexOf("_");
+            String sersor_name = key.substring(index+1);
+            String sersor_key = key.substring(0,index);
+            if(!sensor.contains(sersor_name)){
+                sensor.add(sersor_name);
             }
-            if(!keyname.contains(arr[0])){
-                keyname.add(arr[0]);
+            if(!keyname.contains(sersor_key)){
+                keyname.add(sersor_key);
             }
         }
         Calendar cal = Calendar.getInstance();
@@ -281,7 +305,7 @@ public class RealTimeController {
             tmp.put("sensorname", name);
             tmp.put("nickname", nickname);
             for(String key:keyname){
-                String val = map.get(key + "|" + nickname);
+                String val = map.get(key + "_" + nickname);
                 tmp.put(key, val);
             }
             data.add(tmp);
@@ -446,12 +470,14 @@ public class RealTimeController {
         //map = convert(historyDataService.getVarGroupData(code, VarGroupEnum.SENSOR_RUN.toString(), curDate));
         map = realtimeDataService.getEndTagVarGroupInfo(code, VarGroupEnum.SENSOR_RUN.toString());
         for(String key:map.keySet()){
-            String[] arr =key.split("\\|");
-            if(!sensor.contains(arr[1])){
-                sensor.add(arr[1]);
+            int index = key.lastIndexOf("_");
+            String sersor_name = key.substring(index+1);
+            String sersor_key = key.substring(0,index);
+            if(!sensor.contains(sersor_name)){
+                sensor.add(sersor_name);
             }
-            if(!keyname.contains(arr[0])){
-                keyname.add(arr[0]);
+            if(!keyname.contains(sersor_key)){
+                keyname.add(sersor_key);
             }
         }
         Calendar cal = Calendar.getInstance();
@@ -470,7 +496,7 @@ public class RealTimeController {
             tmp.put("sensorname", name);
             tmp.put("nickname", nickname);
             for(String key:keyname){
-                String val = map.get(key + "|" + nickname);
+                String val = map.get(key + "_" + nickname);
                 tmp.put(key, val);
             }
             data.add(tmp);

@@ -19,17 +19,15 @@
 		<mvc:argument-resolvers>
 			<bean class="org.springframework.mvc.atmosphere.support.AtmosphereArgumentResolver" />
 		</mvc:argument-resolvers>
+        <mvc:message-converters register-defaults="true">
+            <!-- fastjosn spring support -->
+            <ref bean="jsonConverter"></ref>
+        </mvc:message-converters>
 	</mvc:annotation-driven>
 
 	<!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
 	<mvc:default-servlet-handler />
 
-    <mvc:annotation-driven>
-        <mvc:message-converters register-defaults="true">
-            <!-- fastjosn spring support -->
-            <ref bean="jsonConverter"></ref>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
 
 	<!-- Handles HTTP GET requests for /static/** by efficiently serving up static resources in the ${webappRoot}/static/ directory -->
 	<!-- <resources mapping="/static/**" location="/static/" /> -->
@@ -61,6 +59,8 @@
             <list>
                 <value>WriteMapNullValue</value>
                 <value>QuoteFieldNames</value>
+                <value>DisableCircularReferenceDetect</value>
+                <value>BrowserCompatible</value>
             </list>
         </property>
     </bean>

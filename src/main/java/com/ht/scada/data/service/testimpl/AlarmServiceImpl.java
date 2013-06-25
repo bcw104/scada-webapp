@@ -14,14 +14,14 @@ import java.util.List;
  * 日期: 13-5-16 下午1:39
  * To change this template use File | Settings | File Templates.
  */
-@Service
-public class AlarmServiceImpl implements AlarmService {
-    @Override
+@Service("testAlarmService")
+public class AlarmServiceImpl  {
+    //@Override
     public List<FaultRecord> getCurrentFaultRecord(String code) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
+    //@Override
     public List<OffLimitsRecord> getCurrentOffLimitsRecord(String code) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }

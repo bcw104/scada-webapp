@@ -42,6 +42,7 @@
         com.ht.scada.web.service.impl,
         com.ht.scada.common.**.service.impl,
 	com.ht.scada.security.**.service.impl, 
+    com.ht.scada.data.service.impl,
 	com.ht.scada.data.service.testimpl">
 		<!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
 	</context:component-scan>

@@ -1,5 +1,6 @@
 package com.ht.scada.web.mvc;
 
+import com.alibaba.fastjson.JSON;
 import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.common.tag.entity.EndTagExtInfo;
 import com.ht.scada.common.tag.service.EndTagService;
@@ -27,52 +28,53 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/alarm")
 public class AlarmInfoController {
+
     private static final Logger log = LoggerFactory.getLogger(AlarmInfoController.class);
     private static final String STR_CONFIRM = "confirm";
     private static final String STR_HANDLE = "handle";
-    
     @Autowired
     private AlarmInfoService alarmInfoService;
     @Autowired
-	private UserService userService;
+    private UserService userService;
     @Autowired
-	private UserExtInfoService userExtInfoService;
+    private UserExtInfoService userExtInfoService;
     @Autowired
     private EndTagService endTagService;
-    
-    @RequestMapping(value="history")
-	@ResponseBody
-    public List<AlarmRecord> history(){
+
+    @RequestMapping(value = "history")
+    @ResponseBody
+    public List<AlarmRecord> history() {
         List<AlarmRecord> list = alarmInfoService.getHistoryAlarmRecord(1);
         List<AlarmRecord> alarmList = new ArrayList<>();
         User user = userService.getCurrentUser();
         UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
-        Set<Integer> endTagIDs= userExtInfo.getEndTagID();
-        for(AlarmRecord rec :list){
+        Set<Integer> endTagIDs = userExtInfo.getEndTagID();
+        for (AlarmRecord rec : list) {
             EndTag endTag = rec.getEndTag();
-            if(endTagIDs.contains(endTag.getId())){
+            if (endTagIDs.contains(endTag.getId())) {
                 alarmList.add(rec);
             }
         }
         return alarmList;
     }
-    @RequestMapping(value="realtime")
-	@ResponseBody
-    public Map<String,List>  realtime(){
+
+    @RequestMapping(value = "realtime")
+    @ResponseBody
+    public Map<String, List> realtime() {
         List<AlarmRecord> list = alarmInfoService.getHistoryAlarmRecord(0);
         List<AlarmRecord> alarmList = new ArrayList<>();
-        Map<String,List> map = new HashMap<>();
+        Map<String, List> map = new HashMap<>();
         User user = userService.getCurrentUser();
         UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
-        Set<Integer> endTagIDs= userExtInfo.getEndTagID();
-        for(AlarmRecord rec :list){
+        Set<Integer> endTagIDs = userExtInfo.getEndTagID();
+        for (AlarmRecord rec : list) {
             EndTag endTag = rec.getEndTag();
-            if(endTagIDs.contains(endTag.getId())){
+            if (endTagIDs.contains(endTag.getId())) {
                 //按井分类,增加到列表
                 List<AlarmRecord> tmplist;
-                if(map.containsKey(endTag.getCode())){
+                if (map.containsKey(endTag.getCode())) {
                     tmplist = map.get(endTag.getCode());
-                }else{
+                } else {
                     tmplist = new ArrayList<>();
                     map.put(endTag.getCode(), tmplist);
                 }
@@ -82,54 +84,62 @@ public class AlarmInfoController {
 
         return map;
     }
-    @RequestMapping(value="getAlarmById")
-	@ResponseBody
-    public AlarmRecord getAlarmById(int id){
+
+    @RequestMapping(value = "getAlarmById")
+    @ResponseBody
+    public AlarmRecord getAlarmById(int id) {
         return alarmInfoService.getAlarmByID(id);
     }
-    @RequestMapping(value="confirm")
+
+    @RequestMapping(value = "confirm")
     @ResponseBody
-    public boolean confirm(int alarmId,String user,String type){
-        AlarmRecord alarm = alarmInfoService.getAlarmByID(alarmId);
-        Date curDate = new Date();
-        AlarmHandle record = null;
-        for(AlarmHandle rec:alarm.getAlarmHandleList()){
-            if(rec.getUser().getUsername().equals(user)){
-                record = rec;
+    public boolean confirm(String alarmId, String user, String type) {
+        String[] ids = alarmId.split(",");
+        for (String id : ids) {
+            AlarmRecord alarm = alarmInfoService.getAlarmByID(Integer.valueOf(id));
+            Date curDate = new Date();
+            AlarmHandle record = null;
+            for (AlarmHandle rec : alarm.getAlarmHandleList()) {
+                if (rec.getUser().getUsername().equals(user)) {
+                    record = rec;
+                }
             }
-        }
-        if(record == null){
-            record = new AlarmHandle();
-            User usr = userService.getUserByUsername(user);
-            record.setUser(usr);
-            record.setAlarmRecord(alarm);
-            //alarm.getAlarmHandleList().add(record);
-        }
-        if(type.equals(STR_CONFIRM)){
-            //报警回复
-            record.setConfirmTime(curDate);
-            alarmInfoService.saveAlarmHandle(record);
-        }else if(type.equals(STR_HANDLE)){
-            //报警处理
-            record.setHandleTime(curDate);
-            alarmInfoService.saveAlarmHandle(record);
-        }else{
-            return false;
+            if (record == null) {
+                record = new AlarmHandle();
+                User usr = userService.getUserByUsername(user);
+                record.setUser(usr);
+                record.setAlarmRecord(alarm);
+                //alarm.getAlarmHandleList().add(record);
+            }
+            switch (type) {
+                case STR_CONFIRM:
+                    //报警回复
+                    record.setConfirmTime(curDate);
+                    alarmInfoService.saveAlarmHandle(record);
+                    break;
+                case STR_HANDLE:
+                    //报警处理
+                    record.setHandleTime(curDate);
+                    alarmInfoService.saveAlarmHandle(record);
+                    break;
+            }
         }
         return true;
     }
-    @RequestMapping(value="now")
+
+    @RequestMapping(value = "now")
     @ResponseBody
-    public Date now(){
+    public Date now() {
         return new Date();
     }
-    @RequestMapping(value="endTagExtInfo")
+
+    @RequestMapping(value = "endTagExtInfo")
     @ResponseBody
-    public Map<String,String> endTagExtInfo(String code){
-        Map<String,String> map =new HashMap<>();
+    public Map<String, String> endTagExtInfo(String code) {
+        Map<String, String> map = new HashMap<>();
         EndTag endTag = endTagService.getByCode(code);
         List<EndTagExtInfo> extList = endTag.getExtInfo();
-        for(EndTagExtInfo ext : extList){
+        for (EndTagExtInfo ext : extList) {
             map.put(ext.getKeyName().toLowerCase(), ext.getValue());
         }
         return map;
@@ -137,36 +147,48 @@ public class AlarmInfoController {
     /*
      * 提供给android客户端报警信息的接口
      */
-    @RequestMapping(value="mobile")
+
+    @RequestMapping(value = "mobile")
     @ResponseBody
-    public List<AlarmRecord> mobile(String username){
+    public List<AlarmRecord> mobile(String username) {
         List<AlarmRecord> alarmList = new ArrayList<>();
         UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserName(username);
-        if(!userExtInfo.getHeadflg().equals("1")){
+        if (!userExtInfo.getHeadflg().equals("1")) {
             return alarmList;
         }
         List<AlarmRecord> list = alarmInfoService.getHistoryAlarmRecord(0);
-        Set<Integer> endTagIDs= userExtInfo.getEndTagID();
-        for(AlarmRecord record : list){
+        Set<Integer> endTagIDs = userExtInfo.getEndTagID();
+
+        for (AlarmRecord record : list) {
+            if(false){
+                log.debug(JSON.toJSONString(record));
+                return null;
+            }
             //判断如果井不属于用户管理,则跳过
-            if(!endTagIDs.contains(record.getEndTag().getId())){
+            if (!endTagIDs.contains(record.getEndTag().getId())) {
                 continue;
             }
             alarmList.add(record);
         }
+        log.debug(JSON.toJSONString(alarmList));
         return alarmList;
     }
-    @RequestMapping(value="mobileLogin")
+
+    @RequestMapping(value = "mobileLogin")
     @ResponseBody
-    public Map<String,String> mobileLogin(String username,String password) {
+    public Map<String, String> mobileLogin(String username, String password) {
         //new Sha256Hash(oldpass).toHex())
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         User user = userService.getUserByUsername(username);
-        if(user.getPassword().equals(new Sha256Hash(password).toHex())){
+        if (user == null) {
+            map.put("state", "0");
+            return map;
+        }
+        if (user.getPassword().equals(new Sha256Hash(password).toHex())) {
             map.put("state", "1");
-            map.put("username",user.getUsername());
+            map.put("username", user.getUsername());
             map.put("realname", user.getName());
-        }else{
+        } else {
             map.put("state", "0");
         }
         return map;
