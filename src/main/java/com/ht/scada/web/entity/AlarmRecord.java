@@ -1,21 +1,12 @@
 package com.ht.scada.web.entity;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import com.alibaba.fastjson.annotation.JSONField;
+import com.ht.scada.common.tag.entity.EndTag;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import com.ht.scada.common.tag.entity.EndTag;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "T_Alarm_Record")

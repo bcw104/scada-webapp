@@ -35,7 +35,6 @@ public class MenuItem extends AbstractPersistable<Integer> {
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="type_id")
-    @JSONField(serialize = false)
 	private MenuType menuType;
 
 	public String getMenuItemName() {
@@ -54,6 +53,7 @@ public class MenuItem extends AbstractPersistable<Integer> {
 		this.menuItemUrl = menuItemUrl;
 	}
 
+    @JSONField(serialize = false)
 	public MenuType getMenuType() {
 		return menuType;
 	}
