@@ -132,7 +132,7 @@
             };
 
             /**
-             * 饼图信息显示
+             * 列表信息显示
              * @param {type} cdiv
              * @returns {undefined}
              */
@@ -144,7 +144,7 @@
             }
 
             /**
-             * 饼图信息显示
+             * 实时曲线信息显示
              * @param {type} cdiv
              * @returns {undefined}
              */
@@ -228,14 +228,7 @@
                         $('#txtStartDate').val(jsonDate.today);
                         $('#txtEndDate').val(jsonDate.today);
                         
-                        // 获得机构信息
-                        $.ajax({
-                            type: 'POST',
-                            url: '${ctx}/realtime/majortag',
-                            dateType:'json',
-                            success: function(json){
-                                strMajorTag = json;
-                                if(json != ''){
+                        
                                     // 获得井数据信息
                                     $.ajax({
                                         type: 'POST',
@@ -260,7 +253,7 @@
                                             scdtItemRootData.image = 'folder.gif';  
                                             scdtItemData.data.push(scdtItemRootData);
 
-                                            var tmpGridInfo = createGridItem(strMajorTag, jsonYoujing, 0);
+                                            var tmpGridInfo = createGridItem(jsonYoujing, ${info.id});
 
                                             scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
@@ -271,32 +264,9 @@
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
-                                            scdtItemData.rows = tmpGridInfo.data;
+//                                            scdtItemData.rows = tmpGridInfo.data;
 
                                             scdtData.rows.push(scdtItemData);
-                                            
-                                            // 单井平均产量
-                                            var scdtItemData_dj = new Object();
-                                            scdtItemData_dj.id = 'djpjcl';
-                                            scdtItemData_dj.data = [];
-
-                                            var scdtItemRootData_dj = new Object();
-                                            scdtItemRootData_dj.value = '单井平均产量';
-                                            scdtItemRootData_dj.image = 'folder.gif';  
-                                            scdtItemData_dj.data.push(scdtItemRootData_dj);
-
-                                            scdtItemData_dj.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.dayCount, youjing_count), 100)), 100));
-                                            scdtItemData_dj.data.push(accDiv(Math.round(accMul(accSub(accDiv(tmpGridInfo.yesterdayCount, youjing_count), accDiv(tmpGridInfo.beforeYesterdayCount, youjing_count)), 100)), 100));
-                                            scdtItemData_dj.data.push(accDiv(Math.round(accMul(accDiv(accDiv(tmpGridInfo.monCount, days), youjing_count), 100)), 100));
-                                            scdtItemData_dj.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.monCount, youjing_count),
-                                                accDiv(tmpGridInfo.lastyearMonCount, youjing_count)), accDiv(tmpGridInfo.lastyearMonCount, youjing_count)), 100)), 100));
-                                            scdtItemData_dj.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.monCount, youjing_count), 
-                                                accDiv(tmpGridInfo.beforeMonCount, youjing_count)), accDiv(tmpGridInfo.beforeMonCount, youjing_count)), 100)), 100));
-                                            scdtItemData_dj.data.push(accDiv(Math.round(accMul(accDiv(accDiv(tmpGridInfo.xunCount, youjing_count), xun_days), 100)), 100));
-                                            scdtItemData_dj.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.xunCount, youjing_count), 
-                                                accDiv(tmpGridInfo.lastmonXunCount, youjing_count)), accDiv(tmpGridInfo.lastmonXunCount, youjing_count)), 100)), 100));
-                                            scdtItemData_dj.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.xunCount, youjing_count), 
-                                                accDiv(tmpGridInfo.beforeXunCount, youjing_count)), accDiv(tmpGridInfo.beforeXunCount, youjing_count)), 100)), 100));
                                             
                                             // 已选择组织机构
                                             selMajorTagData = ',';
@@ -311,7 +281,7 @@
                                             scdtItemRootData.image = 'folder.gif';  
                                             scdtItemData.data.push(scdtItemRootData);
 
-                                            tmpGridInfo = createGridItem_liquid(strMajorTag, jsonYoujing, 0);
+                                            tmpGridInfo = createGridItem_liquid(jsonYoujing, ${info.id});
 
                                             scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
@@ -323,30 +293,6 @@
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
                                             scdtItemData.rows = tmpGridInfo.data;
-
-                                            scdtData.rows.push(scdtItemData);
-                                            
-                                            // 已选择组织机构
-                                            selMajorTagData = ',';
-                                            
-                                            // 产气量
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'cql';
-                                            scdtItemData.data = [];
-
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '产气量';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
-
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
 
                                             scdtData.rows.push(scdtItemData);
                                             
@@ -371,34 +317,6 @@
                                             scdtItemData.data.push("-");
                                             scdtItemData.data.push("-");
                                             scdtItemData.data.push("-");
-
-                                            scdtData.rows.push(scdtItemData);
-                                            
-                                            // 已选择组织机构
-                                            selMajorTagData = ',';
-                                            
-                                            // 油井用电量
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'yjydl';
-                                            scdtItemData.data = [];
-
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '油井用电量';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
-
-                                            tmpGridInfo = createGridItem_ele(strMajorTag, jsonYoujing, 0);
-
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
-
-                                            scdtItemData.rows = tmpGridInfo.data;
 
                                             scdtData.rows.push(scdtItemData);
                                             
@@ -448,61 +366,20 @@
 
                                             scdtData.rows.push(scdtItemData);
                                             
-                                            // 水源井开井数            
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'syjkj';
-                                            scdtItemData.data = [];
-
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '水源井开井数';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
-
-                                            tmpGridInfo = createGridItem_water(jsonYoujing);
-
-                                            scdtItemData.data.push(tmpGridInfo.run_status_day_water);
-                                            scdtItemData.data.push(tmpGridInfo.run_status_yesterday_water - tmpGridInfo.run_status_before_water);
-                                            scdtItemData.data.push("-");
-                                            scdtItemData.data.push("-");
-                                            scdtItemData.data.push("-");
-                                            scdtItemData.data.push("-");
-                                            scdtItemData.data.push("-");
-                                            scdtItemData.data.push("-");
-
-                                            scdtData.rows.push(scdtItemData);
+                                            // 已选择组织机构
+                                            selMajorTagData = ',';
                                             
-                                            // 作业井数
+                                            // 油井用电量
                                             scdtItemData = new Object();
-                                            scdtItemData.id = 'zyj';
+                                            scdtItemData.id = 'yjydl';
                                             scdtItemData.data = [];
 
                                             scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '作业井数';
+                                            scdtItemRootData.value = '油井用电量';
                                             scdtItemRootData.image = 'folder.gif';  
                                             scdtItemData.data.push(scdtItemRootData);
 
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push(0);
-
-                                            scdtData.rows.push(scdtItemData);
-                                            
-                                            // 总用电量
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'zydl';
-                                            scdtItemData.data = [];
-
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '总用电量';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
-
-                                            tmpGridInfo = createGridItem_ele_total(jsonYoujing);
+                                            tmpGridInfo = createGridItem_ele(jsonYoujing, ${info.id});
 
                                             scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
@@ -513,10 +390,9 @@
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
+                                            scdtItemData.rows = tmpGridInfo.data;
+
                                             scdtData.rows.push(scdtItemData);
-                                            
-                                            // 单井平均产量
-                                            scdtData.rows.push(scdtItemData_dj);
                                             
                                             // 单井平均含水量
                                             scdtItemData = new Object();
@@ -542,27 +418,6 @@
                                                 accDiv(tmpGridInfo.beforeXunCount, youjing_count)), accDiv(tmpGridInfo.beforeXunCount, youjing_count)), 100)), 100));
                                               
                                             scdtData.rows.push(scdtItemData);
-        
-                                            // 油井总井数
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'yjzjs';
-                                            scdtItemData.data = [];
-
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '油井总井数';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
-
-                                            scdtItemData.data.push(youjing_count);
-                                            scdtItemData.data.push(0);
-                                            scdtItemData.data.push('-');
-                                            scdtItemData.data.push('-');
-                                            scdtItemData.data.push('-');
-                                            scdtItemData.data.push('-');
-                                            scdtItemData.data.push('-');
-                                            scdtItemData.data.push('-');
-
-                                            scdtData.rows.push(scdtItemData);
                                             
                                             treeGrid.clearAll();
                                             treeGrid.parse(scdtData,'json');
@@ -572,46 +427,21 @@
                                                if(rId.indexOf("_") >= 0){  
                                                    var wellTypeInfo = rId.split('_');
                                                    if(wellTypeInfo[0] == 'j'){
-                                                       window.location.href = '${ctx}/performancepage/endtagpage?id=' + wellTypeInfo[1];
-                                                   }else if(wellTypeInfo[2] == 'DUI'){
-                                                       window.location.href = '${ctx}/performancepage/majortagpage?id=' + wellTypeInfo[0];
+                                                       window.location.href = '${ctx}/performancepage/majortagpage?id=' + wellTypeInfo[1];
                                                    }
                                                }                                      
                                             });
                                         }
                                     });
-                                }
-                            }
-                        });
                     }
                 });                
             }
             
              /**
              * 信息子级信息生成(产油量)
-             * @param {type} p_MajorTagList 组织机构信息
              * @param {type} p_EndTagList 井信息
              * @returns {Object}             */
-            function createGridItem(p_MajorTagList, p_EndTagList, p_parentId){
-               
-                // 今日累计
-                var major_dayCount = 0;
-                // 昨日累计
-                var major_yesterdayCount = 0;
-                // 前日累计
-                var major_beforeYesterdayCount = 0;
-                // 当月累计
-                var major_monCount = 0;
-                // 去年当月累计
-                var major_lastyearMonCount = 0;
-                // 上月累计
-                var major_beforeMonCount = 0;
-                // 当旬累计
-                var major_xunCount = 0;
-                // 上月当旬累计
-                var major_lastmonXunCount = 0;
-                // 上旬累计
-                var major_beforeXunCount = 0;
+            function createGridItem(p_EndTagList, p_parentId){
                        
                 var tmpGridData = [];
                 var tmpReturnGridData = new Object(); 
@@ -634,210 +464,109 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
-                
-                // 封装信息JSON
-                $.each(p_MajorTagList, function(keyMajorTag, valueMajorTag){
-                    
-                    if(valueMajorTag.pid == p_parentId && (selMajorTagData.indexOf(',' + valueMajorTag.id + ',') < 0))
-                    {
-                        selMajorTagData += valueMajorTag.id + ',';
+                tmpReturnGridData.data = [];
+                // 今日累计
+                var dayCount = 0;
+                // 昨日累计
+                var yesterdayCount = 0;
+                // 前日累计
+                var beforeYesterdayCount = 0;
+                // 当月累计
+                var monCount = 0;
+                // 去年当月累计
+                var lastyearMonCount = 0;
+                // 上月累计
+                var beforeMonCount = 0;
+                // 当旬累计
+                var xunCount = 0;
+                // 上月当旬累计
+                var lastmonXunCount = 0;
+                // 上旬累计
+                var beforeXunCount = 0;
+                            
+                // 遍历油井
+                $.each(p_EndTagList, function(keyYoujing, valueYoujing){
 
-                        var tmpMajorTag = new Object(); 
-                        tmpMajorTag.id = valueMajorTag.id + '_oil' + '_' + valueMajorTag.type;
-                        tmpMajorTag.data = [];
-                        tmpMajorTag.data.push(valueMajorTag.name);
-                        tmpMajorTag.rows = [];
-
-                        if(valueMajorTag.type == 'DUI_LEVEL'){
-
-                            // 今日累计
-                            var dayCount = 0;
-                            // 昨日累计
-                            var yesterdayCount = 0;
-                            // 前日累计
-                            var beforeYesterdayCount = 0;
-                            // 当月累计
-                            var monCount = 0;
-                            // 去年当月累计
-                            var lastyearMonCount = 0;
-                            // 上月累计
-                            var beforeMonCount = 0;
-                            // 当旬累计
-                            var xunCount = 0;
-                            // 上月当旬累计
-                            var lastmonXunCount = 0;
-                            // 上旬累计
-                            var beforeXunCount = 0;                        
-
-                            // 遍历油井
-                            $.each(p_EndTagList, function(keyYoujing, valueYoujing){
-
-                                if(valueYoujing.major_tag_id == valueMajorTag.id && valueYoujing.type == 'YOU_JING'){
+                    if(valueYoujing.id == p_parentId && valueYoujing.type == 'YOU_JING'){
                                     
-                                    // 油井总数
-                                    youjing_count = accAdd(youjing_count, 1);
-
-                                    var tmpEndTag = new Object(); 
-                                    tmpEndTag.id = 'j_' + valueYoujing.id + '_oil';
-                                    tmpEndTag.data = []; 
-                                    tmpEndTag.data.push(valueYoujing.name);                                
-                                    tmpEndTag.data.push(valueYoujing.day_count);
-                                    tmpEndTag.data.push(valueYoujing.before_count);
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.mon_avg, 100)), 100));
-                                    tmpEndTag.data.push(valueYoujing.mon_tongbi);
-                                    tmpEndTag.data.push(valueYoujing.mon_huanbi);
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.xun_avg, 100)), 100));
-                                    tmpEndTag.data.push(valueYoujing.xun_tongbi);
-                                    tmpEndTag.data.push(valueYoujing.xun_huanbi);
-
-                                    tmpMajorTag.rows.push(tmpEndTag);
-//alert(valueYoujing.run_status_day + "--" + valueYoujing.run_status_yesterday + "--" + valueYoujing.run_status_before);
-                                    // 今日开井数
-                                    run_status_day = accAdd(run_status_day, valueYoujing.run_status_day > 0 ? 1 : 0);
-                                    // 昨日开井数
-                                    run_status_yesterday = accAdd(run_status_yesterday, valueYoujing.run_status_yesterday.run_status_day > 0 ? 1 : 0);
-                                    // 前日开井数
-                                    run_status_before = accAdd(run_status_before, valueYoujing.run_status_before.run_status_day > 0 ? 1 : 0);
-            
-                                    // 今日累计
-                                    dayCount = accAdd(dayCount, valueYoujing.day_count);
-                                    // 昨日累计
-                                    yesterdayCount = accAdd(yesterdayCount, valueYoujing.yesterday_count);
-                                    // 前日累计
-                                    beforeYesterdayCount = accAdd(beforeYesterdayCount, valueYoujing.before_yesterday_count);
-                                    // 当月累计
-                                    monCount = accAdd(monCount, valueYoujing.mon_count);
-                                    // 去年当月累计
-                                    lastyearMonCount = accAdd(lastyearMonCount, valueYoujing.lastyear_mon_count);
-                                    // 上月累计
-                                    beforeMonCount = accAdd(beforeMonCount, valueYoujing.before_mon_count);
-                                    // 当旬累计
-                                    xunCount = accAdd(xunCount, valueYoujing.xun_count);
-                                    // 上月当旬累计
-                                    lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count);
-                                    // 上旬累计
-                                    beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count);
-                                }              
-                            });
-
-                            tmpMajorTag.data.push(dayCount);
-                            tmpMajorTag.data.push(accSub(yesterdayCount, beforeYesterdayCount));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(monCount, days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, lastyearMonCount), lastyearMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, beforeMonCount), beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(xunCount, xun_days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, lastmonXunCount), lastmonXunCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, beforeXunCount), beforeXunCount), 100)), 100));
-       
-                            // 供上级使用
-                            // 今日累计
-                            major_dayCount = accAdd(major_dayCount, dayCount);
-                            // 昨日累计
-                            major_yesterdayCount = accAdd(major_yesterdayCount, yesterdayCount);
-                            // 前日累计
-                            major_beforeYesterdayCount = accAdd(major_beforeYesterdayCount, beforeYesterdayCount);
-                            // 当月累计
-                            major_monCount = accAdd(major_monCount, monCount);
-                            // 去年当月累计
-                            major_lastyearMonCount = accAdd(major_lastyearMonCount, lastyearMonCount);
-                            // 上月累计
-                            major_beforeMonCount = accAdd(major_beforeMonCount, beforeMonCount);
-                            // 当旬累计
-                            major_xunCount = accAdd(major_xunCount, xunCount);
-                            // 上月当旬累计
-                            major_lastmonXunCount = accAdd(major_lastmonXunCount, lastmonXunCount);
-                            // 上旬累计
-                            major_beforeXunCount = accAdd(major_beforeXunCount, beforeXunCount);
-                        }else{
-
-                            var tmpGridInfo = createGridItem(p_MajorTagList, p_EndTagList, valueMajorTag.id);
-                            
-                            tmpMajorTag.data.push(tmpGridInfo.dayCount);
-                            tmpMajorTag.data.push(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
-                            
-                            tmpMajorTag.rows = tmpGridInfo.data;
-                                
-                             // 供上级使用
-                                    // 今日累计
-                            major_dayCount = accAdd(major_dayCount, tmpGridInfo.dayCount);
-                                    // 昨日累计
-                            major_yesterdayCount = accAdd(major_yesterdayCount, tmpGridInfo.yesterdayCount);
-                                    // 前日累计
-                            major_beforeYesterdayCount = accAdd(major_beforeYesterdayCount, tmpGridInfo.beforeYesterdayCount);
-                                    // 当月累计
-                            major_monCount = accAdd(major_monCount, tmpGridInfo.monCount);
-                                    // 去年当月累计
-                            major_lastyearMonCount = accAdd(major_lastyearMonCount, tmpGridInfo.lastyearMonCount);
-                                    // 上月累计
-                            major_beforeMonCount = accAdd(major_beforeMonCount, tmpGridInfo.beforeMonCount);
-                                    // 当旬累计
-                            major_xunCount = accAdd(major_xunCount, tmpGridInfo.xunCount);
-                                    // 上月当旬累计
-                            major_lastmonXunCount = accAdd(major_lastmonXunCount, tmpGridInfo.lastmonXunCount);
-                                    // 上旬累计
-                            major_beforeXunCount = accAdd(major_beforeXunCount, tmpGridInfo.beforeXunCount);
-                        }
+                        // 油井总数
+                        youjing_count = accAdd(youjing_count, 1);
                         
-                        tmpGridData.push(tmpMajorTag);
-                    }else{
-                        return true;
-                    }
-                }); 
+//alert(valueYoujing.run_status_day + "--" + valueYoujing.run_status_yesterday + "--" + valueYoujing.run_status_before);
+                        // 今日开井数
+                        run_status_day = accAdd(run_status_day, valueYoujing.run_status_day > 0 ? 1 : 0);
+                        // 昨日开井数
+                        run_status_yesterday = accAdd(run_status_yesterday, valueYoujing.run_status_yesterday.run_status_day > 0 ? 1 : 0);
+                        // 前日开井数
+                        run_status_before = accAdd(run_status_before, valueYoujing.run_status_before.run_status_day > 0 ? 1 : 0);
+            
+                        // 今日累计
+                        dayCount = accAdd(dayCount, valueYoujing.day_count);
+                        // 昨日累计
+                        yesterdayCount = accAdd(yesterdayCount, valueYoujing.yesterday_count);
+                        // 前日累计
+                        beforeYesterdayCount = accAdd(beforeYesterdayCount, valueYoujing.before_yesterday_count);
+                        // 当月累计
+                        monCount = accAdd(monCount, valueYoujing.mon_count);
+                        // 去年当月累计
+                        lastyearMonCount = accAdd(lastyearMonCount, valueYoujing.lastyear_mon_count);
+                        // 上月累计
+                        beforeMonCount = accAdd(beforeMonCount, valueYoujing.before_mon_count);
+                        // 当旬累计
+                        xunCount = accAdd(xunCount, valueYoujing.xun_count);
+                        // 上月当旬累计
+                        lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count);
+                        // 上旬累计
+                        beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count);
+                    }              
+                });   
 
                 // 今日累计
-                tmpReturnGridData.dayCount = major_dayCount;
+                tmpReturnGridData.dayCount = dayCount;
                 // 昨日累计
-                tmpReturnGridData.yesterdayCount = major_yesterdayCount;
+                tmpReturnGridData.yesterdayCount = yesterdayCount;
                 // 前日累计
-                tmpReturnGridData.beforeYesterdayCount = major_beforeYesterdayCount;
+                tmpReturnGridData.beforeYesterdayCount = beforeYesterdayCount;
                 // 当月累计
-                tmpReturnGridData.monCount = major_monCount;
+                tmpReturnGridData.monCount = monCount;
                 // 去年当月累计
-                tmpReturnGridData.lastyearMonCount = major_lastyearMonCount;
+                tmpReturnGridData.lastyearMonCount = lastyearMonCount;
                 // 上月累计
-                tmpReturnGridData.beforeMonCount = major_beforeMonCount;
+                tmpReturnGridData.beforeMonCount = beforeMonCount;
                 // 当旬累计
-                tmpReturnGridData.xunCount = major_xunCount;
+                tmpReturnGridData.xunCount = xunCount;
                 // 上月当旬累计
-                tmpReturnGridData.lastmonXunCount = major_lastmonXunCount;
+                tmpReturnGridData.lastmonXunCount = lastmonXunCount;
                 // 上旬累计
-                tmpReturnGridData.beforeXunCount = major_beforeXunCount;
-                tmpReturnGridData.data = tmpGridData;
+                tmpReturnGridData.beforeXunCount = beforeXunCount;
                 
                 return tmpReturnGridData;
             }
             
             /**
              * 信息子级信息生成(产液量)
-             * @param {type} p_MajorTagList 组织机构信息
              * @param {type} p_EndTagList 井信息
              * @returns {Object}             */
-            function createGridItem_liquid(p_MajorTagList, p_EndTagList, p_parentId){
+            function createGridItem_liquid(p_EndTagList, p_parentId){
                
                 // 今日累计
-                var major_dayCount = 0;
+                var dayCount = 0;
                 // 昨日累计
-                var major_yesterdayCount = 0;
+                var yesterdayCount = 0;
                 // 前日累计
-                var major_beforeYesterdayCount = 0;
+                var beforeYesterdayCount = 0;
                 // 当月累计
-                var major_monCount = 0;
+                var monCount = 0;
                 // 去年当月累计
-                var major_lastyearMonCount = 0;
+                var lastyearMonCount = 0;
                 // 上月累计
-                var major_beforeMonCount = 0;
+                var beforeMonCount = 0;
                 // 当旬累计
-                var major_xunCount = 0;
+                var xunCount = 0;
                 // 上月当旬累计
-                var major_lastmonXunCount = 0;
+                var lastmonXunCount = 0;
                 // 上旬累计
-                var major_beforeXunCount = 0;
+                var beforeXunCount = 0;
                        
                 var tmpGridData = [];
                 var tmpReturnGridData = new Object(); 
@@ -860,61 +589,13 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                tmpReturnGridData.data = [];
                 
-                // 封装信息JSON
-                $.each(p_MajorTagList, function(keyMajorTag, valueMajorTag){
-                    
-                    if(valueMajorTag.pid == p_parentId && (selMajorTagData.indexOf(',' + valueMajorTag.id + ',') < 0))
-                    {
-                        selMajorTagData += valueMajorTag.id + ',';
-
-                        var tmpMajorTag = new Object(); 
-                        tmpMajorTag.id = valueMajorTag.id + '_liquid' + '_' + valueMajorTag.type;
-                        tmpMajorTag.data = [];
-                        tmpMajorTag.data.push(valueMajorTag.name);
-                        tmpMajorTag.rows = [];
-
-                        if(valueMajorTag.type == 'DUI_LEVEL'){
-
-                            // 今日累计
-                            var dayCount = 0;
-                            // 昨日累计
-                            var yesterdayCount = 0;
-                            // 前日累计
-                            var beforeYesterdayCount = 0;
-                            // 当月累计
-                            var monCount = 0;
-                            // 去年当月累计
-                            var lastyearMonCount = 0;
-                            // 上月累计
-                            var beforeMonCount = 0;
-                            // 当旬累计
-                            var xunCount = 0;
-                            // 上月当旬累计
-                            var lastmonXunCount = 0;
-                            // 上旬累计
-                            var beforeXunCount = 0;                        
-
-                            // 遍历油井
+                // 遍历油井
                             $.each(p_EndTagList, function(keyYoujing, valueYoujing){
 
-                                if(valueYoujing.major_tag_id == valueMajorTag.id && valueYoujing.type == 'YOU_JING'){
-
-                                    var tmpEndTag = new Object(); 
-                                    tmpEndTag.id = 'j_' + valueYoujing.id + '_liquid';
-                                    tmpEndTag.data = []; 
-                                    tmpEndTag.data.push(valueYoujing.name);                                
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.day_count_liquid, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.before_count_liquid, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.mon_avg_liquid, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.mon_tongbi_liquid, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.mon_huanbi_liquid, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.xun_avg_liquid, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.xun_tongbi_liquid, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.xun_huanbi_liquid, 100)), 100));
-
-                                    tmpMajorTag.rows.push(tmpEndTag);
-
+                                if(valueYoujing.id == p_parentId && valueYoujing.type == 'YOU_JING'){
+                                    
                                     // 今日累计
                                     dayCount = accAdd(dayCount, valueYoujing.day_count_liquid);
                                     // 昨日累计
@@ -936,124 +617,52 @@
                                 }              
                             });
 
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(dayCount, 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accSub(yesterdayCount, beforeYesterdayCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(monCount, days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, lastyearMonCount), lastyearMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, beforeMonCount), beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(xunCount, xun_days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, lastmonXunCount), lastmonXunCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, beforeXunCount), beforeXunCount), 100)), 100));
-       
-                            // 供上级使用
-                            // 今日累计
-                            major_dayCount = accAdd(major_dayCount, dayCount);
-                            // 昨日累计
-                            major_yesterdayCount = accAdd(major_yesterdayCount, yesterdayCount);
-                            // 前日累计
-                            major_beforeYesterdayCount = accAdd(major_beforeYesterdayCount, beforeYesterdayCount);
-                            // 当月累计
-                            major_monCount = accAdd(major_monCount, monCount);
-                            // 去年当月累计
-                            major_lastyearMonCount = accAdd(major_lastyearMonCount, lastyearMonCount);
-                            // 上月累计
-                            major_beforeMonCount = accAdd(major_beforeMonCount, beforeMonCount);
-                            // 当旬累计
-                            major_xunCount = accAdd(major_xunCount, xunCount);
-                            // 上月当旬累计
-                            major_lastmonXunCount = accAdd(major_lastmonXunCount, lastmonXunCount);
-                            // 上旬累计
-                            major_beforeXunCount = accAdd(major_beforeXunCount, beforeXunCount);
-                        }else{
-
-                            var tmpGridInfo = createGridItem_liquid(p_MajorTagList, p_EndTagList, valueMajorTag.id);
-                            
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
-                            
-                            tmpMajorTag.rows = tmpGridInfo.data;
-                                
-                             // 供上级使用
-                                    // 今日累计
-                            major_dayCount = accAdd(major_dayCount, tmpGridInfo.dayCount);
-                                    // 昨日累计
-                            major_yesterdayCount = accAdd(major_yesterdayCount, tmpGridInfo.yesterdayCount);
-                                    // 前日累计
-                            major_beforeYesterdayCount = accAdd(major_beforeYesterdayCount, tmpGridInfo.beforeYesterdayCount);
-                                    // 当月累计
-                            major_monCount = accAdd(major_monCount, tmpGridInfo.monCount);
-                                    // 去年当月累计
-                            major_lastyearMonCount = accAdd(major_lastyearMonCount, tmpGridInfo.lastyearMonCount);
-                                    // 上月累计
-                            major_beforeMonCount = accAdd(major_beforeMonCount, tmpGridInfo.beforeMonCount);
-                                    // 当旬累计
-                            major_xunCount = accAdd(major_xunCount, tmpGridInfo.xunCount);
-                                    // 上月当旬累计
-                            major_lastmonXunCount = accAdd(major_lastmonXunCount, tmpGridInfo.lastmonXunCount);
-                                    // 上旬累计
-                            major_beforeXunCount = accAdd(major_beforeXunCount, tmpGridInfo.beforeXunCount);
-                        }
-                        
-                        tmpGridData.push(tmpMajorTag);
-                    }else{
-                        return true;
-                    }
-                }); 
-
                 // 今日累计
-                tmpReturnGridData.dayCount = major_dayCount;
+                tmpReturnGridData.dayCount = dayCount;
                 // 昨日累计
-                tmpReturnGridData.yesterdayCount = major_yesterdayCount;
+                tmpReturnGridData.yesterdayCount = yesterdayCount;
                 // 前日累计
-                tmpReturnGridData.beforeYesterdayCount = major_beforeYesterdayCount;
+                tmpReturnGridData.beforeYesterdayCount = beforeYesterdayCount;
                 // 当月累计
-                tmpReturnGridData.monCount = major_monCount;
+                tmpReturnGridData.monCount = monCount;
                 // 去年当月累计
-                tmpReturnGridData.lastyearMonCount = major_lastyearMonCount;
+                tmpReturnGridData.lastyearMonCount = lastyearMonCount;
                 // 上月累计
-                tmpReturnGridData.beforeMonCount = major_beforeMonCount;
+                tmpReturnGridData.beforeMonCount = beforeMonCount;
                 // 当旬累计
-                tmpReturnGridData.xunCount = major_xunCount;
+                tmpReturnGridData.xunCount = xunCount;
                 // 上月当旬累计
-                tmpReturnGridData.lastmonXunCount = major_lastmonXunCount;
+                tmpReturnGridData.lastmonXunCount = lastmonXunCount;
                 // 上旬累计
-                tmpReturnGridData.beforeXunCount = major_beforeXunCount;
-                tmpReturnGridData.data = tmpGridData;
+                tmpReturnGridData.beforeXunCount = beforeXunCount;
                 
                 return tmpReturnGridData;
             }
             
             /**
              * 信息子级信息生成(油井用电量)
-             * @param {type} p_MajorTagList 组织机构信息
              * @param {type} p_EndTagList 井信息
              * @returns {Object}             */
-            function createGridItem_ele(p_MajorTagList, p_EndTagList, p_parentId){
+            function createGridItem_ele(p_EndTagList, p_parentId){
                
                 // 今日累计
-                var major_dayCount = 0;
+                var dayCount = 0;
                 // 昨日累计
-                var major_yesterdayCount = 0;
+                var yesterdayCount = 0;
                 // 前日累计
-                var major_beforeYesterdayCount = 0;
+                var beforeYesterdayCount = 0;
                 // 当月累计
-                var major_monCount = 0;
+                var monCount = 0;
                 // 去年当月累计
-                var major_lastyearMonCount = 0;
+                var lastyearMonCount = 0;
                 // 上月累计
-                var major_beforeMonCount = 0;
+                var beforeMonCount = 0;
                 // 当旬累计
-                var major_xunCount = 0;
+                var xunCount = 0;
                 // 上月当旬累计
-                var major_lastmonXunCount = 0;
+                var lastmonXunCount = 0;
                 // 上旬累计
-                var major_beforeXunCount = 0;
+                var beforeXunCount = 0;
                        
                 var tmpGridData = [];
                 var tmpReturnGridData = new Object(); 
@@ -1076,60 +685,12 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                tmpReturnGridData.data = [];
                 
-                // 封装信息JSON
-                $.each(p_MajorTagList, function(keyMajorTag, valueMajorTag){
-                    
-                    if(valueMajorTag.pid == p_parentId && (selMajorTagData.indexOf(',' + valueMajorTag.id + ',') < 0))
-                    {
-                        selMajorTagData += valueMajorTag.id + ',';
-
-                        var tmpMajorTag = new Object(); 
-                        tmpMajorTag.id = valueMajorTag.id + '_ele' + '_' + valueMajorTag.type;
-                        tmpMajorTag.data = [];
-                        tmpMajorTag.data.push(valueMajorTag.name);
-                        tmpMajorTag.rows = [];
-
-                        if(valueMajorTag.type == 'DUI_LEVEL'){
-
-                            // 今日累计
-                            var dayCount = 0;
-                            // 昨日累计
-                            var yesterdayCount = 0;
-                            // 前日累计
-                            var beforeYesterdayCount = 0;
-                            // 当月累计
-                            var monCount = 0;
-                            // 去年当月累计
-                            var lastyearMonCount = 0;
-                            // 上月累计
-                            var beforeMonCount = 0;
-                            // 当旬累计
-                            var xunCount = 0;
-                            // 上月当旬累计
-                            var lastmonXunCount = 0;
-                            // 上旬累计
-                            var beforeXunCount = 0;                        
-
-                            // 遍历油井
+                // 遍历油井
                             $.each(p_EndTagList, function(keyYoujing, valueYoujing){
 
-                                if(valueYoujing.major_tag_id == valueMajorTag.id && valueYoujing.type == 'YOU_JING'){
-
-                                    var tmpEndTag = new Object(); 
-                                    tmpEndTag.id = 'j_' + valueYoujing.id + '_ele';
-                                    tmpEndTag.data = []; 
-                                    tmpEndTag.data.push(valueYoujing.name);                                
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.day_count_ele, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.before_count_ele, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.mon_avg_ele, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.mon_tongbi_ele, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.mon_huanbi_ele, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.xun_avg_ele, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.xun_tongbi_ele, 100)), 100));
-                                    tmpEndTag.data.push(accDiv(Math.round(accMul(valueYoujing.xun_huanbi_ele, 100)), 100));
-
-                                    tmpMajorTag.rows.push(tmpEndTag);
+                                if(valueYoujing.id == p_parentId && valueYoujing.type == 'YOU_JING'){
 
                                     // 今日累计
                                     dayCount = accAdd(dayCount, valueYoujing.day_count_ele);
@@ -1152,95 +713,24 @@
                                 }              
                             });
 
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(dayCount, 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accSub(yesterdayCount, beforeYesterdayCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(monCount, days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, lastyearMonCount), lastyearMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, beforeMonCount), beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(xunCount, xun_days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, lastmonXunCount), lastmonXunCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, beforeXunCount), beforeXunCount), 100)), 100));
-       
-                            // 供上级使用
-                            // 今日累计
-                            major_dayCount = accAdd(major_dayCount, dayCount);
-                            // 昨日累计
-                            major_yesterdayCount = accAdd(major_yesterdayCount, yesterdayCount);
-                            // 前日累计
-                            major_beforeYesterdayCount = accAdd(major_beforeYesterdayCount, beforeYesterdayCount);
-                            // 当月累计
-                            major_monCount = accAdd(major_monCount, monCount);
-                            // 去年当月累计
-                            major_lastyearMonCount = accAdd(major_lastyearMonCount, lastyearMonCount);
-                            // 上月累计
-                            major_beforeMonCount = accAdd(major_beforeMonCount, beforeMonCount);
-                            // 当旬累计
-                            major_xunCount = accAdd(major_xunCount, xunCount);
-                            // 上月当旬累计
-                            major_lastmonXunCount = accAdd(major_lastmonXunCount, lastmonXunCount);
-                            // 上旬累计
-                            major_beforeXunCount = accAdd(major_beforeXunCount, beforeXunCount);
-                        }else{
-
-                            var tmpGridInfo = createGridItem_ele(p_MajorTagList, p_EndTagList, valueMajorTag.id);
-                            
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
-                            
-                            tmpMajorTag.rows = tmpGridInfo.data;
-                                
-                             // 供上级使用
-                                    // 今日累计
-                            major_dayCount = accAdd(major_dayCount, tmpGridInfo.dayCount);
-                                    // 昨日累计
-                            major_yesterdayCount = accAdd(major_yesterdayCount, tmpGridInfo.yesterdayCount);
-                                    // 前日累计
-                            major_beforeYesterdayCount = accAdd(major_beforeYesterdayCount, tmpGridInfo.beforeYesterdayCount);
-                                    // 当月累计
-                            major_monCount = accAdd(major_monCount, tmpGridInfo.monCount);
-                                    // 去年当月累计
-                            major_lastyearMonCount = accAdd(major_lastyearMonCount, tmpGridInfo.lastyearMonCount);
-                                    // 上月累计
-                            major_beforeMonCount = accAdd(major_beforeMonCount, tmpGridInfo.beforeMonCount);
-                                    // 当旬累计
-                            major_xunCount = accAdd(major_xunCount, tmpGridInfo.xunCount);
-                                    // 上月当旬累计
-                            major_lastmonXunCount = accAdd(major_lastmonXunCount, tmpGridInfo.lastmonXunCount);
-                                    // 上旬累计
-                            major_beforeXunCount = accAdd(major_beforeXunCount, tmpGridInfo.beforeXunCount);
-                        }
-                        
-                        tmpGridData.push(tmpMajorTag);
-                    }else{
-                        return true;
-                    }
-                }); 
-
                 // 今日累计
-                tmpReturnGridData.dayCount = major_dayCount;
+                tmpReturnGridData.dayCount = dayCount;
                 // 昨日累计
-                tmpReturnGridData.yesterdayCount = major_yesterdayCount;
+                tmpReturnGridData.yesterdayCount = yesterdayCount;
                 // 前日累计
-                tmpReturnGridData.beforeYesterdayCount = major_beforeYesterdayCount;
+                tmpReturnGridData.beforeYesterdayCount = beforeYesterdayCount;
                 // 当月累计
-                tmpReturnGridData.monCount = major_monCount;
+                tmpReturnGridData.monCount = monCount;
                 // 去年当月累计
-                tmpReturnGridData.lastyearMonCount = major_lastyearMonCount;
+                tmpReturnGridData.lastyearMonCount = lastyearMonCount;
                 // 上月累计
-                tmpReturnGridData.beforeMonCount = major_beforeMonCount;
+                tmpReturnGridData.beforeMonCount = beforeMonCount;
                 // 当旬累计
-                tmpReturnGridData.xunCount = major_xunCount;
+                tmpReturnGridData.xunCount = xunCount;
                 // 上月当旬累计
-                tmpReturnGridData.lastmonXunCount = major_lastmonXunCount;
+                tmpReturnGridData.lastmonXunCount = lastmonXunCount;
                 // 上旬累计
-                tmpReturnGridData.beforeXunCount = major_beforeXunCount;
-                tmpReturnGridData.data = tmpGridData;
+                tmpReturnGridData.beforeXunCount = beforeXunCount;
                 
                 return tmpReturnGridData;
             }
@@ -1701,25 +1191,21 @@
                 }
             }
 
-            /**
-             * 树节点点击事件（单选按钮）
-             * @param {type} e
-             * @param {type} treeId
-             * @param {type} treeNode
-             * @returns {undefined}             
-             * */
+            //单机节点事件
             function onClick(e,treeId, treeNode) {
-                //树状控件连动
-                 var btn = $("#radio_"+treeNode.id);
-                 checkBrand(treeNode, btn);
+                
+                if(treeNode.getParentNode() == null){
+                    //树状控件连动
+                    var btn = $("#checkbox_"+treeNode.id);
+                    checkAccessories(treeNode, btn);
+                }else{
+                    //树状控件连动
+                    var btn = $("#radio_"+treeNode.id);
+                    checkBrand(treeNode, btn);
+                }                 
              }
-
-            /*
-             * 撤销单选
-             * @param {type} treeNode
-             * @param {type} checkedRadio
-             * @returns {undefined}
-             */
+             
+            //去掉单选
             function checkw(treeNode, checkedRadio){
                 checkedRadio.attr("checked",false);
 			}
@@ -1754,88 +1240,16 @@
                     url: p_path,
                     data:{code:p_id, startDate:$('#txtStartDate').val(), endDate:$('#txtEndDate').val()},
                     dateType:'json',
-                    success: function(jsonYoujing){
-                         // 封装信息JSON
-                        $.each(strMajorTag, function(keyMajorTag, valueMajorTag){
-                            if((valueMajorTag.pid == p_id || (valueMajorTag.id == p_id && valueMajorTag.type == 'DUI_LEVEL'))
-                                    && (selMajorTagData_qx.indexOf(',' + valueMajorTag.id + ',') < 0)){
-                                
-                                selMajorTagData_qx += valueMajorTag.id + ',';
-                                
-                                $.each(jsonYoujing,function(keyYoujing, valueYoujing){
-                                    if(valueYoujing.major_tag_id == valueMajorTag.id){
-                                        if(typeof(mapData.get(valueYoujing.date)) == "undefined"){
-                                            mapData.set(valueYoujing.date, valueYoujing.day_count);
-                                        }else{
-                                            mapData.set(valueYoujing.date, accAdd(mapData.get(valueYoujing.date), valueYoujing.day_count));
-                                        }
-                                    }
-                                });
-                                createQxForRound_oil(valueMajorTag.id, jsonYoujing, mapData); 
-                            }
-                        });
-                        
-                        createScdtQx(mapData, p_title, '', p_render, p_name);
-                    }
-                });
-            }
-            
-            /**
-             * 曲线生成
-             * @param {type} code 选中节点code
-             * @returns {Object}
-             */
-            function createQxForRound_oil(p_prentid, p_youjingList, p_mapData){
-
-                 // 封装信息JSON
-                $.each(strMajorTag, function(keyMajorTag, valueMajorTag){
-                    if(valueMajorTag.pid == p_prentid && (selMajorTagData_qx.indexOf(',' + valueMajorTag.id + ',') < 0)){
-                        selMajorTagData_qx += valueMajorTag.id + ',';
-                                
-                        if(valueMajorTag.type == 'DUI_LEVEL'){
-                            $.each(p_youjingList,function(keyYoujing, valueYoujing){
-                                if(valueYoujing.major_tag_id == valueMajorTag.id){
-                                    if(typeof(p_mapData.get(valueYoujing.date)) == "undefined"){
-                                        p_mapData.set(valueYoujing.date, valueYoujing.day_count)
-                                    }else{
-                                        p_mapData.set(valueYoujing.date, accAdd(p_mapData.get(valueYoujing.date), valueYoujing.day_count));
-//                                        alert(valueYoujing.date + '---' + p_mapData.get(valueYoujing.date));
-                                    }
-                                }
-                            });
-                        }else{
-                            createQxForRound_oil(valueMajorTag.id, p_youjingList, p_mapData);
-                        }
-                    }
-                });
-            }
-            
-            /**
-             * 曲线生成
-             * @param {type} code 选中节点code
-             * @returns {Object}
-             */
-            function createQxForWell_oil(p_id, p_title, p_render, p_name, p_path){
-
-                // 累计
-                var mapData = new Map();
-                // 获得井数据信息
-                $.ajax({
-                    type: 'POST',
-                    url: p_path,
-                    data:{code:p_id, startDate:$('#txtStartDate').val(), endDate:$('#txtEndDate').val()},
-                    dateType:'json',
                     success: function(jsonYoujing){//alert(mapData.get('2013-06-09'));
-                        // 封装信息JSON
                         $.each(jsonYoujing,function(keyYoujing, valueYoujing){
-                            if(valueYoujing.id == p_id){
-                                if(typeof(mapData.get(valueYoujing.date)) == "undefined"){
-                                    mapData.set(valueYoujing.date, valueYoujing.day_count);
-                                }else{
-                                    mapData.set(valueYoujing.date, accAdd(mapData.get(valueYoujing.date), valueYoujing.day_count));
-                                }
-                            }
-                        });
+                                        if(valueYoujing.id == p_id){
+                                            if(typeof(mapData.get(valueYoujing.date)) == "undefined"){
+                                                mapData.set(valueYoujing.date, valueYoujing.day_count);
+                                            }else{
+                                                mapData.set(valueYoujing.date, accAdd(mapData.get(valueYoujing.date), valueYoujing.day_count));
+                                            }
+                                        }
+                                    });
                         
                         createScdtQx(mapData, p_title, '', p_render, p_name);
                     }
@@ -1858,16 +1272,8 @@
                     data:{startDate:$('#txtStartDate').val(), endDate:$('#txtEndDate').val()},
                     dateType:'json',
                     success: function(jsonYoujing){
-                         // 封装信息JSON
-                        $.each(strMajorTag, function(keyMajorTag, valueMajorTag){
-                            if((valueMajorTag.pid == p_id || (valueMajorTag.id == p_id && valueMajorTag.type == 'DUI_LEVEL'))
-                                    && (selMajorTagData_qx.indexOf(',' + valueMajorTag.id + ',') < 0))
-                            {
-                                selMajorTagData_qx += valueMajorTag.id + ',';
-                                
-                                if(valueMajorTag.type == 'DUI_LEVEL'){
-                                    $.each(jsonYoujing,function(keyYoujing, valueYoujing){
-                                        if(valueYoujing.major_tag_id == valueMajorTag.id){
+                        $.each(jsonYoujing,function(keyYoujing, valueYoujing){
+                                        if(valueYoujing.id == p_id){
 //                                            alert(valueYoujing.date + '---' +valueYoujing.day_count);
                                             if(typeof(mapData.get(valueYoujing.date)) == "undefined"){
                                                 mapData.set(valueYoujing.date, valueYoujing.day_count);
@@ -1876,44 +1282,8 @@
                                             }
                                         }
                                     });
-                                }else{
-                                    createQxForRound_kjs(valueMajorTag.id, jsonYoujing, mapData);
-                                }
-                            }
-                        });
                         
                         createScdtQx(mapData, p_title, '', p_render, p_name);
-                    }
-                });
-            }
-            
-            /**
-             * 曲线生成(油井开井数)
-             * @param {type} code 选中节点code
-             * @returns {Object}
-             */
-            function createQxForRound_kjs(p_prentid, p_youjingList, p_mapData){
-
-                 // 封装信息JSON
-                $.each(strMajorTag, function(keyMajorTag, valueMajorTag){
-                    if(valueMajorTag.pid == p_prentid && (selMajorTagData_qx.indexOf(',' + valueMajorTag.id + ',') < 0)){
-                        selMajorTagData_qx += valueMajorTag.id + ',';
-                                
-                        if(valueMajorTag.type == 'DUI_LEVEL'){
-                            $.each(p_youjingList,function(keyYoujing, valueYoujing){
-                                if(valueYoujing.major_tag_id == valueMajorTag.id){
-//                                    alert(valueYoujing.date + '---' +valueYoujing.day_count);
-                                    if(typeof(p_mapData.get(valueYoujing.date)) == "undefined"){
-                                        p_mapData.set(valueYoujing.date, valueYoujing.day_count)
-                                    }else{
-                                        p_mapData.set(valueYoujing.date, Math.round(accAdd(p_mapData.get(valueYoujing.date), (valueYoujing.day_count > 0 ? 1 : 0))));
-//                                        alert(valueYoujing.date + '---' + p_mapData.get(valueYoujing.date));
-                                    }
-                                }
-                            });
-                        }else{
-                            createQxForRound_kjs(valueMajorTag.id, p_youjingList, p_mapData);
-                        }
                     }
                 });
             }
@@ -1934,16 +1304,8 @@
                     data:{code:p_id, startDate:$('#txtStartDate').val(), endDate:$('#txtEndDate').val()},
                     dateType:'json',
                     success: function(jsonYoujing){//alert(mapData.get('2013-06-09'));
-                         // 封装信息JSON
-                        $.each(strMajorTag, function(keyMajorTag, valueMajorTag){
-                            if((valueMajorTag.pid == p_id || (valueMajorTag.id == p_id && valueMajorTag.type == 'DUI_LEVEL'))
-                                    && (selMajorTagData_qx.indexOf(',' + valueMajorTag.id + ',') < 0))
-                            {
-                                selMajorTagData_qx += valueMajorTag.id + ',';
-                                
-                                if(valueMajorTag.type == 'DUI_LEVEL'){
-                                    $.each(jsonYoujing,function(keyYoujing, valueYoujing){
-                                        if(valueYoujing.major_tag_id == valueMajorTag.id){
+                         $.each(jsonYoujing,function(keyYoujing, valueYoujing){
+                                        if(valueYoujing.id == p_id){
                                             if(typeof(mapData.get(valueYoujing.date)) == "undefined"){
                                                 mapData.set(valueYoujing.date, valueYoujing.day_count);
                                             }else{
@@ -1951,11 +1313,6 @@
                                             }
                                         }
                                     });
-                                }else{
-                                    createQxForRound_oil(valueMajorTag.id, jsonYoujing, mapData);
-                                }
-                            }
-                        });
                         
                         createScdtQx_pj(mapData, p_title, '', p_render, p_name, youjing_count);
                     }
@@ -1986,17 +1343,15 @@
                         case 'cyl_0' :
                             $("#container1").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                            createQx_oil(${info.id}, '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
                                 '${ctx}/performance/getOilProductDataList');
-                            $("#radio_" + treeNode.children[0].id).attr("checked", false);
                             break;
                         //产液量
                         case 'cyel_0' :
                             $("#container2").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                            createQx_oil(${info.id}, '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
                                 '${ctx}/performance/getOilProductDataList_liquid');
-                            $("#radio_" + treeNode.children[0].id).attr("checked", false);
                             break;
                         //产气量(暂时不做实现)
                         case 'cql_0' :
@@ -2006,59 +1361,51 @@
                         case 'yjydl_0' :
                             $("#container4").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                            createQx_oil(${info.id}, '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
                                 '${ctx}/performance/getOilProductDataList_ydl');  
-                            $("#radio_" + treeNode.children[0].id).attr("checked", false);
                             break;
                         //油井注气量
                         case 'yjzql_0' :
                             $("#container5").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井注气量', 'container5', '注&nbsp;&nbsp;&nbsp;&nbsp;气&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                            createQx_oil(${info.id}, '油井注气量', 'container5', '注&nbsp;&nbsp;&nbsp;&nbsp;气&nbsp;&nbsp;&nbsp;&nbsp;量', 
                                 '${ctx}/performance/getOilProductDataList_zql');
                             break;
                         //注水量
                         case 'zsl_0' :
                             $("#container6").css("display","block");                            
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井注水量', 'container6', '注&nbsp;&nbsp;&nbsp;&nbsp;水&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                            createQx_oil(${info.id}, '油井注水量', 'container6', '注&nbsp;&nbsp;&nbsp;&nbsp;水&nbsp;&nbsp;&nbsp;&nbsp;量', 
                                 '${ctx}/performance/getOilProductDataList_zsl');
                             break;
                         //总用电量
                         case 'zydl_0' :
                             $("#container7").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '总用电量', 'container7', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                            createQx_oil(${info.id}, '总用电量', 'container7', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
                                 '${ctx}/performance/getOilProductDataList_zydl');
                             break;
                         //单井平均产量
                         case 'djpjcl_0' :
                             $("#container8").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil_pj(0, '单井平均产量', 'container8', '平&nbsp;&nbsp;均&nbsp;&nbsp;产&nbsp;&nbsp;量', 
+                            createQx_oil_pj(${info.id}, '单井平均产量', 'container8', '平&nbsp;&nbsp;均&nbsp;&nbsp;产&nbsp;&nbsp;量', 
                                 '${ctx}/performance/getOilProductDataList');
                             break;
                         //平均含水量
                         case 'pjhsl_0' :
                             $("#container9").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil_pj(0, '平均含水量', 'container9', '含&nbsp;&nbsp;&nbsp;&nbsp;水&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                            createQx_oil_pj(${info.id}, '平均含水量', 'container9', '含&nbsp;&nbsp;&nbsp;&nbsp;水&nbsp;&nbsp;&nbsp;&nbsp;量', 
                                 '${ctx}/performance/getOilProductDataList_hsl');
                             break;	
                         //油井井数			
                         case 'yjzjs_0' :
                             $("#container10").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_kjs(0, '油井井数', 'container10', '总&nbsp;&nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;&nbsp;数', 
+                            createQx_kjs(${info.id}, '油井井数', 'container10', '总&nbsp;&nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;&nbsp;数', 
                                 '${ctx}/performance/getOilProductDataList_zjs');
-                            break;	
-                        //水井开井数			
-                        case 'yjkjs_0' :
-                            $("#container11").css("display","block");
-                            selMajorTagData_qx = ',';
-                            createQx_kjs(0, '水井开井数', 'container11', '总&nbsp;&nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;&nbsp;数', 
-                                '${ctx}/performance/getOilProductDataList_sjkjs');
-                            break;	
+                            break;				
                     }                        
                 //取消时触发的事件
                 } else if(checkedRadio != null){
@@ -2105,11 +1452,7 @@
                         //油井井数			
                         case 'yjzjs_0' :
                             $("#container10").css("display","none");
-                            break;
-                        //水井开井数			
-                        case 'yjkjs_0' :
-                            $("#container11").css("display","none");
-                            break;		
+                            break;				
                     }
                 }else{
                     var chkId = treeNode.id;
@@ -2153,92 +1496,28 @@
                        //油井井数			
                        case 'yjzjs_0' :
                             $("#container10").css("display","none");
-                            break;		
-                       //水井井数			
-                       case 'yjkjs_0' :
-                            $("#container11").css("display","none");
                             break;				
                     }                            
                 }
             }
-
-            /**
-             * 单选触发事件
-             * @param {type} treeNode
-             * @param {type} btn
-             * @returns {undefined}             */
+            
+            //单选触发事件
             function checkBrand(treeNode, btn) {
                 if (btn.attr("checked")) {
-                    var pObj = $("#checkbox_" + treeNode.getParentNode().id);
-                    if (pObj.attr("checked")) {
                         var trId = treeNode.id.split('_');
                         switch(trId[0]){
                             //产油量
                             case 'cyl' : 
-                                selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                    '${ctx}/performance/getOilProductDataList');
-                                break;
-                            //产液量
-                            case 'cyel' : 
-                                selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                    '${ctx}/performance/getOilProductDataList_liquid');
-                                break;
-                            //产气量
-                            case 'cql' : 
-                                break;
-                            //油井用电量
-                            case 'yjydl' :
-                                selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                    '${ctx}/performance/getOilProductDataList_ydl');
-                                break;
-                            //油井注气量
-                            case 'yjzql' : 
-                                break;
-                            //注水量
-                            case 'zsl' :
-                                break;
-                            //总用电量
-                            case 'zydl' : 
-                                break;
-                            //单井平均产量
-                            case 'djpjcl' : 
-                                break;
-                            //平均含水量
-                            case 'pjhsl' : 
-                                break;
-                            //油井井数
-                            case 'yjzjs' : 
-                                break;
-                            }
-                        pObj.attr("checked", true);
-                    }else{
-                        //没有子节点被选中
-                        pObj.attr("checked", true);
-                        var trId = treeNode.id.split('_');
-                        switch(trId[0]){
-                            //产油量
-                            case 'cyl' : 
-                                if(trId[1] == 'yj'){
-                                    createQxForWell_oil(trId[2], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                                if(trId[2] == 'yj'){
+                                    createQxForWell_oil(trId[3], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
                                         '${ctx}/performance/getOilProductDataList');  
-                                }else{
-                                    selMajorTagData_qx = ',';
-                                    createQx_oil(trId[1], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList');
                                 }
                                 break;
                             //产液量
                             case 'cyel' : 
-                                if(trId[1] == 'yj'){
-                                    createQxForWell_oil(trId[2], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                                if(trId[2] == 'yj'){
+                                    createQxForWell_oil(trId[3], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
                                         '${ctx}/performance/getOilProductDataList_liquid');  
-                                }else{
-                                    selMajorTagData_qx = ',';
-                                    createQx_oil(trId[1], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList_liquid');
                                 }
                                 break;
                             //产气量
@@ -2246,13 +1525,9 @@
                                 break;
                             //油井用电量
                             case 'yjydl' :  
-                                if(trId[1] == 'yj'){
-                                    createQxForWell_oil(trId[2], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                                if(trId[2] == 'yj'){
+                                    createQxForWell_oil(trId[3], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
                                         '${ctx}/performance/getOilProductDataList_ydl');  
-                                }else{
-                                    selMajorTagData_qx = ',';
-                                    createQx_oil(trId[1], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList_ydl');
                                 }
                                 break;
                             //油井注气量
@@ -2274,77 +1549,79 @@
                             case 'yjzjs' : 
                                 break;
                             }
-                        }
                 }else{
-                    //点击节点名称变曲线(子节点没有被选中)
-                    var trId=treeNode.id.split('_');
-                    var checkedRadio = getCheckedRadio("radio_"+treeNode.id);
-                    switch(trId[0]){
-                        //产油量
-                        case 'cyl' : 
-                            if(trId[1] == 'yj'){
-                                createQxForWell_oil(trId[2], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList');
-                            }else{
-                                selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList');
-                            }
-                            
-                            if(checkedRadio!=null){
-                                checkw(treeNode, checkedRadio);
-                            }
-                            break;
-                        //产液量
-                        case 'cyel' : 
-                            if(trId[1] == 'yj'){
-                                createQxForWell_oil(trId[2], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList_liquid');
-                            }else{
-                                selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList_liquid');
-                            }
-                            if(checkedRadio!=null){
-                                 checkw(treeNode, checkedRadio);
-                            }
-                            break;
-                        //产气量
-                        case 'cql' : 
-                            break;
-                        //油井用电量
-                        case 'yjydl' : 
-                            if(trId[1] == 'yj'){
-                                createQxForWell_oil(trId[2], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                    '${ctx}/performance/getOilProductDataList_ydl');  
-                           }else{
-                                selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                    '${ctx}/performance/getOilProductDataList_ydl');
-                           }
-                           if(checkedRadio!=null){
-                                checkw(treeNode, checkedRadio);
-                           }
-                            break;
-                        //油井注气量
-                        case 'yjzql' : 
-                            break;
-                        //注水量
-                        case 'zsl' : 
-                            break;
-                        //总用电量
-                        case 'zydl' : 
-                            break;
-                        //单井平均产量
-                        case 'djpjcl' : 
-                            break;
-                        //平均含水量
-                        case 'pjhsl' : 
-                            break;
-                        //油井井数
-                        case 'yjzjs' : 
-                            break;
-                    }
+                    var pObj = $("#checkbox_" + treeNode.getParentNode().id);
+                    if (pObj.attr("checked")) {
+                        //点击节点名称变曲线(子节点没有被选中)
+                        var trId=treeNode.id.split('_');
+                        var checkedRadio = getCheckedRadio("radio_"+treeNode.id);
+                        switch(trId[0]){
+                            //产油量
+                            case 'cyl' : 
+                                if(trId[2] == 'yj'){
+                                    createQxForWell_oil(trId[3], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                                            '${ctx}/performance/getOilProductDataList');
+                                }else{
+                                    selMajorTagData_qx = ',';
+                                    createQx_oil(${info.id}, '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                                            '${ctx}/performance/getOilProductDataList');
+                                }
+
+                                if(checkedRadio!=null){
+                                    checkw(treeNode, checkedRadio);
+                                }
+                                break;
+                            //产液量
+                            case 'cyel' : 
+                                if(trId[2] == 'yj'){
+                                    createQxForWell_oil(trId[3], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                                            '${ctx}/performance/getOilProductDataList_liquid');
+                                }else{
+                                    selMajorTagData_qx = ',';
+                                    createQx_oil(${info.id}, '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                                            '${ctx}/performance/getOilProductDataList_liquid');
+                                }
+                                if(checkedRadio!=null){
+                                     checkw(treeNode, checkedRadio);
+                                }
+                                break;
+                            //产气量
+                            case 'cql' : 
+                                break;
+                            //油井用电量
+                            case 'yjydl' : 
+                                if(trId[2] == 'yj'){
+                                    createQxForWell_oil(trId[3], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList_ydl');  
+                               }else{
+                                    selMajorTagData_qx = ',';
+                                    createQx_oil(${info.id}, '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList_ydl');
+                               }
+                               if(checkedRadio!=null){
+                                    checkw(treeNode, checkedRadio);
+                               }
+                                break;
+                            //油井注气量
+                            case 'yjzql' : 
+                                break;
+                            //注水量
+                            case 'zsl' : 
+                                break;
+                            //总用电量
+                            case 'zydl' : 
+                                break;
+                            //单井平均产量
+                            case 'djpjcl' : 
+                                break;
+                            //平均含水量
+                            case 'pjhsl' : 
+                                break;
+                            //油井井数
+                            case 'yjzjs' : 
+                                break;
+                        }
+                    }                    
                     btn.attr("checked", true);
                 }
                 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
@@ -2369,15 +1646,7 @@
                 var treeNodes = [];
                 var treeNodesItem = new Object();
                 
-                // 获得机构信息
-                $.ajax({
-                    type: 'POST',
-                    url: '${ctx}/realtime/majortag',
-                    dateType:'json',
-                    success: function(json){
-                        strMajorTag = json;
-                        if(json != ''){
-                            // 获得油井信息
+                // 获得油井信息
                             $.ajax({
                                 type: 'POST',
                                 url: '${ctx}/realtime/youjing',
@@ -2397,33 +1666,12 @@
 
                                     treeNodes.push(treeNodesItem);
                                     
-                                    // 已选择组织机构
-                                    selMajorTagData_tree = ',';
-                                    // 封装信息JSON
-                                    createTreeNodeItem(treeNodes, 0, 'cyl_');
-                                    
                                     // 产液量
                                     treeNodesItem = new Object();
 
                                     treeNodesItem.id = 'cyel_0';
                                     treeNodesItem.pId = '0';
                                     treeNodesItem.name = '产液量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 已选择组织机构
-                                    selMajorTagData_tree = ',';
-                                    // 封装信息JSON
-                                    createTreeNodeItem(treeNodes, 0, 'cyel_');
-                                    
-                                    // 产气量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'cql_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '产气量';
                                     treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
                                     treeNodesItem.open = true;
 
@@ -2452,11 +1700,6 @@
 
                                     treeNodes.push(treeNodesItem);
                                     
-                                    // 已选择组织机构
-                                    selMajorTagData_tree = ',';
-                                    // 封装信息JSON
-                                    createTreeNodeItem(treeNodes, 0, 'yjydl_');
-                                    
                                     // 油井注气量
                                     treeNodesItem = new Object();
 
@@ -2479,50 +1722,6 @@
 
                                     treeNodes.push(treeNodesItem);
                                     
-                                    // 水井开井数
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'yjkjs_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '水井开井数';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 作业井数
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'zyjs_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '作业井数';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 总用电量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'zydl_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '总用电量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 单井平均产量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'djpjcl_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '单井平均产量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
                                     // 平均含水量
                                     treeNodesItem = new Object();
 
@@ -2534,86 +1733,19 @@
 
                                     treeNodes.push(treeNodesItem);
                                     
-                                    // 油井总井数
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'yjzjs_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '油井总井数';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
                                     $.fn.zTree.init($("#treeDemo"), setting, treeNodes);
                                     
                                     // 油井开井数 状态
                                     $('#checkbox_yjkj_0').attr("checked", true);
                                     $('#checkbox_yjkj_0').attr("disabled", true);
-                                    // 产气量 状态
-                                    $('#checkbox_cql_0').attr("checked", false);
-                                    $('#checkbox_cql_0').attr("disabled", true);
                                     
                                     selMajorTagData_qx = ',';
-                                    createQx_kjs(0, '油井开井数', 'container', 
+                                    createQx_kjs(${info.id}, '油井开井数', 'container', 
                                         '开&nbsp;&nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;&nbsp;数', 
                                         '${ctx}/performance/getOilProductDataList_kjs');  
                                 }
-                            });
-                        }
-                    }
-                });                
+                            });             
             });	
-            
-            /**
-             * 树结构子级信息生成
-             * @param {type} p_treeNodes 树结构用json
-             * @returns {Object}             */
-            function createTreeNodeItem(p_treeNodes, p_MajorTagParentId, p_MajorTagParentIdPrefix){
-                        
-                // 封装井矿信息JSON
-                $.each(strMajorTag,function(keyMajorTagList, valueMajorTagList){
-                                        
-                    if(valueMajorTagList.pid == p_MajorTagParentId && (selMajorTagData_tree.indexOf(',' + valueMajorTagList.id + ',') < 0))
-                    {
-                                            
-                        selMajorTagData_tree += valueMajorTagList.id + ',';                                          
-            
-                        var treeNodesItem = new Object();
-                        treeNodesItem.id = p_MajorTagParentIdPrefix + valueMajorTagList.id;
-                        treeNodesItem.pId = p_MajorTagParentIdPrefix + p_MajorTagParentId;
-                        treeNodesItem.name = valueMajorTagList.name;
-                        treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-
-                        p_treeNodes.push(treeNodesItem);
-
-                        // 递归遍历子数据
-                        if(valueMajorTagList.type == 'DUI_LEVEL'){
- 
-                            $.each(strYoujing,function(keyYoujing, valueYoujing)
-                            {
-                                if(valueMajorTagList.id == valueYoujing.major_tag_id){
-                                    
-                                    var treeNodesItem = new Object();
-
-                                    treeNodesItem.id = p_MajorTagParentIdPrefix + 'yj_' + valueYoujing.id ;
-                                    treeNodesItem.pId = p_MajorTagParentIdPrefix + valueMajorTagList.id;
-                                    treeNodesItem.name = valueYoujing.name;
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-
-                                    p_treeNodes.push(treeNodesItem);
-                                }
-                            });
-                        }else{
-
-                            createTreeNodeItem(p_treeNodes, valueMajorTagList.id, p_MajorTagParentIdPrefix);  
-                        } 
-                    }
-                    else{
-                        return true;
-                    }
-                });
-            }
             
             /**
             * 设置生成曲线日期
@@ -2693,7 +1825,13 @@
                 <div id="zhyrrr" style="width:1245px; height:597px; overflow:scrol; float:left">
                     <div id="gr" style="width:1245px; height:595px; overflow:scrol; float:left">
                         <div id="qm" style="width:1245px; height:19px; background-color:#e6d5ff;border:solid; font-size:14px; line-height:22px; font-weight:bold; border-color:#e6d5ff; border-width:1px;  float:left">
-                            &nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;田&nbsp;&nbsp;&nbsp一&nbsp;&nbsp;&nbsp;区
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr height="19px">
+                                    <td width="80%">&nbsp;&nbsp;&nbsp;${info.name}</td>
+                                    <td width="10%"></td>
+                                    <td width="10%" align="right" style="padding-right:5px; cursor:hand;" onclick="javascript:history.back();">返&nbsp;&nbsp;&nbsp;回</td>
+                                </tr>
+                            </table>  
                         </div>
                         <div id="sz" style="width:1245px; height:578px; background-color:#FFE0BB;  border:solid; border-color:#e6d5ff; border-width:1px;float:left" >
                         </div>
@@ -2743,9 +1881,6 @@
                             </div>
                             <!--注水量-->
                             <div id="container6" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
-                            </div>                            
-                            <!--水井井数-->
-                            <div id="container11" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px;  display:none">
                             </div>
                             <!--总用电量-->
                             <div id="container7" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">

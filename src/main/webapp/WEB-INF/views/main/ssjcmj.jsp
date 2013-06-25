@@ -14,7 +14,11 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.messager.js"></script>
-        <script src="${ctx}/static/application.js"></script>
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>
+        <script type="text/javascript" src="${ctx}/static/application.js"></script>
         <style type="text/css">
             html, body {
                 width: 100%;
@@ -96,9 +100,7 @@
             var yt='<div id="y"style="width:186px;height:100px;float:left;font-size:14px;"><table><tr><td style="width:250px" align="left">&nbsp;&nbsp;&nbsp;用户名:&nbsp;<input name="" type="text" value="admin" style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input name="" type="password" value="admin"  style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;操作原因:&nbsp;<input name="" type="text" value="参数改变"  style="width:80px;"/></td></tr><tr style="height:10px"></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qd1();">确定</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qx1();">取消</button><td></tr></table></div>';
             var yc='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc();">调参</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tj();">取消</button><td></tr></table></div>';
             var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input name="" type="text" value="4" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input name="" type="text" value="2.1" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input name="" type="text" value="3.9" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input name="" type="text" value="2" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';            
-            
-            var objUrl='${ctx}';
-            var username='${username}';
+
             /**
              * 页面初始化
              * @returns {undefined}
@@ -142,7 +144,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.tpl}',group:'YOU_JING'},
+                    data:{code:'${info.code}',group:'YOU_JING'},
                     dateType:'json',
                     success: function(json){
 
@@ -187,7 +189,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.tpl}',group:tmpName[2],varName:tmpName[0]},
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
                         dateType:'json',
                         success: function(json){
 
@@ -222,7 +224,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.tpl}',group:'DIAN_YC'},
+                    data:{code:'${info.code}',group:'DIAN_YC'},
                     dateType:'json',
                     success: function(json){
 
@@ -258,7 +260,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.tpl}',group:'YOU_JING',varName:tmpName[0]},
+                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
                         dateType:'json',
                         success: function(json){
 
@@ -293,7 +295,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.tpl}',group:'DIAN_YM'},
+                    data:{code:'${info.code}',group:'DIAN_YM'},
                     dateType:'json',
                     success: function(json){
 
@@ -330,7 +332,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.tpl}',group:'YOU_JING',varName:tmpName[0]},
+                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
                         dateType:'json',
                         success: function(json){
 
@@ -364,7 +366,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '${ctx}/realtime/groupinfo',
-                    data:{code:'${info.tpl}',group:'DIAN_XB'},
+                    data:{code:'${info.code}',group:'DIAN_XB'},
                     dateType:'json',
                     success: function(json){
                         xbJson = json;
