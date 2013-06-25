@@ -30,7 +30,8 @@ public class MappingFastJsonHttpMessageConverter extends AbstractHttpMessageConv
     }
 
     public MappingFastJsonHttpMessageConverter() {
-        super(new MediaType("application", "json", DEFAULT_CHARSET));
+        super(new MediaType("application", "json", DEFAULT_CHARSET), new MediaType(
+				"application", "*+json", DEFAULT_CHARSET));
     }
 
     @Override

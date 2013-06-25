@@ -19,17 +19,14 @@
 		<mvc:argument-resolvers>
 			<bean class="org.springframework.mvc.atmosphere.support.AtmosphereArgumentResolver" />
 		</mvc:argument-resolvers>
-	</mvc:annotation-driven>
-
-	<!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
-	<mvc:default-servlet-handler />
-
-    <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
             <!-- fastjosn spring support -->
             <ref bean="jsonConverter"></ref>
         </mvc:message-converters>
-    </mvc:annotation-driven>
+	</mvc:annotation-driven>
+
+	<!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
+	<mvc:default-servlet-handler />
 
 	<!-- Handles HTTP GET requests for /static/** by efficiently serving up static resources in the ${webappRoot}/static/ directory -->
 	<!-- <resources mapping="/static/**" location="/static/" /> -->
@@ -55,9 +52,9 @@
 		</property>
 	</bean>
 
-    <bean id="jsonConverter" class="com.alibaba.fastjson.spring.support.MappingFastJsonHttpMessageConverter">
-        <property name="supportedMediaTypes" value="application/json" />
-        <property name="serializerFeature">
+    <!--<bean id="jsonConverter" class="com.alibaba.fastjson.spring.support.MappingFastJsonHttpMessageConverter">-->
+    <bean id="jsonConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+        <property name="features">
             <list>
                 <value>WriteMapNullValue</value>
                 <value>QuoteFieldNames</value>
