@@ -58,6 +58,8 @@
             <list>
                 <value>WriteMapNullValue</value>
                 <value>QuoteFieldNames</value>
+                <value>DisableCircularReferenceDetect</value>
+                <value>BrowserCompatible</value>
             </list>
         </property>
     </bean>
