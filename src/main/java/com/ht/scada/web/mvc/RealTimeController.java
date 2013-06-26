@@ -252,8 +252,8 @@ public class RealTimeController {
             for(String key : map.keySet()){
                 keys.add(key + "_array");
             }
-            Map<String,float[]> maps = realtimeDataService.getEndTagVarYcArray(code, keys);
-            for(Map.Entry<String,float[]> entry : maps.entrySet()){
+            Map<String,String> maps = realtimeDataService.getEndTagVarYcArray(code, keys);
+            for(Map.Entry<String,String> entry : maps.entrySet()){
                 Map tmp = new HashMap<>();
                 tmp.put("key", entry.getKey());
                 tmp.put("value", entry.getValue());
