@@ -221,7 +221,7 @@
                         url: '${ctx}/realtime/linedata',
                         data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
                         dateType:'json',
-                        success: function(code){
+                        success: function(json){
 
                             var xAxisData = [];
                             var yAxisData = [];

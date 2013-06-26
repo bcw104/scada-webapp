@@ -864,7 +864,7 @@
                     <a href="${ctx}/performancepage" style="text-decoration:none"><img border="0" src="${ctx}/static/img/scdt.png" style="width:120px; height:33px;"/></a>
                 </div>
                 <div id="tool3" style="width:120px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                    <a href="scjl.html" style="text-decoration:none"><img  border="0" src="${ctx}/static/img/scgl.png" style="width:120px; height:33px;"/></a>
+                    <a href="${ctx}/producepage" style="text-decoration:none"><img  border="0" src="${ctx}/static/img/scgl.png" style="width:120px; height:33px;"/></a>
                 </div>
                 <div id="tool4" style="width:120px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <a href="wltp.html" style="text-decoration:none"><img border="0"  src="${ctx}/static/img/txwl.png" style="width:120px; height:33px;"/></a>
