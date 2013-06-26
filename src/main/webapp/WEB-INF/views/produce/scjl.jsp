@@ -193,7 +193,7 @@
 
                 $(".cssdiv").addClass("s1");
                 createTabble();
-//                createTreeGrid1();
+                createTreeGrid1();
 //                createTreeGrid();
 //                createGrid();
 //                createWindow();
@@ -242,6 +242,7 @@
                 dhxTabbar3.cells("tab2").attachObject("wlbg");
             }
             
+            var deviceJson;
             /**
              * 创建设备监控管理选项卡--网络表格
              * @returns {undefined}
@@ -250,14 +251,102 @@
                 treeGrid= new dhtmlXGridObject('ysbscjc');
                 treeGrid.selMultiRows = true;
                 treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/icons_greenfolders/";
-                treeGrid.setHeader("对象,生产厂家,型号,启用信息,IP地址,通讯状态");
-                treeGrid.setInitWidths("150,150,150,150,150,*");
-                treeGrid.setColAlign("left,center,center,center,center,center");
-                treeGrid.setColTypes("tree,txt,txt,txt,txt,txt");
+                treeGrid.setHeader("设备名称,生产厂家,型号,序号,设备地址,井名,IP地址,通讯状态");
+                treeGrid.setInitWidths("150,150,150,150,150,150,150,*");
+                treeGrid.setColAlign("left,center,center,center,center,center,center,center");
+                treeGrid.setColTypes("tree,txt,txt,txt,txt,txt,txt,txt");
                 treeGrid.init();
                 treeGrid.enableMultiselect(true);
-                treeGrid.load("data/jcsbbb.json", "json");
-                treeGrid.openItem("1001");
+                
+                
+                // 获得机构信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/produce/deviceList',
+                    dateType:'json',
+                    success: function(json){                        
+                        
+                        deviceJson = json;
+                        treeGrid.clearAll();
+                        treeGrid.parse(getDeviceData(deviceJson),'json'); 
+                    }
+                });
+            }
+            
+            /**
+             * 创建设备监控管理选项卡--网络表格
+             * @returns {undefined}
+             */
+            function createTreeGrid1BySearch(){
+                treeGrid= new dhtmlXGridObject('ysbscjc');
+                treeGrid.selMultiRows = true;
+                treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/icons_greenfolders/";
+                treeGrid.setHeader("设备名称,生产厂家,型号,序号,设备地址,井名,IP地址,通讯状态");
+                treeGrid.setInitWidths("150,150,150,150,150,150,150,*");
+                treeGrid.setColAlign("left,center,center,center,center,center,center,center");
+                treeGrid.setColTypes("tree,txt,txt,txt,txt,txt,txt,txt");
+                treeGrid.init();
+                treeGrid.enableMultiselect(true);                
+
+                treeGrid.clearAll();
+                treeGrid.parse(getDeviceData(deviceJson),'json'); 
+            }
+            
+            /**
+             * 获得网络表格数据
+             * @param {type} p_json
+             * @returns {Object}             
+             * */
+            function getDeviceData(p_json){
+            
+                var deviceData = new Object();
+                deviceData.rows = [];
+                
+                // 封装网络表格JSON
+                $.each(p_json, function(key, value){
+                    
+                    if((value.name.indexOf($.trim($("#txtName").val())) >= 0) && (String(value.address).indexOf($.trim($("#txtAddress").val())) >= 0)){
+                        var tmpDevice = new Object(); 
+                        tmpDevice.id = value.id;
+                        tmpDevice.data = [];
+                        tmpDevice.rows = [];
+
+                        // 名称设置
+                        var deviceName = {};
+                        deviceName.value = value.name;
+                        deviceName.image = 'folder.gif';        
+                        tmpDevice.data.push(deviceName);
+                        tmpDevice.data.push(value.manufacture);
+                        tmpDevice.data.push(value.type);
+                        tmpDevice.data.push(value.number);
+                        tmpDevice.data.push(value.address);
+                        tmpDevice.data.push(value.endtagname);
+                        tmpDevice.data.push(value.ip);
+                        tmpDevice.data.push(value.state == "true" ? "正常" : "非正常");
+
+                        $.each(value.sensor, function(keySensor, valueSensor){
+                            var tmpSensor = new Object(); 
+                            tmpSensor.id = valueSensor.id + "_sensor";
+                            tmpSensor.data = [];
+
+                            tmpSensor.data.push(valueSensor.name);
+                            tmpSensor.data.push(valueSensor.manufacture);
+                            tmpSensor.data.push(valueSensor.type);
+                            tmpSensor.data.push(valueSensor.number);
+                            tmpSensor.data.push(valueSensor.address);
+                            tmpSensor.data.push(valueSensor.endtagname);
+                            tmpSensor.data.push(valueSensor.ip);
+                            tmpSensor.data.push(valueSensor.state == "true" ? "正常" : "非正常");
+
+                            tmpDevice.rows.push(tmpSensor);
+                        });
+
+                        deviceData.rows.push(tmpDevice);
+                    }
+                    
+                });
+                
+                return deviceData;
             }
             
             function createWindow(){
@@ -314,12 +403,6 @@
                 dhxWins.window("win").button('park').hide();
                 dhxWins.window("win").hide();	
             }
-            
-            
-            
-            
-            
-            
             
             function createTreeGrid(){
                 treeGrid= new dhtmlXGridObject('gk');
@@ -789,10 +872,9 @@
                             <input type="text" name="txtAddress" id="txtAddress" style=" height:13px; width:80px;"/>
                         </div>	
                         <div id="wlbg4" style="width:17px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <img src="${ctx}/static/img/chaxun.png" style="cursor:pointer" />
+                            <img src="${ctx}/static/img/chaxun.png" onclick="createTreeGrid1BySearch();" style="cursor:pointer" />
                         </div>	
                         <div id="wlbg5" style="width:855px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;查&nbsp;&nbsp;询
                         </div>    
                         <div id="ysbscjc" style="width:1248px; height:558px"></div>
                     </div>
