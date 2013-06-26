@@ -431,7 +431,7 @@
                                     // 井数
                                     tmpYoujingTag.data.push(1);
                                     // 开关井状态
-                                    if(valueYoujing.state == 0){
+                                    if(valueYoujing.state == "false"){
                                         
                                         youjingGuanCount++;
                                         tmpYoujingTag.data.push(0);

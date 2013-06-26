@@ -318,7 +318,7 @@
                         $.each(json,function(key, value){
 
                             if(value.key == 'qi_ting_zhuang_tai'){
-                                if(value.value == '0'){
+                                if(value.value == 'false'){
                                     $("#youjingState").attr("src","${ctx}/static/img/hongse.png");
                                 }else{
                                     $("#youjingState").attr("src","${ctx}/static/img/lse.png");

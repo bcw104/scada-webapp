@@ -540,7 +540,7 @@
                         $.each(json,function(key, value){
 
                             if(value.key == 'qi_ting_zhuang_tai'){
-                                if(value.value == '0'){
+                                if(value.value == 'false'){
                                     $("#youjingState").attr("src","${ctx}/static/img/hongse.png");
                                 }else{
                                     $("#youjingState").attr("src","${ctx}/static/img/lse.png");
@@ -602,7 +602,7 @@
                             youjingItem.data = [];
                             youjingItem.data.push(value.name);
                             
-                            if(value.value == '0'){
+                            if(value.value == 'false'){
                                 youjingItem.data.push('${ctx}/static/img/hongse.png');
                             }else{
                                 youjingItem.data.push('${ctx}/static/img/lse.png');
@@ -656,7 +656,7 @@
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
                 Grid.setInitWidths("158,158,158,120,120,120");
                 Grid.setColAlign("center,center,center,center,center,center");
-                Grid.setColTypes("ro,ro,ro,ro,ro,img");
+                Grid.setColTypes("ro,img,ro,ro,ro,img");
                 Grid.init();
             
                 Grid2= new dhtmlXGridObject('gr');
@@ -683,13 +683,17 @@
                             var dataItem = new Object();
                             dataItem.id = value.nickname;
                             dataItem.data = [];
-                            dataItem.data.push(value.sensorname);
-                            dataItem.data.push(value.cgq_rtu_status);                                    
+                            dataItem.data.push(value.sensorname);  
+                            if(value.cgq_rtu_status == 'false'){
+                                dataItem.data.push('${ctx}/static/img/hongse.png');
+                            }else{
+                                dataItem.data.push('${ctx}/static/img/lse.png');
+                            }
                             dataItem.data.push(value.cgq_rtu_time);
                             dataItem.data.push(value.cgq_remained_time);
                             dataItem.data.push(value.cgq_remained_dianliang);                                    
                                     
-                            if(value.cgq_rtu_status == '0'){
+                            if(value.cgq_rtu_status == 'false'){
                                 dataItem.data.push('${ctx}/static/img/hongse.png');
                             }else{
                                 dataItem.data.push('${ctx}/static/img/lse.png');
