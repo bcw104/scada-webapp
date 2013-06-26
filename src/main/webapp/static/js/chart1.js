@@ -56,7 +56,7 @@ var options = {
  * @param {type} p_code
  * @returns {undefined}
  */
-function createSg(p_code) {
+function createSg(p_code,p_data) {
     
     // 载荷，示功图纵坐标
     var str_xAxis = [];
@@ -66,7 +66,7 @@ function createSg(p_code) {
     $.ajax({
         type: 'POST',
         url: objUrl + '/realtime/welldata',
-        data:{code:p_code},
+        data:{code:p_code,data:p_data},
         dateType:'json',
         success: function(json){
 
@@ -112,7 +112,7 @@ function createSg(p_code) {
  * @param {type} p_code
  * @returns {undefined}
  */
-function createDl(p_code) {
+function createDl(p_code,p_data) {
     
     // 载荷，示功图纵坐标
     var str_xAxis = [];
@@ -122,7 +122,7 @@ function createDl(p_code) {
     $.ajax({
         type: 'POST',
         url: objUrl + '/realtime/welldgtdata',
-        data:{code:p_code},
+        data:{code:p_code,data:p_data},
         dateType:'json',
         success: function(json){
 
@@ -161,7 +161,7 @@ function createDl(p_code) {
  * @param {type} p_code
  * @returns {undefined}
  */
-function createDg(p_code) {
+function createDg(p_code,p_data) {
     
     // 载荷，电功图纵坐标
     var str_xAxis = [];
@@ -171,7 +171,7 @@ function createDg(p_code) {
     $.ajax({
         type: 'POST',
         url: objUrl + '/realtime/welldgtdata',
-        data:{code:p_code},
+        data:{code:p_code,data:p_data},
         dateType:'json',
         success: function(json){
 
@@ -210,7 +210,7 @@ function createDg(p_code) {
  * @param {type} p_code
  * @returns {undefined}
  */
-function createYggl(p_code) {
+function createYggl(p_code,p_data) {
     
     // 载荷，示功图纵坐标
     var str_xAxis = [];
@@ -220,7 +220,7 @@ function createYggl(p_code) {
     $.ajax({
         type: 'POST',
         url: objUrl + '/realtime/welldgtdata',
-        data:{code:p_code},
+        data:{code:p_code,data:p_data},
         dateType:'json',
         success: function(json){
 
