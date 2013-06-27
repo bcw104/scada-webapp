@@ -265,7 +265,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0],date:datePar},
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0],date:datePar},
                         dateType:'json',
                         success: function(json){
 
@@ -660,7 +660,7 @@
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
                 Grid.setInitWidths("158,160,158,120,120,120");
                 Grid.setColAlign("center,center,center,center,center,center");
-                Grid.setColTypes("ro,ro,ro,ro,ro,img");
+                Grid.setColTypes("ro,img,ro,ro,ro,img");
                 Grid.init();
             
                 

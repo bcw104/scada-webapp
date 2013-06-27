@@ -231,7 +231,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
                         dateType:'json',
                         success: function(json){
 
@@ -289,41 +289,7 @@
                 // 事件绑定
                 lgbgr2.attachEvent('onRowSelect', doFzGrClick); 
             }
-            /**
-             * 信息点击
-             * @param {type} gr_rId
-             * @param {type} gr_cInd
-             * @returns {undefined}             
-             * */
-            function doFzGrClick(gr_rId, gr_cInd){
-                    
-                    var tmpName = gr_rId.split('||');
-                    $("#dqqxTitle").html( tmpName[1] + '曲线');
-                    // 获得工况信息
-                    $.ajax({
-                        type: 'POST',
-                        url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
-                        dateType:'json',
-                        success: function(json){
-
-                            var xAxisData = [];
-                            var yAxisData = [];
-                            $.each(json,function(key, value){
-
-                                xAxisData.push(value.value);
-                                
-                                var dateTmp = new Date(value.date)
-                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
-                            });
-                            var colors = Highcharts.getOptions().colors;
-                            var ys;
-                            ys = colors[j];	
-                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
-                            j += 1;
-                        }
-                    });                    
-                }  
+            
             function createlgbdqGr2(){
                 lgbgr3=new dhtmlXGridObject('lgbdq3');
                 lgbgr3.setImagePath("js/gridcodebase/imgs/");
