@@ -76,12 +76,10 @@ function createSg(p_code,p_data) {
             
             $.each(json, function(key, value) {   
                 
-                if(key == 'zaihe'){
-                    
-                    str_xAxis = value;
-                }else if(key == 'weiyi'){
-                    
+                if(key == 'zaihe'){                    
                     str_yAxis = value;
+                }else if(key == 'weiyi'){
+                    str_xAxis = value;                    
                 }else if($("#" + key).length > 0){
                     
                     $("#" + key).html(value);
@@ -132,12 +130,10 @@ function createDl(p_code,p_data) {
             
             $.each(json, function(key, value) {   
                 
-                if(key == 'ib'){
-                    
-                    str_xAxis = value;
-                }else if(key == 'weiyi'){
-                    
+                if(key == 'ib'){                    
                     str_yAxis = value;
+                }else if(key == 'weiyi'){ 
+                    str_xAxis = value;
                 }           
             });   
             
@@ -182,23 +178,21 @@ function createDg(p_code,p_data) {
             $.each(json, function(key, value) {   
                 
                 if(key == 'power'){
-                    
-                    str_xAxis = value;
-                }else if(key == 'weiyi'){
-                    
                     str_yAxis = value;
+                }else if(key == 'weiyi'){
+                    str_xAxis = value;
                 }           
             });   
             
             options.series = [];
-            series.name = '电功图';
+            series.name = '功率曲线';
             series.unit = 'm';
             for (var i=0; i<str_xAxis.length; i++){
                 
                 series.data.push([str_xAxis[i],str_yAxis[i]]);
             }
             options.chart.renderTo = 'containerr2';
-            options.yAxis.title.text = '电&nbsp;&nbsp;功&nbsp;&nbsp;图';
+            options.yAxis.title.text = '功&nbsp;&nbsp;率&nbsp;&nbsp;曲&nbsp;&nbsp;线';
             options.series.push(series);
             new Highcharts.Chart(options);
         }
@@ -231,23 +225,21 @@ function createYggl(p_code,p_data) {
             $.each(json, function(key, value) {   
                 
                 if(key == 'power_factor'){
-                    
-                    str_xAxis = value;
+                    str_yAxis = value; 
                 }else if(key == 'weiyi'){
-                    
-                    str_yAxis = value;
+                    str_xAxis = value;
                 }           
             });   
             
             options.series = [];
-            series.name = '有功功率曲线';
+            series.name = '功率因数曲线';
             series.unit = 'm';
             for (var i=0; i<str_xAxis.length; i++){
                 
                 series.data.push([str_xAxis[i],str_yAxis[i]]);
             }
             options.chart.renderTo = 'containerr3';
-            options.yAxis.title.text = '有&nbsp;&nbsp;功&nbsp;&nbsp;功&nbsp;&nbsp;率&nbsp;&nbsp;曲&nbsp;&nbsp;线';
+            options.yAxis.title.text = '功&nbsp;&nbsp;率&nbsp;&nbsp;因&nbsp;&nbsp;数&nbsp;&nbsp;曲&nbsp;&nbsp;线';
             options.series.push(series);
             new Highcharts.Chart(options);
         }

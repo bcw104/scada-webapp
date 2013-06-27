@@ -13,6 +13,7 @@
         <script src="${ctx}/static/js/chart.js"></script>
         <script src="${ctx}/static/js/chart1.js"></script>
         <script src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
+        <script src="${ctx}/static/js/math.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.messager.js"></script>
@@ -143,7 +144,7 @@
                 createSg('${info.code}');
                 // 电流曲线
                 createDl('${info.code}');
-                // 电功图
+                // 功率曲线
                 createDg('${info.code}');
                 // 有功功率曲线
                 createYggl('${info.code}');
@@ -231,23 +232,16 @@
                                 xAxisData.push(loopTmp + 1); 
                                 
                                 var dataTmp = new Object();
-                                dataTmp.y = Number(valueTmp[loopTmp]);
-                                dataTmp.color = colors[loopTmp];
-
+                                dataTmp.y = accDiv(Math.round(accMul(valueTmp[loopTmp], 1000)), 1000);
+                                dataTmp.color = colors[loopTmp % 9];
                                 yAxisData.push(dataTmp);
                             }
                             
                             return false;
                         }                        
                     });
-
-                    var ys;
-                    if(j > 2){
-                        j = 0;
-                    }
-                    ys = yse[j];	
-                    te1(xAxisData, tmpName[1], '', ys, yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
-                    j += 1;
+                    
+                    te1(xAxisData, tmpName[1], '', '', yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
                 }  
             /**
              * 电气参数（电力）
@@ -909,9 +903,9 @@
                             var series = { 
                                 data: []            
                             };  
-                            
-                            str_xAxis = value.zaihe;
-                            str_yAxis = value.weiyi;
+                            alert(value.weiyi + '---' + value.zaihe);
+                            str_xAxis = value.weiyi;
+                            str_yAxis = value.zaihe;
                             
                             options1.series = [];
                             series.name = '示功图';
@@ -1340,10 +1334,10 @@
                                 &nbsp电&nbsp流&nbsp曲&nbsp线
                             </div>
                             <div id="gt9" style="width:160px; height:30px; font-size:14px;float:left; line-height:30px;background-color:#deeeff" align="center" >
-                                &nbsp电&nbsp功&nbsp图
+                                &nbsp;功&nbsp;率&nbsp;曲&nbsp;线
                             </div>
                             <div id="gt10" style="width:150px; height:30px;font-size:14px; float:left;line-height:30px; background-color:#deeeff" align="center" >
-                                &nbsp有&nbsp功&nbsp功&nbsp率&nbsp曲&nbsp线
+                                &nbsp功&nbsp率&nbsp因&nbsp数&nbsp曲&nbsp线
                             </div>
                             <div id="gtt" style="width:158px; height:150px; line-height:30px;float:left">
                             <div id="containerr" style="height:158px;width:150px; "></div>

@@ -11,6 +11,7 @@
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
         <script src="${ctx}/static/js/highcharts.src.js"></script>
         <script src="${ctx}/static/js/chart.js"></script>
+        <script src="${ctx}/static/js/math.js"></script>
         <script src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
@@ -397,8 +398,8 @@
                                 xAxisData.push(loopTmp + 1); 
                                 
                                 var dataTmp = new Object();
-                                dataTmp.y = Number(valueTmp[loopTmp]);
-                                dataTmp.color = colors[loopTmp];
+                                dataTmp.y = accDiv(Math.round(accMul(valueTmp[loopTmp], 1000)), 1000);
+                                dataTmp.color = colors[loopTmp % 9];
 
                                 yAxisData.push(dataTmp);
                             }
@@ -406,14 +407,8 @@
                             return false;
                         }                        
                     });
-
-                    var ys;
-                    if(j > 2){
-                        j = 0;
-                    }
-                    ys = yse[j];	
-                    te1(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
-                    j += 1;
+	
+                    te1(xAxisData, tmpName[1], '', '', yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
                 }  
             function createwind(){
                 dhxd = new dhtmlXWindows();
