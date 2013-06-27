@@ -12,6 +12,7 @@
         <script src="${ctx}/static/js/highcharts.src.js"></script>
         <script src="${ctx}/static/js/chart.js"></script>
         <script src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
+        <script src="${ctx}/static/js/math.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.messager.js"></script>
@@ -253,41 +254,7 @@
                  // 事件绑定
                 dqgr.attachEvent('onRowSelect', doFzGrClick); 
             }
-             /**
-             * 信息点击
-             * @param {type} gr_rId
-             * @param {type} gr_cInd
-             * @returns {undefined}             
-             * */
-            function doFzGrClick(gr_rId, gr_cInd){
-                    var tmpName = gr_rId.split('||');
-                    $("#ssqxTitle").html( tmpName[1] + '曲线');
-                    // 获得工况信息
-                    $.ajax({
-                        type: 'POST',
-                        url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
-                        dateType:'json',
-                        success: function(json){
-
-                            var xAxisData = [];
-                            var yAxisData = [];
-                            $.each(json,function(key, value){
-
-                                xAxisData.push(value.value);
-                                
-                                var dateTmp = new Date(value.date)
-                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
-                            });
-
-                            var colors = Highcharts.getOptions().colors;
-                            var ys;
-                            ys = colors[j];		
-                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
-                            j += 1;
-                        }
-                    });                    
-                }  
+            
             function createdqgr1(){
                 dqgr1=new dhtmlXGridObject('zpdq2');
 				dqgr1.setImagePath("js/gridcodebase/imgs/");
@@ -339,7 +306,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0]},
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0]},
                         dateType:'json',
                         success: function(json){
 
@@ -428,8 +395,8 @@
                                 xAxisData.push(loopTmp + 1); 
                                 
                                 var dataTmp = new Object();
-                                dataTmp.y = Number(valueTmp[loopTmp]);
-                                dataTmp.color = colors[loopTmp];
+                                dataTmp.y = accDiv(Math.round(accMul(valueTmp[loopTmp], 1000)), 1000);
+                                dataTmp.color = colors[loopTmp % 9];
 
                                 yAxisData.push(dataTmp);
                             }
@@ -437,14 +404,8 @@
                             return false;
                         }                        
                     });
-
-                    var ys;
-                    if(j > 2){
-                        j = 0;
-                    }
-                    ys = yse[j];	
-                    te1(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
-                    j += 1;
+	
+                    te1(xAxisData, tmpName[1], '', '', yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
                 }  
             function createwind(){
                 dhxd = new dhtmlXWindows();

@@ -11,6 +11,7 @@
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
         <script src="${ctx}/static/js/highcharts.src.js"></script>
         <script src="${ctx}/static/js/chart.js"></script>
+        <script src="${ctx}/static/js/math.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.messager.js"></script>
@@ -235,7 +236,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0],date:datePar},
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0],date:datePar},
                         dateType:'json',
                         success: function(json){
 
@@ -292,42 +293,8 @@
                 
                 // 事件绑定
                 lgbgr2.attachEvent('onRowSelect', doFzGrClick); 
-            }
-            /**
-             * 信息点击
-             * @param {type} gr_rId
-             * @param {type} gr_cInd
-             * @returns {undefined}             
-             * */
-            function doFzGrClick(gr_rId, gr_cInd){
-                    
-                    var tmpName = gr_rId.split('||');
-                    $("#dqqxTitle").html( tmpName[1] + '曲线');
-                    // 获得工况信息
-                    $.ajax({
-                        type: 'POST',
-                        url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0],date:datePar},
-                        dateType:'json',
-                        success: function(json){
-
-                            var xAxisData = [];
-                            var yAxisData = [];
-                            $.each(json,function(key, value){
-
-                                xAxisData.push(value.value);
-                                
-                                var dateTmp = new Date(value.date)
-                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
-                            });
-                            var colors = Highcharts.getOptions().colors;
-                            var ys;
-                            ys = colors[j];	
-                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
-                            j += 1;
-                        }
-                    });                    
-                }  
+            }            
+            
             function createlgbdqGr2(){
                 lgbgr3=new dhtmlXGridObject('lgbdq3');
                 lgbgr3.setImagePath("js/gridcodebase/imgs/");
@@ -395,8 +362,8 @@
                                 xAxisData.push(loopTmp + 1); 
                                 
                                 var dataTmp = new Object();
-                                dataTmp.y = Number(valueTmp[loopTmp]);
-                                dataTmp.color = colors[loopTmp];
+                                dataTmp.y = accDiv(Math.round(accMul(valueTmp[loopTmp], 1000)), 1000);
+                                dataTmp.color = colors[loopTmp % 9];
 
                                 yAxisData.push(dataTmp);
                             }
@@ -405,13 +372,7 @@
                         }                        
                     });
 
-                    var ys;
-                    if(j > 2){
-                        j = 0;
-                    }
-                    ys = yse[j];	
-                    te1(xAxisData, tmpName[1], '', ys, yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
-                    j += 1;
+                    te1(xAxisData, tmpName[1], '', '', yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
                 }  
             /**
              * 页面布局设置
@@ -642,7 +603,7 @@
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
                 Grid.setInitWidths("158,158,158,120,120,120");
                 Grid.setColAlign("center,center,center,center,center,center");
-                Grid.setColTypes("ro,ro,ro,ro,ro,img");
+                Grid.setColTypes("ro,img,ro,ro,ro,img");
                 Grid.init();
             
 //            Grid2= new dhtmlXGridObject('gr');

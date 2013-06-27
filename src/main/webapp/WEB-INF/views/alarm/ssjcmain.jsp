@@ -12,6 +12,7 @@
         <script src="${ctx}/static/js/highcharts.src.js"></script>
         <script src="${ctx}/static/js/chart.js"></script>
         <script src="${ctx}/static/js/chart1.js"></script>
+        <script src="${ctx}/static/js/math.js"></script>
         <script src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
@@ -184,7 +185,7 @@
                     $.ajax({
                         type: 'POST',
                         url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0],date:datePar},
+                        data:{code:'${info.code}',group:tmpName[2],varName:tmpName[0],date:datePar},
                         dateType:'json',
                         success: function(json){
 
@@ -208,46 +209,7 @@
                         }
                     });                    
                 }  
-                
-            /**
-             * 信息点击
-             * @param {type} gr_rId
-             * @param {type} gr_cInd
-             * @returns {undefined}             
-             * */
-            function doFzGrClick(gr_rId, gr_cInd){
-                    
-                    var tmpName = gr_rId.split('||');
-                    $("#dqqxTitle").html('&nbsp&nbsp&nbsp（' + tmpName[1] + '曲线）');
-                    // 获得工况信息
-                    $.ajax({
-                        type: 'POST',
-                        url: '${ctx}/realtime/linedata',
-                        data:{code:'${info.code}',group:'YOU_JING',varName:tmpName[0],date:datePar},
-                        dateType:'json',
-                        success: function(json){
-
-                            var xAxisData = [];
-                            var yAxisData = [];
-                            $.each(json,function(key, value){
-
-                                xAxisData.push(value.value);
-                                
-                                var dateTmp = new Date(value.date)
-                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
-                            });
-
-                            var ys;
-                            if(j > 2){
-                                j = 0;
-                            }
-                            ys = yse[j];	
-                            te(xAxisData, tmpName[1], '', ys, yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
-                            j += 1;
-                        }
-                    });                    
-                }  
-                
+                            
            /**
              * 信息点击
              * @param {type} gr_rId
@@ -274,8 +236,8 @@
                                 xAxisData.push(loopTmp + 1); 
                                 
                                 var dataTmp = new Object();
-                                dataTmp.y = Number(valueTmp[loopTmp]);
-                                dataTmp.color = colors[loopTmp];
+                                dataTmp.y = accDiv(Math.round(accMul(valueTmp[loopTmp], 1000)), 1000);
+                                dataTmp.color = colors[loopTmp % 9];
 
                                 yAxisData.push(dataTmp);
                             }
@@ -284,13 +246,7 @@
                         }                        
                     });
 
-                    var ys;
-                    if(j > 2){
-                        j = 0;
-                    }
-                    ys = yse[j];	
-                    te1(xAxisData, tmpName[1], '', ys, yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
-                    j += 1;
+                    te1(xAxisData, tmpName[1], '', '', yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
                 }  
             /**
              * 电气参数（谐波）
@@ -671,7 +627,7 @@
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
                 Grid.setInitWidths("158,158,158,120,120,120");
                 Grid.setColAlign("center,center,center,center,center,center");
-                Grid.setColTypes("ro,ro,ro,ro,ro,img");
+                Grid.setColTypes("ro,img,ro,ro,ro,img");
                 Grid.init();
             
                 // 获得传感器运行信息
@@ -953,8 +909,8 @@
                                 data: []            
                             };  
                             
-                            str_xAxis = value.zaihe;
-                            str_yAxis = value.weiyi;
+                            str_xAxis = value.weiyi;
+                            str_yAxis = value.zaihe;
                             
                             options1.series = [];
                             series.name = '示功图';
@@ -1383,10 +1339,10 @@
                                 &nbsp电&nbsp流&nbsp曲&nbsp线
                             </div>
                             <div id="gt9" style="width:160px; height:30px; font-size:14px;float:left; line-height:30px;background-color:#deeeff" align="center" >
-                                &nbsp电&nbsp功&nbsp图
+                                &nbsp;功&nbsp;率&nbsp;曲&nbsp;线
                             </div>
                             <div id="gt10" style="width:150px; height:30px;font-size:14px; float:left;line-height:30px; background-color:#deeeff" align="center" >
-                                &nbsp有&nbsp功&nbsp功&nbsp率&nbsp曲&nbsp线
+                                &nbsp功&nbsp率&nbsp因&nbsp数&nbsp曲&nbsp线
                             </div>
                             <div id="gtt" style="width:158px; height:150px; line-height:30px;float:left">
                             <div id="containerr" style="height:158px;width:150px; "></div>

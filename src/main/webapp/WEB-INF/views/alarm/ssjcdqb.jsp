@@ -386,7 +386,7 @@
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
                 Grid.setInitWidths("158,158,158,120,120,120");
                 Grid.setColAlign("center,center,center,center,center,center");
-                Grid.setColTypes("ro,ro,ro,ro,ro,img");
+                Grid.setColTypes("ro,img,ro,ro,ro,img");
                 Grid.init();
             
                 // 获得传感器运行信息
