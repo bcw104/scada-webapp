@@ -95,12 +95,15 @@
             var dhxWins,Grid,dhxWins,dhxWins1,dhxd,dhxd1,dhxd2,dhxd3,gr,zqdq,zqdq1,zqdq2;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="images/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
             var xb='<div id="gtc"  style="width:100%;height:100%;border-style:groove; border-width:1px;float:left" ><table><tr><td  style="width:250px" align="center">B相电压5次谐波:0.1</td><td  style="width:250px" align="center">B相电压7次谐波:0.2</td></tr><tr><td  style=" width:250px" align="center">B相电压11次谐波:0.3</td><td  style="width:250px" align="center">B相电压13次谐波:0.4</td></tr><tr><td  style="width:250px" align="center">B相电压17次谐波:0.5</td><td  style="width:250px" align="center">B相电压19次谐波:0.6</td></tr></table></div>';
-            var ew='<div id="y" style="width:186px;height:100px;float:left;font-size:14px;"><table><tr><td style="width:250px" align="left">&nbsp;&nbsp;&nbsp;用户名:&nbsp;<input name="" type="text" value="admin" style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input name="" type="password" value="admin"  style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;操作原因:&nbsp;<input name="" type="text" value="摄像头"  style="width:80px;"/></td></tr><tr style="height:10px"></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qd();">确定</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qx();">取消</button><td></tr></table></div>';
-            var anniu='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="kj();">开井</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tj();">停井</button><td></tr></table></div>';
+            var ew='<div id="y" style="width:186px;height:100px;float:left;font-size:14px;"><table><tr><td style="width:250px" align="left">&nbsp;&nbsp;&nbsp;用户名:&nbsp;<input id="kz_name" name="kz_name" type="text" value="" style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input id="kz_password" name="kz_password" type="password" value=""  style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;操作原因:&nbsp;<input id="kz_content" name="kz_content" type="text" value=""  style="width:80px;"/></td></tr><tr style="height:10px"></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qd();">确定</button></td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qx();">取消</button></td></tr></table></div>';
+            var anniu='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" id="kz_kaijing" style="background:#81d4ff" onclick="kj();">开井</button></td><td style="width:98px;" align="center"><button type="button" id="kz_tingjing" style="background:#81d4ff" onclick="tj();">停井</button></td></tr></table></div>';
             var sd='<div id="y"style="width:180px;height:30px;float:left;"><table><tr><td style="width:250px" align="center">油井状态:开井</td></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qdd();">确定</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qxx();">取消</button><td></tr></table></div>';
-            var yt='<div id="y"style="width:186px;height:100px;float:left;font-size:14px;"><table><tr><td style="width:250px" align="left">&nbsp;&nbsp;&nbsp;用户名:&nbsp;<input name="" type="text" value="admin" style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input name="" type="password" value="admin"  style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;操作原因:&nbsp;<input name="" type="text" value="参数改变"  style="width:80px;"/></td></tr><tr style="height:10px"></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qd1();">确定</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qx1();">取消</button><td></tr></table></div>';
-            var yc='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc();">调参</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tj();">取消</button><td></tr></table></div>';
-            var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input name="" type="text" value="4" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input name="" type="text" value="2.1" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input name="" type="text" value="3.9" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input name="" type="text" value="2" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';             
+            var yt='<div id="y"style="width:186px;height:100px;float:left;font-size:14px;"><table><tr><td style="width:250px" align="left">&nbsp;&nbsp;&nbsp;用户名:&nbsp;<input id="tc_name" name="tc_name" type="text" value="" style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input id="tc_password" name="tc_password" type="password" value=""  style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;操作原因:&nbsp;<input id="tc_content" name="tc_content" type="text" value=""  style="width:80px;"/></td></tr><tr style="height:10px"></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qd1();">确定</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qx1();">取消</button><td></tr></table></div>';
+            var yc='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc();">调参</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc_qx();">取消</button><td></tr></table></div>';
+            var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input id="tc_scch" name="tc_scch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input id="tc_scci" name="tc_scci" type="text" value="" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input id="tc_xcch" name="tc_xcch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input id="tc_xcci" name="tc_xcci"  type="text" value="" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';
+            
+             // 选择井信息
+            var selEndTagState = '';
             
             /* 页面初始化
              * @returns {undefined}
@@ -109,8 +112,11 @@
                 createGrid();
                 createWindows();
                 createWindows1();
+                 // 调参、控制弹出框
                 createwind();
+                // 控制弹出框(开井、关井)
                 createwind1();
+                // 开井确认操作
                 createwind2();
                 createwi();
                 //工况信息
@@ -499,115 +505,7 @@
                 // 事件绑定
                 zqdq2.attachEvent('onRowSelect', doFzZzGrClick); 
             }
-           function createwind(){
-                        dhxd = new dhtmlXWindows();
-                        dhxd.attachViewportTo(document.body);
-                        dhxd.createWindow("wi",1000,200,200,180);
-                        dhxd.window("wi").button('minmax2').hide();
-                        dhxd.window("wi").button('minmax1').hide();
-                        dhxd.window("wi").button('park').hide();
-                        dhxd.window("wi").hide();
-                }
-            function createwind1(){
-                    dhxd1 = new dhtmlXWindows();
-                    dhxd1.attachViewportTo(document.body);
-                    dhxd1.createWindow("wi1",1000,200,180,70);
-                    dhxd1.window("wi1").button('minmax2').hide();
-                    dhxd1.window("wi1").button('minmax1').hide();
-                    dhxd1.window("wi1").button('park').hide();
-                    dhxd1.window("wi1").hide();
-                    }
-            function createwind2(){
-                    dhxd2= new dhtmlXWindows();
-                    dhxd2.attachViewportTo(document.body);
-                    dhxd2.createWindow("wi2",1000,200,180,100);
-                    dhxd2.window("wi2").button('minmax2').hide();
-                    dhxd2.window("wi2").button('minmax1').hide();
-                    dhxd2.window("wi2").button('park').hide();
-                    dhxd2.window("wi2").hide();
-                    }
-            function createwi(){
-                    dhxd3= new dhtmlXWindows();
-                    dhxd3.attachViewportTo(document.body);
-                    dhxd3.createWindow("wi3",872,173,400,130);
-                    dhxd3.window("wi3").button('minmax2').hide();
-                    dhxd3.window("wi3").button('minmax1').hide();
-                    dhxd3.window("wi3").button('park').hide();
-                    dhxd3.window("wi3").hide();
-                    }
-            function yckz(){
-                     dhxd.window("wi").show();
-                     dhxd.window("wi").setText("远程控制");
-                     dhxd.attachEvent("onClose", function(win){
-                     dhxd.window("wi").hide(); 
-                                             });
-                     dhxd.window("wi").attachHTMLString(ew);
-                    }
-            function yctc(){
-                     dhxd.window("wi").show();
-                     dhxd.window("wi").setText("远程调参");
-                     dhxd.attachEvent("onClose", function(win){
-                     dhxd.window("wi").hide(); 
-                                             });
-                     dhxd.window("wi").attachHTMLString(yt);
-                    }
-            function qd(){
-                     dhxd.window("wi").hide();
-                     dhxd1.window("wi1").show();
-                     dhxd1.window("wi1").setText("远程控制");
-                     dhxd1.attachEvent("onClose", function(win){
-                     dhxd1.window("wi1").hide(); 
-                                             });
-                     dhxd1.window("wi1").attachHTMLString(anniu);
-                    }
-            function qx(){
-                    dhxd.window("wi").hide();
-                    }
-            function qd1(){
-                     dhxd.window("wi").hide();
-                     dhxd1.window("wi1").show();
-                     dhxd1.window("wi1").setText("远程调参");
-                     dhxd1.attachEvent("onClose", function(win){
-                     dhxd1.window("wi1").hide(); 
-                                             });
-                     dhxd1.window("wi1").attachHTMLString(yc);
-                    }
-            function qx1(){
-                    dhxd.window("wi").hide();
-                    }
-            function kj(){
-                    dhxd1.window("wi1").hide();
-                    dhxd2.window("wi2").show();
-                    dhxd2.window("wi2").setText("远程控制");
-                    dhxd2.attachEvent("onClose", function(win){
-                    dhxd2.window("wi2").hide(); 
-                                             });
-                    dhxd2.window("wi2").attachHTMLString(sd);
-                    }
-            function tc(){
-                    dhxd1.window("wi1").hide();
-                    dhxd3.window("wi3").show();
-                    dhxd3.window("wi3").setText("远程调参");
-                    dhxd3.attachEvent("onClose", function(win){
-                    dhxd3.window("wi3").hide(); 
-                                             });
-                    dhxd3.window("wi3").attachHTMLString(ytc);
-                    }
-            function tj(){
-                    dhxd1.window("wi1").hide();
-                    }
-            function qdd(){
-                    dhxd2.window("wi2").hide();
-                    }
-            function qxx(){
-                    dhxd2.window("wi2").hide();
-                    }
-            function qd2(){
-                    dhxd3.window("wi3").hide();
-                    }
-            function qx2(){
-                    dhxd3.window("wi3").hide();
-                    }
+           
             function createWindows(){
                     dhxWins = new dhtmlXWindows();
                     dhxWins.attachViewportTo(document.body);
@@ -626,22 +524,364 @@
                     dhxWins1.window("win1").button('park').hide();
                     dhxWins1.window("win1").hide();	
                     }
-            function ztwin(){
-                     dhxWins.window("win").show();
-                     dhxWins.window("win").setText("工况");
-                     dhxWins.attachEvent("onClose", function(win){
-                     dhxWins.window("win").hide(); 
-                                             });
-                     dhxWins.window("win").attachHTMLString(dtu);
+                    
+                    /**
+             * 调参、控制弹出框
+             * @returns {undefined}
+             */
+            function createwind(){
+                dhxd = new dhtmlXWindows();
+                dhxd.attachViewportTo(document.body);
+                dhxd.createWindow("wi",800,200,200,180);
+                dhxd.window("wi").button('minmax2').hide();
+                dhxd.window("wi").button('minmax1').hide();
+                dhxd.window("wi").button('park').hide();
+                dhxd.window("wi").hide();
+            }
+            
+            /**
+             * 控制弹出框(开井、关井)
+             * @returns {undefined}
+             */
+            function createwind1(){
+                dhxd1 = new dhtmlXWindows();
+                dhxd1.attachViewportTo(document.body);
+                dhxd1.createWindow("wi1",800,200,180,70);
+                dhxd1.window("wi1").button('minmax2').hide();
+                dhxd1.window("wi1").button('minmax1').hide();
+                dhxd1.window("wi1").button('park').hide();
+                dhxd1.window("wi1").hide();
+            }
+            
+            /**
+             * 开井确认操作
+             * @returns {undefined}
+             */
+            function createwind2(){
+                dhxd2= new dhtmlXWindows();
+                dhxd2.attachViewportTo(document.body);
+                dhxd2.createWindow("wi2",800,200,180,100);
+                dhxd2.window("wi2").button('minmax2').hide();
+                dhxd2.window("wi2").button('minmax1').hide();
+                dhxd2.window("wi2").button('park').hide();
+                dhxd2.window("wi2").hide();
+            }
+            
+            /**
+             * 调参
+             * @returns {undefined}
+             */
+            function createwi(){
+                dhxd3= new dhtmlXWindows();
+                dhxd3.attachViewportTo(document.body);
+                dhxd3.createWindow("wi3",872,173,400,130);
+                dhxd3.window("wi3").button('minmax2').hide();
+                dhxd3.window("wi3").button('minmax1').hide();
+                dhxd3.window("wi3").button('park').hide();
+                dhxd3.window("wi3").hide();
+            }
+            
+            /**
+             * 远程控制
+             * @returns {undefined}
+             */
+            function yckz(){
+                dhxd.window("wi").show();
+                dhxd.window("wi").setText("远程控制");
+                dhxd.attachEvent("onClose", function(win){
+                    dhxd.window("wi").hide(); 
+                });
+                dhxd.window("wi").attachHTMLString(ew);
+            }
+            
+            /**
+             * 远程调参
+             * @returns {undefined}
+             */
+            function yctc(){
+                dhxd.window("wi").show();
+                dhxd.window("wi").setText("远程调参");
+                dhxd.attachEvent("onClose", function(win){
+                    dhxd.window("wi").hide(); 
+                });
+                dhxd.window("wi").attachHTMLString(yt);
+            }
+    
+            /**
+             * 远程控制窗口--确定事件
+             * @returns {undefined}             
+             * */
+            function qd(){
+                
+                if($.trim($("#kz_name").val()) == ""){
+                    alert("请输入用户名！");
+                    return false;
+                }else if($.trim($("#kz_password").val()) == ""){
+                    alert("请输入密码！");
+                    return false;
+                }else if($.trim($("#kz_content").val()) == ""){
+                    alert("请输入操作原因！");
+                    return false;
+                }
+            
+                // 用户验证
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/alarm/mobileLogin',
+                    data:{username:$.trim($("#kz_name").val()),password:$.trim($("#kz_password").val())},
+                    dateType:'json',
+                    success: function(json){
+                        if(json.state == "1"){
+                            dhxd.window("wi").hide();
+                            dhxd1.window("wi1").show();
+                            dhxd1.window("wi1").setText("远程控制");
+                            dhxd1.attachEvent("onClose", function(win){
+                               dhxd1.window("wi1").hide(); 
+                            });
+                            dhxd1.window("wi1").attachHTMLString(anniu);
+
+                            if(selEndTagState == "false"){
+                                $("#kz_tingjing").attr({'disabled':'disabled'});
+                                $("#kz_kaijing").removeAttr('disabled');
+                            }else{                                
+                                $("#kz_kaijing").attr({'disabled':'disabled'});
+                                $("#kz_tingjing").removeAttr('disabled');
+                            }  
+                        }else{
+                            alert("用户名或密码错误！");
+                            return false;
+                        }                        
                     }
-            function cbb(){
-                     dhxWins1.window("win1").show();
-                     dhxWins1.window("win1").setText("B相电压0～31次谐波");
-                                        dhxWins1.attachEvent("onClose", function(win){
-                                            dhxWins1.window("win1").hide(); 
-                                             });
-                     dhxWins1.window("win1").attachHTMLString(xb);
+                });                                
+            }
+
+            /**
+             * 远程控制--取消
+             * @returns {undefined}             
+             * */
+            function qx(){
+                dhxd.window("wi").hide();
+            }
+            
+            /**
+             * 开井操作
+             * @returns {undefined}             
+             * */
+            function kj(){
+            
+                dhxd1.window("wi1").hide();
+                dhxd2.window("wi2").show();
+                dhxd2.window("wi2").setText("远程控制");
+                dhxd2.attachEvent("onClose", function(win){
+                    dhxd2.window("wi2").hide(); 
+                });
+                dhxd2.window("wi2").attachHTMLString(sd);                 
+            }
+            
+            /**
+             * 停井操作
+             * @returns {undefined}             
+             * */
+            function tj(){
+                
+                // 用户验证
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/manage/saveYkData',
+                    data:{id:${info.id},state:"0",content:$.trim($("#kz_content").val())},
+                    dateType:'json',
+                    success: function(json){
+                        if(json.state == "1"){
+                            alert("调控成功！");
+                        }else{
+                            alert("调控发生错误，请重新操作或与管理员联系！");
+                            return false;
+                        }                        
                     }
+                });
+                
+                dhxd1.window("wi1").hide();	
+            }
+            
+            /**
+             * 开井确定操作
+             * @returns {undefined}             
+             * */
+            function qdd(){
+            
+                // 用户验证
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/manage/saveYkData',
+                    data:{id:${info.id},state:"1",content:$.trim($("#kz_content").val())},
+                    dateType:'json',
+                    success: function(json){
+                        if(json.state == "1"){
+                            alert("调控成功！");
+                        }else{
+                            alert("调控发生错误，请重新操作或与管理员联系！");
+                            return false;
+                        }                        
+                    }
+                });
+                
+                dhxd2.window("wi2").hide();	
+            }
+            
+            /**
+             * 开井取消操作
+             * @returns {undefined}             
+             * */
+            function qxx(){
+                dhxd2.window("wi2").hide();
+            }
+            
+            /**
+             * 远程调参窗口
+             * @returns {Boolean}
+             */
+            function qd1(){
+                 
+                if($.trim($("#tc_name").val()) == ""){
+                    alert("请输入用户名！");
+                    return false;
+                }else if($.trim($("#tc_password").val()) == ""){
+                    alert("请输入密码！");
+                    return false;
+                }else if($.trim($("#tc_content").val()) == ""){
+                    alert("请输入操作原因！");
+                    return false;
+                }
+            
+                // 用户验证
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/alarm/mobileLogin',
+                    data:{username:$.trim($("#tc_name").val()),password:$.trim($("#tc_password").val())},
+                    dateType:'json',
+                    success: function(json){
+                        if(json.state == "1"){
+                            
+                            dhxd.window("wi").hide();
+                            dhxd1.window("wi1").show();
+                            dhxd1.window("wi1").setText("远程调参");
+                            dhxd1.attachEvent("onClose", function(win){
+                                dhxd1.window("wi1").hide(); 
+                            });
+                            dhxd1.window("wi1").attachHTMLString(yc);
+                        }else{
+                            alert("用户名或密码错误！");
+                            return false;
+                        }                        
+                    }
+                }); 
+            }
+            
+            /**
+             * 远程调参--取消
+             * @returns {undefined}             
+             * */
+            function qx1(){
+                dhxd.window("wi").hide();
+            }
+            
+            var tc_scch;
+            var tc_scci;
+            var tc_xcch;
+            var tc_xcci;
+            
+            /**
+             * 远程调参--确定
+             * @returns {undefined}
+             */
+            function tc(){
+                dhxd1.window("wi1").hide();
+                dhxd3.window("wi3").show();
+                dhxd3.window("wi3").setText("远程调参");
+                dhxd3.attachEvent("onClose", function(win){
+                    dhxd3.window("wi3").hide(); 
+                }); 
+            
+                // 用户验证
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/manage/getYtData',
+                    data:{id:${info.id}},
+                    dateType:'json',
+                    success: function(json){
+                
+                        dhxd3.window("wi3").attachHTMLString(ytc);
+                        if(json != ""){
+                            
+                            tc_scch = (json.tc_scch == null ? "0" : json.tc_scch);
+                            tc_scci = (json.tc_scci == null ? "0" : json.tc_scci);
+                            tc_xcch = (json.tc_xcch == null ? "0" : json.tc_xcch);
+                            tc_xcci = (json.tc_xcci == null ? "0" : json.tc_xcci);
+                            
+                            $("#tc_scch").val(tc_scch);
+                            $("#tc_scci").val(tc_scci);
+                            $("#tc_xcch").val(tc_xcch);
+                            $("#tc_xcci").val(tc_xcci);
+                        }                       
+                    }
+                });
+            }
+            
+            /**
+             * 远程调参--取消
+             * @returns {undefined}
+             */
+            function tc_qx(){
+               dhxd1.window("wi1").hide();
+            }
+            
+            /**
+             * 调参--确定
+             * @returns {undefined}
+             */
+            function qd2(){
+                
+                if($.trim($("#tc_scch").val()) == ""){
+                    alert("请输入上行冲程！");
+                    return false;
+                }else if($.trim($("#tc_scci").val()) == ""){
+                    alert("请输入上行冲次！");
+                    return false;
+                }else if($.trim($("#tc_xcch").val()) == ""){
+                    alert("请输入下行冲程！");
+                    return false;
+                }else if($.trim($("#tc_xcci").val()) == ""){
+                    alert("请输入下行冲次！");
+                    return false;
+                }
+            
+                // 用户验证
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/manage/saveYtData',
+                    data:{id:${info.id},content:$.trim($("#tc_content").val()),
+                        scch:$.trim($("#tc_scch").val()) + "||" + tc_scch,scci:$.trim($("#tc_scci").val()) + "||" + tc_scci,
+                        xcch:$.trim($("#tc_xcch").val()) + "||" + tc_xcch,xcci:$.trim($("#tc_xcci").val()) + "||" + tc_xcci},
+                    dateType:'json',
+                    success: function(json){
+                        if(json.state == "1"){
+                            alert("调参成功！");
+                            dhxd3.window("wi3").hide();
+                        }else{
+                            alert("调参发生错误，请重新操作或与管理员联系！");
+                            return false;
+                        }                        
+                    }
+                }); 
+            }
+            
+            /**
+             * 调参--取消
+             * @returns {undefined}
+             */
+            function qx2(){
+                dhxd3.window("wi3").hide();
+            }
         </script>
         <STYLE type=text/css>
             div.objbox { 
