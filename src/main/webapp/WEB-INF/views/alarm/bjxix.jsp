@@ -570,7 +570,7 @@
                     </a>
                 </div>
                 <div id="tool4" style="width:126px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" class="a5">
-                    <a  href="wltp.html" style="text-decoration:none">
+                    <a  href="${ctx}/managepage" style="text-decoration:none">
                         <img  border="0" src="${ctx}/static/img/txwl.png"  style="width:126px; height:33px"/>
                     </a>
                 </div>
