@@ -20,7 +20,7 @@
             var objUrl='${ctx}';
             function sgtt(){
                 // 示功图
-                createSg('1#油井','2013/6/27 11:40');
+                createSg('${code}','${sdate}');
             }
         </script>
     </head>

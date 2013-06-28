@@ -20,7 +20,7 @@
             var objUrl='${ctx}';
             function ygglqxt(){
                 // 示功图
-                createYggl('1#油井','2013/6/27 11:40');
+                createYggl('${code}','${sdate}');
             }
         </script>
     </head>
