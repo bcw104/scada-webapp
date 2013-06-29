@@ -16,8 +16,12 @@
         <script src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
-        <script type="text/javascript" src="${ctx}/static/jquery/jquery.messager.js"></script>
-        <script src="${ctx}/static/application.js"></script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>
+        <script type="text/javascript" src="${ctx}/static/application.js"></script>
         <style type="text/css">
             html, body {
                 width: 100%;
@@ -115,9 +119,6 @@
             // 选择井信息
             var selEndTagState = '';            
             var gtdb='<div id="y"style="width:500px;height:30px;float:left;font-size:14px;"><table><tr><td  style="width:350px" align="left">&nbsp;&nbsp;&nbsp;日期:&nbsp;<input id="gtStart" type="text" onClick="WdatePicker({readOnly:true,dateFmt:\'yyyy/MM/dd HH时\'})" style="width:100px;"/>～<input id="gtEnd" type="text" onClick="WdatePicker({readOnly:true,dateFmt:\'yyyy/MM/dd HH时\'})" style="width:100px;"/>&nbsp;<button type="button" style="background:#81d4ff" onclick="run2();">查询</button></td></tr></table></div>';
-            
-            var objUrl='${ctx}';
-            var username='${username}';
             
             // 报警时间
              var dateAction = new Date(${actionTime});   

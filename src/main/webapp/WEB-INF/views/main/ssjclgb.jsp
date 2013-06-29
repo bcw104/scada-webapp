@@ -14,7 +14,7 @@
         <script src="${ctx}/static/js/math.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
-        <script type="text/javascript" src="${ctx}/static/jquery/jquery.messager.js"></script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
         <script type="text/javascript">
             var objUrl='${ctx}';
             var username='${username}';

@@ -14,8 +14,12 @@
         <script src="${ctx}/static/js/math.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
-        <script type="text/javascript" src="${ctx}/static/jquery/jquery.messager.js"></script>
-        <script src="${ctx}/static/application.js"></script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>
+        <script type="text/javascript" src="${ctx}/static/application.js"></script>
         <style type="text/css">
             html, body {
                 width: 100%;
@@ -100,9 +104,6 @@
 
             // 选择井信息
             var selEndTagState = '';
-            
-            var objUrl='${ctx}';
-            var username='${username}';
             
             // 报警时间
              var dateAction = new Date(${actionTime});   

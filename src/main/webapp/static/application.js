@@ -32,7 +32,12 @@ $(document).ready(function() {
         });
     }
 
-	function onMessage(response) {
+function add(a,b,s,d){
+//        alert("你好");
+	DCS.util.showTip(a,b,s,d);
+}
+
+	function onMessage(response) {//alert("dd");
 		asyncHttpStatistics.numberOfTotalMessages++;
 		refresh();
 		var message = response.responseBody;
@@ -44,37 +49,21 @@ $(document).ready(function() {
             dateType:'json',
             success: function(json){
 //               alert(json.info + '----' + json.endTag.name);
-                var strHtml = json.endTag.name + "产生报警,错误信息：<br />" + json.endTag.name + '<br />' 
+                var strHtml = json.endTag.name + "产生报警<br />错误信息：" + json.endTag.name + '<br />' 
                         + '<a href="' + objUrl + '/alarmpage">查看</a>&nbsp;&nbsp;' 
                         + '<a id="confirmLink' + message + '" href="javascript:void(0);" >回复</a> ';
-                $.messager.show('预警提示', strHtml, 0);
+//                $.messager.show('预警提示', strHtml, 0);
+                
+                
+                add('','预警提示',strHtml,true);
                 $('#confirmLink' + message).bind('click', function(){confirmMessageShow(message)});
             }
         });
-
-
-        
-
-
-		//if(message) {
-			//$('#latestMessage').html(message);
-/*			var result;
-	
-			try {
-				result =  $.parseJSON(message);
-				$('#latestMessage').html(result);
-			} catch (e) {
-				asyncHttpStatistics.numberOfErrors++;
-				alert("An error ocurred while parsing the JSON Data: " + message.data + "; Error: " + e);
-				return;
-			}*/
-		//}
-
 	}
 		
 	var socket = $.atmosphere;
 	var subSocket;
-	var transport = 'websocket';
+	var transport = 'long-polling';
 	var websocketUrl = "${fn:replace(r.requestURL, r.requestURI, '')}${r.contextPath}/websockets/";
 
 	var request = {
