@@ -1,7 +1,9 @@
 package com.ht.scada.web.service.impl;
 
 import com.ht.scada.common.tag.entity.EndTag;
+import com.ht.scada.common.tag.entity.TagCfgTpl;
 import com.ht.scada.common.tag.service.EndTagService;
+import com.ht.scada.common.tag.service.TagService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,9 +41,11 @@ public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessa
     private AlarmInfoService alarmInfoService;
     @Inject
     private UserExtInfoService userExtInfoService;
+    @Inject
+    private TagService tagService;
     
 	@Override
-	public void faultOccured(FaultRecord record) {
+	public synchronized void faultOccured(FaultRecord record) {
         log.info("接收报警信息——faultOccured");
         AlarmRecord alarm = new AlarmRecord();
         alarm.setAlarmType(ALARM_FAULT);
@@ -52,23 +56,23 @@ public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessa
 		alarm.setInfo(record.getInfo());
         alarm.setVarName(record.getName());
         alarm.setRemark(record.getInfo());
-        alarmInfoService.saveAlarmRecord(alarm);
+        //alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
 	}
 
 	@Override
-	public void faultResumed(FaultRecord record) {
+	public synchronized void faultResumed(FaultRecord record) {
 		// TODO Auto-generated method stub
 		log.info("报警信息解除--faultResumed");
         AlarmRecord alarm = alarmInfoService.getAlarmByAlarmId(record.getId());
         alarm.setResumeTime(record.getResumeTime());
         alarm.setStatus(ALARM_STATUS_RESUMED);
-        alarmInfoService.saveAlarmRecord(alarm);
+        //alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
 	}
 
 	@Override
-	public void offLimitsOccured(OffLimitsRecord record) {
+	public synchronized void offLimitsOccured(OffLimitsRecord record) {
 		// TODO Auto-generated method stub
 		log.info("接收报警信息——offLimitsOccured");
         AlarmRecord alarm = new AlarmRecord();
@@ -80,23 +84,23 @@ public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessa
 		alarm.setInfo(record.getInfo());
         alarm.setVarName(record.getName());
         alarm.setRemark(record.getInfo());
-        alarmInfoService.saveAlarmRecord(alarm);
+        //alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
 	}
 
 	@Override
-	public void offLimitsResumed(OffLimitsRecord record) {
+	public synchronized void offLimitsResumed(OffLimitsRecord record) {
 		// TODO Auto-generated method stub
 		log.info("报警信息解除——offLimitsResumed");
         AlarmRecord alarm = alarmInfoService.getAlarmByAlarmId(record.getId());
         alarm.setResumeTime(record.getResumeTime());
         alarm.setStatus(ALARM_STATUS_RESUMED);
-        alarmInfoService.saveAlarmRecord(alarm);
+        //alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
 	}
 
 	@Override
-	public void yxChanged(YxRecord record) {
+	public synchronized void yxChanged(YxRecord record) {
 		// TODO Auto-generated method stub
 		log.info("接收报警信息——yxChanged");
         //ALARM_YXCHANGED
@@ -111,22 +115,12 @@ public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessa
 		alarm.setInfo(record.getInfo());
         alarm.setVarName(record.getName());
         alarm.setRemark(record.getInfo());
-        alarmInfoService.saveAlarmRecord(alarm);
+        //alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
 	}
 
-    private void pushAlarm(AlarmRecord alarm){
-        List<UserExtInfo> list = userExtInfoService.getUserExtInfoByEndTag(alarm.getEndTag().getId());
-        for(UserExtInfo extInfo:list){
-            if(extInfo.getHeadflg().equals("1")){
-                User user = extInfo.getUser();
-                MetaBroadcaster.getDefault().broadcastTo("/" + user.getUsername(), alarm.getId().toString());
-            }
-        }
-    }
-
     @Override
-    public void faultOccured(FaultDiagnoseRecord record) {
+    public synchronized void faultOccured(FaultDiagnoseRecord record) {
         AlarmRecord alarm = new AlarmRecord();
         alarm.setAlarmType(ALARM_FAULTDIAGNOSE);
         alarm.setAlarmId(record.getId());
@@ -136,16 +130,29 @@ public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessa
 		alarm.setInfo(record.getInfo());
         alarm.setVarName(record.getName());
         alarm.setRemark(record.getInfo());
-        alarmInfoService.saveAlarmRecord(alarm);
+        //alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
     }
 
     @Override
-    public void faultResumed(FaultDiagnoseRecord record) {
+    public synchronized void faultResumed(FaultDiagnoseRecord record) {
         AlarmRecord alarm = alarmInfoService.getAlarmByAlarmId(record.getId());
         alarm.setResumeTime(record.getResumeTime());
         alarm.setStatus(ALARM_STATUS_RESUMED);
-        alarmInfoService.saveAlarmRecord(alarm);
+        //alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
+    }
+    
+    private synchronized void pushAlarm(AlarmRecord alarm){
+        TagCfgTpl cfgtpl = tagService.getTagCfgTplByCodeAndVarName(alarm.getEndTag().getCode(), alarm.getVarName());
+        alarm.setVarCnName(cfgtpl.getTagName());
+        alarmInfoService.saveAlarmRecord(alarm);
+        List<UserExtInfo> list = userExtInfoService.getUserExtInfoByEndTag(alarm.getEndTag().getId());
+        for(UserExtInfo extInfo:list){
+            if(extInfo.getHeadflg().equals("1")){
+                User user = extInfo.getUser();
+                MetaBroadcaster.getDefault().broadcastTo("/" + user.getUsername(), alarm.getId().toString());
+            }
+        }
     }
 }

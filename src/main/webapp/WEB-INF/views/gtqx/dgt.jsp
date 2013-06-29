@@ -22,7 +22,7 @@
 
             function dgtt(){
                 // 电工图
-                createDg('1#油井','2013/6/27 11:40');
+                createDg('${code}','${sdate}');
             }
         </script>
     </head>

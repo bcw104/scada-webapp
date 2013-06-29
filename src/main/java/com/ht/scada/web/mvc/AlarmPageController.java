@@ -114,4 +114,29 @@ public class AlarmPageController {
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjcglj";
 	}
+
+    @RequestMapping(value="mobilesgt")
+    public String mobilesgt(String code,String date, Model model){
+        model.addAttribute("code", code);
+        model.addAttribute("sdate", date);
+        return "gtqx/sgt";
+    }
+    @RequestMapping(value="mobiledlqx")
+    public String mobiledlqx(String code,String date, Model model){
+        model.addAttribute("code", code);
+        model.addAttribute("sdate", date);
+        return "gtqx/dlqx";
+    }
+    @RequestMapping(value="mobiledgt")
+    public String mobiledgt(String code,String date, Model model){
+        model.addAttribute("code", code);
+        model.addAttribute("sdate", date);
+        return "gtqx/dgt";
+    }
+    @RequestMapping(value="mobileygglqx")
+    public String mobileygglqx(String code,String date, Model model){
+        model.addAttribute("code", code);
+        model.addAttribute("sdate", date);
+        return "gtqx/ygglqx";
+    }
 }

@@ -20,7 +20,7 @@
             var objUrl='${ctx}';
             function dlqxt(){
                 // 电流曲线
-                createDl('1#油井','2013/6/27 11:40');
+                createDl('${code}','${sdate}');
             }
         </script>
     </head>

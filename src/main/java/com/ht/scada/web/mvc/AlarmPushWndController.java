@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import org.atmosphere.cpr.MetaBroadcaster;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * 报警推画面控制器 报警信息通过http 长轮循的方式实时推送数据到浏览器端
@@ -77,7 +79,8 @@ public class AlarmPushWndController {
 			bc.setID("/" + username);
 			//log.debug("广播ID：{}", bc.getID());
 		}
-		
+		System.out.println("aaaaaaaaaaaaa:" + event.transport());
+
 		AtmosphereUtils.suspend(event);
 
 //
@@ -114,8 +117,8 @@ public class AlarmPushWndController {
 	/**
 	 * TODO: 仅用于模拟推送数据时使用
 	 */
-//	@Scheduled(fixedDelay=5000)
-//	public void pollForMessages() {
+	@Scheduled(fixedDelay=5000)
+	public void pollForMessages() {
 //
 //		String statusMessage = "A new message on " + new Date().toString();
 //		/*
@@ -150,8 +153,8 @@ public class AlarmPushWndController {
 //		try {
 //			//log.debug("发送报警信息");
 //			//MetaBroadcaster.getDefault().broadcastTo("/", objectMapper.writeValueAsString(statusMessage));
-//			MetaBroadcaster.getDefault().broadcastTo("/admin", "A:  " + objectMapper.writeValueAsString(statusMessage));
-//			MetaBroadcaster.getDefault().broadcastTo("/admin", "A2:  " + objectMapper.writeValueAsString(statusMessage));
+			MetaBroadcaster.getDefault().broadcastTo("/admin", "A:  " + new Date());
+			MetaBroadcaster.getDefault().broadcastTo("/admin", "A2:  " + "adfsdfd");
 //			MetaBroadcaster.getDefault().broadcastTo("/B", "B:" + objectMapper.writeValueAsString(statusMessage));
 //		} catch (JsonGenerationException e) {
 //			throw new IllegalStateException(e);
@@ -160,7 +163,7 @@ public class AlarmPushWndController {
 //		} catch (IOException e) {
 //			throw new IllegalStateException(e);
 //		}
-//	}
+	}
 
 	/**
 	 * 该部分仅用于学习参考，TODO: 产品发布之前删除

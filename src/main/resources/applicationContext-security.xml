@@ -24,6 +24,10 @@
 		<property name="successUrl" value="/" />
 		<property name="filterChainDefinitions">
 			<value>
+                    /alarmpage/mobilesgt = anon
+                    /alarmpage/mobiledlqx = anon
+                    /alarmpage/mobiledgt = anon
+                    /alarmpage/mobileygglqx = anon
                     /realtime/welldata = anon
                     /realtime/welldgtdata = anon
                     /realtime/svgviewurl = anon

@@ -150,25 +150,4 @@ public class MainController {
 		return "redirect:/login";
 
 	}
-    
-        @RequestMapping(value="sgt")
-            public String sgt() {
-                return "gtqx/sgt";
-            }
-
-        @RequestMapping(value="dgt")
-            public String dgt() {
-                return "gtqx/dgt";
-            }
-
-        @RequestMapping(value="dlqx")
-            public String dlqx() {
-                return "gtqx/dlqx";
-            }
-
-        @RequestMapping(value="ygglqx")
-            public String ygglqx() {
-                return "gtqx/ygglqx";
-            }
-    
 }
