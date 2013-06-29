@@ -17,6 +17,9 @@
         <script type="text/javascript">
             var objUrl='${ctx}';
             var username='${username}';
+            $(function () {
+                $("#szda").html('欢迎您 ${name}');
+            });
         </script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
         <style type="text/css">
@@ -187,6 +190,17 @@
             }
             .cssdiv2:hover{
                 color:#09F
+            }
+            #szda {
+                position:absolute;
+                left:724px;
+                top:38px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+                color: #fff;
+                font-size: 14px;
+                font-weight: bold;
             }
         </style>
         <script type="text/javascript">
@@ -617,7 +631,11 @@
             <div id="sj" style="width:1280px; height:69px;  float:left; font-size:0 ">
                 <!--logo-->
                 <div id="sscjl" style="width:1280px; height:10;">
-                    <img src="${ctx}/static/img/head.png"/>
+                    <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px"/>
+                        <map name="planetmap" id="planetmap">
+                            <area shape="rect" coords="1136,43,1184,62" href ="${ctx}/main/mgr" alt="设置" />
+                            <area shape="rect" coords="1209,44,1261,61" href ="${ctx}/logout" alt="退出" />
+                        </map>
                 </div>
                 <div id="tool" style="width:119px; height:20;  border-right-style:solid;border-right-color:#06F; border-right-width:1px; float:left">
                     <a  href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk.png" style="width:119px; height:33px"/></a>
@@ -1167,5 +1185,6 @@
         <div id="bc9" style=" display:none;background: url(${ctx}/static/img/dialog.png); text-align:center;padding-top:10px;color:red;font-size:10px" onclick="closedDiv(9);">
             线路不通<br>IP:192.168.1.5
         </div>
+        <div id="szda" style="width:300px;"></div>
     </body>
 </html>

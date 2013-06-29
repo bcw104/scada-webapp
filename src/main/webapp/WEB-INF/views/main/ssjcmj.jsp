@@ -18,6 +18,9 @@
         <script type="text/javascript">
             var objUrl='${ctx}';
             var username='${username}';
+            $(function () {
+                $("#szda").html('欢迎您 ${name}');
+            });
         </script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
         <style type="text/css">
@@ -90,6 +93,17 @@
                 height:27px;
                 z-index:1;
             }
+            #szda {
+                position:absolute;
+                left:724px;
+                top:38px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+                color: #fff;
+                font-size: 14px;
+                font-weight: bold;
+            }
         </style>
         <script>
             var dhxWins,Grid,dhxWins,dhxWins1,dhxd,dhxd1,dhxd2,dhxd3,gr,mjge,mjgr1,mjgr2;
@@ -140,7 +154,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);//隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("100");
+                gr.setInitWidths("150");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();
@@ -846,9 +860,9 @@
         </div>
         <div id="gkk1" style="width:110px;height:153px; float:left">
       	    <div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
-              &nbsp;&nbsp;&nbsp;油井启停：<img  id="youjingState" src="${ctx}/static/img/hongse.png" style="height:15px"/>
+              &nbsp;&nbsp;&nbsp;油井启停：<img  id="youjingState" src="${ctx}/static/img/hongse.png"/>
             </div>
-            <div id="mj" style="width:118px; height:107px; float:left">
+            <div id="mj" style="width:115px; height:107px; float:left; font-size:14px;">
             </div>
         </div>
     </div>
@@ -914,5 +928,6 @@
 <div id="yin12" >
  <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
 </div>
+        <div id="szda" style="width:300px;"></div>
     </body>
 </html>

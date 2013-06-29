@@ -34,6 +34,7 @@ public class PerformancePageController {
     @RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
 
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "performance/scdt";
 	}
@@ -43,6 +44,7 @@ public class PerformancePageController {
 
         MajorTag majorTag = majorTagService.getById(id);
         model.addAttribute("info", majorTag);
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "performance/scdt_majortag";
 	}
@@ -52,6 +54,7 @@ public class PerformancePageController {
 
         EndTag endTag = endTagService.getById(id);
         model.addAttribute("info", endTag);
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "performance/scdt_endtag";
 	}
