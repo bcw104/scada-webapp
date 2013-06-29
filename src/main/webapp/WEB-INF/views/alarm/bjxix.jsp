@@ -15,8 +15,12 @@
         <script src="${ctx}/static/js/map.js" type="text/javascript"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
-        <script type="text/javascript" src="${ctx}/static/jquery/jquery.messager.js"></script>
-        <script src="${ctx}/static/application.js"></script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>
+        <script type="text/javascript" src="${ctx}/static/application.js"></script>
         <style type="text/css">
             html, body {
                 width: 100%;
@@ -108,9 +112,6 @@
         </style>
         <script type="text/javascript">
             var treeGrid,dhxWins,dhxWins1,grid1,grid2,grid3,grid4,grid5,grid6;
-            
-            var objUrl='${ctx}';
-            var username='${username}';
             
             // 曲线参数
             var options = {
@@ -570,7 +571,7 @@
                     </a>
                 </div>
                 <div id="tool4" style="width:126px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" class="a5">
-                    <a  href="wltp.html" style="text-decoration:none">
+                    <a  href="${ctx}/managepage" style="text-decoration:none">
                         <img  border="0" src="${ctx}/static/img/txwl.png"  style="width:126px; height:33px"/>
                     </a>
                 </div>
