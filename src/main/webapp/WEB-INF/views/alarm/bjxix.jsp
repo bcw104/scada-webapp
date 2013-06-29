@@ -19,6 +19,9 @@
         <script type="text/javascript">
             var objUrl='${ctx}';
             var username='${username}';
+            $(function () {
+                $("#szda").html('欢迎您 ${name}');
+            });
         </script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
         <style type="text/css">
@@ -108,6 +111,17 @@
             }
             .cssdiv1:hover{
                 color:#09F
+            }
+            #szda {
+                position:absolute;
+                left:724px;
+                top:38px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+                color: #fff;
+                font-size: 14px;
+                font-weight: bold;
             }
         </style>
         <script type="text/javascript">
@@ -340,7 +354,7 @@
                                         // 报警对象
                                         var baojingItem = new Object();
                                         baojingItem.id = itemvalue.endTag.id + '||' + itemkey  + '||' + jingStage + '||' + itemvalue.endTag.subType + '||' + itemvalue.actionTime;
-                                        baojingItem.data = [itemvalue.info];
+                                        baojingItem.data = [itemvalue.endTag.device.name];
                                         baojingData.rows.push(baojingItem);
                                     }); 
 
@@ -458,7 +472,7 @@
                 treeGrid = new dhtmlXGridObject('wltp');
                 treeGrid.selMultiRows = true;
                 treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/icons_greenfolders/";
-                treeGrid.setHeader("序号,报警对象,部件,报警内容,报警时间,负责人,回复时间,处理时间,评价");
+                treeGrid.setHeader("序号,报警对象,设备,报警原因,报警时间,负责人,回复时间,处理时间,评价");
                 treeGrid.setInitWidths("100,125,125,150,150,150,150,150,*");
                 treeGrid.setColAlign("center,center,center,center,center,left,center,center,center");
                 treeGrid.setColTypes("ro,ro,ro,ro,ro,tree,ro,ro,ro");
@@ -498,7 +512,7 @@
                             baojingItem.rows = [];
                             $.each(value.alarmHandleList,function(alarmkey, alarmvalue){
                                 var fuzerenInfoItem = {};
-                                fuzerenInfoItem.id = 'fzr_' + alarmvalue.user.id;
+                                fuzerenInfoItem.id = 'fzr_' + alarmvalue.user.id + '_' + value.id;
                                 fuzerenInfoItem.data = [];
                                 fuzerenInfoItem.data.push('');
                                 fuzerenInfoItem.data.push('');
@@ -510,9 +524,14 @@
                                 dateTmp = new Date(alarmvalue.confirmTime);
                                 fuzerenInfoItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
                                         + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
-                                dateTmp = new Date(alarmvalue.handleTime);
-                                fuzerenInfoItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
-                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
+                                
+                                if(alarmvalue.handleTime == null){
+                                    fuzerenInfoItem.data.push('');
+                                }else{
+                                    dateTmp = new Date(alarmvalue.handleTime);
+                                    fuzerenInfoItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                            + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
+                                }
                                 fuzerenInfoItem.data.push('');//待定
                                 
                                 baojingItem.rows.push(fuzerenInfoItem);
@@ -548,7 +567,11 @@
             <div id="scdt" style="width:1280px; height:69px;  float:left; font-size: 0 " class="ssjkd">
                 <!--logo-->
                 <div id="ssjc" style="width:1280px; height:10">
-                    <img src="${ctx}/static/img/head.png"/>
+                    <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px"/>
+                    <map name="planetmap" id="planetmap">
+                        <area shape="rect" coords="1136,43,1184,62" href ="${ctx}/main/mgr" alt="设置" />
+                        <area shape="rect" coords="1209,44,1261,61" href ="${ctx}/logout" alt="退出" />
+                    </map>
                 </div>
                 <div id="tool" style="width:119px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" class="a1">
                     <a href="${ctx}/main" style="text-decoration:none">
@@ -646,5 +669,6 @@
         <div id="yin12" >
             <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
         </div>
+        <div id="szda" style="width:300px;"></div>
     </body>
 </html>

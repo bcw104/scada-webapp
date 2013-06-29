@@ -17,6 +17,9 @@
         <script type="text/javascript">
             var objUrl='${ctx}';
             var username='${username}';
+            $(function () {
+                $("#szda").html('欢迎您 ${name}');
+            });
         </script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
         <style type="text/css">
@@ -89,6 +92,17 @@
                 height:27px;
                 z-index:1;
             }
+            #szda {
+                position:absolute;
+                left:724px;
+                top:38px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+                color: #fff;
+                font-size: 14px;
+                font-weight: bold;
+            }
         </style>
         <script>
             var Grid,dhxWins,dhxd,dhxd1,dhxd2,dhxd3,gr,gr1;
@@ -142,7 +156,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);//隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("100");
+                gr.setInitWidths("150");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();
@@ -878,11 +892,11 @@
                 </div>
                 <div id="ba5" style="width:5px; height:22px;   float:left" ></div>
                 <div id="dqcs1" style=" width:230px; height:22px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
-                               &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
+                    &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
                 </div>
                 <div id="ba6" style="width:5px; height:22px; float:left" ></div>
                 <div id="cgqyx1" style="width:430px; height:22px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#fde7fd" >
-                        &nbsp传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp运&nbsp;&nbsp;&nbsp行
+                    &nbsp传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp运&nbsp;&nbsp;&nbsp行
                 </div>
                 <div id="ba7" style="width:5px; height:22px; float:left" ></div>
                 <div id="ba4" style="width:4px; height:154px;  float:left"></div>
@@ -892,9 +906,9 @@
                 </div>
                 <div id="gkk1" style="width:118px;height:153px; float:left">
                     <div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
-                        &nbsp;&nbsp;&nbsp;油井启停：<img id="youjingState" src="${ctx}/static/img/hongse.png" style="height:15px"/>
+                        &nbsp;&nbsp;&nbsp;油井启停：<img id="youjingState" src="${ctx}/static/img/hongse.png"/>
                     </div>
-                    <div id="gk" style="width:118px; height:118px; float:left;">
+                    <div id="gk" style="width:115px; height:118px; float:left;">
                     </div>
                 </div>
          </div>
@@ -980,5 +994,6 @@
 <div id="yin12" >
  <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
 </div>
+        <div id="szda" style="width:300px;"></div>
     </body>
 </html>

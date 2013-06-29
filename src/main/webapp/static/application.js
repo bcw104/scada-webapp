@@ -49,13 +49,13 @@ function add(a,b,s,d){
             dateType:'json',
             success: function(json){
 //               alert(json.info + '----' + json.endTag.name);
-                var strHtml = json.endTag.name + "产生报警<br />错误信息：" + json.endTag.name + '<br />' 
+                var strHtml = json.endTag.name + " 产生报警<br />错误信息：" + json.info + '<br />' 
                         + '<a href="' + objUrl + '/alarmpage">查看</a>&nbsp;&nbsp;' 
                         + '<a id="confirmLink' + message + '" href="javascript:void(0);" >回复</a> ';
 //                $.messager.show('预警提示', strHtml, 0);
                 
                 
-                add('','预警提示',strHtml,true);
+                add('','报警提示',strHtml,true);
                 $('#confirmLink' + message).bind('click', function(){confirmMessageShow(message)});
             }
         });

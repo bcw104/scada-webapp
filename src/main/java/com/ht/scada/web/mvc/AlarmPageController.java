@@ -26,6 +26,7 @@ public class AlarmPageController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
 
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/bjxix";
 	}
@@ -37,6 +38,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjcmain";
 	}
@@ -48,6 +50,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjcdqb";
 	}
@@ -59,6 +62,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjczp";
 	}
@@ -70,6 +74,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjcmj";
 	}
@@ -81,6 +86,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjclgb";
 	}
@@ -92,6 +98,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjczq";
 	}
@@ -103,6 +110,7 @@ public class AlarmPageController {
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
         model.addAttribute("actionTime", actionTime);
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/ssjcglj";
 	}

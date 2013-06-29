@@ -1,5 +1,10 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div id="ssjc" style="width:1280px; height:10">
-                        <img src="${ctx}/static/img/head.png"/>
+                        <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px"/>
+                        <map name="planetmap" id="planetmap">
+                            <area shape="rect" coords="1136,43,1184,62" href ="${ctx}/main/mgr" alt="设置" />
+                            <area shape="rect" coords="1209,44,1261,61" href ="${ctx}/logout" alt="退出" />
+                        </map>
                     </div>
                     <div id="tool" style="width:119px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                         <a  href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>

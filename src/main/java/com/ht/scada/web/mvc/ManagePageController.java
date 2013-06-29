@@ -30,6 +30,7 @@ public class ManagePageController {
     @RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
 
+        model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "manage/wltp";
 	}
