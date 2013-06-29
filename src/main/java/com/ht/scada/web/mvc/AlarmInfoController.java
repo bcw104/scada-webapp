@@ -93,7 +93,7 @@ public class AlarmInfoController {
 
     @RequestMapping(value = "confirm")
     @ResponseBody
-    public boolean confirm(String alarmId, String user, String type) {
+    public boolean confirm(String alarmId, String user, String type,String msg) {
         String[] ids = alarmId.split(",");
         for (String id : ids) {
             AlarmRecord alarm = alarmInfoService.getAlarmByID(Integer.valueOf(id));
@@ -120,6 +120,7 @@ public class AlarmInfoController {
                 case STR_HANDLE:
                     //报警处理
                     record.setHandleTime(curDate);
+                    record.setHandleMsg(msg);
                     alarmInfoService.saveAlarmHandle(record);
                     break;
             }

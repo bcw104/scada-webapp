@@ -36,7 +36,7 @@ public class AlarmHandle extends AbstractPersistable<Integer>{
     @Column(name = "handle_time")
     @Temporal(TemporalType.TIMESTAMP)
 	private Date handleTime;	//处理时间
-    
+    private String handleMsg;   //处理信息
     
 	public User getUser() {
 		return user;
@@ -63,7 +63,12 @@ public class AlarmHandle extends AbstractPersistable<Integer>{
 	public void setHandleTime(Date handleTime) {
 		this.handleTime = handleTime;
 	}
-    
-    
 
+    public String getHandleMsg() {
+        return handleMsg;
+    }
+
+    public void setHandleMsg(String handleMsg) {
+        this.handleMsg = handleMsg;
+    }
 }

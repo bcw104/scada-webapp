@@ -25,6 +25,8 @@ public class AlarmRecord extends AbstractPersistable<Integer> {
     private String alarmType;	//报警类型
     @Column(name = "var_name")
     private String varName;		//变量名（英文）
+    private String varCnName;   //变量名中文名
+
     private String info;		//故障信息
     private String remark;		//备注 详细信息
     @Column(name = "action_time")
@@ -116,4 +118,13 @@ public class AlarmRecord extends AbstractPersistable<Integer> {
     public void setAlarmHandleList(List<AlarmHandle> alarmHandleList) {
         this.alarmHandleList = alarmHandleList;
     }
+
+    public String getVarCnName() {
+        return varCnName;
+    }
+
+    public void setVarCnName(String varCnName) {
+        this.varCnName = varCnName;
+    }
+
 }
