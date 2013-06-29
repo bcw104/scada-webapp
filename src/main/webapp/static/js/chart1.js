@@ -98,7 +98,7 @@ function createSg(p_code,p_data) {
                 series.data.push([str_xAxis[i],str_yAxis[i]]);
             }
             options.chart.renderTo = 'containerr';
-            options.yAxis.title.text = '示&nbsp;&nbsp;功&nbsp;&nbsp;图';
+            options.yAxis.title.text = '示功图';
             options.series.push(series);
             new Highcharts.Chart(options);
         }
@@ -145,7 +145,7 @@ function createDl(p_code,p_data) {
                 series.data.push([str_xAxis[i],str_yAxis[i]]);
             }
             options.chart.renderTo = 'containerr1';
-            options.yAxis.title.text = '电&nbsp;&nbsp;流&nbsp;&nbsp;曲&nbsp;&nbsp;线';
+            options.yAxis.title.text = '电流曲线';
             options.series.push(series);
             new Highcharts.Chart(options);
         }
@@ -192,7 +192,7 @@ function createDg(p_code,p_data) {
                 series.data.push([str_xAxis[i],str_yAxis[i]]);
             }
             options.chart.renderTo = 'containerr2';
-            options.yAxis.title.text = '功&nbsp;&nbsp;率&nbsp;&nbsp;曲&nbsp;&nbsp;线';
+            options.yAxis.title.text = '功率曲线';
             options.series.push(series);
             new Highcharts.Chart(options);
         }
@@ -239,7 +239,7 @@ function createYggl(p_code,p_data) {
                 series.data.push([str_xAxis[i],str_yAxis[i]]);
             }
             options.chart.renderTo = 'containerr3';
-            options.yAxis.title.text = '功&nbsp;&nbsp;率&nbsp;&nbsp;因&nbsp;&nbsp;数&nbsp;&nbsp;曲&nbsp;&nbsp;线';
+            options.yAxis.title.text = '功率因数曲线';
             options.series.push(series);
             new Highcharts.Chart(options);
         }
