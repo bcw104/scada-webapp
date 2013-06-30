@@ -145,6 +145,16 @@
             }
             
             /**
+             * 定时刷新
+             * @returns {undefined}
+             */
+            function reflesh(){		
+                
+                document.location.reload();	
+           }	
+           setTimeout("reflesh()",60*1000);//每1分钟刷新一次 
+            
+            /**
              * 页面布局设置
              * @returns {undefined}
              */
