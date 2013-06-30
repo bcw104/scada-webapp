@@ -10,8 +10,8 @@
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/dhtmlxtreegrid.js"></script>
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
-        <script type="text/javascript" src="${ctx}/static/jquery/jquery-1.8.2.min.js"></script>
-	<script src="${ctx}/static/js/highstock.js"></script>
+        <script src="${ctx}/static/jquery/jquery-1.8.2.min.js"></script>
+        <script src="${ctx}/static/jquery/highstock.js"></script>
         <script src="${ctx}/static/js/map.js" type="text/javascript"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
@@ -129,8 +129,11 @@
             
             // 曲线参数
             var options = {
-                chart: {
-                    renderTo: ''
+                title: {
+                    text: '',
+                },
+                subtitle: {
+                    text: '',
                 },
                 xAxis: {
                     type: 'datetime'
@@ -147,14 +150,14 @@
                     },
                 },
                 rangeSelector: {
-                                enabled:false
-                        },
-                credits:{
-                                enabled:false
-                        },
-                navigator : {
-                                                height:15
-                                        },
+                    enabled:false
+				},
+				credits:{
+					enabled:false
+				},
+				navigator : {
+					height:15
+				},
                 legend: {
                     enabled: false,
                 },
@@ -357,7 +360,7 @@
                                         // 报警对象
                                         var baojingItem = new Object();
                                         baojingItem.id = itemvalue.endTag.id + '||' + itemkey  + '||' + jingStage + '||' + itemvalue.endTag.subType + '||' + itemvalue.actionTime;
-                                        baojingItem.data = [itemvalue.endTag.device.name];
+                                        baojingItem.data = [itemvalue.varCnName];
                                         baojingData.rows.push(baojingItem);
                                     }); 
 
@@ -413,8 +416,7 @@
                                     // 事件绑定
                                     grid1.attachEvent('onRowSelect', doGrClick);
                                     loopIndex++;
-
-                                                           
+                         
                                     options.series = [];
                                     series1.data = [];
                                     series2.data = [];
@@ -430,11 +432,11 @@
                                         series1Tmp.data = seriesItme1[i];
                                         series2Tmp.name = seriesItme2Name[i];
                                         series2Tmp.data = seriesItme2[i];
-                                        
+
                                         options.series.push(series1Tmp);
                                         options.series.push(series2Tmp);
                                     }
-                                    $('#mcltb1_' + key).highcharts('StockChart',options);
+                                    $('#mcltb1_' + key).highcharts('StockChart', options);
                                 }
                             });                             
                         });
@@ -551,6 +553,16 @@
             function runurl(){
                 window.location.href="bcxi.html";
             }	
+            
+            /**
+             * 定时刷新
+             * @returns {undefined}
+             */
+            function reflesh(){		
+                
+                document.location.reload();	
+           }	
+           setTimeout("reflesh()",60*1000);//每10秒钟刷新一次 
         </script>
         <STYLE type=text/css> 
             div.objbox { 
@@ -633,7 +645,7 @@
                             <div id="jxx" style="width:1245px; height:20px; background-color:#8ed4ff; font-size:14px; font-weight:bold; line-height:20px;float:left">
                                 &nbsp;&nbsp;实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp信&nbsp;&nbsp;&nbsp息
                             </div>
-                            <div id="qxContent">            
+                            <div id="qxContent" style="height: 580px; overflow:auto;">            
                             </div>
                         </div> 
                     </div>

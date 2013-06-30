@@ -186,6 +186,16 @@
             }
             
             /**
+             * 定时刷新
+             * @returns {undefined}
+             */
+            function reflesh(){		
+                
+                document.location.reload();	
+           }	
+           setTimeout("reflesh()",60*1000);//每1分钟刷新一次 
+            
+            /**
              * 信息点击
              * @param {type} gr_rId
              * @param {type} gr_cInd
@@ -839,6 +849,7 @@
                 xAxis: {
                     categories: [],
                     gridLineWidth:1,
+                    title:{}
                 },
                 yAxis: {
                     title: {},
@@ -919,12 +930,12 @@
                         $("#ssqxTitle").html('&nbsp&nbsp&nbsp（功图对比）');
                         $.each(json, function(key, value) {   
                             
-                            $("#gtdb").append("<div id='container_gtdb_" + key + "' style='width: 155px; height: 100%; margin: 0 auto; float:left;'></div>");
+                            $("#gtdb").append("<div id='container_gtdb_" + key + "' style='width: 200px; height: 100%; margin: 0 auto; float:left;'></div>");
 
                             var series = { 
                                 data: []            
                             };  
-                            alert(value.weiyi + '---' + value.zaihe);
+//                            alert(value.weiyi + '---' + value.zaihe);
                             str_xAxis = value.weiyi;
                             str_yAxis = value.zaihe;
                             
@@ -936,9 +947,14 @@
                                 series.data.push([str_xAxis[i],str_yAxis[i]]);
                             }
                             options1.chart.renderTo = 'container_gtdb_' + key;
+                            var dateTmp = new Date(value.time);
+                            options1.xAxis.title.text = dateTmp.getFullYear() + "-" + (dateTmp.getMonth() + 1) + "-" 
+                                    + dateTmp.getDate() + " " + dateTmp.getHours() + ":" + dateTmp.getMinutes();
                             options1.yAxis.title.text = '示&nbsp;&nbsp;功&nbsp;&nbsp;图';
                             options1.series.push(series);
-                            new Highcharts.Chart(options1);                              
+                            new Highcharts.Chart(options1);  
+                            
+//                            $("#container_gtdb_" + key).append("<div>" + value.time + "</div>");
                         }); 
                     }
                 });

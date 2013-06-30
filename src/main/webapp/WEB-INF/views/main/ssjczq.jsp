@@ -142,6 +142,16 @@
             }
             
             /**
+             * 定时刷新
+             * @returns {undefined}
+             */
+            function reflesh(){		
+                
+                document.location.reload();	
+           }	
+           setTimeout("reflesh()",60*1000);//每1分钟刷新一次 
+            
+            /**
              * 信息点击
              * @param {type} gr_rId
              * @param {type} gr_cInd

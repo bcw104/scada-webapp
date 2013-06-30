@@ -175,6 +175,16 @@
             }
             
             /**
+             * 定时刷新
+             * @returns {undefined}
+             */
+            function reflesh(){		
+                
+                document.location.reload();	
+           }	
+           setTimeout("reflesh()",60*1000);//每10秒钟刷新一次 
+           
+            /**
               * 电气参数信息点击
               * @param {type} dy_code
               * @param {type} dy_title
@@ -1347,6 +1357,7 @@ function wins(){
                 xAxis: {
                     categories: [],
                     gridLineWidth:1,
+                    title:{}
                 },
                 yAxis: {
                     title: {},
@@ -1426,7 +1437,7 @@ function wins(){
                         $("#ssqxTitle").html('&nbsp&nbsp&nbsp（功图对比）');
                         $.each(json, function(key, value) {   
                             
-                            $("#gtdb").append("<div id='container_gtdb_" + key + "' style='width: 155px; height: 100%; margin: 0 auto; float:left;'></div>");
+                            $("#gtdb").append("<div id='container_gtdb_" + key + "' style='width: 200px; height: 100%; margin: 0 auto; float:left;'></div>");
 
                             var series = { 
                                 data: []            
@@ -1443,6 +1454,9 @@ function wins(){
                                 series.data.push([str_xAxis[i],str_yAxis[i]]);
                             }
                             options1.chart.renderTo = 'container_gtdb_' + key;
+                            var dateTmp = new Date(value.time);
+                            options1.xAxis.title.text = dateTmp.getFullYear() + "-" + (dateTmp.getMonth() + 1) + "-" 
+                                    + dateTmp.getDate() + " " + dateTmp.getHours() + ":" + dateTmp.getMinutes();
                             options1.yAxis.title.text = '示&nbsp;&nbsp;功&nbsp;&nbsp;图';
                             options1.series.push(series);
                             new Highcharts.Chart(options1);                              
