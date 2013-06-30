@@ -10,8 +10,8 @@
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/dhtmlxtreegrid.js"></script>
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
-        <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
-        <script src="${ctx}/static/js/highcharts.src.js"></script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery-1.8.2.min.js"></script>
+	<script src="${ctx}/static/js/highstock.js"></script>
         <script src="${ctx}/static/js/map.js" type="text/javascript"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
@@ -132,19 +132,13 @@
                 chart: {
                     renderTo: ''
                 },
-                title: {
-                    text: '',
-                },
-                subtitle: {
-                    text: '',
-                },
                 xAxis: {
                     type: 'datetime'
                 },
                 yAxis: {
                     min:0,
                     title:'',
-                    lineWidth :1,
+                    lineWidth :0,
                     gridLineWidth:0,
                     labels: {
                         formatter: function() {
@@ -152,6 +146,15 @@
                         }
                     },
                 },
+                rangeSelector: {
+                                enabled:false
+                        },
+                credits:{
+                                enabled:false
+                        },
+                navigator : {
+                                                height:15
+                                        },
                 legend: {
                     enabled: false,
                 },
@@ -411,7 +414,7 @@
                                     grid1.attachEvent('onRowSelect', doGrClick);
                                     loopIndex++;
 
-                                    options.chart.renderTo = 'mcltb1_' + key;                            
+                                                           
                                     options.series = [];
                                     series1.data = [];
                                     series2.data = [];
@@ -427,11 +430,11 @@
                                         series1Tmp.data = seriesItme1[i];
                                         series2Tmp.name = seriesItme2Name[i];
                                         series2Tmp.data = seriesItme2[i];
-
+                                        
                                         options.series.push(series1Tmp);
                                         options.series.push(series2Tmp);
                                     }
-                                    new Highcharts.Chart(options);
+                                    $('#mcltb1_' + key).highcharts('StockChart',options);
                                 }
                             });                             
                         });
