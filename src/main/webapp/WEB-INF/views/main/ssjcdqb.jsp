@@ -11,6 +11,7 @@
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
         <script src="${ctx}/static/js/highcharts.src.js"></script>
         <script src="${ctx}/static/js/chart.js"></script>
+        <script src="${ctx}/static/js/common.js" type="text/javascript"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
@@ -106,7 +107,7 @@
         </style>
         <script>
             var Grid,dhxWins,dhxd,dhxd1,dhxd2,dhxd3,gr,gr1;
-            var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="images/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
+            var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
             var ew='<div id="y" style="width:186px;height:100px;float:left;font-size:14px;"><table><tr><td style="width:250px" align="left">&nbsp;&nbsp;&nbsp;用户名:&nbsp;<input id="kz_name" name="kz_name" type="text" value="" style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input id="kz_password" name="kz_password" type="password" value=""  style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;操作原因:&nbsp;<input id="kz_content" name="kz_content" type="text" value=""  style="width:80px;"/></td></tr><tr style="height:10px"></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qd();">确定</button></td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qx();">取消</button></td></tr></table></div>';
             var anniu='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" id="kz_kaijing" style="background:#81d4ff" onclick="kj();">开井</button></td><td style="width:98px;" align="center"><button type="button" id="kz_tingjing" style="background:#81d4ff" onclick="tj();">停井</button></td></tr></table></div>';
             var sd='<div id="y"style="width:180px;height:30px;float:left;"><table><tr><td style="width:250px" align="center">油井状态:开井</td></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qdd();">确定</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qxx();">取消</button><td></tr></table></div>';
@@ -139,16 +140,6 @@
                 // 设置电气参数
                 createDq();
             }
-            
-            /**
-             * 定时刷新
-             * @returns {undefined}
-             */
-            function reflesh(){		
-                
-                document.location.reload();	
-           }	
-           setTimeout("reflesh()",60*1000);//每10秒钟刷新一次 
            
             /**
              * 页面布局设置
@@ -869,13 +860,18 @@
                          &nbsp;&nbsp;&nbsp;井标识
                     </div>
                     <div id="ad2" style="width:350px; height:10;float:left;  background-color:#cde7ff; font-size:14px;line-height:25px">
-                            运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障停井&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;非正常停井&nbsp;&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;计划停井&nbsp;&nbsp;<img src="${ctx}/static/img/juse.png" />
+                            运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
+                            故障停井&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
+                            非正常停井&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;
+                            计划停井&nbsp;<img src="${ctx}/static/img/juse.png" />
                     </div>
                      <div id="ads" style="width:80px; height:10; float:left; background-color:#cde7ff;  font-size:14px; font-weight:bold; line-height:25px">
                             &nbsp;&nbsp;&nbsp;RTU标识
                     </div>
                      <div id="adr" style="width:600px; height:10;float:left;  background-color:#cde7ff; font-size:14px;line-height:25px">
-                            运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;校验&nbsp;&nbsp;<img src="${ctx}/static/img/lansee.png" />
+                            运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
+                            故障&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
+                            校验&nbsp;<img src="${ctx}/static/img/lansee.png" />
                     </div>
                     <div id="adw" style="width:20px; height:22px; float:left;  background-color:#cde7ff; font-size:14px; font-weight:bold;padding-top:3px">
                             <img src="${ctx}/static/img/yck.png"/>
@@ -897,11 +893,11 @@
                      &nbsp工&nbsp;&nbsp;&nbsp况
                      </div>
                 <div id="ba4" style="width:5px; height:22px;  float:left" ></div>
-                <div id="gk2" style="width:230px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
+                <div id="gk2" style="width:190px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
                      &nbspRTU&nbsp;&nbsp;&nbsp状&nbsp;&nbsp;&nbsp态
                 </div>
                 <div id="ba5" style="width:5px; height:22px;   float:left" ></div>
-                <div id="dqcs1" style=" width:230px; height:22px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
+                <div id="dqcs1" style=" width:270px; height:22px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
                     &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
                 </div>
                 <div id="ba6" style="width:5px; height:22px; float:left" ></div>
@@ -924,30 +920,30 @@
          </div>
        <!--RTU状态-->
           <div id="ba5" style="width:5px; height:154px;  float:left"></div>
-          <div id="rtu" style="width:228px; height:152px;border:solid; border-width:1px; border-color:#BAC3FD;float:left">
+          <div id="rtu" style="width:188px; height:152px;border:solid; border-width:1px; border-color:#BAC3FD;float:left">
            		
           </div>
           <div id="ba8" style="width:5px; height:154px;float:left" ></div>
-            <div id="dqcs" style="width:228px; height:154px; float:right; border:solid; border-width:1px; float:left; border-color:#b4da72; background-color:#fbfff3">
-                   <div id="dq0"  class="cssdiv"   onclick="showDyqx('u_a', 'A相电压');" style="width:114px; height:38px;cursor:pointer;font-size:14px ;line-height:40px;float:left;border-right-style:solid; border-right-color:#cced94; border-right-width:1px; ">
+            <div id="dqcs" style="width:268px; height:154px; float:right; border:solid; border-width:1px; float:left; border-color:#b4da72; background-color:#fbfff3">
+                   <div id="dq0"  class="cssdiv"   onclick="showDyqx('u_a', 'A相电压');" style="width:134px; height:38px;cursor:pointer;font-size:14px ;line-height:40px;float:left;border-right-style:solid; border-right-color:#cced94; border-right-width:1px; ">
                         A相电压：<span id="dq_u_a">0</span>
                    </div>
-                   <div id="dq1" class="cssdiv"  onclick="showDyqx('u_a', 'A相电流');"  style="width:113px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
+                   <div id="dq1" class="cssdiv"  onclick="showDyqx('u_a', 'A相电流');"  style="width:133px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
                        A相电流：<span id="dq_i_a">0</span>
                    </div>
-                   <div id="dq2"  class="cssdiv" onclick="showDyqx('u_b', 'B相电压');" style="width:114px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc; border-right-style:solid; border-right-width:1px">
+                   <div id="dq2"  class="cssdiv" onclick="showDyqx('u_b', 'B相电压');" style="width:134px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc; border-right-style:solid; border-right-width:1px">
                        B相电压：<span id="dq_u_b">0</span>
                    </div>
-                   <div id="dq3" class="cssdiv" onclick="showDyqx('i_b', 'B相电流');"  style="width:113px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;background-color:#f5ffdc">
+                   <div id="dq3" class="cssdiv" onclick="showDyqx('i_b', 'B相电流');"  style="width:133px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;background-color:#f5ffdc">
                        B相电流：<span id="dq_i_b">0</span>
                    </div>
-                   <div id="dq4" class="cssdiv"  onclick="showDyqx('u_c', 'C相电压');"  style="width:114px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left; border-right-color:#cced94;border-right-style:solid; border-right-width:1px">
+                   <div id="dq4" class="cssdiv"  onclick="showDyqx('u_c', 'C相电压');"  style="width:134px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left; border-right-color:#cced94;border-right-style:solid; border-right-width:1px">
                        C相电压：<span id="dq_u_c">0</span>
                    </div>
-                   <div id="dq5" class="cssdiv" onclick="showDyqx('i_c', 'C相电流');" style="width:113px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
+                   <div id="dq5" class="cssdiv" onclick="showDyqx('i_c', 'C相电流');" style="width:133px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
                        C相电流：<span id="dq_i_c">0</span>
                    </div>
-                   <div id="dq6" class="cssdiv" onclick="showDyqx('gl_ys', '平均功率因数');" style="width:227px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
+                   <div id="dq6" class="cssdiv" onclick="showDyqx('gl_ys', '平均功率因数');" style="width:267px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
                        平均功率因数：<span id="dq_gl_ys">0</span>
                    </div>
             </div>

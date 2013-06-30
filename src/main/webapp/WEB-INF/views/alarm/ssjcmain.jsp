@@ -697,7 +697,7 @@
                 Grid2= new dhtmlXGridObject('gr');
                 Grid2.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 Grid2.setHeader(["设备名称","出厂厂家","型号","序号","设备地址"]);
-                Grid2.setInitWidths("120,120,120,120,*");
+                Grid2.setInitWidths("120,200,120,70,*");
                 Grid2.setColAlign("center,center,center,center,center");
                 Grid2.setColTypes("ro,ro,ro,ro,ro");
                 Grid2.init();
@@ -1769,13 +1769,18 @@
                     &nbsp;&nbsp;&nbsp;井标识
                 </div>
                 <div id="ad2" style="width:350px; height:10;float:left; font-size:14px;line-height:25px">
-                    运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障停井&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;非正常停井&nbsp;&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;计划停井&nbsp;&nbsp;<img src="${ctx}/static/img/juse.png" />
+                    运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
+                    故障停井&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
+                    非正常停井&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;
+                    计划停井&nbsp;<img src="${ctx}/static/img/juse.png" />
                 </div>
                 <div id="ads" style="width:80px; height:10; float:left; font-size:14px; font-weight:bold; line-height:25px">
                     &nbsp;&nbsp;&nbsp;RTU标识
                 </div>
                 <div id="adr" style="width:390px; height:10;float:left; font-size:14px;line-height:25px">
-                    运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;校验&nbsp;&nbsp;<img src="${ctx}/static/img/lansee.png" />
+                    运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
+                    故障&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
+                    校验&nbsp;<img src="${ctx}/static/img/lansee.png" />
                 </div>
                 <div id="adw" style="width:20px; height:20px; float:left; font-size:14px; font-weight:bold;padding-top:3px">
                     <img src="${ctx}/static/img/yck.png"/>

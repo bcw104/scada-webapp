@@ -851,7 +851,7 @@
                     </map>
                 </div>
                 <div id="tool" style="width:119px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                    <a href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
+                    <a href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk.png" style="width:119px; height:33px;"/></a>
                 </div>
                 <div id="tool1" style="width:125px; height:20;border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left">
                     <a href="${ctx}/alarmpage" style="text-decoration:none"><img border="0" src="${ctx}/static/img/bjzt.png" /></a>
@@ -863,7 +863,7 @@
                     <a href="${ctx}/producepage" style="text-decoration:none"><img  border="0" src="${ctx}/static/img/scgl.png" style="width:120px; height:33px;"/></a>
                 </div>
                 <div id="tool4" style="width:120px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                    <a href="${ctx}/managepage" style="text-decoration:none"><img border="0"  src="${ctx}/static/img/txwl.png" style="width:120px; height:33px;"/></a>
+                    <a href="${ctx}/managepage" style="text-decoration:none"><img border="0"  src="${ctx}/static/img/as.png" style="width:120px; height:33px;"/></a>
                 </div>
                 <div id="tool5" style="width:120px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <img src="${ctx}/static/img/yjcz.png" style="width:120px; height:33px" />

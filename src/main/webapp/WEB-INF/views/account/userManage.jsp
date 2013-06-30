@@ -39,19 +39,19 @@
 </head>
 
 <body onload="doOnLoad()">
-<div id="addUser" style=" display:none;line-height:10px">
+<div id="addUser" style=" display:none;line-height:10px;">
     <form id="addForm" name="addForm" action="${ctx}/admin/user/addUser" method="post" autocomplete=off >
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">用户名：</td>
-                <td><input type="text" name="user.username" id="userName"></input></td>
+                <td width="30%" height="30" align="right"valign="middle" style="padding-right:10px;">用户名：</td>
+                <td><input type="text" name="user.username" id="userName" style="width: 135px"></input>&nbsp;注：用户名一旦注册不能修改</td>
             </tr>
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">姓名：</td>
-                <td><input type="text" name="realName" id="relName"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">姓名：</td>
+                <td><input type="text" name="realName" id="relName" style="width: 135px"></input></td>
             </tr>
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">性别：</td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">性别：</td>
                 <td>
                     <input name="gender" type="radio" value="1" checked />男
                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -59,38 +59,38 @@
                 </td>
            </tr>
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">部门：</td>
-                <td><input type="text" name="department" id="department"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">部门：</td>
+                <td><input type="text" name="department" id="department" style="width: 135px"></input></td>
             </tr>
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">地址：</td>
-                <td><input type="text" name="address" id="address"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">地址：</td>
+                <td><input type="text" name="address" id="address" style="width: 135px"></input></td>
             </tr>
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">E-mail：</td>
-                <td><input type="text" name="email" id="email"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">E-mail：</td>
+                <td><input type="text" name="email" id="email" style="width: 135px"></input></td>
             </tr>
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">电话：</td>
-                <td><input type="text" name="telphone" id="telphone"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">电话：</td>
+                <td><input type="text" name="telphone" id="telphone" style="width: 135px"></input></td>
             </tr>
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">角色：</td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">角色：</td>
                 <td valign="middle" style="padding-top:3px">
                     <input type="hidden" name="role_id" id="description" value=""></input>
                     <div id="combo_zone4" style="width:100px; height:25px;"></div>
                 </td>
             </tr>
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">密码：</td>
-                <td><input type="password" name="user.shaPassword" id="newPassword"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">密码：</td>
+                <td><input type="password" name="user.shaPassword" id="newPassword" style="width: 135px"></input></td>
             </tr>
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">确认密码：</td>
-                <td><input type="password" name="relPass" id="relPassword"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">确认密码：</td>
+                <td><input type="password" name="relPass" id="relPassword" style="width: 135px"></input></td>
             </tr>
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">是否为负责人：</td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">是否为负责人：</td>
                 <td>
                     <input name="headflg" type="radio" value="1" checked />是
                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -98,7 +98,7 @@
                 </td>
            </tr>
             <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">是否接收信息：</td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">是否接收信息：</td>
                 <td>
                     <input name="receiveflg" type="radio" value="1" checked />是
                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -117,41 +117,41 @@
      <form id="updateForm" action="${ctx}/admin/user/updateUserExtInfo" method="post" autocomplete=off>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">用户名：</td>
+                <td width="30%" height="30" align="right"valign="middle" style="padding-right:10px;">用户名：</td>
                 <td><input type="hidden" name="user_id" id="update_userid" value="" />
-                    <input type="text" name="user.username" id="update_uName" readonly="true"></input>
+                    <input type="text" name="user.username" id="update_uName" readonly="true" style="width: 135px">&nbsp;注：用户名一旦注册不能修改</input>
                 </td>
               </tr>
               <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">姓名：</td>
-                <td><input type="text" name="realName" id="update_rName"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">姓名：</td>
+                <td><input type="text" name="realName" id="update_rName" style="width: 135px"></input></td>
               </tr>
               <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">性别：</td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">性别：</td>
                 <td><input name="gender" type="radio" value="1" checked />男&nbsp;&nbsp;&nbsp;&nbsp;<input name="gender" type="radio" value="0" />女</td>
               </tr>
               <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">部门：</td>
-                <td><input type="text" name="department" id="update_department"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">部门：</td>
+                <td><input type="text" name="department" id="update_department" style="width: 135px"></input></td>
               </tr>
               <tr >
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">地址：</td>
-                <td><input type="text" name="address" id="update_address"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">地址：</td>
+                <td><input type="text" name="address" id="update_address" style="width: 135px"></input></td>
               </tr>
               <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">E-mail：</td>
-                <td><input type="text" name="email" id="update_email"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">E-mail：</td>
+                <td><input type="text" name="email" id="update_email" style="width: 135px"></input></td>
               </tr>
               <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">电话：</td>
-                <td><input type="text" name="telphone" id="update_telphone"></input></td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">电话：</td>
+                <td><input type="text" name="telphone" id="update_telphone" style="width: 135px"></input></td>
               </tr>
               <tr>
-                <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">角色：</td>
+                <td height="30" align="right"valign="middle" style="padding-right:10px;">角色：</td>
                 <td valign="middle" style="padding-top:3px"><input type="hidden" name="role_id" id="update_description" value=""></input><div id="combo_zone5" style="width:100px; height:25px;"></div></td>
               </tr>
                 <tr>
-                    <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">是否为负责人：</td>
+                    <td height="30" align="right"valign="middle" style="padding-right:10px;">是否为负责人：</td>
                     <td>
                         <input name="headflg" type="radio" value="1" checked />是
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -159,7 +159,7 @@
                     </td>
                </tr>
                 <tr>
-                    <td width="40%" height="30" align="right"valign="middle" style="padding-right:10px;">是否接收信息：</td>
+                    <td height="30" align="right"valign="middle" style="padding-right:10px;">是否接收信息：</td>
                     <td>
                         <input name="receiveflg" type="radio" value="1" checked />是
                         &nbsp;&nbsp;&nbsp;&nbsp;

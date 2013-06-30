@@ -14,6 +14,7 @@
         <script src="${ctx}/static/js/chart1.js"></script>
         <script src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
         <script src="${ctx}/static/js/math.js"></script>
+        <script src="${ctx}/static/js/common.js" type="text/javascript"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
@@ -182,18 +183,10 @@
                 createwind1();
                 // 开井确认操作
                 createwind2();
-                createwi();              
-            }
-            
-            /**
-             * 定时刷新
-             * @returns {undefined}
-             */
-            function reflesh(){		
+                createwi();     
                 
-                document.location.reload();	
-           }	
-           setTimeout("reflesh()",60*1000);//每1分钟刷新一次 
+                createWindows();
+            }
             
             /**
              * 信息点击
@@ -704,7 +697,7 @@
                 Grid2= new dhtmlXGridObject('gr');
                 Grid2.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 Grid2.setHeader(["设备名称","出厂厂家","型号","序号","设备地址"]);
-                Grid2.setInitWidths("120,150,120,120,*");
+                Grid2.setInitWidths("120,200,120,70,*");
                 Grid2.setColAlign("center,center,center,center,center");
                 Grid2.setColTypes("ro,ro,ro,ro,ro");
                 Grid2.init();
@@ -1434,6 +1427,32 @@
                 dhxd3.window("wi3").hide();
             }
         
+            /**
+             * 工况图片
+             * @returns {undefined}
+             */
+            function createWindows(){
+                dhxWins = new dhtmlXWindows();
+                dhxWins.attachViewportTo(document.body);
+                dhxWins.createWindow("win",200,100,1000,500);
+                dhxWins.window("win").button('minmax2').hide();
+                dhxWins.window("win").button('minmax1').hide();
+                dhxWins.window("win").button('park').hide();
+                dhxWins.window("win").hide();	
+            }
+    
+            /**
+             * 工况图片
+             * @returns {undefined}
+             */
+            function ztwin(){
+                dhxWins.window("win").show();
+                dhxWins.window("win").setText("工况");
+                dhxWins.attachEvent("onClose", function(win){
+                    dhxWins.window("win").hide(); 
+                });
+                dhxWins.window("win").attachHTMLString(dtu);
+            }
         </script>
         <STYLE type=text/css>
             div.objbox { 
@@ -1726,13 +1745,18 @@
                     &nbsp;&nbsp;&nbsp;井标识
                 </div>
                 <div id="ad2" style="width:350px; height:10;float:left; font-size:14px;line-height:25px">
-                    运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障停井&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;非正常停井&nbsp;&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;计划停井&nbsp;&nbsp;<img src="${ctx}/static/img/juse.png" />
+                    运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
+                    故障停井&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
+                    非正常停井&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;
+                    计划停井&nbsp;<img src="${ctx}/static/img/juse.png" />
                 </div>
                 <div id="ads" style="width:80px; height:10; float:left; font-size:14px; font-weight:bold; line-height:25px">
                     &nbsp;&nbsp;&nbsp;RTU标识
                 </div>
                 <div id="adr" style="width:390px; height:10;float:left; font-size:14px;line-height:25px">
-                    运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;校验&nbsp;&nbsp;<img src="${ctx}/static/img/lansee.png" />
+                    运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
+                    故障&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
+                    校验&nbsp;<img src="${ctx}/static/img/lansee.png" />
                 </div>
                 <div id="adw" style="width:20px; height:20px; float:left; font-size:14px; font-weight:bold;padding-top:3px">
                     <img src="${ctx}/static/img/yck.png"/>

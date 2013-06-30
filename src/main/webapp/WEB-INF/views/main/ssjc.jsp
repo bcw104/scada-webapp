@@ -162,6 +162,7 @@
              */
             function createTreeGrid(){
                 treeGrid= new dhtmlXGridObject('jdd');
+                treeGrid.selMultiRows = true;
                 treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/icons_greenfolders/";
                 treeGrid.setHeader(["井队名称","总井数","开井数","停井数","非正常停井","作业井","故障井","正常交付井"]);
                 treeGrid.setInitWidths("200,160,160,160,160,160,160,*");
@@ -321,7 +322,10 @@
                         // 递归遍历子数据  
                         var tmpWellInfo = createGridItem(strMajorTag, tmpMajorTag);         
 
-                        tmpMajorTag.rows = tmpWellInfo.data;
+                        if(tmpWellInfo.data.length > 0){
+                            tmpMajorTag.open = 1;
+                            tmpMajorTag.rows = tmpWellInfo.data;  
+                        }
                                                     
                         // 井参数信息
                         tmpMajorTag.data.push(tmpWellInfo.jing);
@@ -331,7 +335,7 @@
                         tmpMajorTag.data.push(0);
                         tmpMajorTag.data.push(0);
                         tmpMajorTag.data.push(0); 
-                                            
+                        
                         wellDataAry.push(tmpMajorTag);
                     }else{
                                             
@@ -410,13 +414,10 @@
                                             
                         var tmpMajorTag = new Object(); 
                         tmpMajorTag.id = valueMajorTagList.id;
-                        tmpMajorTag.open = 1;
+//                        tmpMajorTag.open = 1;
                         tmpMajorTag.data = [];
-                        // 名称设置
-                        var majorTagName = {};
-                        majorTagName.value = valueMajorTagList.name;
-                        majorTagName.image = 'folder.gif';                                            
-                        tmpMajorTag.data.push(majorTagName);
+                                      
+                        tmpMajorTag.data.push(valueMajorTagList.name);
 
                         // 递归遍历子数据
                         if(valueMajorTagList.type == 'DUI_LEVEL'){
@@ -434,13 +435,10 @@
                                     
                                     var tmpYoujingTag = new Object(); 
                                     tmpYoujingTag.id = 'j||' + valueYoujing.id + '||' + valueYoujing.subtype + '||' + valueYoujing.stage;
-                                    tmpYoujingTag.open = 1;
+//                                    tmpYoujingTag.open = 1;
                                     tmpYoujingTag.data = [];
-                                    // 名称设置
-                                    var youjingName = {};
-                                    youjingName.value = valueYoujing.name;
-                                    youjingName.image = 'folder.gif';                                            
-                                    tmpYoujingTag.data.push(youjingName);
+                                         
+                                    tmpYoujingTag.data.push(valueYoujing.name);
                                     // 井参数信息
                                     // 井数
                                     tmpYoujingTag.data.push(1);
@@ -478,8 +476,11 @@
                             youjingDuiCount += youjingCount;
                             youjingKaiDuiCount += youjingKaiCount;
                             youjingGuanDuiCount += youjingGuanCount;
-                            tmpMajorTag.rows = tmpYoujingData;  
-
+                            
+                            if(tmpYoujingData.length > 0){
+                                tmpMajorTag.open = 1;
+                                tmpMajorTag.rows = tmpYoujingData;  
+                            }
                         }else{
 
                             var tmpWellInfo = createGridItem(p_MajorTagList, tmpMajorTag);         
@@ -496,7 +497,10 @@
                             youjingDuiCount += tmpWellInfo.jing;
                             youjingKaiDuiCount += tmpWellInfo.jingKai;
                             youjingGuanDuiCount += tmpWellInfo.jingGuan;
-                            tmpMajorTag.rows = tmpWellInfo.data;
+                            if(tmpWellInfo.data.length > 0){
+                                tmpMajorTag.open = 1;
+                                tmpMajorTag.rows = tmpWellInfo.data;  
+                            }
                         }                      
                                             
                         tmpWellData.push(tmpMajorTag);

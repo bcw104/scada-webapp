@@ -139,7 +139,7 @@ function creatGrid(json){
 	mygrid.setImagePath("imgs/");
 	mygrid.setHeader("序号,角色名称,角色说明");
 	mygrid.setInitWidths("100,100,*");
-	mygrid.setColAlign("left,left,left");
+	mygrid.setColAlign("center,left,left");
 	mygrid.setColTypes("cntr,txt,txt");
 	mygrid.setColSorting("int,str,str");
 	mygrid.init();

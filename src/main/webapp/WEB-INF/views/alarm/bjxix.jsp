@@ -13,6 +13,7 @@
         <script src="${ctx}/static/jquery/jquery-1.8.2.min.js"></script>
         <script src="${ctx}/static/jquery/highstock.js"></script>
         <script src="${ctx}/static/js/map.js" type="text/javascript"></script>
+        <script src="${ctx}/static/js/common.js" type="text/javascript"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
@@ -477,10 +478,10 @@
                 treeGrid = new dhtmlXGridObject('wltp');
                 treeGrid.selMultiRows = true;
                 treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/icons_greenfolders/";
-                treeGrid.setHeader("序号,报警对象,设备,报警原因,报警时间,负责人,回复时间,处理时间,评价");
-                treeGrid.setInitWidths("100,125,125,150,150,150,150,150,*");
-                treeGrid.setColAlign("center,center,center,center,center,left,center,center,center");
-                treeGrid.setColTypes("ro,ro,ro,ro,ro,tree,ro,ro,ro");
+                treeGrid.setHeader("序号,报警对象,设备,变量名,报警类型,报警原因,报警时间,解除时间,其它信息,负责人,回复时间,处理时间,评价");
+                treeGrid.setInitWidths("100,125,125,150,150,150,150,150,150,150,150,150,*");
+                treeGrid.setColAlign("center,center,center,center,center,center,center,center,center,left,center,center,center");
+                treeGrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,tree,ro,ro,ro");
                 treeGrid.init();
                 treeGrid.enableMultiselect(true);
                 
@@ -502,12 +503,24 @@
                             baojingItem.data.push(value.id);
                             baojingItem.data.push(value.endTag.name);
                             baojingItem.data.push(value.endTag.device.name);//待定
+                            baojingItem.data.push(value.varCnName);
+                            baojingItem.data.push(value.alarmType);
                             baojingItem.data.push(value.info);
                             
                             dateTmp = new Date(value.actionTime);
                             baojingItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
                                         + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
 
+                            if(value.status == "1"){
+                                dateTmp = new Date(value.resumeTime);
+                                baojingItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
+                            }else{
+                                baojingItem.data.push("");
+                            }
+                            
+                            baojingItem.data.push(value.remark);
+                            
                             // 负责人信息设置
                             var fuzerenInfo = {};
                             fuzerenInfo.value = value.alarmHandleList.length + '人';
@@ -519,6 +532,10 @@
                                 var fuzerenInfoItem = {};
                                 fuzerenInfoItem.id = 'fzr_' + alarmvalue.user.id + '_' + value.id;
                                 fuzerenInfoItem.data = [];
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');
                                 fuzerenInfoItem.data.push('');
                                 fuzerenInfoItem.data.push('');
                                 fuzerenInfoItem.data.push('');
@@ -552,17 +569,7 @@
             
             function runurl(){
                 window.location.href="bcxi.html";
-            }	
-            
-            /**
-             * 定时刷新
-             * @returns {undefined}
-             */
-            function reflesh(){		
-                
-                document.location.reload();	
-           }	
-           setTimeout("reflesh()",60*1000);//每10秒钟刷新一次 
+            }
         </script>
         <STYLE type=text/css> 
             div.objbox { 

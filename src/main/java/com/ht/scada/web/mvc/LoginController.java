@@ -26,6 +26,7 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String fail(@RequestParam(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM) String username, Model model) {
 		model.addAttribute(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM, username);
+        model.addAttribute("errors", "用户名或密码错误！");
 		return "account/login";
 	}
 
