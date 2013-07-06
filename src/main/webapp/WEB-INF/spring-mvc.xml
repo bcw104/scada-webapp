@@ -11,14 +11,14 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<!-- 自动扫描且只扫描@Controller -->
-	<context:component-scan base-package="com.ht.scada.web.mvc" use-default-filters="false">
+	<context:component-scan base-package="com.ht.**.mvc" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
 	<mvc:annotation-driven>
-		<mvc:argument-resolvers>
-			<bean class="org.springframework.mvc.atmosphere.support.AtmosphereArgumentResolver" />
-		</mvc:argument-resolvers>
+		<!--<mvc:argument-resolvers>-->
+			<!--<bean class="org.springframework.mvc.atmosphere.support.AtmosphereArgumentResolver" />-->
+		<!--</mvc:argument-resolvers>-->
         <mvc:message-converters register-defaults="true">
             <!-- fastjosn spring support -->
             <ref bean="jsonConverter"></ref>
