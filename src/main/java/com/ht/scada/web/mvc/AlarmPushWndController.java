@@ -117,7 +117,7 @@ public class AlarmPushWndController {
 	/**
 	 * TODO: 仅用于模拟推送数据时使用
 	 */
-	@Scheduled(fixedDelay=5000)
+	//@Scheduled(fixedDelay=5000)
 	public void pollForMessages() {
 //
 //		String statusMessage = "A new message on " + new Date().toString();

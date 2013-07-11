@@ -24,6 +24,7 @@
 		<property name="successUrl" value="/" />
 		<property name="filterChainDefinitions">
 			<value>
+                    /sysinit = anon
                     /alarmpage/mobilesgt = anon
                     /alarmpage/mobiledlqx = anon
                     /alarmpage/mobiledgt = anon

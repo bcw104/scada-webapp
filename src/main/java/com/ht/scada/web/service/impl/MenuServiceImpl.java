@@ -29,4 +29,13 @@ public class MenuServiceImpl implements MenuService {
     public List<MenuItem> getAllMenuItem() {
         return menuItemDao.findAll();
     }
+    @Override
+    public void insertMenuItem(MenuItem item){
+        menuItemDao.save(item);
+    }
+    @Override
+    public void insertMenuType(MenuType menuType){
+        menuTypeDao.save(menuType);
+    }
+    
 }
