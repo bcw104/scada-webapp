@@ -10,7 +10,6 @@ import com.ht.scada.web.entity.MenuType;
 import java.util.List;
 
 public interface MenuService {
-     List<MenuItem> getAllMenuItem();
-
+    List<MenuItem> getAllMenuItem();
     List<MenuType> getAllMenuTypes();
 }

@@ -61,7 +61,7 @@ public class RealtimeDataController {
     }
 
     private int i = 0;
-	@Scheduled(fixedDelay=5000)
+	//@Scheduled(fixedDelay=5000)
 	public void pollForMessages() {
 
         //todo: 生成测试数据并推送
