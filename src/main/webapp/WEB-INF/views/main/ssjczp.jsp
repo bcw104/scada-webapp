@@ -7,6 +7,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>生产监控</title>        
         <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-zz.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css">
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
         <script src="${ctx}/static/js/highcharts.src.js"></script>
@@ -17,96 +22,9 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
-        <script type="text/javascript">
-            var objUrl='${ctx}';
-            var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
-        </script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
-        <style type="text/css">
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        </style>
         <script>
             var dhxWins,Grid,dhxWins,dhxWins1,dhxd,dhxd1,dhxd2,dhxd3,gr,dqgr,dqgr1,dqgr2;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
@@ -125,7 +43,7 @@
              * 页面初始化
              * @returns {undefined}
              */
-            function zp(){
+            function doOnLoad(){
                 createWindows();
                 createWindows1();
                 
@@ -822,32 +740,15 @@
                 dhxWins.window("win").attachHTMLString(dtu);
             }
         </script>
-        <STYLE type=text/css>
-            div.objbox { 
-                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
-                SCROLLBAR-HIGHLIGHT-COLOR: #FFDFFF; 
-                SCROLLBAR-SHADOW-COLOR: #FFDFFF; 
-                SCROLLBAR-3DLIGHT-COLOR: #FFDFFF; 
-                SCROLLBAR-ARROW-COLOR: #FFDFFF; 
-                SCROLLBAR-TRACK-COLOR: #FFFFFF;
-                SCROLLBAR-DARKSHADOW-COLOR: #FFDFFF
-            }
-            a:hover{
-                color:#09F
-            }
-            .cssdiv:hover{
-                color:#09F
-            }
-        </STYLE>
     </head>
-    <body onload="zp();">
+    <body>
         <!--主界面-->
         <div id="zz" style="width:3845px; height:717px;border:solid; border-color:#000; border-width:1px">
         <!--数据-->
         <div id="ssjcm" style="width:1280px; height:69px;  float:left; font-size: 0 " >
                 <%@ include file="ssjcCommon.jsp"%> 
                 <!--浮上-->
-                <div id="apDiv1" style=" background-color: black;">
+                <div id="apDiv1_1">
                     <div id="ad" style="width:70px; height:10; float:left; font-size:14px; background-color:#cde7ff; font-weight:bold; line-height:25px">
                          &nbsp;&nbsp;&nbsp;井标识
                     </div>
@@ -931,40 +832,49 @@
                         </div>
                         <div id="container2" style="display:none;"></div>
     		</div>
-</div>
-<!--地图-->
-<div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
-	<img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
-</div>
-<!--视频-->
-<div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
-<img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
-</div>
-</div>
-<div id="yin" >
-<img border="0"  src="imagess/1.png" />
-</div>
-<div id="yin1" >
- <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
-</div>
-<div id="yin2" >
- <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-</div>
-<div id="yin3" >
- <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-</div>
-<div id="yin4" >
- <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-</div>
-<div id="yin5" >
- <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-</div>
-<div id="yin6" >
- <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-</div>
-<div id="yin12" >
- <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-</div>
+        </div>
+        <!--地图-->
+        <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
+            <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+        </div>
+        <!--视频-->
+        <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
+        <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
+        </div>
+        </div>
+        <div id="yin" >
+        <img border="0"  src="imagess/1.png" />
+        </div>
+        <div id="yin1" >
+         <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
+        </div>
+        <div id="yin2" >
+         <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
+        </div>
+        <div id="yin3" >
+         <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
+        </div>
+        <div id="yin4" >
+         <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
+        </div>
+        <div id="yin5" >
+         <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
+        </div>
+        <div id="yin6" >
+         <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
+        </div>
+        <div id="yin12" >
+         <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
+        </div>
+        <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>
+        <div id="szan" >
+            <c:if test="${sysmgr == 1}">
+                <a href="${ctx}/main/mgr"><img border="0" src="${ctx}/static/img/sz.png" /></a>
+            </c:if>
+        </div>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
+        </div>
     </body>
 </html>

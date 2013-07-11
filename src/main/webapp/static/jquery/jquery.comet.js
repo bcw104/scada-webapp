@@ -22,7 +22,7 @@ jQuery.comet = {
             var params = {channels: self.channels.join(",")};
             self.channels = [];
             $.ajax({
-                url: "/_rt",
+                url: objUrl + "/_rt",
                 data: params,
                 dataType:'json',
                 complete:setTimeout( poll, 1000),

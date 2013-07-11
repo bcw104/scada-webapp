@@ -9,45 +9,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>系统管理</title>
-    <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx.css">  
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx.css"> 
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css"> 
     <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>  
     <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
-        <script type="text/javascript">
-            var objUrl='${ctx}';
-            var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
-        </script>
-    <style>
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0px;
-            overflow: hidden;
-            font-size:12px;
-        }
-        a:link {
-            COLOR: #0065ce; TEXT-DECORATION: none
-        }
-        a:visited {
-            COLOR: #0065ce; TEXT-DECORATION: none
-        }
-        a:hover {
-            COLOR: #ff0000; TEXT-DECORATION: underline
-        }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-    </style>
+    <script type="text/javascript">
+        var objUrl='${ctx}';
+        var username='${username}';
+    </script>
+    <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
     <script>
         var dhxLayout,dhxAccord,dhxTabbar;
         var item=[{id:'a1',name:'实时监控'} ];
@@ -98,7 +68,7 @@
 		}
 	</script>
 </head>
-<body onload="doOnLoad();">
+<body>
     <div id="menuMain0">
         <div id="menu1" style="padding-left: 20px;padding-top: 5px;height:15px;"><a href="#" onclick="openTab(1,'用户管理','${ctx}/admin/user/userManage')">用户管理</a></div>
         <div id="menu2" style="padding-left: 20px;padding-top: 5px;height:15px;"><a href="#" onclick="openTab(2,'修改密码','${ctx}/admin/user/pass')">修改密码</a></div>
@@ -106,12 +76,12 @@
         <!--<div id="menu2" style="padding-left: 20px;padding-top: 5px;height:15px;"><a href="#" onclick="openTab(4,'权限管理','${ctx}/admin/role/roleMenu')">权限管理</a></div>-->
     </div>
     <div id="head_div" style="float:left;width: 100%;height:83px;">
-        <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px"/>
-                        <map name="planetmap" id="planetmap">
-                            <area shape="rect" coords="1136,43,1184,62" href ="${ctx}/main/mgr" alt="设置" />
-                            <area shape="rect" coords="1209,44,1261,61" href ="${ctx}/logout" alt="退出" />
-                        </map>
+        <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px; width: 100%"/>
+        <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
+        </div>
     </div>
 </body>
 </html>

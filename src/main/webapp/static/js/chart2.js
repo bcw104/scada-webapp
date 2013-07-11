@@ -7,7 +7,10 @@ var options_scdt = {
 		text: ''
 	},
 	xAxis: {
-		categories: []
+		categories: [],
+        labels:{ 
+            step:0 
+        } 
 	},
 	yAxis: {
 		min: 0,
@@ -21,7 +24,10 @@ var options_scdt = {
 	},
 	tooltip: {
 		shared: true,
-							
+		formatter: function() {
+            return this.x +'<br/>'+
+            this.points[0].series.name + ': ' + this.y + '&nbsp;' + this.points[0].series.options.unit;
+        }					
 	},
 	plotOptions: {
 		column: {
@@ -62,6 +68,12 @@ function createScdtQx(a,b,c,d,e){
     options_scdt.series = [];
     options_scdt.chart.renderTo = d;
     options_scdt.xAxis.categories=xAxisData;
+    
+    if(xAxisData.length > 10){
+        options_scdt.xAxis.labels.step = 5;
+    }else{        
+        options_scdt.xAxis.labels.step = 0;
+    }
     options_scdt.yAxis.title.text = e;
     options_scdt.series.push(series);
     
@@ -98,6 +110,11 @@ function createScdtQx_pj(a,b,c,d,e,f){
     options_scdt.series = [];
     options_scdt.chart.renderTo = d;
     options_scdt.xAxis.categories=xAxisData;
+    if(xAxisData.length > 10){
+        options_scdt.xAxis.labels.step = 5;
+    }else{        
+        options_scdt.xAxis.labels.step = 0;
+    }
     options_scdt.yAxis.title.text = e;
     options_scdt.series.push(series);
     

@@ -1,5 +1,6 @@
 package com.ht.scada.web.mvc;
 
+import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,13 @@ public class ProducePageController {
     
     @RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
-
+        
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
         model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "produce/scjl";

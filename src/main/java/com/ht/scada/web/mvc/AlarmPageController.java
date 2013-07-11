@@ -2,6 +2,7 @@ package com.ht.scada.web.mvc;
 
 import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.common.tag.service.EndTagService;
+import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,13 @@ public class AlarmPageController {
     
 	@RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
-
+        
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
         model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "alarm/bjxix";
@@ -33,6 +40,13 @@ public class AlarmPageController {
     
     @RequestMapping(value="cyj")
 	public String cyj(@RequestParam("id") int id, @RequestParam("actionTime") String actionTime, Model model) {
+        
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
         
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
@@ -46,6 +60,13 @@ public class AlarmPageController {
     @RequestMapping(value="dqb")
 	public String dqb(@RequestParam("id") int id,@RequestParam("actionTime") String actionTime, Model model) {
         
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
+        
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
@@ -57,6 +78,13 @@ public class AlarmPageController {
     
     @RequestMapping(value="zp")
 	public String zp(@RequestParam("id") int id, @RequestParam("actionTime") String actionTime, Model model) {
+        
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
         
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
@@ -70,6 +98,13 @@ public class AlarmPageController {
     @RequestMapping(value="mj")
 	public String mj(@RequestParam("id") int id, @RequestParam("actionTime") String actionTime, Model model) {
         
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
+        
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
@@ -81,6 +116,13 @@ public class AlarmPageController {
     
     @RequestMapping(value="lgb")
 	public String lgb(@RequestParam("id") int id, @RequestParam("actionTime") String actionTime, Model model) {
+        
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
         
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
@@ -94,6 +136,13 @@ public class AlarmPageController {
     @RequestMapping(value="zq")
 	public String zq(@RequestParam("id") int id, @RequestParam("actionTime") String actionTime, Model model) {
         
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
+        
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);
         model.addAttribute("info", endTag);
@@ -105,6 +154,13 @@ public class AlarmPageController {
     
     @RequestMapping(value="glj")
 	public String glj(@RequestParam("id") int id, @RequestParam("actionTime") String actionTime, Model model) {
+        
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
         
         EndTag endTag = endTagService.getById(id);
 		model.addAttribute("id", id);

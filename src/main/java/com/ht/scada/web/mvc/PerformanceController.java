@@ -688,6 +688,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
+            formatDate = new SimpleDateFormat("HH:mm:ss");
             lstDataCount = wellService.getHourLineData_liquid(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_liquid(dateStart, calEnd.getTime());
@@ -766,6 +767,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
+            formatDate = new SimpleDateFormat("HH:mm:ss");
             lstDataCount = wellService.getHourLineData_kjs(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_kjs(dateStart, calEnd.getTime());
@@ -844,6 +846,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
+            formatDate = new SimpleDateFormat("HH:mm:ss");
             lstDataCount = wellService.getHourLineData_ydl(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_ydl(dateStart, calEnd.getTime());
@@ -922,6 +925,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
+            formatDate = new SimpleDateFormat("HH:mm:ss");
             lstDataCount = wellService.getHourLineData_zql(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_zql(dateStart, calEnd.getTime());

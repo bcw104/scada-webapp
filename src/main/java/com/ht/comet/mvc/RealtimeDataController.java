@@ -48,11 +48,11 @@ public class RealtimeDataController {
         String clientId = (String) session.getAttribute(HT_COMET_ID);
         if (clientId == null) {
             clientId = UUID.randomUUID().toString();
-            log.debug("new client {}", clientId);
+            //log.debug("new client {}", clientId);
             session.setAttribute(HT_COMET_ID, clientId);
         }
         if (channels != null) {
-            log.debug(Arrays.toString(channels));
+            //log.debug(Arrays.toString(channels));
             for (String channel : channels) {
                 subscribe(clientId, channel);
             }

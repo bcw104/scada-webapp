@@ -59,12 +59,20 @@
 //                        creatGrid(item);
 //                    }
 //                });
-                $(".role_menutype").click(function() {
-                    var chk = this.checked;
-                    var cls = ".menuitem_" + this.value;
-                    $(cls).attr("checked", chk);
-                });
+//                $(".role_menutype").click(function() {
+//                    var chk = this.checked;
+//                    var cls = ".menuitem_" + this.value;
+//                    $(cls).attr("checked", chk);
+//                });
                 doOnRowSelected();
+            }
+            function selectall(val){
+                var cls = ".menuitem_" + val;
+                $(cls).attr("checked", "true");
+            }
+            function selectnoall(val){
+                var cls = ".menuitem_" + val;
+                $(cls).removeAttr("checked");
             }
             function creatLayout() {
                 dhxLayout = new dhtmlXLayoutObject(document.body, "1C");
@@ -164,8 +172,9 @@
             <c:forEach var="mt" items="${mtList}">
                 <div style="border:solid; border-width:1px; border-color:#ccc; margin:10px; ">
                     <p class="role_title_cls">
-                        <input name="menutype" type="checkbox" value="${mt.id}" id="menutype_${mt.id}" class="role_menutype"  />
+                        <!--<input name="menutype" type="checkbox" value="${mt.id}" id="menutype_${mt.id}" class="role_menutype"  />-->
                         <label for="menutype_${mt.id}">${mt.menuTypeName}</label>
+                        &nbsp;&nbsp<a href="#" onclick="selectall(${mt.id});">全部选中</a> <a href="#" onclick="selectnoall(${mt.id});">取消全选</a>
                     </p>
                     <c:forEach var="item" items="${mt.menuItems}">
                         <div class="role_item_cls" >

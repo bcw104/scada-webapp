@@ -7,6 +7,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>生产监控</title>        
         <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-zz.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css">        
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
         <script src="${ctx}/static/js/highcharts.src.js"></script>
@@ -15,104 +20,9 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
-        <script type="text/javascript">
-            var objUrl='${ctx}';
-            var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
-        </script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
-        <style type="text/css">
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #apDiv1 {
-                position:absolute;
-                left:207px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        </style>
         <script>
             var dhxWins,dhxWins1,dhxWins2,dhxTabbar,dhLayout,lo,lc,ld,lh,Grid,Grid2,Grid3,Grid4,dhxd,dhxd1,dhxd2,dhxd3,gr,rtugr,lgbgr1,lgbgr2,lgbgr3,Grxn;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
@@ -140,7 +50,7 @@
              * 页面初始化
              * @returns {undefined}
              */
-            function ss(){
+            function doOnLoad(){
                 createTabble();
                  //工况信息
                 createlgbGr();
@@ -619,7 +529,7 @@
                 Grid= new dhtmlXGridObject('cgqyx2');
                 Grid.setImagePath("js/gridcodebase/imgs/");
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
-                Grid.setInitWidths("158,158,158,120,120,120");
+                Grid.setInitWidths("65,65,65,100,80,55");
                 Grid.setColAlign("center,center,center,center,center,center");
                 Grid.setColTypes("ro,img,ro,ro,ro,img");
                 Grid.init();
@@ -1148,25 +1058,8 @@
                     });                    
                 }
         </script>
-        <STYLE type=text/css>
-            div.objbox { 
-                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
-                SCROLLBAR-HIGHLIGHT-COLOR: #FFDFFF; 
-                SCROLLBAR-SHADOW-COLOR: #FFDFFF; 
-                SCROLLBAR-3DLIGHT-COLOR: #FFDFFF; 
-                SCROLLBAR-ARROW-COLOR: #FFDFFF; 
-                SCROLLBAR-TRACK-COLOR: #FFFFFF;
-                SCROLLBAR-DARKSHADOW-COLOR: #FFDFFF
-            }
-            a:hover{
-                color:#09F
-            }
-            .cssdiv:hover{
-                color:#09F
-            }
-        </STYLE>
     </head>
-    <body onload="ss();">
+    <body>
         <!--主界面-->
             <div id="zz" style="width:3845px; height:717px;border:solid; border-color:#000; border-width:1px">
                 <!--数据-->
@@ -1387,6 +1280,15 @@
             <div id="yin12" >
                 <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
             </div>
+            <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>
+        <div id="szan" >
+            <c:if test="${sysmgr == 1}">
+                <a href="${ctx}/main/mgr"><img border="0" src="${ctx}/static/img/sz.png" /></a>
+            </c:if>
+        </div>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
+        </div>
     </body>
 </html>

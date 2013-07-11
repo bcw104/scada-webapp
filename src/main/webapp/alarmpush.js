@@ -52,8 +52,11 @@ $(document).ready(function() {
 	}
 
     $.comet.init().subscribe("/admin", function(msg){
-        console.log(msg);
-        $('#latestMessage').html(msg);
+//        console.log(msg);
+//        var txt = $('#latestMessage').html() + "," + msg;
+//        $('#latestMessage').html(txt);
+        
+        add('','报警提示',msg,false);
     });
 
 	var socket = $.atmosphere;

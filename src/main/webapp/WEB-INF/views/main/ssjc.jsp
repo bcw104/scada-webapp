@@ -7,6 +7,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>生产监控</title>
         <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css">
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>        
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/dhtmlxtreegrid.js"></script>
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
@@ -15,117 +20,17 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
-        <script type="text/javascript">
-            var objUrl='${ctx}';
-            var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
-        </script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
-        <style type="text/css">
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            .s1{ color:red;}
-            .s2{ color:#000;}
-            .cssdiv:hover{
-                color:#09F
-            }
-            .cssdiv1:hover{
-                color:#09F
-            }
-            .cssdiv2:hover{
-                color:#09F
-            }
-            .cssdiv3:hover{
-                color:#09F
-            }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        </style>
+        <script type="text/javascript" src="${ctx}/static/js/common.js"></script>
         <script>
             var dhLayout,toolbar,treeGrid,dhxTabbar,Grid,Grid1,Grid2,Grid3,Grid4,dhxWins;
             /**
              * 生产监控信息初始化
              * @returns {undefined}
              */
-            function ssjc(){
+            function doOnLoad(){
                 
                 // 井矿信息生成
                 createTreeGrid();
@@ -134,8 +39,12 @@
                 createGr();
                 creategr();
                 createWindow();
-                $(".cssdiv").addClass("s1");
+                
             }
+            
+            $(function () {
+                $(".cssdiv").addClass("s1");
+            });
             
             function createWindow(){
                 dhxWins = new dhtmlXWindows();
@@ -243,6 +152,8 @@
 
 //                                    treeGrid.openItem("1001");
                                     treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
+
+                                        if(rId.toString().indexOf('j||') < 0) return false;
                                         
                                         var wellTypeInfo = rId.split('||');
 //                                        alert(wellTypeInfo[1] + "----" + wellTypeInfo[2] + "----" + wellTypeInfo[3]);
@@ -632,6 +543,7 @@
                 }
                 return itemson;
             }
+            
             function createGr(){
                 Grid= new dhtmlXGridObject('zsz');
                 Grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
@@ -660,6 +572,7 @@
                 });
                 //Grid.load('data/ssjcgrid.json','json');
             }
+            
             function jsonManagejz(json,jz){
                 var itemson={rows:[]};
                 if(jz!=""){
@@ -853,28 +766,13 @@
                 $("#gr3").css("display","block");
             }
         </script>
-        <STYLE type=text/css> 
-            div.objbox { 
-                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
-                SCROLLBAR-HIGHLIGHT-COLOR: #E3E3E3; 
-                SCROLLBAR-SHADOW-COLOR: #E3E3E3; 
-                SCROLLBAR-3DLIGHT-COLOR: #E3E3E3; 
-                SCROLLBAR-ARROW-COLOR: #E3E3E3; 
-                SCROLLBAR-TRACK-COLOR: #FFFFFF;
-                SCROLLBAR-DARKSHADOW-COLOR: #E3E3E3
-            }
-        </STYLE>
     </head>
-    <body onload="ssjc();"><div id="tmpWell"></div>
+    <body><div id="tmpWell"></div>
         <div id="zz" style="width:3845px; height:717px;border:solid;border-width:1px">
             <!--数据-->
             <div id="ssjc" style="width:1280px; height:69px;  float:left; font-size: 0 " >
                 <div id="ssjc" style="width:1280px; height:10;">
                     <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px"/>
-                    <map name="planetmap" id="planetmap">
-                        <area shape="rect" coords="1136,43,1184,62" href ="${ctx}/main/mgr" alt="设置" />
-                        <area shape="rect" coords="1209,44,1261,61" href ="${ctx}/logout" alt="退出" />
-                    </map>
                 </div>
                 <div id="tool" style="width:119px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <a href="#" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
@@ -1018,6 +916,15 @@
         <div id="yin12" >
             <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
         </div>
+        <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>
+        <div id="szan" >
+            <c:if test="${sysmgr == 1}">
+                <a href="${ctx}/main/mgr"><img border="0" src="${ctx}/static/img/sz.png" /></a>
+            </c:if>
+        </div>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
+        </div>
     </body>
 </html>
