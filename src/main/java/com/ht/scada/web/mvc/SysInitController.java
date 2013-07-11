@@ -35,7 +35,7 @@ public class SysInitController {
      */
 	@RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-	public String test(RedirectAttributes redirectAttributes) {
+	public String sysinit(RedirectAttributes redirectAttributes) {
         
 		log.debug("初始化用户：{}/{}", "admin", "admin");
         User user = userService.getUserByUsername("admin");
