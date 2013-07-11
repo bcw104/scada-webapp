@@ -13,6 +13,7 @@ var options = {
     xAxis: {
         categories: [],
         gridLineWidth:1,
+        max:0
     },
     yAxis: {
         title: {},
@@ -90,16 +91,23 @@ function createSg(p_code,p_data) {
                 }          
             });   
             
+            var weiyiTmp = 0;
             options.series = [];
             series.name = '示功图';
             series.unit = 'm';
             for (var i=0; i<str_xAxis.length; i++){
-                
-                series.data.push([str_xAxis[i],str_yAxis[i]]);
+
+                if((Number(str_xAxis[i])) > weiyiTmp){
+                    weiyiTmp = str_xAxis[i];
+                }
+
+                series.data.push([str_xAxis[i], str_yAxis[i]]);
             }
             options.chart.renderTo = 'containerr';
+            options.xAxis.max = Math.ceil(weiyiTmp);
             options.yAxis.title.text = '示功图';
-            options.series.push(series);
+            options.series.push(series);//alert(series.data);
+//            options.series = series;
             new Highcharts.Chart(options);
         }
     });

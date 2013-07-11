@@ -4,6 +4,7 @@ import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.common.tag.entity.MajorTag;
 import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.common.tag.service.MajorTagService;
+import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,13 @@ public class PerformancePageController {
     @RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
 
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
+        
         model.addAttribute("name", userService.getCurrentUser().getName());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "performance/scdt";
@@ -42,6 +50,13 @@ public class PerformancePageController {
     @RequestMapping(value="majortagpage")
 	public String majortagpage(@RequestParam("id") int id, Model model) {
 
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
+        
         MajorTag majorTag = majorTagService.getById(id);
         model.addAttribute("info", majorTag);
         model.addAttribute("name", userService.getCurrentUser().getName());
@@ -52,6 +67,13 @@ public class PerformancePageController {
     @RequestMapping(value="endtagpage")
 	public String endtagpage(@RequestParam("id") int id, Model model) {
 
+        User user = (User)userService.getCurrentUser();
+        if(user.getUserRole().getPermissions().size() > 0 && user.getUserRole().getPermissions().contains("sysmgr")){
+            model.addAttribute("sysmgr", 1);
+        }else{
+            model.addAttribute("sysmgr", 0);
+        }
+        
         EndTag endTag = endTagService.getById(id);
         model.addAttribute("info", endTag);
         model.addAttribute("name", userService.getCurrentUser().getName());

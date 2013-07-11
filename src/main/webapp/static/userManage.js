@@ -258,31 +258,17 @@ function addUserFormSubmit(){
     
     var partten = /^1[3,5,8]\d{9}$/;
     var epartten = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-    
+//    alertMessage(dption);return false;
     // 用户名
     if($.trim(uName)==''){        
         alertMessage("用户名不能为空");        
         return;
+    }else if($.trim(uName).length <6){
+        alertMessage("用户名长度不能小于6位！");
+        return false;
     // 姓名
     }else if($.trim(rName)==''){        
         alertMessage("姓名不能为空");
-        return;
-    // 角色
-    }else if(dption==''){
-        alertMessage("角色不能为空");
-        return;
-    // 密码
-    }else if($.trim(pass)==''){
-        alertMessage("密码不能为空");
-        return;
-    // 确认密码
-    }else if($.trim(rpass)==''){
-        alertMessage("请确认密码！");
-        return;
-        
-    // 密码与确认密码
-    }else if($.trim(pass)!=$.trim(rpass)){
-        alertMessage("密码与确认密码不相符，请重新输入！");
         return;
     // 部门
     }else if($.trim(department)==''){        
@@ -290,15 +276,42 @@ function addUserFormSubmit(){
         return;
     // 地址
     }else if($.trim(address)==''){        
-        alertMessage("部门不能为空");        
+        alertMessage("地址不能为空");        
         return;
     // Email
-    }else if($.trim(email)=='' || !epartten.test($.trim(email))){        
+    }else if($.trim(email)==''){        
+        alertMessage("Email不能为空");        
+        return;
+    // Email
+    }else if(!epartten.test($.trim(email))){        
         alertMessage("Email输入有误，请重新输入");        
         return;
     // 电话
-    }else if($.trim(telphone)=='' || !partten.test($.trim(telphone))){        
+    }else if($.trim(telphone)==''){        
+        alertMessage("电话不能为空");        
+        return;
+    // 电话
+    }else if(!partten.test($.trim(telphone))){        
         alertMessage("电话输入有误，请重新输入");        
+        return;
+    // 角色
+    }else if(dption==null){
+        alertMessage("角色不能为空");
+        return;
+    // 密码
+    }else if($.trim(pass)==''){
+        alertMessage("密码不能为空");
+        return;
+    }else if($.trim(pass).length <6){
+        alertMessage("密码长度不能小于6位！");
+        return false;
+    // 确认密码
+    }else if($.trim(rpass)==''){
+        alertMessage("请确认密码！");
+        return;        
+    // 密码与确认密码
+    }else if($.trim(pass)!=$.trim(rpass)){
+        alertMessage("密码与确认密码不相符，请重新输入！");
         return;
     }else{
         
@@ -346,14 +359,10 @@ function updateUserFormSubmit(){
     
     var partten = /^1[3,5,8]\d{9}$/;
     var epartten = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-    
+
     // 姓名
     if($.trim(rName)==''){        
         alertMessage("姓名不能为空");
-        return;
-    // 角色
-    }else if(dption==''){
-        alertMessage("角色不能为空");
         return;
     // 部门
     }else if($.trim(department)==''){        
@@ -361,15 +370,27 @@ function updateUserFormSubmit(){
         return;
     // 地址
     }else if($.trim(address)==''){        
-        alertMessage("部门不能为空");        
+        alertMessage("地址不能为空");        
         return;
     // Email
-    }else if($.trim(email)=='' || !epartten.test($.trim(email))){        
+    }else if($.trim(email)==''){        
+        alertMessage("Email不能为空");        
+        return;
+    // Email
+    }else if(!epartten.test($.trim(email))){        
         alertMessage("Email输入有误，请重新输入");        
         return;
     // 电话
-    }else if($.trim(telphone)=='' || !partten.test($.trim(telphone))){        
+    }else if($.trim(telphone)==''){        
+        alertMessage("电话不能为空");        
+        return;
+    // 电话
+    }else if(!partten.test($.trim(telphone))){        
         alertMessage("电话输入有误，请重新输入");        
+        return;
+    // 角色
+    }else if(dption==null){
+        alertMessage("角色不能为空");
         return;
     }
     

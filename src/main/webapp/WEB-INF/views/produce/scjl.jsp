@@ -6,7 +6,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>生产运行记录</title>
-        <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z-wing.css" />        
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z-wing.css" /> 
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css">    
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>   
         <script type="text/javascript" src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script type="text/javascript" src="${ctx}/static/dhtmlx/js/treeGridcodebae/dhtmlxtreegrid.js"></script>
         <script type="text/javascript" src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
@@ -14,195 +19,9 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
-        <script type="text/javascript">
-            var objUrl='${ctx}';
-            var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
-        </script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
-        <style type="text/css">
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #hhk1{
-                position:absolute;
-                left:460px;
-                top:210px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #xian{
-                position:absolute;
-                left:489px;
-                top:238px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc1{
-                position:absolute;
-                left:1047px;
-                top:623px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc2{
-                position:absolute;
-                left:1047px;
-                top:535px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc3{
-                position:absolute;
-                left:865px;
-                top:600px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc4{
-                position:absolute;
-                left:1090px;
-                top:600px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc5{
-                position:absolute;
-                left:350px;
-                top:200px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc6{
-                position:absolute;
-                left:916px;
-                top:500px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc7{
-                position:absolute;
-                left:916px;
-                top:600px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc8{
-                position:absolute;
-                left:900px;
-                top:530px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc9{
-                position:absolute;
-                left:1050px;
-                top:530px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            .s1{ color:red;}
-            .s2{ color:#000;}
-            .cssdiv:hover{
-                color:#09F
-            }
-            .cssdiv1:hover{
-                color:#09F
-            }
-            .cssdiv2:hover{
-                color:#09F
-            }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        </style>
         <script type="text/javascript">
             var dhxTabbar,dhxTabbar1,dhxTabble,createTabble3,createTreeGrid1,treeGrid,treeGrid1,Grid,dhxWins,dhxWin,Grid1,Grid2,Grid3,Grid4,Grid5,Grid6,Grid7,Grid8,Grid9,Grid10;
             var tubiao='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/tbb.png"  style="width:100%; height:100%"></img></div>';
@@ -211,15 +30,11 @@
              * 页面初始化
              * @returns {undefined}
              */
-            function scjll(){
+            function doOnLoad(){
 
                 $(".cssdiv").addClass("s1");
                 createTabble();
                 createTreeGrid1();
-//                createTreeGrid();
-//                createGrid();
-//                createWindow();
-//                createWindows();
             }
             
             /**
@@ -327,7 +142,8 @@
                 // 封装网络表格JSON
                 $.each(p_json, function(key, value){
                     
-                    if((value.name.indexOf($.trim($("#txtName").val())) >= 0) && (String(value.address).indexOf($.trim($("#txtAddress").val())) >= 0)){
+                    if((value.name.indexOf($.trim($("#txtName").val())) >= 0) 
+                            && ($.trim($("#txtAddress").val()) == "" || (String(value.address) == $.trim($("#txtAddress").val())))){
                         var tmpDevice = new Object(); 
                         tmpDevice.id = value.id;
                         tmpDevice.data = [];
@@ -343,7 +159,8 @@
                         tmpDevice.data.push(value.number);
                         tmpDevice.data.push(value.address);
                         tmpDevice.data.push(value.endtagname);
-                        tmpDevice.data.push(value.ip);
+                        var ipTmp = value.ip.split('|');
+                        tmpDevice.data.push(ipTmp[1]);
                         tmpDevice.data.push(value.state == "true" ? "正常" : "非正常");
 
                         $.each(value.sensor, function(keySensor, valueSensor){
@@ -357,7 +174,8 @@
                             tmpSensor.data.push(valueSensor.number);
                             tmpSensor.data.push(valueSensor.address);
                             tmpSensor.data.push(valueSensor.endtagname);
-                            tmpSensor.data.push(valueSensor.ip);
+                            var ipTmp = valueSensor.ip.split('|');
+                            tmpSensor.data.push(ipTmp[1]);
                             tmpSensor.data.push(valueSensor.state == "true" ? "正常" : "非正常");
 
                             tmpDevice.rows.push(tmpSensor);
@@ -612,19 +430,8 @@
             }
             
         </script>
-        <STYLE type=text/css> 
-            div.objbox { 
-                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
-                SCROLLBAR-HIGHLIGHT-COLOR: #e6d5ff; 
-                SCROLLBAR-SHADOW-COLOR: #e6d5ff; 
-                SCROLLBAR-3DLIGHT-COLOR: #e6d5ff; 
-                SCROLLBAR-ARROW-COLOR: #e6d5ff; 
-                SCROLLBAR-TRACK-COLOR: #FFFFFF;
-                SCROLLBAR-DARKSHADOW-COLOR: #e6d5ff
-            }
-        </STYLE>
     </head>
-    <body onload="scjll();">
+    <body>
         <div id="divkd"></div>
         <div id="zy"  style="width:3845px; height:717px;border:solid; border-width:1px">
             <!--数据-->
@@ -632,10 +439,6 @@
                 <!--logo-->
                 <div id="sscjl" style="width:1280px; height:10;">
                     <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px"/>
-                        <map name="planetmap" id="planetmap">
-                            <area shape="rect" coords="1136,43,1184,62" href ="${ctx}/main/mgr" alt="设置" />
-                            <area shape="rect" coords="1209,44,1261,61" href ="${ctx}/logout" alt="退出" />
-                        </map>
                 </div>
                 <div id="tool" style="width:119px; height:20;  border-right-style:solid;border-right-color:#06F; border-right-width:1px; float:left">
                     <a  href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk.png" style="width:119px; height:33px"/></a>
@@ -1185,6 +988,15 @@
         <div id="bc9" style=" display:none;background: url(${ctx}/static/img/dialog.png); text-align:center;padding-top:10px;color:red;font-size:10px" onclick="closedDiv(9);">
             线路不通<br>IP:192.168.1.5
         </div>
-        <div id="szda" style="width:300px;"></div>
+        <div id="sztitle" style="width:300px;"></div>
+        <div id="szda" style="width:300px;"></div>        
+        <div id="szan" >
+            <c:if test="${sysmgr == 1}">
+                <a href="${ctx}/main/mgr"><img border="0" src="${ctx}/static/img/sz.png" /></a>
+            </c:if>
+        </div>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
+        </div>
     </body>
 </html>

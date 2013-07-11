@@ -1,0 +1,160 @@
+@charset "utf-8";
+/* CSS Document */
+
+html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0px;
+            }
+            #yin {
+                position:absolute;
+                left:1600px;
+                top:146px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+            }
+            #yin1 {
+                position:absolute;
+                left:2000px;
+                top:350px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+            }
+            #yin2 {
+                position:absolute;
+                left:1900px;
+                top:320px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+            }
+            #yin3{
+                position:absolute;
+                left:1520px;
+                top:500px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+            }
+            #yin4 {
+                position:absolute;
+                left:1756px;
+                top:280px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+            }
+            #yin5 {
+                position:absolute;
+                left:2000px;
+                top:400px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+            }
+            #yin6 {
+                position:absolute;
+                left:1800px;
+                top:550px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+            }
+            #yin12 {
+                position:absolute;
+                left:1500px;
+                top:300px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+            }
+            #apDiv1 {
+                position:absolute;
+                left:207px;
+                top:146px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+            }
+            #divkd {
+                display:none;
+                position:absolute;
+                background:url(../static/img/kd.jpg);
+                left:18px;
+                top:491px;
+                width:64px;
+                height:216px;
+                z-index:1;
+            }
+            .s1{ color:red;}
+            .s2{ color:#000;}
+            .cssdiv:hover{
+                color:#09F
+            }
+            .cssdiv1:hover{
+                color:#09F
+            }
+            #sztitle {
+                position:absolute;
+                left:157px;
+                top:22px;
+                width:450px;
+                height:40px;
+                z-index:1;
+                color: #fff;
+                font-size: 28px;
+                font-weight: bold;
+            }
+            #szda {
+                position:absolute;
+                left:724px;
+                top:38px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+                color: #fff;
+                font-size: 14px;
+                font-weight: bold;
+            }
+            #szan {
+                position:absolute;
+                left:1120px;
+                top:55px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+                color: #fff;
+                font-size: 14px;
+                font-weight: bold;
+            }
+            #tcan {
+                position:absolute;
+                left:1200px;
+                top:55px;
+                width:1075px;
+                height:27px;
+                z-index:1;
+                color: #fff;
+                font-size: 14px;
+                font-weight: bold;
+            }
+            
+            div.objbox { 
+                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
+                SCROLLBAR-HIGHLIGHT-COLOR: #e6d5ff; 
+                SCROLLBAR-SHADOW-COLOR: #e6d5ff; 
+                SCROLLBAR-3DLIGHT-COLOR: #e6d5ff; 
+                SCROLLBAR-ARROW-COLOR: #e6d5ff; 
+                SCROLLBAR-TRACK-COLOR: #FFFFFF;
+                SCROLLBAR-DARKSHADOW-COLOR: #e6d5ff
+            }
+            a:hover{
+                color:#09F
+            }
+            .cssdiv:hover{
+                color:#09F
+            }
+    .radioBtn {height: 16px;vertical-align: middle;}
+    .checkboxBtn {vertical-align: middle;margin-right: 2px;}

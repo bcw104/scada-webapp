@@ -6,10 +6,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>报警信息</title>
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlxtoolbar_dhx_skyblue.css">
         <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z-bjxix.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css">
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/dhtmlxtreegrid.js"></script>
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
+        <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_pgn_1.js"></script>
+        <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/ext/dhtmlxgridcell.js"></script>
+        <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/ext/dhtmlxtoolbar.js"></script>
         <script src="${ctx}/static/jquery/jquery-1.8.2.min.js"></script>
         <script src="${ctx}/static/jquery/highstock.js"></script>
         <script src="${ctx}/static/js/map.js" type="text/javascript"></script>
@@ -20,111 +25,10 @@
         <script type="text/javascript">
             var objUrl='${ctx}';
             var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
         </script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
-        <style type="text/css">
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #divkd {
-                display:none;
-                position:absolute;
-                background:url(${ctx}/static/img/kd.jpg);
-                left:18px;
-                top:491px;
-                width:64px;
-                height:216px;
-                z-index:1;
-            }
-            .s1{ color:red;}
-            .s2{ color:#000;}
-            .cssdiv:hover{
-                color:#09F
-            }
-            .cssdiv1:hover{
-                color:#09F
-            }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        </style>
         <script type="text/javascript">
             var treeGrid,dhxWins,dhxWins1,grid1,grid2,grid3,grid4,grid5,grid6;
             
@@ -243,20 +147,12 @@
                 
             // 曲线点
             var mapPoint;
-            // 当前系统时间
-            var dateNow;
-            // 曲线初始化
-            $(function () {
-                
-                // 获得系统时间
-                $.ajax({
-                    type: 'POST',
-                    url: '${ctx}/alarm/now',
-                    dateType:'json',
-                    success: function(json){
-                        dateNow = json;
-                    }
-                });
+            
+            /**
+             * 报警信息初始化
+             * @returns {undefined}
+             */
+            function doOnLoad(){
                 
                 // 获得实时报警信息
                 $.ajax({
@@ -319,7 +215,7 @@
 
                                         seriesItme1Tmp.push([Number(itemvalue.actionTime), 0]);
                                         seriesItme1Tmp.push([Number(itemvalue.actionTime), (value.length - itemkey)]);
-                                        seriesItme1Tmp.push([Number(dateNow), (value.length - itemkey)]);
+                                        seriesItme1Tmp.push([Number(dateSysNow), (value.length - itemkey)]);
 
                                         seriesItme1.push(seriesItme1Tmp);
 
@@ -365,7 +261,7 @@
                                         baojingData.rows.push(baojingItem);
                                     }); 
 
-                                    var strDivHtml = '  <div id="jxxtp_' + key + '" style="width:1245px; height:193px;border:solid; border-width:1px; border-color:#e6d5ff;  float:left; ">';
+                                    var strDivHtml = '  <div id="jxxtp_' + key + '" style="width:1200px; height:193px;border:solid; border-width:1px; border-color:#e6d5ff;  float:left; ">';
                                     strDivHtml += '         <div id="mcxxll1_' + key + '" style="float:left; height:193px; width:190px">';
 
                                     if(loopIndex % 2 === 0){                            
@@ -380,7 +276,7 @@
                                     strDivHtml += '             <div id="mcxx11_' + key + '" style=" height:81px; width:188px;cursor:pointer ; background-color:#0C3;" ></div>';
                                     strDivHtml += '             <div id="mcxx12_' + key + '" style=" height:81px; width:188px;cursor:pointer ; background-color:#03C;" ></div>';
                                     strDivHtml += '         </div>';
-                                    strDivHtml += '         <div id="mcltb1_' + key + '" style=" height:193px; width:1055px; margin-left:190px;"></div>';
+                                    strDivHtml += '         <div id="mcltb1_' + key + '" style=" height:193px; width:1035px; margin-left:190px;"></div>';
                                     strDivHtml += '     </div>';
 
                                     $("#qxContent").append(strDivHtml);                            
@@ -396,7 +292,7 @@
 
                                     // 负责人
                                     grid2 = new dhtmlXGridObject('mcxx12_' + key);
-                                    grid2.setImagePath("js/gridcodebase/imgs/");
+                                    grid2.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                                     grid2.setHeader(["负 责 人"]);
                                     grid2.setInitWidths("*");
                                     grid2.setColAlign("center");
@@ -442,25 +338,21 @@
                             });                             
                         });
                     }
-                });     
-            });
-		</script>
-        <script>          
-            
-            /**
-             * 报警信息初始化
-             * @returns {undefined}
-             */
-            function bjxx(){
+                }); 
+                // 历史记录
                 createTreeGrid();
+            }            
+            
+            $(function () {
                 $(".cssdiv1").addClass("s1");
-            }
+            });
             
             function jk(cdiv){
                 $(".cssdiv1").removeClass("s1");
                 $(cdiv).addClass("s1");
                 $("#gr").css("display","block");
                 $("#gr1").css("display","none");
+                $("#recinfoArea").children().css("width","1245px");
             }
             
             function jk1(cdiv){
@@ -477,13 +369,13 @@
             function createTreeGrid(){
                 treeGrid = new dhtmlXGridObject('wltp');
                 treeGrid.selMultiRows = true;
-                treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/icons_greenfolders/";
+                treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/";
                 treeGrid.setHeader("序号,报警对象,设备,变量名,报警类型,报警原因,报警时间,解除时间,其它信息,负责人,回复时间,处理时间,评价");
                 treeGrid.setInitWidths("100,125,125,150,150,150,150,150,150,150,150,150,*");
                 treeGrid.setColAlign("center,center,center,center,center,center,center,center,center,left,center,center,center");
                 treeGrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,tree,ro,ro,ro");
-                treeGrid.init();
-                treeGrid.enableMultiselect(true);
+//                treeGrid.enableMultiselect(true);
+                
                 
                 // 获得工况信息
                 $.ajax({
@@ -562,6 +454,9 @@
                             baojingData.rows.push(baojingItem);
                         });
 
+                        treeGrid.enablePaging(true,10,3, "recinfoArea");
+                        treeGrid.setPagingSkin("toolbar", "dhx_skyblue");
+                        treeGrid.init();
                         treeGrid.parse(baojingData,'json');
                     }
                 }); 
@@ -571,29 +466,14 @@
                 window.location.href="bcxi.html";
             }
         </script>
-        <STYLE type=text/css> 
-            div.objbox { 
-                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
-                SCROLLBAR-HIGHLIGHT-COLOR: #e6d5ff; 
-                SCROLLBAR-SHADOW-COLOR: #e6d5ff; 
-                SCROLLBAR-3DLIGHT-COLOR: #e6d5ff; 
-                SCROLLBAR-ARROW-COLOR: #e6d5ff; 
-                SCROLLBAR-TRACK-COLOR: #FFFFFF;
-                SCROLLBAR-DARKSHADOW-COLOR: #e6d5ff
-            }
-        </STYLE>
     </head>
-    <body onload="bjxx();">
+    <body>
         <div id="zy"  style="width:3845px; height:717px;border:solid; border-width:1px">
             <!--数据-->
             <div id="scdt" style="width:1280px; height:69px;  float:left; font-size: 0 " class="ssjkd">
                 <!--logo-->
                 <div id="ssjc" style="width:1280px; height:10">
                     <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px"/>
-                    <map name="planetmap" id="planetmap">
-                        <area shape="rect" coords="1136,43,1184,62" href ="${ctx}/main/mgr" alt="设置" />
-                        <area shape="rect" coords="1209,44,1261,61" href ="${ctx}/logout" alt="退出" />
-                    </map>
                 </div>
                 <div id="tool" style="width:119px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" class="a1">
                     <a href="${ctx}/main" style="text-decoration:none">
@@ -638,13 +518,16 @@
      	            </div>
                 </div>
                 <div id="zhyrrr" style="width:1245px; height:595px; overflow:scrol; float:left">
-                    <div id="gr" style="width:1245px; height:595px; overflow:scrol; float:left;display:none;overflow:scrol;">
+                    <div id="gr" style="width:1245px; height:602px; overflow:scrol; float:left;display:none;overflow:scrol;">
                         <!--历史记录-->
                         <div id="qm" style="width:1245px; height:10; background-color:#e6d5ff; font-size:14px; font-weight:bold; line-height:19px;border:solid; border-color:#e6d5ff; border-width:1px;  float:left">
                             &nbsp;&nbsp;&nbsp历&nbsp;&nbsp;&nbsp史&nbsp;&nbsp;&nbsp记&nbsp;&nbsp;&nbsp录
                         </div>
-                        <div id="wltp" style="width:1245px; height:578px; border:solid; border-color:#e6d5ff; border-width:1px;  float:left">
-                        </div> 
+                        <div id="wltp" style="width:1245px; height:547px; border:solid; border-color:#e6d5ff; border-width:1px;  float:left">
+                        </div>
+                        <div id="recinfoArea" style="width:1236px; height:30px;  float: left;">
+
+                        </div>
                     </div>
                     <div id="gr1" style="width:1245px; height:578px; overflow:scrol; float:left;">
                         <!--曲线图--> 
@@ -691,6 +574,15 @@
         <div id="yin12" >
             <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
         </div>
+        <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>
+        <div id="szan" >
+            <c:if test="${sysmgr == 1}">
+                <a href="${ctx}/main/mgr"><img border="0" src="${ctx}/static/img/sz.png" /></a>
+            </c:if>
+        </div>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
+        </div>
     </body>
 </html>

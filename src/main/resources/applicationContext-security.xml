@@ -37,6 +37,7 @@
                     /alarm/confirm = anon
                     /alarm/mobile = anon
                     /test/** = anon
+                    /main/logincheck = anon
                     /main/test = anon
                     /login = authc
                     /logout = logout

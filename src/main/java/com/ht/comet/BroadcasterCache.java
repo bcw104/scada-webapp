@@ -170,7 +170,7 @@ public class BroadcasterCache {
     }
 
     public void subscribe(String channel, String clientId) {
-        logger.debug("client {} subscribe channel {}", clientId, channel);
+        //logger.debug("client {} subscribe channel {}", clientId, channel);
         synchronized (channelClients) {
             Set<String> clients = channelClients.get(channel);
             if (clients == null) {
@@ -227,7 +227,7 @@ public class BroadcasterCache {
             clientQueue = messages.remove(clientId);
         }
         if (clientQueue == null) {
-            logger.debug("client {} cache is empty", clientId);
+            //logger.debug("client {} cache is empty", clientId);
             return Collections.emptyList();
         } else {
             List<CacheMessage> clientMessages = clientQueue.getQueue();

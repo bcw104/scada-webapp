@@ -48,11 +48,11 @@ public class RealtimeDataController {
         String clientId = (String) session.getAttribute(HT_COMET_ID);
         if (clientId == null) {
             clientId = UUID.randomUUID().toString();
-            log.debug("new client {}", clientId);
+            //log.debug("new client {}", clientId);
             session.setAttribute(HT_COMET_ID, clientId);
         }
         if (channels != null) {
-            log.debug(Arrays.toString(channels));
+            //log.debug(Arrays.toString(channels));
             for (String channel : channels) {
                 subscribe(clientId, channel);
             }
@@ -61,7 +61,7 @@ public class RealtimeDataController {
     }
 
     private int i = 0;
-	@Scheduled(fixedDelay=5000)
+	//@Scheduled(fixedDelay=5000)
 	public void pollForMessages() {
 
         //todo: 生成测试数据并推送
