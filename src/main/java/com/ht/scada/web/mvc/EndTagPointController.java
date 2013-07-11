@@ -1,5 +1,7 @@
 package com.ht.scada.web.mvc;
 
+import com.ht.scada.common.tag.util.VarSubTypeEnum;
+import com.ht.scada.data.service.RealtimeDataService;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
 import com.ht.scada.web.entity.EndTagPoint;
@@ -24,6 +26,8 @@ public class EndTagPointController {
     private EndTagPointService endTagPointService;
     @Autowired
     private UserExtInfoService userExtInfoService;
+    @Autowired
+    private RealtimeDataService realtimeDataService;
     
     @RequestMapping(value = "list")
     @ResponseBody
@@ -36,8 +40,12 @@ public class EndTagPointController {
             Map map = new HashMap();
             map.put("id", point.getEndTag().getId());
             map.put("code", point.getEndTag().getCode());
+            map.put("name", point.getEndTag().getName());
             map.put("x", point.getX());
             map.put("y", point.getY());
+            map.put("type", point.getEndTag().getType());
+            map.put("sub_type", point.getEndTag().getSubType());
+            map.put("state",realtimeDataService.getEndTagVarInfo(point.getEndTag().getCode(), VarSubTypeEnum.QI_TING_ZHUANG_TAI.toString().toLowerCase()));
             rtn.add(map);
         }
         return rtn;
