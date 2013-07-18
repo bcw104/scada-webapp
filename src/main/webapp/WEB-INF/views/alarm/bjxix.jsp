@@ -7,9 +7,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>报警信息</title>
         <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z-bjxix.css">
+        <link rel="stylesheet" type="text/css" href="${cstx}/static/dhtmlx/dhtmlxtoolbar_dhx_skyblue.css">
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/dhtmlxtreegrid.js"></script>
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
+        <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_pgn.js"></script>
+        <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/ext/dhtmlxgridcell.js"></script>
+        <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/ext/dhtmlxtoolbar.js"></script>
         <script src="${ctx}/static/jquery/jquery-1.8.2.min.js"></script>
         <script src="${ctx}/static/jquery/highstock.js"></script>
         <script src="${ctx}/static/js/map.js" type="text/javascript"></script>
@@ -476,11 +480,14 @@
             function createTreeGrid(){
                 treeGrid = new dhtmlXGridObject('wltp');
                 treeGrid.selMultiRows = true;
-                treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/icons_greenfolders/";
+                treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/";
                 treeGrid.setHeader("序号,报警对象,设备,报警原因,报警时间,负责人,回复时间,处理时间,评价");
                 treeGrid.setInitWidths("100,125,125,150,150,150,150,150,*");
                 treeGrid.setColAlign("center,center,center,center,center,left,center,center,center");
                 treeGrid.setColTypes("ro,ro,ro,ro,ro,tree,ro,ro,ro");
+                treeGrid.setSkin("dhx_skyblue");
+                treeGrid.enablePaging(true,10,3, "recinfoArea");
+                treeGrid.setPagingSkin("toolbar", "dhx_skyblue");
                 treeGrid.init();
                 treeGrid.enableMultiselect(true);
                 
@@ -636,7 +643,10 @@
                         <div id="qm" style="width:1245px; height:10; background-color:#e6d5ff; font-size:14px; font-weight:bold; line-height:19px;border:solid; border-color:#e6d5ff; border-width:1px;  float:left">
                             &nbsp;&nbsp;&nbsp历&nbsp;&nbsp;&nbsp史&nbsp;&nbsp;&nbsp记&nbsp;&nbsp;&nbsp录
                         </div>
-                        <div id="wltp" style="width:1245px; height:578px; border:solid; border-color:#e6d5ff; border-width:1px;  float:left">
+                        <div id="wltp1" style="width:1245px; height:578px; border:solid; border-color:#e6d5ff; border-width:1px;  float:left;">
+                            <div id="wltp" style="width:1245px; height:547px; border:solid; border-color:#e6d5ff; border-width:1px;  float:left; ">
+                            </div>
+                            <div id="recinfoArea" style="width:1236px; height:30px;float: left"></div>
                         </div> 
                     </div>
                     <div id="gr1" style="width:1245px; height:578px; overflow:scrol; float:left;">
