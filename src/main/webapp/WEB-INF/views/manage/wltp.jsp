@@ -7,6 +7,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>调度运行</title>
         <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z-w.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css">
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/dhtmlxtreegrid.js"></script>
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
@@ -15,180 +20,11 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
-        <script type="text/javascript">
-            var objUrl='${ctx}';
-            var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
-        </script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
-        <style type="text/css">
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #xian{
-                position:absolute;
-                left:460px;
-                top:220px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc1{
-                position:absolute;
-                left:1019px;
-                top:600px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc2{
-                position:absolute;
-                left:1019px;
-                top:510px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc3{
-                position:absolute;
-                left:830px;
-                top:577px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc4{
-                position:absolute;
-                left:1060px;
-                top:577px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc5{
-                position:absolute;
-                left:350px;
-                top:200px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc6{
-                position:absolute;
-                left:916px;
-                top:500px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc7{
-                position:absolute;
-                left:916px;
-                top:600px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc8{
-                position:absolute;
-                left:900px;
-                top:530px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc9{
-                position:absolute;
-                left:1050px;
-                top:530px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            .s1{ color:red;}
-            .cssdiv:hover{
-                color:#09F
-            }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        </style>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script>
             var treeGrid,Grid,Grid1,Grid2,Grid3,Grid4,dhxWins,dhxTabble,dhxTabbar,dhxWins,dhxWins1,dhxWins2,dhxd,dhxd1,dhxd2,dhxd3,dhxd4;
 
@@ -205,7 +41,7 @@
              * 页面初始化
              * @returns {undefined}
              */
-            function scdt(){
+            function doOnLoad(){
                 
                 // 构建井矿信息标签页面
                 createTabble();
@@ -347,7 +183,7 @@
                                             
                                             var tmpMajorTag = new Object(); 
                                             tmpMajorTag.id = valueMajorTag.id;
-                                            tmpMajorTag.open = 1;
+//                                            tmpMajorTag.open = 1;
                                             tmpMajorTag.data = [];
                                             // 名称设置
                                             var majorTagName = {};
@@ -359,7 +195,10 @@
                                             // 递归遍历子数据  
                                             var tmpWellInfo = createGridItem(majortagJson, tmpMajorTag);         
 
-                                            tmpMajorTag.rows = tmpWellInfo.data;
+                                            if(tmpWellInfo.data.length > 0){
+                                                tmpMajorTag.open = 1; 
+                                                tmpMajorTag.rows = tmpWellInfo.data;
+                                            }
                                             
                                             wellDataAry.push(tmpMajorTag);
                                         }else{
@@ -375,6 +214,10 @@
                                     
                                     treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
                                         selEndTagData = '';
+                                        if(rId.toString().indexOf('j||') < 0) {
+                                            return false;
+                                        }
+                                        
                                         if(cInd == 1){
                                             selEndTagData = rId;
                                             dhxd.window("wi").show();
@@ -427,7 +270,7 @@
                                             
                         var tmpMajorTag = new Object(); 
                         tmpMajorTag.id = valueMajorTag.id;
-                        tmpMajorTag.open = 1;
+//                        tmpMajorTag.open = 1;
                         tmpMajorTag.data = [];
                         // 名称设置
                         var majorTagName = {};
@@ -438,7 +281,10 @@
                         // 递归遍历子数据  
                         var tmpWellInfo = createGridItem(majortagJson, tmpMajorTag);         
 
-                        tmpMajorTag.rows = tmpWellInfo.data;
+                        if(tmpWellInfo.data.length > 0){
+                            tmpMajorTag.open = 1; 
+                            tmpMajorTag.rows = tmpWellInfo.data;
+                        }
                                             
                         wellDataAry.push(tmpMajorTag);
                     }else{
@@ -452,24 +298,26 @@
                 treeGrid.parse(wellData,'json');
                                     
                 treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
-                    selEndTagData = '';
-                    if(cInd == 1){
-                        selEndTagData = rId;
-                        dhxd.window("wi").show();
-                        dhxd.window("wi").setText("远程控制");
-                        dhxd.attachEvent("onClose", function(win){
-                            dhxd.window("wi").hide(); 
-                        });
-                        dhxd.window("wi").attachHTMLString(ew);
-                    }else if(cInd == 2){
-                        selEndTagData = rId;
-                        dhxd.window("wi").show();
-                        dhxd.window("wi").setText("远程调参");
-                        dhxd.attachEvent("onClose", function(win){
-                            dhxd.window("wi").hide(); 
-                        });
-                        dhxd.window("wi").attachHTMLString(yt);
-                    }
+                    selEndTagData = '';alert(rId);return false;
+                    if(rId.indexOf('j||') >= 0){
+                        if(cInd == 1){
+                            selEndTagData = rId;
+                            dhxd.window("wi").show();
+                            dhxd.window("wi").setText("远程控制");
+                            dhxd.attachEvent("onClose", function(win){
+                                dhxd.window("wi").hide(); 
+                            });
+                            dhxd.window("wi").attachHTMLString(ew);
+                        }else if(cInd == 2){
+                            selEndTagData = rId;
+                            dhxd.window("wi").show();
+                            dhxd.window("wi").setText("远程调参");
+                            dhxd.attachEvent("onClose", function(win){
+                                dhxd.window("wi").hide(); 
+                            });
+                            dhxd.window("wi").attachHTMLString(yt);
+                        }
+                    }                    
                 });
             }
             
@@ -493,7 +341,7 @@
                                             
                         var tmpMajorTag = new Object(); 
                         tmpMajorTag.id = valueMajorTagList.id;
-                        tmpMajorTag.open = 1;
+//                        tmpMajorTag.open = 1;
                         tmpMajorTag.data = [];
                         // 名称设置
                         var majorTagName = {};
@@ -511,7 +359,7 @@
                                     
                                     var tmpYoujingTag = new Object(); 
                                     tmpYoujingTag.id = 'j||' + valueYoujing.id + '||' + valueYoujing.state;
-                                    tmpYoujingTag.open = 1;
+//                                    tmpYoujingTag.open = 1;
                                     tmpYoujingTag.data = [];
                                     // 名称设置
                                     var youjingName = {};
@@ -532,15 +380,19 @@
                                 }
                             });
                             
-                            tmpMajorTag.rows = tmpYoujingData;  
-
+                            if(tmpYoujingData.length > 0){
+                                tmpMajorTag.open = 1; 
+                                tmpMajorTag.rows = tmpYoujingData;  
+                            }
                         }else{
 
-                            var tmpWellInfo = createGridItem(p_MajorTagList, tmpMajorTag);         
-
-                            tmpMajorTag.rows = tmpWellInfo.data;
-                        }                      
-                                            
+                            var tmpWellInfo = createGridItem(p_MajorTagList, tmpMajorTag);                                                   
+                             
+                            if(tmpWellInfo.data.length > 0){
+                                tmpMajorTag.open = 1;
+                                tmpMajorTag.rows = tmpWellInfo.data;  
+                            }
+                        }
                         tmpWellData.push(tmpMajorTag);
                     }
                     else{
@@ -839,19 +691,15 @@
             }
         </script>
     </head>
-    <body onload="scdt();">
+    <body>
         <div id="zz" style="width:3845px; height:717px;border:solid;border-width:1px">
             <!--数据-->
             <div id="ssjc" style="width:1280px; height:69px;  float:left; font-size: 0 " >
                 <div id="ssjc" style="width:1280px; height:10;">
                     <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px"/>
-                    <map name="planetmap" id="planetmap">
-                        <area shape="rect" coords="1136,43,1184,62" href ="${ctx}/main/mgr" alt="设置" />
-                        <area shape="rect" coords="1209,44,1261,61" href ="${ctx}/logout" alt="退出" />
-                    </map>
                 </div>
                 <div id="tool" style="width:119px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                    <a href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
+                    <a href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk.png" style="width:119px; height:33px;"/></a>
                 </div>
                 <div id="tool1" style="width:125px; height:20;border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left">
                     <a href="${ctx}/alarmpage" style="text-decoration:none"><img border="0" src="${ctx}/static/img/bjzt.png" /></a>
@@ -863,7 +711,7 @@
                     <a href="${ctx}/producepage" style="text-decoration:none"><img  border="0" src="${ctx}/static/img/scgl.png" style="width:120px; height:33px;"/></a>
                 </div>
                 <div id="tool4" style="width:120px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                    <a href="${ctx}/managepage" style="text-decoration:none"><img border="0"  src="${ctx}/static/img/txwl.png" style="width:120px; height:33px;"/></a>
+                    <a href="${ctx}/managepage" style="text-decoration:none"><img border="0"  src="${ctx}/static/img/as.png" style="width:120px; height:33px;"/></a>
                 </div>
                 <div id="tool5" style="width:120px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <img src="${ctx}/static/img/yjcz.png" style="width:120px; height:33px" />
@@ -902,37 +750,24 @@
             </div>
             <!--地图-->
             <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;">
-                <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+                <div  style="width:100%;height:100%; position: relative;">
+                        <div id="flashContent" style="width:100%;" ></div>                        
+                    </div>
             </div>
             <!--视频-->
             <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;">
                 <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
             </div>
         </div>
-        <div id="yin" >
-            <img border="0"  src="${ctx}/static/img/1.png" />
+        <div id="sztitle" style="width:300px;"></div>
+        <div id="szda" style="width:300px;"></div>        
+        <div id="szan" >
+            <c:if test="${sysmgr == 1}">
+                <a href="${ctx}/main/mgr"><img border="0" src="${ctx}/static/img/sz.png" /></a>
+            </c:if>
         </div>
-        <div id="yin1" >
-            <a href="ssjczq.html" ><img border="0"  src="i${ctx}/static/img/3.png" /></a>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
         </div>
-        <div id="yin2" >
-            <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin3" >
-            <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-        </div>
-        <div id="yin4" >
-            <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-        </div>
-        <div id="yin5" >
-            <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin6" >
-            <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-        </div>
-        <div id="yin12" >
-            <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="szda" style="width:300px;"></div>
     </body>
 </html>

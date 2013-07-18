@@ -7,6 +7,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>生产监控</title>        
         <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-zz.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/gis/style/layout.css">
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
         <script src="${ctx}/static/js/highcharts.src.js"></script>
@@ -14,108 +20,17 @@
         <script src="${ctx}/static/js/chart1.js"></script>
         <script src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
         <script src="${ctx}/static/js/math.js"></script>
+        <script src="${ctx}/static/js/common.js" type="text/javascript"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
-        <script type="text/javascript">
-            var objUrl='${ctx}';
-            var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
-        </script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
-        <style type="text/css">
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #apDiv1 {
-                position:absolute;
-                left:207px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        </style>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script>
+            var wellId_Gis;
             var dhxWins,dhxWins1,dhxWins2,dhxd,dhxd1,dhxd2,dhxd3,dhxd4,dhxTabbar,dhLayout,lo,lc,ld,lh,Grid,Grid2,Grid3,gr,Gr,Grxn,dqgr,dqgr1,dqgr2;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
             var dtu1='<div id="dt1" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/sgt.png"  style="width:100%; height:100%" /></div>';
@@ -132,18 +47,30 @@
             var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input id="tc_scch" name="tc_scch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input id="tc_scci" name="tc_scci" type="text" value="" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input id="tc_xcch" name="tc_xcch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input id="tc_xcci" name="tc_xcci"  type="text" value="" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';
 
             var gtdb='<div id="y"style="width:500px;height:30px;float:left;font-size:14px;"><table><tr><td  style="width:350px" align="left">&nbsp;&nbsp;&nbsp;日期:&nbsp;<input id="gtStart" type="text" onClick="WdatePicker({readOnly:true,dateFmt:\'yyyy/MM/dd HH时\'})" style="width:100px;"/>～<input id="gtEnd" type="text" onClick="WdatePicker({readOnly:true,dateFmt:\'yyyy/MM/dd HH时\'})" style="width:100px;"/>&nbsp;<button type="button" style="background:#81d4ff" onclick="run2();">查询</button></td></tr></table></div>';
+             // 选择曲线信息
+             var rid_sel = '';
+             var cid_sel = '';
+             var flag_sel = '';
              
+             var rid_sel_2 = '';
+             var cid_sel_2 = '';
+             var flag_sel_2 = '';
              // 选择井信息
             var selEndTagState = '';
+            
+            $(function () {
+                wellId_Gis = ${info.id};
+                
+                // 页面布局设置
+                createTabble();
+            });
             
             /**
              * 页面初始化
              * @returns {undefined}
              */
-            function ss(){
-                
-                // 页面布局设置
-                createTabble();
+            function doOnLoad(){                
+               
                 // 设置工况信息
                 createGr();
                 // 设置RTU状态
@@ -182,18 +109,50 @@
                 createwind1();
                 // 开井确认操作
                 createwind2();
-                createwi();              
+                createwi();     
+                
+                createWindows();
             }
             
-            /**
-             * 定时刷新
-             * @returns {undefined}
-             */
-            function reflesh(){		
-                
-                document.location.reload();	
-           }	
-           setTimeout("reflesh()",60*1000);//每1分钟刷新一次 
+            function initTab1(){
+                 // tab1
+                switch(flag_sel){
+                    case '0':
+                        doGrClick(rid_sel, cid_sel);
+                        break;
+                    case '3':
+                        showGtqx(rid_sel, cid_sel);
+                        break;
+                    case '4':
+                        showDyqx(rid_sel, cid_sel);
+                        break;                        
+                    case '5':                        
+                        $("#gtStart").val(rid_sel);
+                        $("#gtEnd").val(cid_sel);
+                        run2();
+                        break;
+                    default:
+                        if(gr.getRowsNum() > 0){                            
+                            doGrClick(gr.getRowId(0), 0);
+                        }
+                }
+            }
+            
+            function initTab2(){
+                // tab2
+                switch(flag_sel_2){
+                    case '1':
+                        doFzZzGrClick(rid_sel_2, cid_sel_2);
+                        break;
+                    case '2':
+                        doFzGrClick(rid_sel_2, cid_sel_2);
+                        break;
+                    default:
+                        if(dqgr.getRowsNum() > 0){                            
+                            doFzGrClick(dqgr.getRowId(0), 0);
+                        }
+                }
+            }
             
             /**
              * 信息点击
@@ -203,6 +162,10 @@
              * */
             function doFzGrClick(gr_rId, gr_cInd){
                     
+                    rid_sel_2 = gr_rId;
+                    cid_sel_2 = gr_cInd;
+                    flag_sel_2 = '2';
+             
                     var tmpName = gr_rId.split('||');
                     $("#dqqxTitle").html('&nbsp&nbsp&nbsp（' + tmpName[1] + '曲线）');
                     // 获得工况信息
@@ -241,6 +204,10 @@
              * @returns {undefined}             
              * */
             function doFzZzGrClick(gr_rId, gr_cInd){
+                    
+                    rid_sel_2 = gr_rId;
+                    cid_sel_2 = gr_cInd;
+                    flag_sel_2 = '1';
                     
                     var tmpName = gr_rId.split('||');
                     $("#dqqxTitle").html('&nbsp&nbsp&nbsp（' + tmpName[1] + '）');
@@ -306,12 +273,8 @@
                                 dataInfo.rows.push(dataItem);
                         });
 
-                        dqgr.parse(dataInfo,'json');                        
-                        
-                        if(dqgr.getRowsNum() > 0){
-                            
-                            doFzGrClick(dqgr.getRowId(0), 0);
-                        }
+                        dqgr.parse(dataInfo,'json');
+                        initTab2();
                     }
                 });                        
                  
@@ -353,6 +316,7 @@
                         });
 
                         dqgr1.parse(dataInfo,'json');
+                        initTab2();
                     }
                 });                        
                  
@@ -400,6 +364,7 @@
                         });
 
                         dqgr2.parse(dataInfo,'json');
+                        initTab2();
                     }
                 });
                 
@@ -430,7 +395,11 @@
               * @returns {undefined}
               */
             function showDyqx(dy_code, dy_title){
-                            
+                    
+                rid_sel = dy_code;
+                cid_sel = dy_title;
+                flag_sel = '4';
+               
                     $("#ssqx4").css("display","block");
                     $("#gtdb").css("display","none");
 //                    $("#container").html('');
@@ -471,6 +440,11 @@
              * @returns {undefined}             
              * */
             function doGrClick(gr_rId, gr_cInd){
+            
+                    rid_sel = gr_rId;
+                    cid_sel = gr_cInd;
+                    flag_sel = '0';
+                    
                     $("#ssqx4").css("display","block");
 					$("#gtdb").css("display","none");
                     
@@ -554,10 +528,7 @@
 
                         gr.parse(youjingData,'json');
                         
-                        if(gr.getRowsNum() > 0){
-                            
-                            doGrClick(gr.getRowId(0), 0);
-                        }
+                        initTab1();
                     }
                 });                        
                  
@@ -608,6 +579,8 @@
                         });
 
                         Gr.parse(youjingData,'json');
+                        
+                        initTab1();
                     }
                 });  
                    
@@ -638,6 +611,8 @@
                                 $("#dq_" + value.key).html(value.value);
                             }
                         });
+                        
+                        initTab1();
                     }
                 });
             }
@@ -648,9 +623,9 @@
             * */
             function createGrid(){
                 Grid= new dhtmlXGridObject('cgqyx2');
-                Grid.setImagePath("js/gridcodebase/imgs/");
+                Grid.setImagePath("${ctx}/static/js/gridcodebase/imgs/");
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
-                Grid.setInitWidths("158,158,158,120,120,120");
+                Grid.setInitWidths("162,60,115,115,115,60");
                 Grid.setColAlign("center,center,center,center,center,center");
                 Grid.setColTypes("ro,img,ro,ro,ro,img");
                 Grid.init();
@@ -704,7 +679,7 @@
                 Grid2= new dhtmlXGridObject('gr');
                 Grid2.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 Grid2.setHeader(["设备名称","出厂厂家","型号","序号","设备地址"]);
-                Grid2.setInitWidths("120,150,120,120,*");
+                Grid2.setInitWidths("120,200,120,70,*");
                 Grid2.setColAlign("center,center,center,center,center");
                 Grid2.setColTypes("ro,ro,ro,ro,ro");
                 Grid2.init();
@@ -849,7 +824,8 @@
                 xAxis: {
                     categories: [],
                     gridLineWidth:1,
-                    title:{}
+                    title:{},
+                    max:0
                 },
                 yAxis: {
                     title: {},
@@ -902,11 +878,14 @@
                     return;
                 }
                 
-                
+                var nowDate = new Date(dateSysNow);
                 var startDate = new Date($("#gtStart").val().replace("时", "") + ':00:00');
                 var endDate = new Date($("#gtEnd").val().replace("时", "") + ':00:00');
                 
-                if(endDate < startDate){
+                if(endDate > nowDate || startDate > nowDate){
+                    alert('选择查询日期不能大于当前时间，请重新选择！');
+                    return;
+                }else if(endDate < startDate){
                     alert('截至查询日期不能小于开始查询日期，请重新选择！');
                     return;
                 }else if(parseInt(Math.abs(endDate - startDate)/1000/60/60) > 24){
@@ -914,6 +893,10 @@
                     return;
                 }
                 
+                rid_sel = $("#gtStart").val();
+                cid_sel = $("#gtEnd").val();
+                flag_sel = '5';
+             
                 // 获得井基本信息
                 $.ajax({
                     type: 'POST',
@@ -939,15 +922,21 @@
                             str_xAxis = value.weiyi;
                             str_yAxis = value.zaihe;
                             
+                            var weiyiTmp1 = 0;
                             options1.series = [];
                             series.name = '示功图';
                             series.unit = 'm';
                             for (var i=0; i<str_xAxis.length; i++){
+                                
+                                if((Number(str_xAxis[i])) > weiyiTmp1){
+                                    weiyiTmp1 = str_xAxis[i];
+                                }
 
                                 series.data.push([str_xAxis[i],str_yAxis[i]]);
                             }
                             options1.chart.renderTo = 'container_gtdb_' + key;
                             var dateTmp = new Date(value.time);
+                            options1.xAxis.max = Math.ceil(weiyiTmp1);
                             options1.xAxis.title.text = dateTmp.getFullYear() + "-" + (dateTmp.getMonth() + 1) + "-" 
                                     + dateTmp.getDate() + " " + dateTmp.getHours() + ":" + dateTmp.getMinutes();
                             options1.yAxis.title.text = '示&nbsp;&nbsp;功&nbsp;&nbsp;图';
@@ -970,6 +959,10 @@
              */
             function showGtqx(p_gtParKey, p_gtParTitle){
                 
+               rid_sel = p_gtParKey;
+               cid_sel = p_gtParTitle;
+               flag_sel = '3';
+                    
                 var dateNow = new Date();
                 var dateBefore =  new Date(dateNow.getTime() - 1000 * 60 * 60);
                 
@@ -1434,26 +1427,35 @@
                 dhxd3.window("wi3").hide();
             }
         
+            /**
+             * 工况图片
+             * @returns {undefined}
+             */
+            function createWindows(){
+                dhxWins = new dhtmlXWindows();
+                dhxWins.attachViewportTo(document.body);
+                dhxWins.createWindow("win",200,100,1000,500);
+                dhxWins.window("win").button('minmax2').hide();
+                dhxWins.window("win").button('minmax1').hide();
+                dhxWins.window("win").button('park').hide();
+                dhxWins.window("win").hide();	
+            }
+    
+            /**
+             * 工况图片
+             * @returns {undefined}
+             */
+            function ztwin(){
+                dhxWins.window("win").show();
+                dhxWins.window("win").setText("工况");
+                dhxWins.attachEvent("onClose", function(win){
+                    dhxWins.window("win").hide(); 
+                });
+                dhxWins.window("win").attachHTMLString(dtu);
+            }
         </script>
-        <STYLE type=text/css>
-            div.objbox { 
-                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
-                SCROLLBAR-HIGHLIGHT-COLOR: #FFDFFF; 
-                SCROLLBAR-SHADOW-COLOR: #FFDFFF; 
-                SCROLLBAR-3DLIGHT-COLOR: #FFDFFF; 
-                SCROLLBAR-ARROW-COLOR: #FFDFFF; 
-                SCROLLBAR-TRACK-COLOR: #FFFFFF;
-                SCROLLBAR-DARKSHADOW-COLOR: #FFDFFF
-            }
-            a:hover{
-                color:#09F
-            }
-            .cssdiv:hover{
-                color:#09F
-            }
-        </STYLE>
     </head>
-    <body onload="ss();">
+    <body>
         <!--主界面-->
             <div id="zz" style="width:3845px; height:717px;border:solid; border-color:#000; border-width:1px">
                 <!--数据-->
@@ -1525,11 +1527,11 @@
                             <div id="baq" style="width:636px; height:5px;  float:left"></div>
                             <div id="ba9" style="width:5px; height:90px; float:left"></div>
                             <!--传感器运行-->
-                            <div id="cgqyx" style="width:629px; height:115px; float:right; border:solid; border-width:1px; border-color:#fdbbfd; float:left">
+                            <div id="cgqyx" style="width:629px; height:115px; float:left; border:solid; border-width:1px; border-color:#fdbbfd;">
                                 <div id="cgqyx1" style="width:629px; height:10; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#fde7fd" >
                                     &nbsp传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp运&nbsp;&nbsp;&nbsp行
                                 </div>
-                                <div id="cgqyx2" style=" width:628px; height:95px; float:left"></div>
+                                <div id="cgqyx2" style=" width:628px; height:90px; float:left"></div>
                             </div>              
                         </div>
                         <!--功图-->
@@ -1586,8 +1588,8 @@
                             <div id="gtc2" onclick="showGtqx('minZaihe', '最小载荷');" style="cursor:hand; width:210px; line-height:25px;height:25px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px;font-size:14px ">
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp最小载荷(KN)：<span id="minZaihe"></span>
                             </div>
-                            <div id="gtc3" style="width:208px; line-height:25px;height:25px;font-size:14px; float:left">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp诊断：<span id="falutDiagnoseInfo"></span>
+                            <div id="gtc3" onclick="showGtqx('bengXiao', '泵效');" style="cursor:hand; width:208px; line-height:25px;height:25px;font-size:14px; float:left">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;泵效：<span id="bengXiao"></span>
                             </div>
                             <div id="gtc4" onclick="showGtqx('shangChongChengTime', '上冲程时间');" style="cursor:hand; width:210px; line-height:25px;height:25px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px;font-size:14px; background-color:#deeeff ">
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp上冲程时间(s)：<span id="shangChongChengTime"></span>
@@ -1616,10 +1618,10 @@
                             <div id="gtc12" onclick="showGtqx('chanYeLiang', '产液量');" style="cursor:hand; width:208px; font-size:14px;line-height:25px;height:25px; float:left; background-color:#deeeff" >
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp产液量(t/d)：<span id="chanYeLiang"></span>
                             </div>
-                            <div id="gtc13" onclick="showGtqx('bengXiao', '泵效');" style="cursor:hand; width:210px; font-size:14px;line-height:25px;height:30px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px ">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp泵效：<span id="bengXiao"></span>
+                            <div id="gtc13" style="width:210px; font-size:14px;line-height:25px;height:30px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px ">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;诊断：<span id="falutDiagnoseInfo"></span>
                             </div>
-                            <div id="gtc13" style="width:210px;line-height:25px; height:30px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px " >
+                            <div id="gtc14" style="width:210px;line-height:25px; height:30px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px " >
                             </div>
                         </div>
                         <div id="bia13" style="width:1280px;  height:5px;float:left; "></div>
@@ -1713,7 +1715,9 @@
                 </div>
                 <!--地图-->
                 <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
-                    <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+                    <div  style="width:100%;height:100%; position: relative;">
+                        <div id="flashContent" style="width:100%;" ></div>                        
+                    </div>
                 </div>
                 <!--视频-->
                 <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
@@ -1726,13 +1730,18 @@
                     &nbsp;&nbsp;&nbsp;井标识
                 </div>
                 <div id="ad2" style="width:350px; height:10;float:left; font-size:14px;line-height:25px">
-                    运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障停井&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;非正常停井&nbsp;&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;计划停井&nbsp;&nbsp;<img src="${ctx}/static/img/juse.png" />
+                    运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
+                    故障停井&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
+                    非正常停井&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;
+                    计划停井&nbsp;<img src="${ctx}/static/img/juse.png" />
                 </div>
                 <div id="ads" style="width:80px; height:10; float:left; font-size:14px; font-weight:bold; line-height:25px">
                     &nbsp;&nbsp;&nbsp;RTU标识
                 </div>
                 <div id="adr" style="width:390px; height:10;float:left; font-size:14px;line-height:25px">
-                    运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;校验&nbsp;&nbsp;<img src="${ctx}/static/img/lansee.png" />
+                    运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
+                    故障&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
+                    校验&nbsp;<img src="${ctx}/static/img/lansee.png" />
                 </div>
                 <div id="adw" style="width:20px; height:20px; float:left; font-size:14px; font-weight:bold;padding-top:3px">
                     <img src="${ctx}/static/img/yck.png"/>
@@ -1747,30 +1756,15 @@
                     <a style="cursor:hand"onclick="yctc();">远程调参</a>
                 </div>   
             </div>
-            <div id="yin" >
-                <img border="0"  src="${ctx}/static/img/1.png" />
-            </div>
-            <div id="yin1" >
-                <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
-            </div>
-            <div id="yin2" >
-                <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-            </div>
-            <div id="yin3" >
-                <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-            </div>
-            <div id="yin4" >
-                <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-            </div>
-            <div id="yin5" >
-                <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-            </div>
-            <div id="yin6" >
-                <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-            </div>
-            <div id="yin12" >
-                <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-            </div>
+        <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>
+        <div id="szan" >
+            <c:if test="${sysmgr == 1}">
+                <a href="${ctx}/main/mgr"><img border="0" src="${ctx}/static/img/sz.png" /></a>
+            </c:if>
+        </div>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
+        </div>
     </body>
 </html>

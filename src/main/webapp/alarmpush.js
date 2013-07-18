@@ -9,7 +9,6 @@ if (window.console.debug == undefined) {
     window.console.warn = window.console.error = window.console.log
 }
 //alert(console.debug)
-alert(console.log)
 
 $(document).ready(function() {
 	
@@ -36,6 +35,7 @@ $(document).ready(function() {
 		refresh();
 		var message = response.responseBody;
 		if(message) {
+            console.info(message);
 			$('#latestMessage').html(message);
 /*			var result;
 	
@@ -51,9 +51,17 @@ $(document).ready(function() {
 
 	}
 
+    $.comet.init().subscribe("/admin", function(msg){
+//        console.log(msg);
+//        var txt = $('#latestMessage').html() + "," + msg;
+//        $('#latestMessage').html(txt);
+        
+        add('','报警提示',msg,false);
+    });
+
 	var socket = $.atmosphere;
 	var subSocket;
-	//var transport = 'websocket';
+//	var transport = 'websocket';
     var transport = 'long-polling';
 	//var websocketUrl = "${fn:replace(r.requestURL, r.requestURI, '')}${r.contextPath}/websockets/";
 
@@ -64,7 +72,9 @@ $(document).ready(function() {
 		//shared : 'true',
 		transport : transport ,
 		fallbackTransport: 'long-polling',
-		reconnectInterval: 2000,
+		reconnectInterval: 1000,
+        messageDelimiter : '|',
+        trackMessageLength:true,
 		//callback: callback,
 		onMessage: onMessage,
 		onOpen: function(response) {
@@ -89,5 +99,5 @@ $(document).ready(function() {
 		}
 	};
 
-	subSocket = socket.subscribe(request);
+	//subSocket = socket.subscribe(request);
 });

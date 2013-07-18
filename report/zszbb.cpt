@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WorkBook xmlVersion="20110221">
+<TableDataMap>
+<TableData name="ds1" class="com.fr.data.impl.DBTableData">
+<Parameters/>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[FRDemo]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[SELECT * FROM `t_zhushui_daily_record` t1,`t_end_tag` t2 where t1.code=t2.code]]></Query>
+</TableData>
+</TableDataMap>
+<Report class="com.fr.report.WorkSheet" name="sheet1">
+<ReportPageAttr>
+<HR/>
+<FR/>
+<HC/>
+<FC/>
+</ReportPageAttr>
+<RowHeight defaultValue="723900">
+<![CDATA[1143000,723900,723900,723900,723900,723900,723900,723900,723900,723900,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[2743200,2743200,4533900,4800600,4610100,4457700,3238500,2743200,2743200,2743200,2743200]]></ColumnWidth>
+<CellElementList>
+<C c="0" r="0" s="0">
+<O>
+<![CDATA[序号]]></O>
+<Expand/>
+</C>
+<C c="1" r="0" s="0">
+<O>
+<![CDATA[注水站名称]]></O>
+<Expand/>
+</C>
+<C c="2" r="0" s="0">
+<O>
+<![CDATA[日注水累积量(m³/d)]]></O>
+<Expand/>
+</C>
+<C c="3" r="0" s="0">
+<O>
+<![CDATA[日注水平均流量(m³/s)]]></O>
+<Expand/>
+</C>
+<C c="4" r="0" s="0">
+<O>
+<![CDATA[日注水平均压力(Mpa)]]></O>
+<Expand/>
+</C>
+<C c="5" r="0" s="0">
+<O>
+<![CDATA[日注水平均温度(℃)]]></O>
+<Expand/>
+</C>
+<C c="6" r="0" s="0">
+<O>
+<![CDATA[日注水时间(h)]]></O>
+<Expand/>
+</C>
+<C c="0" r="1" s="1">
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[=SEQ()]]></Attributes>
+</O>
+<Expand dir="0" leftParentDefault="false" left="B2"/>
+</C>
+<C c="1" r="1" s="2">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="name"/>
+<Condition class="com.fr.data.condition.ListCondition">
+<JoinCondition join="0">
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[8]]></CNUMBER>
+<CNAME>
+<![CDATA[statistics_date]]></CNAME>
+<Compare op="3">
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[=if(len($zskssj)==0,nofilter,$zskssj)]]></Attributes>
+</O>
+</Compare>
+</Condition>
+</JoinCondition>
+<JoinCondition join="0">
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[8]]></CNUMBER>
+<CNAME>
+<![CDATA[statistics_date]]></CNAME>
+<Compare op="5">
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[=if(len($zsjssj)==0,nofilter,$zsjssj)]]></Attributes>
+</O>
+</Compare>
+</Condition>
+</JoinCondition>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.FunctionGrouper"/>
+<Parameters/>
+</O>
+<Expand dir="0"/>
+</C>
+<C c="2" r="1" s="3">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="water"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.AverageFunction]]></FN>
+</RG>
+<Parameters/>
+</O>
+<Expand/>
+</C>
+<C c="3" r="1" s="3">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="ssll"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.AverageFunction]]></FN>
+</RG>
+<Parameters/>
+</O>
+<Expand/>
+</C>
+<C c="4" r="1" s="3">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="ya_li"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.AverageFunction]]></FN>
+</RG>
+<Parameters/>
+</O>
+<Expand/>
+</C>
+<C c="5" r="1" s="3">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="wen_du"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.AverageFunction]]></FN>
+</RG>
+<Parameters/>
+</O>
+<Expand/>
+</C>
+<C c="6" r="1" s="3">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="run_time"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.AverageFunction]]></FN>
+</RG>
+<Parameters/>
+</O>
+<Expand/>
+</C>
+</CellElementList>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<PaperSetting/>
+</ReportSettings>
+</ReportAttrSet>
+</Report>
+<ReportParameterAttr>
+<Attributes showWindow="true" delayPlaying="false" windowPosition="1" align="0"/>
+<PWTitle>
+<![CDATA[参数]]></PWTitle>
+<ParameterUI class="com.fr.report.parameter.CustomParameterUI">
+<ReportPageAttr>
+<HR/>
+<FR/>
+<HC/>
+<FC/>
+</ReportPageAttr>
+<RowHeight defaultValue="723900">
+<![CDATA[495300,723900,723900,723900,723900,723900,723900,723900,723900,723900,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[2743200,2743200,2743200,2743200,2743200,2743200,647700,8343900,2743200]]></ColumnWidth>
+<CellElementList>
+<C c="0" r="1" s="4">
+<O>
+<![CDATA[开始时间]]></O>
+<Expand/>
+</C>
+<C c="1" r="1" cs="2" s="5">
+<O>
+<![CDATA[]]></O>
+<Widget class="com.fr.report.web.ui.DateEditor">
+<WidgetName name="zskssj"/>
+<WidgetAttr/>
+<DirectEdit>
+<![CDATA[false]]></DirectEdit>
+<DateAttr/>
+</Widget>
+<Expand/>
+</C>
+<C c="3" r="1" s="4">
+<O>
+<![CDATA[结束时间]]></O>
+<Expand/>
+</C>
+<C c="4" r="1" cs="2" s="5">
+<O>
+<![CDATA[]]></O>
+<Widget class="com.fr.report.web.ui.DateEditor">
+<WidgetName name="zsjssj"/>
+<WidgetAttr/>
+<DirectEdit>
+<![CDATA[false]]></DirectEdit>
+<DateAttr/>
+</Widget>
+<Expand/>
+</C>
+<C c="7" r="1">
+<O>
+<![CDATA[]]></O>
+<Widget class="com.fr.report.web.ui.RadioGroup">
+<Listener event="statechange">
+<JavaScript class="com.fr.report.js.JavaScriptImpl">
+<Parameters/>
+<Content>
+<![CDATA[var selState = this.options.form.getWidgetByName("sdr").getValue();
+var myDate = new Date();
+switch(selState){
+	case "1":
+		this.options.form.getWidgetByName("zskssj").setValue(myDate.getFullYear()+'-'+(myDate.getMonth()+1)+'-'+myDate.getDate());
+		this.options.form.getWidgetByName("zsjssj").setValue(myDate.getFullYear()+'-'+(myDate.getMonth()+1)+'-'+myDate.getDate());
+	break;
+	case "2":
+		var dayXun1 = parseInt(myDate.getDate() / 10) * 10 + 1;
+		if (myDate.getDate() % 10 == 0 || dayXun1 == 31){dayXun1 = dayXun1 - 10;}
+		this.options.form.getWidgetByName("zskssj").setValue(myDate.getFullYear()+'-'+(myDate.getMonth()+1)+'-'+dayXun1);
+		var dayXun2 = new Date(myDate.getFullYear(),(myDate.getMonth()+1),0);
+		if ( parseInt(myDate.getDate() / 10) == 2 && myDate.getDate() != 20){
+			this.options.form.getWidgetByName("zsjssj").setValue(dayXun2.getFullYear()+'-'+(dayXun2.getMonth()+1)+'-'+dayXun2.getDate());
+		}else{
+		this.options.form.getWidgetByName("zsjssj").setValue(myDate.getFullYear()+'-'+(myDate.getMonth()+1)+'-'+(dayXun1+9));	
+		}
+	break;
+	case "3":
+		this.options.form.getWidgetByName("zskssj").setValue(myDate.getFullYear()+'-'+(myDate.getMonth()+1)+'-01');
+		var dayYue = new Date(myDate.getFullYear(),(myDate.getMonth()+1),0);
+		this.options.form.getWidgetByName("zsjssj").setValue(dayYue.getFullYear()+'-'+(dayYue.getMonth()+1)+'-'+dayYue.getDate());
+	break;
+	case "4":
+	this.options.form.getWidgetByName("zskssj").setValue(myDate.getFullYear()+'-01-01');
+	this.options.form.getWidgetByName("zsjssj").setValue(myDate.getFullYear()+'-12-31');
+	break;
+}]]></Content>
+</JavaScript>
+</Listener>
+<WidgetName name="sdr"/>
+<WidgetAttr/>
+<Dictionary class="com.fr.data.impl.CustomDictionary">
+<CustomDictAttr>
+<Dict key="1" value="当日"/>
+<Dict key="2" value="本旬"/>
+<Dict key="3" value="本月"/>
+<Dict key="4" value="本年"/>
+</CustomDictAttr>
+</Dictionary>
+</Widget>
+<Expand/>
+</C>
+<C c="8" r="1">
+<O>
+<![CDATA[查询]]></O>
+<Widget class="com.fr.report.web.ui.impl.form.FormSubmitButton">
+<WidgetName name="zscx"/>
+<WidgetAttr/>
+<Hotkeys>
+<![CDATA[enter]]></Hotkeys>
+</Widget>
+<Expand/>
+</C>
+</CellElementList>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<PaperSetting/>
+</ReportSettings>
+<Header reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Header>
+<Footer reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Footer>
+</ReportAttrSet>
+</ParameterUI>
+<Parameter>
+<Attributes name="zskssj"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="zsjssj"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+</ReportParameterAttr>
+<StyleList>
+<Style horizontal_alignment="0">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="ColorBackground" color="-26164"/>
+<Border>
+<Top style="1" color="-65281"/>
+<Bottom style="1" color="-65281"/>
+<Left style="1" color="-65281"/>
+<Right style="1" color="-65281"/>
+</Border>
+</Style>
+<Style horizontal_alignment="4">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1" color="-65281"/>
+<Bottom style="1" color="-65281"/>
+<Left style="1" color="-65281"/>
+<Right style="1" color="-65281"/>
+</Border>
+</Style>
+<Style>
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1" color="-65281"/>
+<Bottom style="1" color="-65281"/>
+<Left style="1" color="-65281"/>
+<Right style="1" color="-65281"/>
+</Border>
+</Style>
+<Style>
+<Format class="java.text.DecimalFormat">
+<![CDATA[#0.00]]></Format>
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1" color="-65281"/>
+<Bottom style="1" color="-65281"/>
+<Left style="1" color="-65281"/>
+<Right style="1" color="-65281"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style>
+<Format class="java.text.SimpleDateFormat">
+<![CDATA[yyyy-MM-dd]]></Format>
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+</StyleList>
+</WorkBook>

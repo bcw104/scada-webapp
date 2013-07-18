@@ -1,0 +1,65 @@
+
+html,body,#main {width: 100%;height: 100%;}
+
+.fx{ position:relative; width:48px; height:48px;}
+.t,.l,.r,.b{ position:absolute; width:16px; height:16px;}
+.t a,.l a,.r a,.b a{ display:block; width:16px; height:16px;}
+.t{ top:0; left:16px; }
+.t a{ background: url(../images/fx_t_exe.png);}
+.t a:hover{ background: url(../images/fx_t.png);}
+.l{ top:16px; left:0; }
+.l a{ background: url(../images/fx_l_exe.png);}
+.l a:hover{ background: url(../images/fx_l.png);}
+.r{ top:16px; right:0; }
+.r a{ background: url(../images/fx_r_exe.png);}
+.r a:hover{ background: url(../images/fx_r.png);}
+.b{ bottom:0; left:16px; }
+.b a{ background: url(../images/fx_b_exe.png);}
+.b a:hover{ background: url(../images/fx_b.png);}
+.inp{ width:320px; float:left;}
+.inp div{ margin:15px 15px 0 0; float:left;}
+.big a,.small a,.hand a,.move a,.default a,.length a,.square a,.search a,.qx a,.qxf a,.max a,.min a{ width:20px; height:20px; display:block;}
+.big a,.small a,.hand a,.move a,.default a,.length a,.square a,.search a,.qx a,.qxf a{float:left;}
+.bigf a,.smallf a,.handf a,.movef a,.defaultf a,.lengthf a,.squaref a,.searchf a{ width:20px; height:20px; display:block;}
+.bigf a,.smallf a,.handf a,.movef a,.defaultf a,.lengthf a,.squaref a,.searchf a{float:left;}
+.big a{ background:url(../images/inp_big_exe.png);}
+.big a:hover{ background:url(../images/inp_big_exe.png);}
+.small a{ background:url(../images/inp_small_exe.png);}
+.small a:hover{ background:url(../images/inp_small_exe.png);}
+.hand a{ background:url(../images/inp_hand_exe.png);}
+.hand a:hover{ background:url(../images/inp_hand_exe.png);}
+.move a{ background:url(../images/inp_move_exe.png);}
+.move a:hover{ background:url(../images/inp_move_exe.png);}
+.default a{ background:url(../images/inp_default.png);}
+.default a:hover{ background:url(../images/inp_default.png);}
+.length a{ background:url(../images/inp_length_exe.png);}
+.length a:hover{ background:url(../images/inp_length_exe.png);}
+.square a{ background:url(../images/inp_square_exe.png);}
+.square a:hover{ background:url(../images/inp_square_exe.png);}
+.search a{ background:url(../images/inp_search_exe.png);}
+.search a:hover{ background:url(../images/inp_search_exe.png);}
+/*----------------------------------*/
+.bigf a{ background:url(../images/inp_big.png);}
+.bigf a:hover{ background:url(../images/inp_big.png);}
+.smallf a{ background:url(../images/inp_small.png);}
+.smallf a:hover{ background:url(../images/inp_small.png);}
+.handf a{ background:url(../images/inp_hand.png);}
+.handf a:hover{ background:url(../images/inp_hand.png);}
+.movef a{ background:url(../images/inp_move.png);}
+.movef a:hover{ background:url(../images/inp_move.png);}
+.defaultf a{ background:url(../images/inp_default_exe.png);}
+.defaultf a:hover{ background:url(../images/inp_default_exe.png);}
+.lengthf a{ background:url(../images/inp_length.png);}
+.lengthf a:hover{ background:url(../images/inp_length.png);}
+.squaref a{ background:url(../images/inp_square.png);}
+.squaref a:hover{ background:url(../images/inp_square.png);}
+.searchf a{ background:url(../images/inp_search.png);}
+.searchf a:hover{ background:url(../images/inp_search.png);}
+/*----------------------------------*/
+
+.qx a{ background:url(../images/qxstart.png);}
+.qx a:hover{ background:url(../images/qxstart.png);}
+.qxf a{ background:url(../images/qxend.png);}
+.qxf a:hover{ background:url(../images/qxend.png);}
+.weekIconBlock{background:url(../images/customer_weekIcon.jpg);background-position: center;display:block;z-Index: 999;position: absolute;  left: 6px; top: 140px;width:104px;height:83px;}
+.queryResult{float:left;position:absolute;z-index:1000;border:2px solid gray; left:400px;top:100px;}

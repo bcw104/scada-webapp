@@ -6,7 +6,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>生产运行记录</title>
-        <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z-wing.css" />        
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z-wing.css" /> 
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css">    
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>   
         <script type="text/javascript" src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script type="text/javascript" src="${ctx}/static/dhtmlx/js/treeGridcodebae/dhtmlxtreegrid.js"></script>
         <script type="text/javascript" src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
@@ -14,195 +19,12 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
-        <script type="text/javascript">
-            var objUrl='${ctx}';
-            var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
-        </script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
-        <style type="text/css">
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #hhk1{
-                position:absolute;
-                left:460px;
-                top:210px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #xian{
-                position:absolute;
-                left:489px;
-                top:238px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc1{
-                position:absolute;
-                left:1047px;
-                top:623px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc2{
-                position:absolute;
-                left:1047px;
-                top:535px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc3{
-                position:absolute;
-                left:865px;
-                top:600px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc4{
-                position:absolute;
-                left:1090px;
-                top:600px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #bc5{
-                position:absolute;
-                left:350px;
-                top:200px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc6{
-                position:absolute;
-                left:916px;
-                top:500px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc7{
-                position:absolute;
-                left:916px;
-                top:600px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc8{
-                position:absolute;
-                left:900px;
-                top:530px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            #bc9{
-                position:absolute;
-                left:1050px;
-                top:530px;
-                width:79px;
-                height:43px;
-                z-index:1;
-            }
-            .s1{ color:red;}
-            .s2{ color:#000;}
-            .cssdiv:hover{
-                color:#09F
-            }
-            .cssdiv1:hover{
-                color:#09F
-            }
-            .cssdiv2:hover{
-                color:#09F
-            }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        </style>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/map.js"></script>
         <script type="text/javascript">
             var dhxTabbar,dhxTabbar1,dhxTabble,createTabble3,createTreeGrid1,treeGrid,treeGrid1,Grid,dhxWins,dhxWin,Grid1,Grid2,Grid3,Grid4,Grid5,Grid6,Grid7,Grid8,Grid9,Grid10;
             var tubiao='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/tbb.png"  style="width:100%; height:100%"></img></div>';
@@ -211,17 +33,22 @@
              * 页面初始化
              * @returns {undefined}
              */
-            function scjll(){
+            function doOnLoad(){
 
                 $(".cssdiv").addClass("s1");
                 createTabble();
                 createTreeGrid1();
-//                createTreeGrid();
-//                createGrid();
-//                createWindow();
-//                createWindows();
             }
             
+            var mapReportPage = new Map();
+            function doSelect(id,last_id){
+//              alert(id+ '--'+last_id);
+//              dhxTabbar.setTabActive(itemId);
+                dhxTabbar.cells(id).attachObject("yjbb");
+                $("#reportIframe").attr("src", mapReportPage.get(id));
+                return true;
+            }
+                
             /**
              * 创建报表信息选项卡
              * @returns {undefined}
@@ -230,23 +57,16 @@
                 dhxTabbar=new dhtmlXTabBar('gr');
                 dhxTabbar.setImagePath("${ctx}/static/dhtmlx/imgs/");
                 //dhxTabbar.setSkin('dhx_blue');
-                dhxTabbar.addTab("tab1", "油井报表", "85px");
-                dhxTabbar.addTab("tab2", "水源井报表", "95px");
-                dhxTabbar.addTab("tab3", "注水站报表", "95px");
-                dhxTabbar.addTab("tab4", "增压站报表", "95px");
-                dhxTabbar.addTab("tab5", "注汽站报表", "95px");
-                dhxTabbar.addTab("tab6", "远程控制记录", "120px");
-                dhxTabbar.addTab("tab7", "远程调参记录", "120px");
-                dhxTabbar.addTab("tab8", "故障处置记录", "120px");
-                dhxTabbar.setTabActive("tab1");
-                dhxTabbar.cells("tab1").attachObject("yjbb");
-                dhxTabbar.cells("tab2").attachObject("syjbb");
-                dhxTabbar.cells("tab3").attachObject("zszbb");
-                dhxTabbar.cells("tab4").attachObject("zyzbb");
-                dhxTabbar.cells("tab5").attachObject("zqbb");
-                dhxTabbar.cells("tab6").attachObject("yckz");
-                dhxTabbar.cells("tab7").attachObject("yctc");
-                dhxTabbar.cells("tab8").attachObject("gzcz");
+                
+                dhxTabbar.attachEvent("onSelect", doSelect);
+                <c:forEach items="${lstReportPage}" var="loopReportPage" varStatus="loopStatus">
+                    mapReportPage.set("tab${loopStatus.count}", "${loopReportPage.url}");
+                    dhxTabbar.addTab("tab${loopStatus.count}", "${loopReportPage.name}", "100px");
+                    if(${loopStatus.count} == 1){
+                        dhxTabbar.setTabActive("tab${loopStatus.count}");
+                        doSelect("tab${loopStatus.count}", 0);
+                    }
+                </c:forEach>             
             }
             
             /**
@@ -279,6 +99,7 @@
                 treeGrid.setColTypes("tree,txt,txt,txt,txt,txt,txt,txt");
                 treeGrid.init();
                 treeGrid.enableMultiselect(true);
+                treeGrid.setEditable(false);
                 
                 
                 // 获得机构信息
@@ -311,7 +132,16 @@
                 treeGrid.enableMultiselect(true);                
 
                 treeGrid.clearAll();
-                treeGrid.parse(getDeviceData(deviceJson),'json'); 
+                var deviceDataJson = getDeviceData(deviceJson);
+                treeGrid.parse(deviceDataJson,'json'); 
+                
+                if(deviceDataJson.rows.length == 0){
+                    dhtmlx.message({
+                        title: "消息提示",
+                        type: "alert",
+                        text: "没有与搜索条件匹配的项！"
+                    });
+                }
             }
             
             /**
@@ -327,7 +157,8 @@
                 // 封装网络表格JSON
                 $.each(p_json, function(key, value){
                     
-                    if((value.name.indexOf($.trim($("#txtName").val())) >= 0) && (String(value.address).indexOf($.trim($("#txtAddress").val())) >= 0)){
+                    if((value.name.indexOf($.trim($("#txtName").val())) >= 0) 
+                            && ($.trim($("#txtAddress").val()) == "" || (String(value.address) == $.trim($("#txtAddress").val())))){
                         var tmpDevice = new Object(); 
                         tmpDevice.id = value.id;
                         tmpDevice.data = [];
@@ -343,7 +174,8 @@
                         tmpDevice.data.push(value.number);
                         tmpDevice.data.push(value.address);
                         tmpDevice.data.push(value.endtagname);
-                        tmpDevice.data.push(value.ip);
+                        var ipTmp = value.ip.split('|');
+                        tmpDevice.data.push(ipTmp[1]);
                         tmpDevice.data.push(value.state == "true" ? "正常" : "非正常");
 
                         $.each(value.sensor, function(keySensor, valueSensor){
@@ -357,7 +189,8 @@
                             tmpSensor.data.push(valueSensor.number);
                             tmpSensor.data.push(valueSensor.address);
                             tmpSensor.data.push(valueSensor.endtagname);
-                            tmpSensor.data.push(valueSensor.ip);
+                            var ipTmp = valueSensor.ip.split('|');
+                            tmpSensor.data.push(ipTmp[1]);
                             tmpSensor.data.push(valueSensor.state == "true" ? "正常" : "非正常");
 
                             tmpDevice.rows.push(tmpSensor);
@@ -455,108 +288,7 @@
                 treeGrid2.init();
                 treeGrid2.load("data/gzcz.json", "json");
             }
-            
-            function createGrid(){
-                Grid1= new dhtmlXGridObject('gryj');
-                Grid1.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid1.setHeader(["序号","油井名称","日产液量（t/d）","日产油量（t/d）","含水率（%）","冲程（m）","冲次（min<SUP>-1</SUP>）","油压（MPa）","套压（MPa）","回压（MPa）","动液面（m）","泵效（%）","平衡度","井口温度（℃）","日平均电压（V）","日平均电流（A）","日耗电量（kw·h）","日注汽累积量（m³/d）","日注汽平均流量（m³/s）","日注汽平均压力（MPa）","日注汽平均温度（℃）","日注汽平均干度（%）","日注汽时间（h）","开井时间（h）","报警数（个）"]);
-                Grid1.setInitWidths("70,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,150,170,160,150,150,150,150,150");
-                Grid1.setColAlign("center,center,center,center,center,center,center,center,center,center,center,center,center,center,center,center,center,center,center,center,center,center,center,center,center");
-                Grid1.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
-                Grid1.init();
-                Grid1.load('data/yjbb.json','json');
-
-                Grid2= new dhtmlXGridObject('grsyj');
-                Grid2.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid2.setHeader(["序号","井号","日均外输压力（MPa）","日均井口压力（MPa）","日均水温（℃）","日均液位（米）","日耗电量（kw·h）","日均外输瞬时流量（m³/s）","日外输累积流量（m³/d）","报警数（个）"]);
-                Grid2.setInitWidths("70,150,150,150,100,130,200,200,200,150");
-                Grid2.setColAlign("center,center,center,center,center,center,center,center,center,center");
-                Grid2.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
-                Grid2.init();
-                Grid2.load('data/syjbb.json','json');
-
-                Grid3= new dhtmlXGridObject('grzsz');
-                Grid3.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid3.setHeader(["序号","注水站名称","日注水累积量（m³/d）","日注水平均流量（m³/s）","日注水平均压力（MPa）","日注水平均温度（℃）","日注水时间（h）"]);
-                Grid3.setInitWidths("70,150,220,220,220,220,*");
-                Grid3.setColAlign("center,center,center,center,center,center,center");
-                Grid3.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
-                Grid3.init();
-                Grid3.load('data/zszbb.json','json');
-
-                Grid4= new dhtmlXGridObject('grzyz');
-                Grid4.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid4.setHeader(["序号","增压站名称","入口温度（℃）","出口温度（℃）","外输压力（MPa）","原油含水率（%）","流量瞬时值（m³/s）","流量累计值（m³）","缓冲罐液位（m）","环境温度#1（℃）","环境温度#2（℃）","电动蝶阀值（0～100）"]);
-                Grid4.setInitWidths("70,150,150,150,150,150,150,150,150,150,150,200");
-                Grid4.setColAlign("center,center,center,center,center,center,center,center,center,center,center,center");
-                Grid4.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
-                Grid4.init();
-                Grid4.load('data/zyzbb.json','json');
-
-                Grid5= new dhtmlXGridObject('grzq');
-                Grid5.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid5.setHeader(["序号","注汽站","油压（MPa）","套压（MPa）","回压（MPa）","日注汽累积量（m³/d）","日注汽平均流量（m³/s）","日注汽平均压力（MPa）","日注汽平均温度（℃）","日注汽平均干度（%）"]);
-                Grid5.setInitWidths("70,100,100,100,100,200,200,200,180,180");
-                Grid5.setColAlign("center,center,center,center,center,center,center,center,center,center");
-                Grid5.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
-                Grid5.init();
-                Grid5.load('data/zqzbb.json','json');
-
-                Grid6= new dhtmlXGridObject('gkljlgr');
-                Grid6.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid6.setHeader(["序号","队","井号","越限报警","井矿故障诊断报警","SOE报警","日期"]);
-                Grid6.setInitWidths("70,150,150,150,150,150,*");
-                Grid6.setColAlign("center,center,center,center,center,center,center");
-                Grid6.setColTypes("ro,ro,ro,ro,ro,ro,ro");
-                Grid6.init();
-                Grid6.load('data/gkls.json','json');
-
-                Grid7= new dhtmlXGridObject('bjgr');
-                Grid7.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid7.setHeader(["序号","队","井号","温度(℃)","压力(MPa)","流量(m³/d)","电压(kw·h)","电流(kw·h)","电量(kw)","日期"]);
-                Grid7.setInitWidths("70,100,150,150,150,150,150,150,150,150");
-                Grid7.setColAlign("center,center,center,center,center,center,center,center,center,center");
-                Grid7.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
-                Grid7.init();
-                Grid7.load('data/bjjl.json','json');
-
-                Grid8= new dhtmlXGridObject('gzgr');
-                Grid8.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid8.setHeader(["序号","队","井号","设备名称","故障时间","故障信息"]);
-                Grid8.setInitWidths("70,175,175,175,175,*");
-                Grid8.setColAlign("center,center,center,center,center,center");
-                Grid8.setColTypes("ro,ro,ro,ro,ro,ro");
-                Grid8.init();
-                Grid8.load('data/gzls.json','json');
-
-                Grid9= new dhtmlXGridObject('ykgr');
-                Grid9.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid9.setHeader(["序号","队","井号","状态","日期"]);
-                Grid9.setInitWidths("70,300,300,300,300");
-                Grid9.setColAlign("center,center,center,center,center");
-                Grid9.setColTypes("ro,ro,ro,ro,ro");
-                Grid9.init();
-                Grid9.load('data/ykls.json','json');
-
-                Grid10= new dhtmlXGridObject('sbjclsjlgr');
-                Grid10.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid10.setHeader(["序号","队","井号","监控设备信息","日期"]);
-                Grid10.setInitWidths("70,200,300,300,*");
-                Grid10.setColAlign("center,center,center,center,center");
-                Grid10.setColTypes("ro,ro,ro,ro,ro");
-                Grid10.init();
-                Grid10.load('data/sbjclsjl.json','json');
-
-                Grid11= new dhtmlXGridObject('ytgr');
-                Grid11.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid11.setHeader(["序号","井号","井信息","调整类别","调整后参数","原参数","调整时间"]);
-                Grid11.setInitWidths("70,200,400,200,100,100,*");
-                Grid11.setColAlign("center,center,center,center,center,center,center");
-                Grid11.setColTypes("ro,ro,ro,ro,ro,ro,ro");
-                Grid11.init();
-                Grid11.load('data/ytls.json','json');
-            }
-            
+                        
             function tbxs(){
                 dhxWins.window("win").show();
                 dhxWins.window("win").setText("生产综合图表");
@@ -612,19 +344,8 @@
             }
             
         </script>
-        <STYLE type=text/css> 
-            div.objbox { 
-                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
-                SCROLLBAR-HIGHLIGHT-COLOR: #e6d5ff; 
-                SCROLLBAR-SHADOW-COLOR: #e6d5ff; 
-                SCROLLBAR-3DLIGHT-COLOR: #e6d5ff; 
-                SCROLLBAR-ARROW-COLOR: #e6d5ff; 
-                SCROLLBAR-TRACK-COLOR: #FFFFFF;
-                SCROLLBAR-DARKSHADOW-COLOR: #e6d5ff
-            }
-        </STYLE>
     </head>
-    <body onload="scjll();">
+    <body>
         <div id="divkd"></div>
         <div id="zy"  style="width:3845px; height:717px;border:solid; border-width:1px">
             <!--数据-->
@@ -632,10 +353,6 @@
                 <!--logo-->
                 <div id="sscjl" style="width:1280px; height:10;">
                     <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px"/>
-                        <map name="planetmap" id="planetmap">
-                            <area shape="rect" coords="1136,43,1184,62" href ="${ctx}/main/mgr" alt="设置" />
-                            <area shape="rect" coords="1209,44,1261,61" href ="${ctx}/logout" alt="退出" />
-                        </map>
                 </div>
                 <div id="tool" style="width:119px; height:20;  border-right-style:solid;border-right-color:#06F; border-right-width:1px; float:left">
                     <a  href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk.png" style="width:119px; height:33px"/></a>
@@ -644,10 +361,10 @@
                     <a   href="${ctx}/alarmpage" style="text-decoration:none"><img border="0" src="${ctx}/static/img/bjzt.png"/></a>
                 </div>
                 <div id="tool2" style="width:126px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                    <a  href="${ctx}/performancepage" style="text-decoration:none"><img border="0" src="${ctx}/static/img/scdt_red.png" style="width:126px;height:33px"/></a>
+                    <a  href="${ctx}/performancepage" style="text-decoration:none"><img border="0" src="${ctx}/static/img/scdt.png" style="width:126px;height:33px"/></a>
                 </div>
                 <div id="tool3" style="width:122px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
-                    <a  href="${ctx}/producepage" style="text-decoration:none"><img  border="0" src="${ctx}/static/img/scgl.png"  style="width:122px; height:33px"/></a>
+                    <a  href="${ctx}/producepage" style="text-decoration:none"><img  border="0" src="${ctx}/static/img/scgl_red.png"  style="width:122px; height:33px"/></a>
                 </div>
                 <div id="tool4" style="width:126px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <a  href="${ctx}/managepage" style="text-decoration:none"><img border="0"  src="${ctx}/static/img/txwl.png" style="width:126px; height:33px"/></a>
@@ -674,204 +391,12 @@
                     </div>
                 </div>
                 <!--报表信息Tabbar-->
-                <div id="gr" style="width:1245px; height:602px; float:left;">
+                <div id="gr" style="width:1245px; height:600px; float:left;background-color: #00B83F">
                 </div>
-                <!--油井报表-->
-                <div  id="yjbb" style="width:1245px; height:835px;overflow:scrol">
-                    <div id="yj" style="width:1245px; height:20px;border:solid; border-color:#e6d5ff; border-width:1px; background-color:#e6d5ff">
-                        <table cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="width:30px; font-size:14px; font-weight:bold" align="right">矿</td>
-                                <td align="right" style="width:80px;">
-                                    <select name="">
-                                        <option selected="selected">一矿</option>
-                                        <option>二矿</option>
-                                        <option>三矿</option>
-                                        <option>四矿</option>
-                                    </select>
-                                </td>
-                                <td style="width:30px; font-size:14px; font-weight:bold" align="right">队</td>
-                                <td align="right" style="width:80px;">
-                                    <select name="">
-                                        <option selected="selected">一队</option>
-                                        <option>二队</option>
-                                        <option>三队</option>
-                                        <option>四队</option>
-                                    </select>
-                                </td>
-                                <td style="width:70px; font-size:14px; font-weight:bold" align="right">开始时间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"/></td>
-                                <td style="width:70px; font-size:14px; font-weight:bold" align="right">结束时间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"/></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="right"><img src="${ctx}/static/img/chaxun.png" /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="left">&nbsp;查&nbsp;&nbsp;询</td>
-                                <td style="width:100px; font-size:14px; font-weight:bold" align="center" onclick="tbxs();">&nbsp;图&nbsp;表&nbsp;显&nbsp;示</td>
-                                <td style="width:100px; font-size:14px; font-weight:bold" align="center" onclick="tbxs();">&nbsp;快&nbsp;捷&nbsp;查&nbsp;询：</td>
-                                <td style="width:200px; font-size:14px; font-weight:bold" align="center"><input name="radio" type="radio" value=""  checked="checked"/>当日<input name="radio" type="radio" value="" />本旬<input name="radio" type="radio" value="" />本月<input name="radio1" type="radio" value="" />本年</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="gryj" style="width:1245px; height:795px"></div>
-                </div>
-                <!--水源井报表-->
-                <div  id="syjbb" style="width:1242px; height:578px;overflow:scrol">
-                    <div id="syj" style="width:1242px; height:20px;border:solid; border-color:#e6d5ff; border-width:1px; background-color:#e6d5ff">
-                        <table cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="width:30px; font-size:14px; font-weight:bold" align="right">矿</td>
-                                <td align="right" style="width:80px;">
-                                    <select name="">
-                                        <option selected="selected">一矿</option>
-                                        <option>二矿</option>
-                                        <option>三矿</option>
-                                        <option>四矿</option>
-                                    </select>
-                                </td>
-                                <td style="width:30px; font-size:14px; font-weight:bold" align="right">队</td>
-                                <td align="right" style="width:80px;">
-                                    <select name="">
-                                        <option selected="selected">一队</option>
-                                        <option>二队</option>
-                                        <option>三队</option>
-                                        <option>四队</option>
-                                    </select>
-                                </td>
-                                <td style="width:70px; font-size:14px; font-weight:bold" align="right">开始时间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:70px; font-size:14px; font-weight:bold" align="right">结束时间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="right"><img src="${ctx}/static/img/chaxun.png" /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="left">&nbsp;查&nbsp;&nbsp;询</td>
-                                <td style="width:100px; font-size:14px; font-weight:bold" align="center" onclick="tbxs();">&nbsp;图&nbsp;表&nbsp;显&nbsp;示</td>
-                                <td style="width:100px; font-size:14px; font-weight:bold" align="center" onclick="tbxs();">&nbsp;快&nbsp;捷&nbsp;查&nbsp;询：</td>
-                                <td style="width:200px; font-size:14px; font-weight:bold" align="center"><input name="radio1" type="radio" value=""  checked="checked"/>当日<input name="radio1" type="radio" value="" />本旬<input name="radio1" type="radio" value="" />本月<input name="radio1" type="radio" value="" />本年</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="grsyj" style="width:1243px; height:547px"></div>
-                </div>
-                <!--注水站报表-->
-                <div  id="zszbb" style="width:1242px; height:578px;">
-                    <div id="zsz" style="width:1242px; height:20px;border:solid; border-color:#e6d5ff; border-width:1px; background-color:#e6d5ff">
-                        <table cellpadding="0" cellspacing="0">
-                            <tr>                 
-                                <td style="width:70px; font-size:14px; font-weight:bold" align="right">开始时间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:70px; font-size:14px; font-weight:bold" align="right">结束时间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="right"><img src="${ctx}/static/img/chaxun.png" /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="left">&nbsp;查&nbsp;&nbsp;询</td>
-                                <td style="width:100px; font-size:14px; font-weight:bold" align="center" onclick="tbxs();">&nbsp;图&nbsp;表&nbsp;显&nbsp;示</td>
-                                <td style="width:100px; font-size:14px; font-weight:bold" align="center" onclick="tbxs();">&nbsp;快&nbsp;捷&nbsp;查&nbsp;询：</td>
-                                <td style="width:200px; font-size:14px; font-weight:bold" align="center"><input name="radio4" type="radio" value=""  checked="checked"/>当日<input name="radio4" type="radio" value="" />本旬<input name="radio4" type="radio" value="" />本月<input name="radio4" type="radio" value="" />本年</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="grzsz" style="width:1242px; height:569px">
-                    </div>
-                </div>
-                <!--增压站报表-->
-                <div  id="zyzbb" style="width:1242px; height:578px;overflow:scrol">
-                    <div id="zyz" style="width:1242px; height:20px;border:solid; border-color:#e6d5ff; border-width:1px; background-color:#e6d5ff">
-                        <table cellpadding="0" cellspacing="0">
-                            <tr>                 
-                                <td style="width:70px; font-size:14px; font-weight:bold" align="right">开始时间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:70px; font-size:14px; font-weight:bold" align="right">结束时间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="right"><img src="${ctx}/static/img/chaxun.png" /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="left">&nbsp;查&nbsp;&nbsp;询</td>
-                                <td style="width:100px; font-size:14px; font-weight:bold" align="center" onclick="tbxs();">&nbsp;图&nbsp;表&nbsp;显&nbsp;示</td>
-                                <td style="width:100px; font-size:14px; font-weight:bold" align="center" onclick="tbxs();">&nbsp;快&nbsp;捷&nbsp;查&nbsp;询：</td>
-                                <td style="width:200px; font-size:14px; font-weight:bold" align="center"><input name="radio3" type="radio" value=""  checked="checked"/>当日<input name="radio3" type="radio" value="" />本旬<input name="radio3" type="radio" value="" />本月<input name="radio3" type="radio" value="" />本年</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="grzyz" style="width:1242px; height:549px">
-                    </div>
-                </div>
-                <!--注气站报表--> 
-                <div  id="zqbb" style="width:1242px; height:578px;">
-                    <div id="zq" style="width:1242px; height:20px;border:solid; border-color:#e6d5ff; border-width:1px; background-color:#e6d5ff">
-                        <table cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="width:70px; font-size:14px; font-weight:bold" align="right">开始时间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:70px; font-size:14px; font-weight:bold" align="right">结束时间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="right"><img src="${ctx}/static/img/chaxun.png" /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="left">&nbsp;查&nbsp;&nbsp;询</td>
-                                <td style="width:100px; font-size:14px; font-weight:bold" align="center" onclick="tbxs();">&nbsp;图&nbsp;表&nbsp;显&nbsp;示</td>
-                                <td style="width:100px; font-size:14px; font-weight:bold" align="center" onclick="tbxs();">&nbsp;快&nbsp;捷&nbsp;查&nbsp;询：</td>
-                                <td style="width:200px; font-size:14px; font-weight:bold" align="center"><input name="radio2" type="radio" value=""  checked="checked"/>当日<input name="radio2" type="radio" value="" />本旬<input name="radio2" type="radio" value="" />本月<input name="radio2" type="radio" value="" />本年</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="grzq" style="width:1242px; height:549px"></div>
-                </div>
-                <!--远程控制记录--> 
-                <div  id="yckz" style="width:1242px; height:578px;">
-                    <div id="cx" style="width:1242px; height:20px;border:solid; border-color:#e6d5ff; border-width:1px; background-color:#e6d5ff">
-                        <table cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="width:20px; font-size:14px; font-weight:bold" align="right">队</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:30px; font-size:14px; font-weight:bold" align="right">井</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:50px; font-size:14px; font-weight:bold" align="right">时&nbsp;&nbsp;间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:30px; font-size:14px; font-weight:bold" align="center">～</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:60px; font-size:14px; font-weight:bold" align="right">操作人</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="right"><img src="${ctx}/static/img/chaxun.png" /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="left">&nbsp;查&nbsp;&nbsp;询</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="gk" style="width:1242px; height:549px">
-                    </div>
-                </div>
-                <!--远程调参记录--> 
-                <div  id="yctc" style="width:1248px; height:578px;">
-                    <div id="cx1" style="width:1248px; height:20px;border:solid; border-color:#e6d5ff; border-width:1px; background-color:#e6d5ff">
-                        <table cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="width:20px; font-size:14px; font-weight:bold" align="right">队</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:30px; font-size:14px; font-weight:bold" align="right">井</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:50px; font-size:14px; font-weight:bold" align="right">时&nbsp;&nbsp;间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:30px; font-size:14px; font-weight:bold" align="center">～</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:60px; font-size:14px; font-weight:bold" align="right">操作人</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="right"><img src="${ctx}/static/img/chaxun.png" /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="left">&nbsp;查&nbsp;&nbsp;询</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="gk1" style="width:1245px; height:549px">
-                    </div>
-                </div>
-                <!--故障处置-->
-                <div  id="gzcz" style="width:1248px; height:558px;">
-                    <div id="cx2" style="width:1275px; height:20px;border:solid; border-color:#e6d5ff; border-width:1px; background-color:#e6d5ff">
-                        <table cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="width:70px; font-size:14px; font-weight:bold" align="right">报警时间</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:60px; font-size:14px; font-weight:bold" align="right">负责人</td>
-                                <td align="right" style="width:105px;"><input value="" style="width:100px;padding:0px; border:0px;height:17px"  /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="right"><img src="${ctx}/static/img/chaxun.png" /></td>
-                                <td style="width:40px; font-size:14px; font-weight:bold" align="left">&nbsp;查&nbsp;&nbsp;询</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="gk2" style="width:1248px; height:549px">
-                    </div>
-                </div>
+                <!--报表-->
+                <div  id="yjbb" style="width:1245px; height:570px;overflow:scroll;">
+                    <iframe id="reportIframe" src="" style="width:1245px; height:570px;overflow:scroll"></iframe>
+                </div>                
                 <!--设备监控管理Tabbar-->
                 <div id="gr1" style="width:1245px; height:602px; float:left; display:none">
                     <!--网络拓扑图-->
@@ -1121,36 +646,14 @@
             </div>
             <!--地图-->
             <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;">
-                <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+                <div  style="width:100%;height:100%; position: relative;">
+                        <div id="flashContent" style="width:100%;" ></div>                        
+                    </div>
             </div>
             <!--视频-->
             <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;">
                 <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
             </div>
-        </div>
-        <div id="yin" >
-            <img border="0"  src="${ctx}/static/img/1.png" />
-        </div>
-        <div id="yin1" >
-            <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin2" >
-            <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin3" >
-            <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-        </div>
-        <div id="yin4" >
-            <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-        </div>
-        <div id="yin5" >
-            <a href="ssjcmj.html"><img border="0" src="i${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin6" >
-            <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-        </div>
-        <div id="yin12" >
-            <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
         </div>
         <div id="hhk1" style="width:73px; height:20px; cursor:hand;"  onclick="rtu();" >
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1185,6 +688,15 @@
         <div id="bc9" style=" display:none;background: url(${ctx}/static/img/dialog.png); text-align:center;padding-top:10px;color:red;font-size:10px" onclick="closedDiv(9);">
             线路不通<br>IP:192.168.1.5
         </div>
-        <div id="szda" style="width:300px;"></div>
+        <div id="sztitle" style="width:300px;"></div>
+        <div id="szda" style="width:300px;"></div>        
+        <div id="szan" >
+            <c:if test="${sysmgr == 1}">
+                <a href="${ctx}/main/mgr"><img border="0" src="${ctx}/static/img/sz.png" /></a>
+            </c:if>
+        </div>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
+        </div>
     </body>
 </html>

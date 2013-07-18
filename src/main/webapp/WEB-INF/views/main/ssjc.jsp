@@ -7,6 +7,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>生产监控</title>
         <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/gis/style/layout.css">
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>        
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/dhtmlx/js/treeGridcodebae/dhtmlxtreegrid.js"></script>
         <script src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
@@ -15,117 +21,19 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
-        <script type="text/javascript">
-            var objUrl='${ctx}';
-            var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
-        </script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
-        <style type="text/css">
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            .s1{ color:red;}
-            .s2{ color:#000;}
-            .cssdiv:hover{
-                color:#09F
-            }
-            .cssdiv1:hover{
-                color:#09F
-            }
-            .cssdiv2:hover{
-                color:#09F
-            }
-            .cssdiv3:hover{
-                color:#09F
-            }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        </style>
+        <script type="text/javascript" src="${ctx}/static/js/common.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script>
             var dhLayout,toolbar,treeGrid,dhxTabbar,Grid,Grid1,Grid2,Grid3,Grid4,dhxWins;
             /**
              * 生产监控信息初始化
              * @returns {undefined}
              */
-            function ssjc(){
+            function doOnLoad(){
                 
                 // 井矿信息生成
                 createTreeGrid();
@@ -134,8 +42,12 @@
                 createGr();
                 creategr();
                 createWindow();
-                $(".cssdiv").addClass("s1");
+                
             }
+            
+            $(function () {
+                $(".cssdiv").addClass("s1");
+            });
             
             function createWindow(){
                 dhxWins = new dhtmlXWindows();
@@ -162,6 +74,7 @@
              */
             function createTreeGrid(){
                 treeGrid= new dhtmlXGridObject('jdd');
+                treeGrid.selMultiRows = true;
                 treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/icons_greenfolders/";
                 treeGrid.setHeader(["井队名称","总井数","开井数","停井数","非正常停井","作业井","故障井","正常交付井"]);
                 treeGrid.setInitWidths("200,160,160,160,160,160,160,*");
@@ -242,6 +155,8 @@
 
 //                                    treeGrid.openItem("1001");
                                     treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
+
+                                        if(rId.toString().indexOf('j||') < 0) return false;
                                         
                                         var wellTypeInfo = rId.split('||');
 //                                        alert(wellTypeInfo[1] + "----" + wellTypeInfo[2] + "----" + wellTypeInfo[3]);
@@ -321,7 +236,10 @@
                         // 递归遍历子数据  
                         var tmpWellInfo = createGridItem(strMajorTag, tmpMajorTag);         
 
-                        tmpMajorTag.rows = tmpWellInfo.data;
+                        if(tmpWellInfo.data.length > 0){
+                            tmpMajorTag.open = 1;
+                            tmpMajorTag.rows = tmpWellInfo.data;  
+                        }
                                                     
                         // 井参数信息
                         tmpMajorTag.data.push(tmpWellInfo.jing);
@@ -331,7 +249,7 @@
                         tmpMajorTag.data.push(0);
                         tmpMajorTag.data.push(0);
                         tmpMajorTag.data.push(0); 
-                                            
+                        
                         wellDataAry.push(tmpMajorTag);
                     }else{
                                             
@@ -345,7 +263,15 @@
                 //var itemson=jsonManages(sr,jh);
                 treeGrid.clearAll();
                 treeGrid.parse(wellData,'json');
-
+                
+                if(wellData.rows.length == 0){
+                    dhtmlx.message({
+                        title: "消息提示",
+                        type: "alert",
+                        text: "没有与搜索条件匹配的项！"
+                    });
+                }
+                        
                 treeGrid.openItem("1001");
                 treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
                                         
@@ -410,13 +336,10 @@
                                             
                         var tmpMajorTag = new Object(); 
                         tmpMajorTag.id = valueMajorTagList.id;
-                        tmpMajorTag.open = 1;
+//                        tmpMajorTag.open = 1;
                         tmpMajorTag.data = [];
-                        // 名称设置
-                        var majorTagName = {};
-                        majorTagName.value = valueMajorTagList.name;
-                        majorTagName.image = 'folder.gif';                                            
-                        tmpMajorTag.data.push(majorTagName);
+                                      
+                        tmpMajorTag.data.push(valueMajorTagList.name);
 
                         // 递归遍历子数据
                         if(valueMajorTagList.type == 'DUI_LEVEL'){
@@ -434,13 +357,10 @@
                                     
                                     var tmpYoujingTag = new Object(); 
                                     tmpYoujingTag.id = 'j||' + valueYoujing.id + '||' + valueYoujing.subtype + '||' + valueYoujing.stage;
-                                    tmpYoujingTag.open = 1;
+//                                    tmpYoujingTag.open = 1;
                                     tmpYoujingTag.data = [];
-                                    // 名称设置
-                                    var youjingName = {};
-                                    youjingName.value = valueYoujing.name;
-                                    youjingName.image = 'folder.gif';                                            
-                                    tmpYoujingTag.data.push(youjingName);
+                                         
+                                    tmpYoujingTag.data.push(valueYoujing.name);
                                     // 井参数信息
                                     // 井数
                                     tmpYoujingTag.data.push(1);
@@ -478,8 +398,11 @@
                             youjingDuiCount += youjingCount;
                             youjingKaiDuiCount += youjingKaiCount;
                             youjingGuanDuiCount += youjingGuanCount;
-                            tmpMajorTag.rows = tmpYoujingData;  
-
+                            
+                            if(tmpYoujingData.length > 0){
+                                tmpMajorTag.open = 1;
+                                tmpMajorTag.rows = tmpYoujingData;  
+                            }
                         }else{
 
                             var tmpWellInfo = createGridItem(p_MajorTagList, tmpMajorTag);         
@@ -496,7 +419,10 @@
                             youjingDuiCount += tmpWellInfo.jing;
                             youjingKaiDuiCount += tmpWellInfo.jingKai;
                             youjingGuanDuiCount += tmpWellInfo.jingGuan;
-                            tmpMajorTag.rows = tmpWellInfo.data;
+                            if(tmpWellInfo.data.length > 0){
+                                tmpMajorTag.open = 1;
+                                tmpMajorTag.rows = tmpWellInfo.data;  
+                            }
                         }                      
                                             
                         tmpWellData.push(tmpMajorTag);
@@ -592,6 +518,92 @@
                 });
             }
             
+            /**
+             * 增压站信息生成
+             * @returns {undefined}             
+             * */
+            function createGridBySearch(){
+            
+                searchKeyword = $.trim($("#txtZenya").val()); 
+            
+                Grid2= new dhtmlXGridObject('zybz');
+                Grid2.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+                Grid2.setHeader(["序号","增压站名称","入口温度(℃)","出口温度(℃)","外输压力(MPa)","原油含水率(%)","流量瞬时值(m³/s)","流量累计值(m³)","缓冲罐液位(m)","环境温度#1(℃)","环境温度#2(℃)","电动蝶阀值(0-100)"]);
+                Grid2.setInitWidths("50,100,100,100,110,110,135,120,115,120,120,150");
+                Grid2.setColAlign("center,center,center,center,center,center,center,center,center,center,center,center");
+                Grid2.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro");
+                Grid2.init();
+                Grid2.setSkin("modern");
+                
+                strZhan = '';
+                // 增压站数据封装
+                getZhanJsonBySearch('ZENG_YA_ZHAN', Grid2);                
+            }
+                
+            /**
+             * 站封装数据
+             * @param {type} p_code
+             * @param {type} p_grid
+             * @returns {undefined}
+             */   
+            function getZhanJsonBySearch(p_code, p_grid){
+                        
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/zengya',
+                    dateType:'json',
+                    success: function(jsonZhan){
+
+                        strZhan = jsonZhan;  
+                         // 站封装数据
+                        var zhanData = new Object();
+                        zhanData.rows = [];
+                        // 封装井矿信息JSON
+                        $.each(strZhan,function(keyZhan, valueZhan){
+                            
+                            if(valueZhan.name.indexOf(searchKeyword) >= 0){
+                            
+                                switch(valueZhan.type){
+
+                                    // 增压站
+                                    case p_code:
+
+                                        var zhanItem = new Object();
+                                        zhanItem.id = valueZhan.id;
+                                        zhanItem.data = [];
+                                        zhanItem.data.push((keyZhan+1));
+                                        zhanItem.data.push(valueZhan.name);
+                                        zhanItem.data.push(valueZhan.zyz_ru_kou_wen_du);
+                                        zhanItem.data.push(valueZhan.zyz_chu_kou_wen_du);
+                                        zhanItem.data.push(valueZhan.zyz_wai_shu_ya_li);
+                                        zhanItem.data.push(valueZhan.zyz_han_shui_lv);
+                                        zhanItem.data.push(valueZhan.zyz_shun_shi_liu_liang);
+                                        zhanItem.data.push(valueZhan.zyz_lei_ji_liu_liang);
+                                        zhanItem.data.push(valueZhan.zyz_ye_wei);
+                                        zhanItem.data.push(valueZhan.zyz_wen_du_1);
+                                        zhanItem.data.push(valueZhan.zyz_wen_du_2);
+                                        zhanItem.data.push(valueZhan.zyz_dian_dong_die_fa);
+
+                                        zhanData.rows.push(zhanItem);
+                                        break;
+                                }
+                            }
+                        });
+                        
+                        p_grid.parse(zhanData,'json');
+                        
+                        if(zhanData.rows.length == 0){
+                            
+                            dhtmlx.message({
+                                title: "消息提示",
+                                type: "alert",
+                                text: "没有与搜索条件匹配的项！"
+                            });
+                        }
+                    }
+                });
+            }
+            
             function jsonManagezs(json,zs){
                 var itemson={rows:[]};
                 if(zs!=""){
@@ -628,6 +640,7 @@
                 }
                 return itemson;
             }
+            
             function createGr(){
                 Grid= new dhtmlXGridObject('zsz');
                 Grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
@@ -656,6 +669,7 @@
                 });
                 //Grid.load('data/ssjcgrid.json','json');
             }
+            
             function jsonManagejz(json,jz){
                 var itemson={rows:[]};
                 if(jz!=""){
@@ -849,28 +863,13 @@
                 $("#gr3").css("display","block");
             }
         </script>
-        <STYLE type=text/css> 
-            div.objbox { 
-                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
-                SCROLLBAR-HIGHLIGHT-COLOR: #E3E3E3; 
-                SCROLLBAR-SHADOW-COLOR: #E3E3E3; 
-                SCROLLBAR-3DLIGHT-COLOR: #E3E3E3; 
-                SCROLLBAR-ARROW-COLOR: #E3E3E3; 
-                SCROLLBAR-TRACK-COLOR: #FFFFFF;
-                SCROLLBAR-DARKSHADOW-COLOR: #E3E3E3
-            }
-        </STYLE>
     </head>
-    <body onload="ssjc();"><div id="tmpWell"></div>
+    <body><div id="tmpWell"></div>
         <div id="zz" style="width:3845px; height:717px;border:solid;border-width:1px">
             <!--数据-->
             <div id="ssjc" style="width:1280px; height:69px;  float:left; font-size: 0 " >
                 <div id="ssjc" style="width:1280px; height:10;">
                     <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px"/>
-                    <map name="planetmap" id="planetmap">
-                        <area shape="rect" coords="1136,43,1184,62" href ="${ctx}/main/mgr" alt="设置" />
-                        <area shape="rect" coords="1209,44,1261,61" href ="${ctx}/logout" alt="退出" />
-                    </map>
                 </div>
                 <div id="tool" style="width:119px; height:20;  border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <a href="#" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk_red.png" style="width:119px; height:33px;"/></a>
@@ -918,7 +917,7 @@
                         &nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;况&nbsp;&nbsp;&nbsp;信&nbsp;&nbsp;&nbsp;息
                     </div>
                     <div id="jd" style="width:70px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                        &nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;号
+                        &nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;名
                     </div>
                     <div id="jhxx" style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
                         <input type="text" name="textfie" id="textfie" style=" height:13px; width:80px; "/>
@@ -941,7 +940,7 @@
                         <input type="text" name="txtZenya" id="txtZenya" style=" height:13px; width:80px;"/>
                     </div>
                     <div id="zyzxx1" style="width:50px; height:19px; background-color:#cced94; font-size:16px; font-weight:bold; border:solid; border-width:1px; border-color:#cced94; float:left" >
-                        <img src="${ctx}/static/img/chaxun.png" onclick="createGrid();" style="cursor:pointer" />
+                        <img src="${ctx}/static/img/chaxun.png" onclick="createGridBySearch();" style="cursor:pointer" />
                     </div>
                     <div id="zybz" style="width:1243px; height:578px;top: 10; border:solid; border-width:1px; border-color:#cced94; float:left">
                     </div> 
@@ -983,37 +982,24 @@
             </div>     
             <!--地图-->
             <div id="dt" style="width:1280px;height:716px; border:solid; border-width:1px; float:left;" >
-                <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+                <div  style="width:100%;height:100%; position: relative;">
+                    <div id="flashContent" style="width:100%;" ></div>                    
+                </div>
             </div>
             <!--视频-->
             <div id="sp" style="width:1280px;height:716px; border:solid;  border-width:1px; float:left;" >
                 <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
             </div>
         </div>
-        <div id="yin" >
-            <img border="0"  src="${ctx}/static/img/1.png" />
-        </div>
-        <div id="yin1" >
-            <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin2" >
-            <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin3" >
-            <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-        </div>
-        <div id="yin4" >
-            <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-        </div>
-        <div id="yin5" >
-            <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin6" >
-            <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-        </div>
-        <div id="yin12" >
-            <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
+        <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>
+        <div id="szan" >
+            <c:if test="${sysmgr == 1}">
+                <a href="${ctx}/main/mgr"><img border="0" src="${ctx}/static/img/sz.png" /></a>
+            </c:if>
+        </div>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
+        </div>
     </body>
 </html>

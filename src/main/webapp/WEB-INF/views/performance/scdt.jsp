@@ -9,6 +9,11 @@
         <link rel="stylesheet" type="text/css" href="${ctx}/static/style/demo.css" />
         <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-z.css" />
         <link rel="stylesheet" type="text/css" href="${ctx}/static/style/zTreeStyle.css" />
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css">
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>
         <script type="text/javascript" src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script type="text/javascript" src="${ctx}/static/dhtmlx/js/treeGridcodebae/dhtmlxtreegrid.js"></script>
         <script type="text/javascript" src="${ctx}/static/dhtmlx/js/gridcodebase/ext/dhtmlxgrid_json.js"></script>
@@ -22,114 +27,11 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
-        <script type="text/javascript">
-            var objUrl='${ctx}';
-            var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
-        </script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
-        <style type="text/css">
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #divkd {
-                display:none;
-                position:absolute;
-                background:url(${ctx}/static/img/kd.jpg);
-                left:18px;
-                top:491px;
-                width:64px;
-                height:216px;
-                z-index:1;
-            }
-            .s1{ color:red;}
-            .s2{ color:#000;}
-            .cssdiv:hover{
-                color:#09F
-            }
-            .cssdiv1:hover{
-                color:#09F
-            }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        </style>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script type="text/javascript">
             var treeGrid,dhxWins,dhxWins1,tree;
             var drljl='<div id="dqlj" style="width:400px;height:200px"><img src="imagess/drljl.png"</div>';
@@ -177,16 +79,220 @@
                 $("#gr1").css("display","block");
             }  
             
+            // 油井信息
+            var strYoujing;
+            // 组织机构信息
+            var strMajorTag;
+            // 已选择组织机构信息
+            var selMajorTagData_tree;
+            
             /**
              * 生产动态初始化
              * @returns {undefined}
              */
-            function scdt(){
+            function doOnLoad(){
 
                 // 列表信息
                 createTreeGrid();
-//                createWindows();
-//                createWindows1();
+                
+                var treeNodes = [];
+                var treeNodesItem = new Object();
+                
+                // 获得机构信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/majortag',
+                    dateType:'json',
+                    success: function(json){
+                        strMajorTag = json;
+                        if(json != ''){
+                            // 获得油井信息
+                            $.ajax({
+                                type: 'POST',
+                                url: '${ctx}/realtime/youjing',
+                                dateType:'json',
+                                success: function(jsonYoujing){
+ 
+                                    strYoujing = jsonYoujing; 
+                                    
+                                    // 产油量
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'cyl_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '油井产油量';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 已选择组织机构
+                                    selMajorTagData_tree = ',';
+                                    // 封装信息JSON
+                                    createTreeNodeItem(treeNodes, 0, 'cyl_');
+                                    
+                                    // 产液量
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'cyel_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '油井产液量';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 已选择组织机构
+                                    selMajorTagData_tree = ',';
+                                    // 封装信息JSON
+                                    createTreeNodeItem(treeNodes, 0, 'cyel_');
+                                    
+                                    // 产气量
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'cql_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '产气量';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 油井开井数
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'yjkj_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '油井开井数';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.checked = true;
+                                    treeNodesItem.doCheck = false;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 油井用电量
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'yjydl_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '油井用电量';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 已选择组织机构
+                                    selMajorTagData_tree = ',';
+                                    // 封装信息JSON
+                                    createTreeNodeItem(treeNodes, 0, 'yjydl_');
+                                    
+                                    // 油井注气量
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'yjzql_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '油井注气量';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 注水量
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'zsl_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '油井注水量';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 水井开井数
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'yjkjs_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '水井开井数';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 作业井数
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'zyjs_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '作业井数';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 总用电量
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'zydl_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '总用电量';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 单井平均产量
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'djpjcl_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '单井平均产量';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 平均含水量
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'pjhsl_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '平均含水量';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    // 油井总井数
+                                    treeNodesItem = new Object();
+
+                                    treeNodesItem.id = 'yjzjs_0';
+                                    treeNodesItem.pId = '0';
+                                    treeNodesItem.name = '油井总井数';
+                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
+                                    treeNodesItem.open = true;
+
+                                    treeNodes.push(treeNodesItem);
+                                    
+                                    $.fn.zTree.init($("#treeDemo"), setting, treeNodes);
+                                    
+                                    // 油井开井数 状态
+                                    $('#checkbox_yjkj_0').attr("checked", true);
+                                    $('#checkbox_yjkj_0').attr("disabled", true);
+                                    // 产气量 状态
+                                    $('#checkbox_cql_0').attr("checked", false);
+                                    $('#checkbox_cql_0').attr("disabled", true);
+                                    
+                                    selMajorTagData_qx = ',';
+                                    createQx_kjs(0, '油井开井数', 'container', 
+                                        '油&nbsp;&nbsp;井&nbsp;&nbsp;开&nbsp;&nbsp;井&nbsp;&nbsp;数', 
+                                        '${ctx}/performance/getOilProductDataList_kjs');  
+                                }
+                            });
+                        }
+                    }
+                }); 
+                
                 $(".cssdiv").addClass("s1");
             }
             
@@ -1766,7 +1872,7 @@
              * @param {type} code 选中节点code
              * @returns {Object}
              */
-            function createQx_oil(p_id, p_title, p_render, p_name, p_path){
+            function createQx_oil(p_id, p_title, p_render, p_name, p_path, p_unit){
 
                 // 累计
                 var mapData = new Map();
@@ -1797,7 +1903,7 @@
                             }
                         });
                         
-                        createScdtQx(mapData, p_title, '', p_render, p_name);
+                        createScdtQx(mapData, p_title, p_unit, p_render, p_name);
                     }
                 });
             }
@@ -1837,7 +1943,7 @@
              * @param {type} code 选中节点code
              * @returns {Object}
              */
-            function createQxForWell_oil(p_id, p_title, p_render, p_name, p_path){
+            function createQxForWell_oil(p_id, p_title, p_render, p_name, p_path, p_unit){
 
                 // 累计
                 var mapData = new Map();
@@ -1859,7 +1965,7 @@
                             }
                         });
                         
-                        createScdtQx(mapData, p_title, '', p_render, p_name);
+                        createScdtQx(mapData, p_title, p_unit, p_render, p_name);
                     }
                 });
             }
@@ -1945,7 +2051,7 @@
              * @param {type} code 选中节点code
              * @returns {Object}
              */
-            function createQx_oil_pj(p_id, p_title, p_render, p_name, p_path){
+            function createQx_oil_pj(p_id, p_title, p_render, p_name, p_path, p_unit){
 
                 // 累计
                 var mapData = new Map();
@@ -1979,7 +2085,7 @@
                             }
                         });
                         
-                        createScdtQx_pj(mapData, p_title, '', p_render, p_name, youjing_count);
+                        createScdtQx_pj(mapData, p_title, p_unit, p_render, p_name, youjing_count);
                     }
                 });
             }
@@ -2008,16 +2114,16 @@
                         case 'cyl_0' :
                             $("#container1").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                '${ctx}/performance/getOilProductDataList');
+                            createQx_oil(0, '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                                '${ctx}/performance/getOilProductDataList', 't');
                             $("#radio_" + treeNode.children[0].id).attr("checked", false);
                             break;
                         //产液量
                         case 'cyel_0' :
                             $("#container2").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                '${ctx}/performance/getOilProductDataList_liquid');
+                            createQx_oil(0, '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                                '${ctx}/performance/getOilProductDataList_liquid', 'm³');
                             $("#radio_" + treeNode.children[0].id).attr("checked", false);
                             break;
                         //产气量(暂时不做实现)
@@ -2028,57 +2134,57 @@
                         case 'yjydl_0' :
                             $("#container4").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                '${ctx}/performance/getOilProductDataList_ydl');  
+                            createQx_oil(0, '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                '${ctx}/performance/getOilProductDataList_ydl', 'kWh');  
                             $("#radio_" + treeNode.children[0].id).attr("checked", false);
                             break;
                         //油井注气量
                         case 'yjzql_0' :
                             $("#container5").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井注气量', 'container5', '注&nbsp;&nbsp;&nbsp;&nbsp;气&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                '${ctx}/performance/getOilProductDataList_zql');
+                            createQx_oil(0, '油井注气量', 'container5', '油&nbsp;&nbsp;井&nbsp;&nbsp;注&nbsp;&nbsp;气&nbsp;&nbsp;量', 
+                                '${ctx}/performance/getOilProductDataList_zql', 'm³');
                             break;
                         //注水量
                         case 'zsl_0' :
                             $("#container6").css("display","block");                            
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井注水量', 'container6', '注&nbsp;&nbsp;&nbsp;&nbsp;水&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                '${ctx}/performance/getOilProductDataList_zsl');
+                            createQx_oil(0, '油井注水量', 'container6', '油&nbsp;&nbsp;井&nbsp;&nbsp;注&nbsp;&nbsp;水&nbsp;&nbsp;量', 
+                                '${ctx}/performance/getOilProductDataList_zsl', 'm³');
                             break;
                         //总用电量
                         case 'zydl_0' :
                             $("#container7").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '总用电量', 'container7', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                '${ctx}/performance/getOilProductDataList_zydl');
+                            createQx_oil(0, '总用电量', 'container7', '总&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                '${ctx}/performance/getOilProductDataList_zydl', 'kWh');
                             break;
                         //单井平均产量
                         case 'djpjcl_0' :
                             $("#container8").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil_pj(0, '单井平均产量', 'container8', '平&nbsp;&nbsp;均&nbsp;&nbsp;产&nbsp;&nbsp;量', 
-                                '${ctx}/performance/getOilProductDataList');
+                            createQx_oil_pj(0, '单井平均产量', 'container8', '单&nbsp;&nbsp;井&nbsp;&nbsp;平&nbsp;&nbsp;均&nbsp;&nbsp;产&nbsp;&nbsp;量', 
+                                '${ctx}/performance/getOilProductDataList', 't');
                             break;
                         //平均含水量
                         case 'pjhsl_0' :
                             $("#container9").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil_pj(0, '平均含水量', 'container9', '含&nbsp;&nbsp;&nbsp;&nbsp;水&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                '${ctx}/performance/getOilProductDataList_hsl');
+                            createQx_oil_pj(0, '平均含水量', 'container9', '平&nbsp;&nbsp;均&nbsp;&nbsp;含&nbsp;&nbsp;水&nbsp;&nbsp;量', 
+                                '${ctx}/performance/getOilProductDataList_hsl', '%');
                             break;	
                         //油井井数			
                         case 'yjzjs_0' :
                             $("#container10").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_kjs(0, '油井井数', 'container10', '总&nbsp;&nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;&nbsp;数', 
+                            createQx_kjs(0, '油井总井数', 'container10', '油&nbsp;&nbsp;井&nbsp;&nbsp;总&nbsp;&nbsp;井&nbsp;&nbsp;数', 
                                 '${ctx}/performance/getOilProductDataList_zjs');
                             break;	
                         //水井开井数			
                         case 'yjkjs_0' :
                             $("#container11").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_kjs(0, '水井开井数', 'container11', '总&nbsp;&nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;&nbsp;数', 
+                            createQx_kjs(0, '水井开井数', 'container11', '水&nbsp;&nbsp;井&nbsp;&nbsp;开&nbsp;&nbsp;井&nbsp;&nbsp;数', 
                                 '${ctx}/performance/getOilProductDataList_sjkjs');
                             break;	
                     }                        
@@ -2198,14 +2304,14 @@
                             //产油量
                             case 'cyl' : 
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                    '${ctx}/performance/getOilProductDataList');
+                                createQx_oil(trId[1], '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                                    '${ctx}/performance/getOilProductDataList', 't');
                                 break;
                             //产液量
                             case 'cyel' : 
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                    '${ctx}/performance/getOilProductDataList_liquid');
+                                createQx_oil(trId[1], '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                                    '${ctx}/performance/getOilProductDataList_liquid', 'm³');
                                 break;
                             //产气量
                             case 'cql' : 
@@ -2213,8 +2319,8 @@
                             //油井用电量
                             case 'yjydl' :
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                    '${ctx}/performance/getOilProductDataList_ydl');
+                                createQx_oil(trId[1], '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                    '${ctx}/performance/getOilProductDataList_ydl', 'kWh');
                                 break;
                             //油井注气量
                             case 'yjzql' : 
@@ -2244,23 +2350,23 @@
                             //产油量
                             case 'cyl' : 
                                 if(trId[1] == 'yj'){
-                                    createQxForWell_oil(trId[2], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList');  
+                                    createQxForWell_oil(trId[2], '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList', 't');  
                                 }else{
                                     selMajorTagData_qx = ',';
-                                    createQx_oil(trId[1], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList');
+                                    createQx_oil(trId[1], '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList', 't');
                                 }
                                 break;
                             //产液量
                             case 'cyel' : 
                                 if(trId[1] == 'yj'){
-                                    createQxForWell_oil(trId[2], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList_liquid');  
+                                    createQxForWell_oil(trId[2], '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList_liquid', 'm³');  
                                 }else{
                                     selMajorTagData_qx = ',';
-                                    createQx_oil(trId[1], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList_liquid');
+                                    createQx_oil(trId[1], '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList_liquid', 'm³');
                                 }
                                 break;
                             //产气量
@@ -2269,12 +2375,12 @@
                             //油井用电量
                             case 'yjydl' :  
                                 if(trId[1] == 'yj'){
-                                    createQxForWell_oil(trId[2], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList_ydl');  
+                                    createQxForWell_oil(trId[2], '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList_ydl', 'kWh');  
                                 }else{
                                     selMajorTagData_qx = ',';
-                                    createQx_oil(trId[1], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList_ydl');
+                                    createQx_oil(trId[1], '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList_ydl', 'kWh');
                                 }
                                 break;
                             //油井注气量
@@ -2305,12 +2411,12 @@
                         //产油量
                         case 'cyl' : 
                             if(trId[1] == 'yj'){
-                                createQxForWell_oil(trId[2], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList');
+                                createQxForWell_oil(trId[2], '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList', 't');
                             }else{
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产油量', 'container1', '产&nbsp;&nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList');
+                                createQx_oil(trId[1], '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList', 't');
                             }
                             
                             if(checkedRadio!=null){
@@ -2320,12 +2426,12 @@
                         //产液量
                         case 'cyel' : 
                             if(trId[1] == 'yj'){
-                                createQxForWell_oil(trId[2], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList_liquid');
+                                createQxForWell_oil(trId[2], '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList_liquid', 'm³');
                             }else{
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产液量', 'container2', '产&nbsp;&nbsp;&nbsp;&nbsp;液&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                        '${ctx}/performance/getOilProductDataList_liquid');
+                                createQx_oil(trId[1], '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                                        '${ctx}/performance/getOilProductDataList_liquid', 'm³');
                             }
                             if(checkedRadio!=null){
                                  checkw(treeNode, checkedRadio);
@@ -2337,12 +2443,12 @@
                         //油井用电量
                         case 'yjydl' : 
                             if(trId[1] == 'yj'){
-                                createQxForWell_oil(trId[2], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                    '${ctx}/performance/getOilProductDataList_ydl');  
+                                createQxForWell_oil(trId[2], '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                    '${ctx}/performance/getOilProductDataList_ydl', 'kWh');  
                            }else{
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井用电量', 'container4', '用&nbsp;&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;量', 
-                                    '${ctx}/performance/getOilProductDataList_ydl');
+                                createQx_oil(trId[1], '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                    '${ctx}/performance/getOilProductDataList_ydl', 'kWh');
                            }
                            if(checkedRadio!=null){
                                 checkw(treeNode, checkedRadio);
@@ -2372,220 +2478,6 @@
                 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
                 zTree.selectNode(treeNode);
             }
-		    
-            // 油井信息
-            var strYoujing;
-            // 组织机构信息
-            var strMajorTag;
-            // 已选择组织机构信息
-            var selMajorTagData_tree;
-            
-            /**
-             * 页面初始化
-             */
-            $(document).ready(function(){
-                
-                // 生产动态初始化 
-                scdt();
-                
-                var treeNodes = [];
-                var treeNodesItem = new Object();
-                
-                // 获得机构信息
-                $.ajax({
-                    type: 'POST',
-                    url: '${ctx}/realtime/majortag',
-                    dateType:'json',
-                    success: function(json){
-                        strMajorTag = json;
-                        if(json != ''){
-                            // 获得油井信息
-                            $.ajax({
-                                type: 'POST',
-                                url: '${ctx}/realtime/youjing',
-                                dateType:'json',
-                                success: function(jsonYoujing){
- 
-                                    strYoujing = jsonYoujing; 
-                                    
-                                    // 产油量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'cyl_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '产油量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 已选择组织机构
-                                    selMajorTagData_tree = ',';
-                                    // 封装信息JSON
-                                    createTreeNodeItem(treeNodes, 0, 'cyl_');
-                                    
-                                    // 产液量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'cyel_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '产液量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 已选择组织机构
-                                    selMajorTagData_tree = ',';
-                                    // 封装信息JSON
-                                    createTreeNodeItem(treeNodes, 0, 'cyel_');
-                                    
-                                    // 产气量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'cql_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '产气量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 油井开井数
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'yjkj_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '油井开井数';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.checked = true;
-                                    treeNodesItem.doCheck = false;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 油井用电量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'yjydl_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '油井用电量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 已选择组织机构
-                                    selMajorTagData_tree = ',';
-                                    // 封装信息JSON
-                                    createTreeNodeItem(treeNodes, 0, 'yjydl_');
-                                    
-                                    // 油井注气量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'yjzql_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '油井注气量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 注水量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'zsl_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '注水量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 水井开井数
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'yjkjs_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '水井开井数';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 作业井数
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'zyjs_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '作业井数';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 总用电量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'zydl_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '总用电量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 单井平均产量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'djpjcl_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '单井平均产量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 平均含水量
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'pjhsl_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '平均含水量';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    // 油井总井数
-                                    treeNodesItem = new Object();
-
-                                    treeNodesItem.id = 'yjzjs_0';
-                                    treeNodesItem.pId = '0';
-                                    treeNodesItem.name = '油井总井数';
-                                    treeNodesItem.icon = '${ctx}/static/img/treeimg/d.gif';
-                                    treeNodesItem.open = true;
-
-                                    treeNodes.push(treeNodesItem);
-                                    
-                                    $.fn.zTree.init($("#treeDemo"), setting, treeNodes);
-                                    
-                                    // 油井开井数 状态
-                                    $('#checkbox_yjkj_0').attr("checked", true);
-                                    $('#checkbox_yjkj_0').attr("disabled", true);
-                                    // 产气量 状态
-                                    $('#checkbox_cql_0').attr("checked", false);
-                                    $('#checkbox_cql_0').attr("disabled", true);
-                                    
-                                    selMajorTagData_qx = ',';
-                                    createQx_kjs(0, '油井开井数', 'container', 
-                                        '开&nbsp;&nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;&nbsp;数', 
-                                        '${ctx}/performance/getOilProductDataList_kjs');  
-                                }
-                            });
-                        }
-                    }
-                });                
-            });	
             
             /**
              * 树结构子级信息生成
@@ -2652,23 +2544,15 @@
                         // 初始日期设置
                         $('#txtStartDate').val(jsonDate.startDate);
                         $('#txtEndDate').val(jsonDate.endDate);
+                        
+                        selMajorTagData_qx = ',';
+                        createQx_kjs(0, '油井开井数', 'container', 
+                            '油&nbsp;&nbsp;井&nbsp;&nbsp;开&nbsp;&nbsp;井&nbsp;&nbsp;数', 
+                            '${ctx}/performance/getOilProductDataList_kjs');  
                     }
                 });
             }
         </script>
-        <STYLE type=text/css> 
-            div.objbox { 
-                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
-                SCROLLBAR-HIGHLIGHT-COLOR: #e6d5ff; 
-                SCROLLBAR-SHADOW-COLOR: #e6d5ff; 
-                SCROLLBAR-3DLIGHT-COLOR: #e6d5ff; 
-                SCROLLBAR-ARROW-COLOR: #e6d5ff; 
-                SCROLLBAR-TRACK-COLOR: #FFFFFF;
-                SCROLLBAR-DARKSHADOW-COLOR: #e6d5ff
-            }
-            .radioBtn {height: 16px;vertical-align: middle;}
-            .checkboxBtn {vertical-align: middle;margin-right: 2px;}
-        </STYLE>
     </head>
     <body>
         <div id="divkd"></div>
@@ -2678,10 +2562,6 @@
                 <!--logo-->
                 <div id="ssjc" style="width:1280px; height:10;">
                     <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px"/>
-                        <map name="planetmap" id="planetmap">
-                            <area shape="rect" coords="1136,43,1184,62" href ="${ctx}/main/mgr" alt="设置" />
-                            <area shape="rect" coords="1209,44,1261,61" href ="${ctx}/logout" alt="退出" />
-                        </map>
                 </div>
                 <div id="tool" style="width:119px; height:20;  border-right-style:solid;border-right-color:#06F; border-right-width:1px; float:left">
                     <a  href="${ctx}/main" style="text-decoration:none"><img border="0" src="${ctx}/static/img/ssjk.png" style="width:119px; height:33px"/></a>
@@ -2719,7 +2599,7 @@
                 <div id="zhyrrr" style="width:1245px; height:597px; overflow:scrol; float:left">
                     <div id="gr" style="width:1245px; height:595px; overflow:scrol; float:left">
                         <div id="qm" style="width:1245px; height:19px; background-color:#e6d5ff;border:solid; font-size:14px; line-height:22px; font-weight:bold; border-color:#e6d5ff; border-width:1px;  float:left">
-                            &nbsp;&nbsp;&nbsp;油&nbsp;&nbsp;&nbsp;田&nbsp;&nbsp;&nbsp一&nbsp;&nbsp;&nbsp;区
+                            &nbsp;&nbsp;&nbsp;列&nbsp;&nbsp;&nbsp;表&nbsp;&nbsp;&nbsp信&nbsp;&nbsp;&nbsp;息
                         </div>
                         <div id="sz" style="width:1245px; height:578px; background-color:#FFE0BB;  border:solid; border-color:#e6d5ff; border-width:1px;float:left" >
                         </div>
@@ -2751,42 +2631,42 @@
                         <div id="treeDemo" class="ztree" style="width:195px;overflow:auto; height:565px;background-color:#FFE0BB;border:solid; font-size:14px; border-color:#fce1cc; border-width:0px;  float:left" > 
                         </div>
                         <!--实时曲线-->
-                        <div id="qx" style="width:1038px; height:573px; overflow:auto;border:solid; border-color:#fce1cc; border-width:1px; margin-left:200px;" >
+                        <div id="qx" style="width:1035px; height:573px; overflow:auto;border:solid; border-color:#fce1cc; border-width:1px; margin-left:200px;" >
                             <!--产油量--> 		
-                            <div id="container1" style="width:1036px; height: 191px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
+                            <div id="container1" style="width:1015px; height: 191px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
                             </div>
                             <!--产液量-->
-                            <div id="container2" style="width:1036px; height: 191px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
+                            <div id="container2" style="width:1015px; height: 191px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
                             </div>
                             <!--产汽量-->
-                            <div id="container3" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
+                            <div id="container3" style="width:1015px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
                             </div>
                             <!--油井用电量-->
-                            <div id="container4" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
+                            <div id="container4" style="width:1015px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
                             </div>
                             <!--油井注气量-->
-                            <div id="container5" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
+                            <div id="container5" style="width:1015px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
                             </div>
                             <!--注水量-->
-                            <div id="container6" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
+                            <div id="container6" style="width:1015px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
                             </div>                            
                             <!--水井井数-->
-                            <div id="container11" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px;  display:none">
+                            <div id="container11" style="width:1015px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px;  display:none">
                             </div>
                             <!--总用电量-->
-                            <div id="container7" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
+                            <div id="container7" style="width:1015px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
                             </div>
                             <!--单井平均产量-->
-                            <div id="container8" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
+                            <div id="container8" style="width:1015px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
                             </div>
                             <!--平均含水量-->
-                            <div id="container9" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
+                            <div id="container9" style="width:1015px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px; margin: 0 auto; display:none">
                             </div>
                             <!--油井井数-->
-                            <div id="container10" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px;  display:none">
+                            <div id="container10" style="width:1015px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px;  display:none">
                             </div>
                             <!--油井开井数--> 
-                            <div id="container" style="width:1036px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px;margin: 0 auto">
+                            <div id="container" style="width:1015px; height: 189px; border:solid; border-color:#fce1cc; border-width:1px;margin: 0 auto">
                             </div>
                         </div>
                     </div>
@@ -2794,37 +2674,24 @@
             </div>
             <!--地图-->
             <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
-                <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+                <div  style="width:100%;height:100%; position: relative;">
+                        <div id="flashContent" style="width:100%;" ></div>                        
+                    </div>
             </div>
             <!--视频-->
             <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
                 <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
             </div>
         </div>
-        <div id="yin" >
-            <img border="0"  src="${ctx}/static/img/1.png" />
+        <div id="sztitle" style="width:300px;"></div>
+        <div id="szda" style="width:300px;"></div>        
+        <div id="szan" >
+            <c:if test="${sysmgr == 1}">
+                <a href="${ctx}/main/mgr"><img border="0" src="${ctx}/static/img/sz.png" /></a>
+            </c:if>
         </div>
-        <div id="yin1" >
-            <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
         </div>
-        <div id="yin2" >
-            <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin3" >
-            <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-        </div>
-        <div id="yin4" >
-            <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-        </div>
-        <div id="yin5" >
-            <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin6" >
-            <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-        </div>
-        <div id="yin12" >
-            <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="szda" style="width:300px;"></div>
     </body>
 </html>

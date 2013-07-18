@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WorkBook xmlVersion="20110221">
+<TableDataMap>
+<TableData name="ds1" class="com.fr.data.impl.DBTableData">
+<Parameters/>
+<Attributes maxMemRowCount="-1"/>
+<Connection class="com.fr.data.impl.NameDatabaseConnection">
+<DatabaseName>
+<![CDATA[FRDemo]]></DatabaseName>
+</Connection>
+<Query>
+<![CDATA[SELECT * FROM `t_zhu_qi_daily_record` t1,`t_end_tag` t2 where t1.code=t2.code]]></Query>
+</TableData>
+</TableDataMap>
+<Report class="com.fr.report.WorkSheet" name="sheet1">
+<ReportPageAttr>
+<HR/>
+<FR/>
+<HC/>
+<FC/>
+</ReportPageAttr>
+<RowHeight defaultValue="723900">
+<![CDATA[1143000,723900,723900,723900,723900,723900,723900,723900,723900,723900,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[2743200,2743200,4495800,4953000,4686300,4495800,4267200,2743200,2743200,2743200,2743200]]></ColumnWidth>
+<CellElementList>
+<C c="0" r="0" s="0">
+<O>
+<![CDATA[序号]]></O>
+<Expand/>
+</C>
+<C c="1" r="0" s="0">
+<O>
+<![CDATA[注气站]]></O>
+<Expand/>
+</C>
+<C c="2" r="0" s="0">
+<O>
+<![CDATA[日注气累积量(m³/d)]]></O>
+<Expand/>
+</C>
+<C c="3" r="0" s="0">
+<O>
+<![CDATA[日注气平均流量(m³/s)]]></O>
+<Expand/>
+</C>
+<C c="4" r="0" s="0">
+<O>
+<![CDATA[日注气平均压力(Mpa)]]></O>
+<Expand/>
+</C>
+<C c="5" r="0" s="0">
+<O>
+<![CDATA[日注气平均温度(℃)]]></O>
+<Expand/>
+</C>
+<C c="6" r="0" s="0">
+<O>
+<![CDATA[日注气平均干度(%)]]></O>
+<Expand/>
+</C>
+<C c="0" r="1" s="1">
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[=SEQ()]]></Attributes>
+</O>
+<Expand dir="0" leftParentDefault="false" left="B2"/>
+</C>
+<C c="1" r="1" s="2">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="name"/>
+<Condition class="com.fr.data.condition.ListCondition">
+<JoinCondition join="0">
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[10]]></CNUMBER>
+<CNAME>
+<![CDATA[statistics_date]]></CNAME>
+<Compare op="3">
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[=if(len($zqkssj)==0,nofilter,$zqkssj)]]></Attributes>
+</O>
+</Compare>
+</Condition>
+</JoinCondition>
+<JoinCondition join="0">
+<Condition class="com.fr.data.condition.CommonCondition">
+<CNUMBER>
+<![CDATA[10]]></CNUMBER>
+<CNAME>
+<![CDATA[statistics_date]]></CNAME>
+<Compare op="5">
+<O t="Formula" class="Formula">
+<Attributes>
+<![CDATA[=if(len($zqjssj)==0,nofilter,$zqjssj)]]></Attributes>
+</O>
+</Compare>
+</Condition>
+</JoinCondition>
+</Condition>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.FunctionGrouper"/>
+<Parameters/>
+</O>
+<Expand dir="0"/>
+</C>
+<C c="2" r="1" s="2">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="gas"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.AverageFunction]]></FN>
+</RG>
+<Parameters/>
+</O>
+<Expand/>
+</C>
+<C c="3" r="1" s="2">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="ssll"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.AverageFunction]]></FN>
+</RG>
+<Parameters/>
+</O>
+<Expand/>
+</C>
+<C c="4" r="1" s="2">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="ya_li"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.AverageFunction]]></FN>
+</RG>
+<Parameters/>
+</O>
+<Expand/>
+</C>
+<C c="5" r="1" s="2">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="wen_du"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.AverageFunction]]></FN>
+</RG>
+<Parameters/>
+</O>
+<Expand/>
+</C>
+<C c="6" r="1" s="2">
+<O t="DSColumn">
+<Attributes dsName="ds1" columnName="gan_du"/>
+<Complex/>
+<RG class="com.fr.report.cellElement.core.SummaryGrouper">
+<FN>
+<![CDATA[com.fr.data.util.function.AverageFunction]]></FN>
+</RG>
+<Parameters/>
+</O>
+<Expand/>
+</C>
+<C c="5" r="2">
+<Expand/>
+</C>
+<C c="5" r="3">
+<Expand/>
+</C>
+<C c="5" r="4">
+<Expand/>
+</C>
+</CellElementList>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<PaperSetting/>
+</ReportSettings>
+<Header reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Header>
+<Footer reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Footer>
+</ReportAttrSet>
+</Report>
+<ReportParameterAttr>
+<Attributes showWindow="true" delayPlaying="false" windowPosition="1" align="0"/>
+<PWTitle>
+<![CDATA[参数]]></PWTitle>
+<ParameterUI class="com.fr.report.parameter.CustomParameterUI">
+<ReportPageAttr>
+<HR/>
+<FR/>
+<HC/>
+<FC/>
+</ReportPageAttr>
+<RowHeight defaultValue="723900">
+<![CDATA[495300,723900,723900,723900,723900,723900,723900,723900,723900,723900,723900]]></RowHeight>
+<ColumnWidth defaultValue="2743200">
+<![CDATA[2743200,2743200,2743200,2743200,2743200,2743200,609600,609600,1143000,609600,1181100,647700,1143000,647700,1143000,2590800,2743200]]></ColumnWidth>
+<CellElementList>
+<C c="0" r="1" s="3">
+<O>
+<![CDATA[开始时间]]></O>
+<Expand/>
+</C>
+<C c="1" r="1" cs="2" s="4">
+<O>
+<![CDATA[]]></O>
+<Widget class="com.fr.report.web.ui.DateEditor">
+<WidgetName name="zqkssj"/>
+<WidgetAttr/>
+<DirectEdit>
+<![CDATA[false]]></DirectEdit>
+<DateAttr/>
+</Widget>
+<Expand/>
+</C>
+<C c="3" r="1" s="3">
+<O>
+<![CDATA[结束时间]]></O>
+<Expand/>
+</C>
+<C c="4" r="1" cs="2" s="4">
+<O>
+<![CDATA[]]></O>
+<Widget class="com.fr.report.web.ui.DateEditor">
+<WidgetName name="zqjssj"/>
+<WidgetAttr/>
+<DirectEdit>
+<![CDATA[false]]></DirectEdit>
+<DateAttr/>
+</Widget>
+<Expand/>
+</C>
+<C c="7" r="1">
+<O>
+<![CDATA[]]></O>
+<Widget class="com.fr.report.web.ui.Radio">
+<WidgetName name="zqdr"/>
+<WidgetAttr/>
+</Widget>
+<Expand/>
+</C>
+<C c="8" r="1">
+<O>
+<![CDATA[当日]]></O>
+<Expand/>
+</C>
+<C c="9" r="1">
+<O>
+<![CDATA[]]></O>
+<Widget class="com.fr.report.web.ui.Radio">
+<WidgetName name="zqbx"/>
+<WidgetAttr/>
+</Widget>
+<Expand/>
+</C>
+<C c="10" r="1">
+<O>
+<![CDATA[本旬]]></O>
+<Expand/>
+</C>
+<C c="11" r="1">
+<O>
+<![CDATA[]]></O>
+<Widget class="com.fr.report.web.ui.Radio">
+<WidgetName name="zqby"/>
+<WidgetAttr/>
+</Widget>
+<Expand/>
+</C>
+<C c="12" r="1">
+<O>
+<![CDATA[本月]]></O>
+<Expand/>
+</C>
+<C c="13" r="1">
+<O>
+<![CDATA[]]></O>
+<Widget class="com.fr.report.web.ui.Radio">
+<WidgetName name="zqbn"/>
+<WidgetAttr/>
+</Widget>
+<Expand/>
+</C>
+<C c="14" r="1">
+<O>
+<![CDATA[本年]]></O>
+<Expand/>
+</C>
+<C c="15" r="1">
+<O>
+<![CDATA[查询]]></O>
+<Widget class="com.fr.report.web.ui.impl.form.FormSubmitButton">
+<WidgetName name="zqcx"/>
+<WidgetAttr/>
+<Hotkeys>
+<![CDATA[enter]]></Hotkeys>
+</Widget>
+<Expand/>
+</C>
+</CellElementList>
+<ReportAttrSet>
+<ReportSettings headerHeight="0" footerHeight="0">
+<PaperSetting/>
+</ReportSettings>
+<Header reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Header>
+<Footer reportPageType="0">
+<Background name="NullBackground"/>
+<LeftList/>
+<CenterList/>
+<RightList/>
+</Footer>
+</ReportAttrSet>
+</ParameterUI>
+<Parameter>
+<Attributes name="zqkssj"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+<Parameter>
+<Attributes name="zqjssj"/>
+<O>
+<![CDATA[]]></O>
+</Parameter>
+</ReportParameterAttr>
+<StyleList>
+<Style horizontal_alignment="0">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="ColorBackground" color="-26164"/>
+<Border>
+<Top style="1" color="-65281"/>
+<Bottom style="1" color="-65281"/>
+<Left style="1" color="-65281"/>
+<Right style="1" color="-65281"/>
+</Border>
+</Style>
+<Style horizontal_alignment="4">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1" color="-65281"/>
+<Bottom style="1" color="-65281"/>
+<Left style="1" color="-65281"/>
+<Right style="1" color="-65281"/>
+</Border>
+</Style>
+<Style>
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border>
+<Top style="1" color="-65281"/>
+<Bottom style="1" color="-65281"/>
+<Left style="1" color="-65281"/>
+<Right style="1" color="-65281"/>
+</Border>
+</Style>
+<Style horizontal_alignment="0">
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+<Style>
+<Format class="java.text.SimpleDateFormat">
+<![CDATA[yyyy-MM-dd]]></Format>
+<FRFont name="SimSun" style="0" size="72"/>
+<Background name="NullBackground"/>
+<Border/>
+</Style>
+</StyleList>
+</WorkBook>

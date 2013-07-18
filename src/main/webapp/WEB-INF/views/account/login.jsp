@@ -7,6 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>登录</title>
         <link href="${ctx}/static/style/style.css" rel="stylesheet" type="text/css" />
+        <script src="${ctx}/static/jquery/jquery-1.8.2.min.js"></script>
     </head>
 
     <body><br />
@@ -50,19 +51,36 @@
                         <br class="ld"/>
                     </div>
 
-
-
                     <div class="kda">
-                        <div class="fr pdd"><input  type="reset" class="new-btm" value="" />
+                        <div class="fr pdd"><input type="reset" class="new-btm" value="" />
                         </div>
-                        <div class="fr pde"><input type="submit" class="new-btn" value=""/></div>
+                        <div class="fr pde"><input type="submit" id="btnSubmit" class="new-btn" value=""/></div>
                     </div>
-
-
 
                 </div>
                 <br class="ld"/>
             </div>
         </form>
+        <script type="text/javascript">
+            $(function () {
+                // 错误提示
+                if('${errors}' != ''){
+                    alert('${errors}');
+                }
+                
+                $("#btnSubmit").click(function(){
+                    
+                    if($.trim($("#username").val()) == ""){
+                        alert("请输入用户名！");
+                        return false;
+                    }
+                    
+                    if($.trim($("#password").val()) == ""){
+                        alert("请输入密码！");
+                        return false;
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

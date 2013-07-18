@@ -30,31 +30,56 @@ a:hover {
 	COLOR: #ff0000; TEXT-DECORATION: underline
 }
 </style>
+ <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx.css">
+<script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script> 
+    <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
 <script type="text/javascript">
 	function onSubmit(){
-                var oldPass=document.getElementById("oldpass").value;
-		var newPass=document.getElementById("newPass").value;
-		var rePass=document.getElementById("rePass").value;
+                var oldPass=$("#oldpass").val();
+		var newPass=$("#newPass").val();
+		var rePass=$("#rePass").val();
                  if(oldPass==''||oldPass==null){
-                    document.getElementById("passmessage").innerHTML="原始密码不能为空！";
+                    alertMessage("原始密码不能为空！");
                     return false;
                 }
                 if(newPass==''||newPass==null){
-                    document.getElementById("passmessage").innerHTML="新密码不能为空！";
+                    alertMessage("新密码不能为空！");
+                    return false;
+                }else if($.trim(newPass).length <6){
+                    alertMessage("新密码长度不能小于6位！");
                     return false;
                 }
                  if(rePass==''||rePass==null){
-                    document.getElementById("passmessage").innerHTML="确认密码不能为空！";
+                    alertMessage("确认密码不能为空！");
+                    return false;
+                }else if($.trim(newPass).length <6){
+                    alertMessage("确认密码长度不能小于6位！");
                     return false;
                 }
                 
 		if(newPass!=rePass){
-			document.getElementById("passmessage").innerHTML="新设密码与原始密码不相符，请重新输入！";
+            alertMessage("新设密码与原始密码不相符，请重新输入！");
 			document.getElementById("rePass").focus;
 			return false;
 		}
 		return true;
 	}
+    
+    
+function alertMessage(value){
+        dhtmlx.message({
+		title: "消息提示",
+                type: "alert",
+		text: value
+        });
+}
+
+        $(function () {
+                // 错误提示
+                if('${message}' != ''){
+                    alertMessage('${message}');
+                }
+                });
 </script>
 <body>
 <div id="outer">
@@ -62,25 +87,10 @@ a:hover {
         <div id="inner">
              <div id="content">
              <form id="ff" method="post" action="${ctx}/admin/user/updatePassWord" autocomplete=off onSubmit="return onSubmit()">
-             	<div style="margin:5px;">
-						<span style="color:red;" id="passmessage"></span>
-				</div>
-             	<%
-					String error = (String) request.getAttribute("message");
-					if(error != null){
-				%>
-					<div style="margin:5px;">
-						<span style="color:red;">${message}</span>
-					</div>
-				<%
-					}
-				%>
-                <div style=" margin: 5px;">
-                    <label for="oldpass"></label>
-                </div>
+
                 <div style=" margin: 5px;">
                     <label for="oldpass">原始密码:</label>
-                    <input type="password" name="oldpass" ></input>
+                    <input type="password" name="oldpass" id="oldpass"></input>
                 </div>
                 <div style=" margin: 5px;">
                     <label for="newPass">新设密码:</label>

@@ -19,7 +19,7 @@ function doOnLoad(){
         creatCombo();
         dhxWins = new dhtmlXWindows();
         dhxWins.attachViewportTo(document.body);
-        var w1=dhxWins.createWindow('win',0,0,450,400);
+        var w1=dhxWins.createWindow('win',0,0,450,435);
         
         w1.button('minmax2').hide();
         w1.button('minmax1').hide();
@@ -221,10 +221,10 @@ function creatLayout(){
 //创建GRID
 function creatGrid(json){
 	mygrid=dhxLayout.cells("a").attachGrid(); 
-	mygrid.setImagePath("imgs/");
+	mygrid.setImagePath(window.dhx_globalImgPath);
 	mygrid.setHeader("序号,用户名,真实姓名,性别,部门,地址,电话,Email,角色");
 	mygrid.setInitWidths("50,100,100,100,100,100,100,100,*");
-	mygrid.setColAlign("left,left,left,left,left,left,left,left,left");
+	mygrid.setColAlign("center,left,left,left,left,left,left,left,left");
         mygrid.setColTypes("cntr,txt,txt,txt,txt,txt,txt,txt,txt");
 	mygrid.setColSorting("int,str,str,str,str,str,str,str,str");
         mygrid.setEditable(false);
@@ -251,16 +251,73 @@ function addUserFormSubmit(){
     var dption=dhxCombo.getSelectedValue();
     var pass=$("#newPassword").val();
     var rpass=$("#relPassword").val();
+    var department=$("#department").val();
+    var address=$("#address").val();
+    var email=$("#email").val();
+    var telphone=$("#telphone").val();
     
+    var partten = /^1[3,5,8]\d{9}$/;
+    var epartten = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+//    alertMessage(dption);return false;
     // 用户名
-    if(uName==''|| uName==null){        
+    if($.trim(uName)==''){        
         alertMessage("用户名不能为空");        
+        return;
+    }else if($.trim(uName).length <6){
+        alertMessage("用户名长度不能小于6位！");
+        return false;
+    // 姓名
+    }else if($.trim(rName)==''){        
+        alertMessage("姓名不能为空");
+        return;
+    // 部门
+    }else if($.trim(department)==''){        
+        alertMessage("部门不能为空");        
+        return;
+    // 地址
+    }else if($.trim(address)==''){        
+        alertMessage("地址不能为空");        
+        return;
+    // Email
+    }else if($.trim(email)==''){        
+        alertMessage("Email不能为空");        
+        return;
+    // Email
+    }else if(!epartten.test($.trim(email))){        
+        alertMessage("Email输入有误，请重新输入");        
+        return;
+    // 电话
+    }else if($.trim(telphone)==''){        
+        alertMessage("电话不能为空");        
+        return;
+    // 电话
+    }else if(!partten.test($.trim(telphone))){        
+        alertMessage("电话输入有误，请重新输入");        
+        return;
+    // 角色
+    }else if(dption==null){
+        alertMessage("角色不能为空");
+        return;
+    // 密码
+    }else if($.trim(pass)==''){
+        alertMessage("密码不能为空");
+        return;
+    }else if($.trim(pass).length <6){
+        alertMessage("密码长度不能小于6位！");
+        return false;
+    // 确认密码
+    }else if($.trim(rpass)==''){
+        alertMessage("请确认密码！");
+        return;        
+    // 密码与确认密码
+    }else if($.trim(pass)!=$.trim(rpass)){
+        alertMessage("密码与确认密码不相符，请重新输入！");
         return;
     }else{
         
         $.post(objUrl+"/admin/user/checkUserName",
             {
-              userName:uName
+              userName:$.trim(uName)
             },
             function(data){
               if(data=='false'){
@@ -271,33 +328,9 @@ function addUserFormSubmit(){
             }
         );
     }
-    // 姓名
-    if(rName==''|| rName==null){        
-        alertMessage("姓名不能为空");
-        return;
-    }
-    // 角色
-    if(dption==''|| dption==null){
-        alertMessage("角色不能为空");
-        return;
-    }else{
-        $("#description").val(dption);
-    }
-    // 密码
-    if(pass==''|| pass==null){
-        alertMessage("密码不能为空");
-        return;
-    }
-    // 确认密码
-    if(rpass==''|| rpass==null){
-        alertMessage("请确认密码！");
-        return;
-    }
-    // 密码与确认密码
-    if(pass!=rpass){
-        alertMessage("密码与确认密码不相符，请重新输入！");
-        return;
-    }
+    
+    $("#description").val(dption);
+    
     // 用户添加
     var options = {    
         success:function(data) {   
@@ -316,18 +349,53 @@ function addUserFormSubmit(){
 }
 //编辑用户
 function updateUserFormSubmit(){
+
     var rName=$("#update_rName").val();
     var dption=dhxComboUpdate.getSelectedValue();
-    if(rName==''|| rName==null){
+    var department=$("#update_department").val();
+    var address=$("#update_address").val();
+    var email=$("#update_email").val();
+    var telphone=$("#update_telphone").val();
+    
+    var partten = /^1[3,5,8]\d{9}$/;
+    var epartten = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+
+    // 姓名
+    if($.trim(rName)==''){        
         alertMessage("姓名不能为空");
         return;
-    }
-    if(dption==''|| dption==null){
+    // 部门
+    }else if($.trim(department)==''){        
+        alertMessage("部门不能为空");        
+        return;
+    // 地址
+    }else if($.trim(address)==''){        
+        alertMessage("地址不能为空");        
+        return;
+    // Email
+    }else if($.trim(email)==''){        
+        alertMessage("Email不能为空");        
+        return;
+    // Email
+    }else if(!epartten.test($.trim(email))){        
+        alertMessage("Email输入有误，请重新输入");        
+        return;
+    // 电话
+    }else if($.trim(telphone)==''){        
+        alertMessage("电话不能为空");        
+        return;
+    // 电话
+    }else if(!partten.test($.trim(telphone))){        
+        alertMessage("电话输入有误，请重新输入");        
+        return;
+    // 角色
+    }else if(dption==null){
         alertMessage("角色不能为空");
         return;
-    }else{
-        $("#update_description").val(dption);
     }
+    
+    $("#update_description").val(dption);
+    
      var options = {    
         success:function(data) {   
             if(data=='true'){

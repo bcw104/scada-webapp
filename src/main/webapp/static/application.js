@@ -1,4 +1,15 @@
 
+if(!window.console) {
+    window.console = {};
+    window.console.log = function(str) {};
+    window.console.dir = function(str) {};
+}
+if (window.console.debug == undefined) {
+    window.console.debug = window.console.info =
+    window.console.warn = window.console.error = window.console.log
+}
+//alert(console.debug)
+
 $(document).ready(function() {
 	
 	var asyncHttpStatistics = {
@@ -12,14 +23,66 @@ $(document).ready(function() {
 
 		//alert("Refreshing data tables...");
 
-		//$('#transportType').html(asyncHttpStatistics.transportType);
-		//$('#responseState').html(asyncHttpStatistics.responseState);
-		//$('#numberOfCallbackInvocations').html(asyncHttpStatistics.numberOfTotalMessages);
-		//$('#numberOfErrors').html(asyncHttpStatistics.numberOfErrors);
+		$('#transportType').html(asyncHttpStatistics.transportType);
+		$('#responseState').html(asyncHttpStatistics.responseState);
+		$('#numberOfCallbackInvocations').html(asyncHttpStatistics.numberOfTotalMessages);
+		$('#numberOfErrors').html(asyncHttpStatistics.numberOfErrors);
 
 	}
 
-    function confirmMessageShow(p_alarmId){
+	function onMessage(response) {
+		asyncHttpStatistics.numberOfTotalMessages++;
+		refresh();
+		var message = response.responseBody;
+		if(message) {
+            console.info(message);
+			$('#latestMessage').html(message);
+/*			var result;
+	
+			try {
+				result =  $.parseJSON(message);
+				$('#latestMessage').html(result);
+			} catch (e) {
+				asyncHttpStatistics.numberOfErrors++;
+				alert("An error ocurred while parsing the JSON Data: " + message.data + "; Error: " + e);
+				return;
+			}*/
+		}
+
+	}
+    function add(a,b,s,d){
+//        alert(b);
+	DCS.util.showTip(a,b,s,d);
+}
+
+    $.comet.init().subscribe("/" + username, function(msg){
+//        alert(msg);
+//        console.log(msg);
+//        var txt = $('#latestMessage').html() + "," + msg;
+//        $('#latestMessage').html(txt);
+//        add('','报警提示' + msg,msg,false);
+        $.ajax({
+            type: 'POST',
+            url: objUrl + '/alarm/getAlarmById',
+            data:{id:msg},
+            dateType:'json',
+            success: function(json){
+//               alert(json.info + '----' + json.endTag.name);
+                var strHtml = json.endTag.name + " 产生报警<br />报警原因：" + json.info + '<br />' 
+                        + '<a href="' + objUrl + '/alarmpage">查看</a>&nbsp;&nbsp;' 
+                        + '<a id="confirmLink' + msg + '" href="javascript:void(0);" >回复</a> ';
+//                $.messager.show('预警提示', strHtml, 0);
+                
+                
+                add('','报警提示',strHtml,false);
+                $('#confirmLink' + msg).bind('click', function(){confirmMessageShow(msg)});
+            }
+        });
+    });
+    
+
+
+        function confirmMessageShow(p_alarmId){
 //        alert('dd');
         $.ajax({
             type: 'POST',
@@ -31,68 +94,5 @@ $(document).ready(function() {
             }
         });
     }
-
-function add(a,b,s,d){
-//        alert("你好");
-	DCS.util.showTip(a,b,s,d);
-}
-
-	function onMessage(response) {//alert("dd");
-		asyncHttpStatistics.numberOfTotalMessages++;
-		refresh();
-		var message = response.responseBody;
-
-        $.ajax({
-            type: 'POST',
-            url: objUrl + '/alarm/getAlarmById',
-            data:{id:message},
-            dateType:'json',
-            success: function(json){
-//               alert(json.info + '----' + json.endTag.name);
-                var strHtml = json.endTag.name + " 产生报警<br />错误信息：" + json.info + '<br />' 
-                        + '<a href="' + objUrl + '/alarmpage">查看</a>&nbsp;&nbsp;' 
-                        + '<a id="confirmLink' + message + '" href="javascript:void(0);" >回复</a> ';
-//                $.messager.show('预警提示', strHtml, 0);
-                
-                
-                add('','报警提示',strHtml,true);
-                $('#confirmLink' + message).bind('click', function(){confirmMessageShow(message)});
-            }
-        });
-	}
-		
-	var socket = $.atmosphere;
-	var subSocket;
-	var transport = 'long-polling';
-	var websocketUrl = "${fn:replace(r.requestURL, r.requestURI, '')}${r.contextPath}/websockets/";
-
-	var request = {
-		url: "alarm/listening?username=admin",
-		contentType : "application/json",
-		logLevel : 'debug',
-		//shared : 'true',
-		transport : transport ,
-		fallbackTransport: 'long-polling',
-		reconnectInterval: 2000,
-		//callback: callback,
-		onMessage: onMessage,
-		onOpen: function(response) {
-			//alert('Atmosphere onOpen: Atmosphere connected using ' + response.transport);
-			transport = response.transport;
-			asyncHttpStatistics.transportType = response.transport;
-			refresh();
-	    },
-		onReconnect: function (request, response) {
-			//alert("Atmosphere onReconnect: Reconnecting");
-	    },
-		onClose: function(response) {
-			//alert('Atmosphere onClose executed');
-		},
-
-		onError: function(response) {
-			//alert('Atmosphere onError: Sorry, but there is some problem with your '+ 'socket or the server is down');
-		}
-	};
-
-	subSocket = socket.subscribe(request);
 });
+

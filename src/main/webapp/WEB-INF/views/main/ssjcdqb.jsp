@@ -7,106 +7,28 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>生产监控</title>        
         <link rel="stylesheet" type="text/css" href="${ctx}/static/dhtmlx/dhtmlx-zz.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/static/style/css.css">
+        <script type="text/javascript">
+            var objUrl='${ctx}';
+            var username='${username}';
+        </script>
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
         <script src="${ctx}/static/js/highcharts.src.js"></script>
         <script src="${ctx}/static/js/chart.js"></script>
+        <script src="${ctx}/static/js/common.js" type="text/javascript"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
-        <script type="text/javascript">
-            var objUrl='${ctx}';
-            var username='${username}';
-            $(function () {
-                $("#szda").html('欢迎您 ${name}');
-            });
-        </script>
+        <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
-        <style type="text/css">
-            html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #szda {
-                position:absolute;
-                left:724px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-        </style>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script>
+            var wellId_Gis;
             var Grid,dhxWins,dhxd,dhxd1,dhxd2,dhxd3,gr,gr1;
-            var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="images/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
+            var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
             var ew='<div id="y" style="width:186px;height:100px;float:left;font-size:14px;"><table><tr><td style="width:250px" align="left">&nbsp;&nbsp;&nbsp;用户名:&nbsp;<input id="kz_name" name="kz_name" type="text" value="" style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input id="kz_password" name="kz_password" type="password" value=""  style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;操作原因:&nbsp;<input id="kz_content" name="kz_content" type="text" value=""  style="width:80px;"/></td></tr><tr style="height:10px"></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qd();">确定</button></td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qx();">取消</button></td></tr></table></div>';
             var anniu='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" id="kz_kaijing" style="background:#81d4ff" onclick="kj();">开井</button></td><td style="width:98px;" align="center"><button type="button" id="kz_tingjing" style="background:#81d4ff" onclick="tj();">停井</button></td></tr></table></div>';
             var sd='<div id="y"style="width:180px;height:30px;float:left;"><table><tr><td style="width:250px" align="center">油井状态:开井</td></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qdd();">确定</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qxx();">取消</button><td></tr></table></div>';
@@ -114,17 +36,28 @@
             var yc='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc();">调参</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc_qx();">取消</button><td></tr></table></div>';
             var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input id="tc_scch" name="tc_scch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input id="tc_scci" name="tc_scci" type="text" value="" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input id="tc_xcch" name="tc_xcch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input id="tc_xcci" name="tc_xcci"  type="text" value="" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';
 
+            // 选择曲线信息
+            var rid_sel = '';
+            var cid_sel = '';
+            var flag_sel = '';
+            
             // 选择井信息
             var selEndTagState = '';
+            
             /**
              * 页面初始化
              * @returns {undefined}
              */
-            function dqb(){
+            function doOnLoad(){
+
+                wellId_Gis = ${info.id};
+                
                 //工况信息
                 creategkGr();
                 //RTU状态
                 creatertuGr();
+                // 设置电气参数
+                createDq();
                 //传感器运行
                 createGrid();
                 createWindows();
@@ -132,24 +65,24 @@
                 createwind1();
                 createwind2();
                 createwi();
-                //工况信息
-                creategkGr();
-                //RTU状态
-                creatertuGr();
-                // 设置电气参数
-                createDq();
+            }
+           
+           function initTab1(){
+                 // tab1
+                switch(flag_sel){
+                    case '0':
+                        doGrClick(rid_sel, cid_sel);
+                        break;
+                    case '1':
+                        showDyqx(rid_sel, cid_sel);
+                        break;
+                    default:
+                        if(gr.getRowsNum() > 0){                            
+                            doGrClick(gr.getRowId(0), 0);
+                        }
+                }
             }
             
-            /**
-             * 定时刷新
-             * @returns {undefined}
-             */
-            function reflesh(){		
-                
-                document.location.reload();	
-           }	
-           setTimeout("reflesh()",60*1000);//每10秒钟刷新一次 
-           
             /**
              * 页面布局设置
              * @returns {undefined}
@@ -203,11 +136,7 @@
                         });
 
                         gr.parse(youjingData,'json');
-                        //单击事件
-                        if(gr.getRowsNum() > 0){
-                            
-                            doGrClick(gr.getRowId(0), 0);
-                        }
+                        initTab1();
                     }
                 }); 
                 // 事件绑定
@@ -290,6 +219,7 @@
                         });
 
                         gr1.parse(youjingData,'json');
+                        initTab1();
                     }
                 });  
                    
@@ -304,6 +234,10 @@
              * */
             function doGrClick(gr_rId, gr_cInd){
             
+                    rid_sel = gr_rId;
+                    cid_sel = gr_cInd;
+                    flag_sel = '0';
+                    
                     var tmpName = gr_rId.split('||');
                     $("#ssqxTitle").html(tmpName[1] + '曲线');
                     // 获得工况信息
@@ -357,6 +291,8 @@
                                 $("#dq_" + value.key).html(value.value);
                             }
                         });
+                        
+                        initTab1();
                     }
                 }); 
             }
@@ -368,6 +304,10 @@
               */
             function showDyqx(dy_code, dy_title){
 
+                    rid_sel = dy_code;
+                    cid_sel = dy_title;
+                    flag_sel = '1';
+                    
 //                    $("#container").html('');
                     $("#ssqxTitle").html( dy_title + '曲线');
                     // 获得工况信息
@@ -406,7 +346,7 @@
                 Grid= new dhtmlXGridObject('cg');
                 Grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
-                Grid.setInitWidths("158,158,158,120,120,120");
+                Grid.setInitWidths("65,65,65,100,80,50");
                 Grid.setColAlign("center,center,center,center,center,center");
                 Grid.setColTypes("ro,img,ro,ro,ro,img");
                 Grid.init();
@@ -839,43 +779,31 @@
                 dhxd3.window("wi3").hide();
             }
         </script>
-        <STYLE type=text/css>
-            div.objbox { 
-                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
-                SCROLLBAR-HIGHLIGHT-COLOR: #FFDFFF; 
-                SCROLLBAR-SHADOW-COLOR: #FFDFFF; 
-                SCROLLBAR-3DLIGHT-COLOR: #FFDFFF; 
-                SCROLLBAR-ARROW-COLOR: #FFDFFF; 
-                SCROLLBAR-TRACK-COLOR: #FFFFFF;
-                SCROLLBAR-DARKSHADOW-COLOR: #FFDFFF
-            }
-            a:hover{
-                color:#09F
-            }
-            .cssdiv:hover{
-                color:#09F
-            }
-        </STYLE>
     </head>
-    <body onload="dqb();">
+    <body>
         <!--主界面-->
         <div id="zz" style="width:3845px; height:717px;border:solid; border-color:#000; border-width:1px">
         <!--数据-->
         <div id="ssjcm" style="width:1280px; height:69px;  float:left; font-size: 0 " >
                 <%@ include file="ssjcCommon.jsp"%> 
                 <!--浮上-->
-                <div id="apDiv1" style=" background-color: black;">
+                <div id="apDiv1_1" style=" background-color: black;">
                     <div id="ad" style="width:70px; height:10; float:left; font-size:14px; background-color:#cde7ff; font-weight:bold; line-height:25px">
                          &nbsp;&nbsp;&nbsp;井标识
                     </div>
                     <div id="ad2" style="width:350px; height:10;float:left;  background-color:#cde7ff; font-size:14px;line-height:25px">
-                            运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障停井&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;非正常停井&nbsp;&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;计划停井&nbsp;&nbsp;<img src="${ctx}/static/img/juse.png" />
+                            运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
+                            故障停井&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
+                            非正常停井&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;
+                            计划停井&nbsp;<img src="${ctx}/static/img/juse.png" />
                     </div>
                      <div id="ads" style="width:80px; height:10; float:left; background-color:#cde7ff;  font-size:14px; font-weight:bold; line-height:25px">
                             &nbsp;&nbsp;&nbsp;RTU标识
                     </div>
                      <div id="adr" style="width:600px; height:10;float:left;  background-color:#cde7ff; font-size:14px;line-height:25px">
-                            运行 &nbsp;&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;故障&nbsp;&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;校验&nbsp;&nbsp;<img src="${ctx}/static/img/lansee.png" />
+                            运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
+                            故障&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
+                            校验&nbsp;<img src="${ctx}/static/img/lansee.png" />
                     </div>
                     <div id="adw" style="width:20px; height:22px; float:left;  background-color:#cde7ff; font-size:14px; font-weight:bold;padding-top:3px">
                             <img src="${ctx}/static/img/yck.png"/>
@@ -897,11 +825,11 @@
                      &nbsp工&nbsp;&nbsp;&nbsp况
                      </div>
                 <div id="ba4" style="width:5px; height:22px;  float:left" ></div>
-                <div id="gk2" style="width:230px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
+                <div id="gk2" style="width:190px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
                      &nbspRTU&nbsp;&nbsp;&nbsp状&nbsp;&nbsp;&nbsp态
                 </div>
                 <div id="ba5" style="width:5px; height:22px;   float:left" ></div>
-                <div id="dqcs1" style=" width:230px; height:22px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
+                <div id="dqcs1" style=" width:270px; height:22px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
                     &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
                 </div>
                 <div id="ba6" style="width:5px; height:22px; float:left" ></div>
@@ -924,30 +852,30 @@
          </div>
        <!--RTU状态-->
           <div id="ba5" style="width:5px; height:154px;  float:left"></div>
-          <div id="rtu" style="width:228px; height:152px;border:solid; border-width:1px; border-color:#BAC3FD;float:left">
+          <div id="rtu" style="width:188px; height:152px;border:solid; border-width:1px; border-color:#BAC3FD;float:left">
            		
           </div>
           <div id="ba8" style="width:5px; height:154px;float:left" ></div>
-            <div id="dqcs" style="width:228px; height:154px; float:right; border:solid; border-width:1px; float:left; border-color:#b4da72; background-color:#fbfff3">
-                   <div id="dq0"  class="cssdiv"   onclick="showDyqx('u_a', 'A相电压');" style="width:114px; height:38px;cursor:pointer;font-size:14px ;line-height:40px;float:left;border-right-style:solid; border-right-color:#cced94; border-right-width:1px; ">
+            <div id="dqcs" style="width:268px; height:154px; float:right; border:solid; border-width:1px; float:left; border-color:#b4da72; background-color:#fbfff3">
+                   <div id="dq0"  class="cssdiv"   onclick="showDyqx('u_a', 'A相电压');" style="width:134px; height:38px;cursor:pointer;font-size:14px ;line-height:40px;float:left;border-right-style:solid; border-right-color:#cced94; border-right-width:1px; ">
                         A相电压：<span id="dq_u_a">0</span>
                    </div>
-                   <div id="dq1" class="cssdiv"  onclick="showDyqx('u_a', 'A相电流');"  style="width:113px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
+                   <div id="dq1" class="cssdiv"  onclick="showDyqx('u_a', 'A相电流');"  style="width:133px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
                        A相电流：<span id="dq_i_a">0</span>
                    </div>
-                   <div id="dq2"  class="cssdiv" onclick="showDyqx('u_b', 'B相电压');" style="width:114px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc; border-right-style:solid; border-right-width:1px">
+                   <div id="dq2"  class="cssdiv" onclick="showDyqx('u_b', 'B相电压');" style="width:134px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc; border-right-style:solid; border-right-width:1px">
                        B相电压：<span id="dq_u_b">0</span>
                    </div>
-                   <div id="dq3" class="cssdiv" onclick="showDyqx('i_b', 'B相电流');"  style="width:113px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;background-color:#f5ffdc">
+                   <div id="dq3" class="cssdiv" onclick="showDyqx('i_b', 'B相电流');"  style="width:133px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;background-color:#f5ffdc">
                        B相电流：<span id="dq_i_b">0</span>
                    </div>
-                   <div id="dq4" class="cssdiv"  onclick="showDyqx('u_c', 'C相电压');"  style="width:114px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left; border-right-color:#cced94;border-right-style:solid; border-right-width:1px">
+                   <div id="dq4" class="cssdiv"  onclick="showDyqx('u_c', 'C相电压');"  style="width:134px; height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left; border-right-color:#cced94;border-right-style:solid; border-right-width:1px">
                        C相电压：<span id="dq_u_c">0</span>
                    </div>
-                   <div id="dq5" class="cssdiv" onclick="showDyqx('i_c', 'C相电流');" style="width:113px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
+                   <div id="dq5" class="cssdiv" onclick="showDyqx('i_c', 'C相电流');" style="width:133px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left">
                        C相电流：<span id="dq_i_c">0</span>
                    </div>
-                   <div id="dq6" class="cssdiv" onclick="showDyqx('gl_ys', '平均功率因数');" style="width:227px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
+                   <div id="dq6" class="cssdiv" onclick="showDyqx('gl_ys', '平均功率因数');" style="width:267px;height:38px;cursor:pointer;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
                        平均功率因数：<span id="dq_gl_ys">0</span>
                    </div>
             </div>
@@ -970,40 +898,27 @@
                              <div id="container2" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
                      </div>
             </div>
-</div>
-<!--地图-->
-<div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
-	<img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
-</div>
-<!--视频-->
-<div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
-<img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
-</div>
-</div>
-<div id="yin" >
-<img border="0"  src="imagess/1.png" />
-</div>
-<div id="yin1" >
- <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
-</div>
-<div id="yin2" >
- <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-</div>
-<div id="yin3" >
- <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-</div>
-<div id="yin4" >
- <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-</div>
-<div id="yin5" >
- <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-</div>
-<div id="yin6" >
- <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-</div>
-<div id="yin12" >
- <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-</div>
-        <div id="szda" style="width:300px;"></div>
+        </div>
+        <!--地图-->
+        <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
+            <div  style="width:100%;height:100%; position: relative;">
+                <div id="flashContent" style="width:100%;" ></div>                
+            </div>
+        </div>
+        <!--视频-->
+        <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
+        <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
+        </div>
+        </div>
+        <div id="sztitle" style="width:300px;"></div>
+        <div id="szda" style="width:300px;"></div>        
+        <div id="szan" >
+            <c:if test="${sysmgr == 1}">
+                <a href="${ctx}/main/mgr"><img border="0" src="${ctx}/static/img/sz.png" /></a>
+            </c:if>
+        </div>
+        <div id="tcan" >
+            <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
+        </div>
     </body>
 </html>

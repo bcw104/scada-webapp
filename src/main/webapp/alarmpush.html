@@ -3,10 +3,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+            var objUrl='/scada-webapp';
+            var username='admin';
+        </script>
 <script type="text/javascript" src="static/jquery/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="static/jquery/jquery.tmpl.min.js"></script>
 <script type="text/javascript" src="static/jquery/jquery.atmosphere.js"></script>
+<script type="text/javascript" src="static/jquery/jquery.comet.js"></script>
+<script type="text/javascript" src="static/jquery/jQuery.Tip.js"></script>
 <!--<script type="text/javascript" src="static/application.js"></script>-->
+
+<script>
+    
+    function add(a,b,s,d){
+        alert(b);
+	DCS.util.showTip(a,b,s,d);
+    }
+    
+    function aa(){
+        for(var i=0; i<10; i++){
+            add('','报警提示',"strHtml",false);
+        }
+    }
+</script>
 <script type="text/javascript" src="alarmpush.js"></script>
 </head>
 <body>
@@ -29,7 +49,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>通讯方式</td>
+                        <td onclick="aa();">通讯方式</td>
 						<td id="transportType">N/A</td>
 					</tr>
 				</tbody>

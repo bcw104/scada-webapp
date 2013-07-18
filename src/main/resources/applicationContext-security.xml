@@ -24,6 +24,7 @@
 		<property name="successUrl" value="/" />
 		<property name="filterChainDefinitions">
 			<value>
+                    /sysinit = anon
                     /alarmpage/mobilesgt = anon
                     /alarmpage/mobiledlqx = anon
                     /alarmpage/mobiledgt = anon
@@ -37,6 +38,7 @@
                     /alarm/confirm = anon
                     /alarm/mobile = anon
                     /test/** = anon
+                    /main/logincheck = anon
                     /main/test = anon
                     /login = authc
                     /logout = logout
