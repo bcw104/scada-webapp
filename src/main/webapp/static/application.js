@@ -68,7 +68,7 @@ $(document).ready(function() {
             dateType:'json',
             success: function(json){
 //               alert(json.info + '----' + json.endTag.name);
-                var strHtml = json.endTag.name + " 产生报警<br />错误信息：" + json.info + '<br />' 
+                var strHtml = json.endTag.name + " 产生报警<br />报警原因：" + json.info + '<br />' 
                         + '<a href="' + objUrl + '/alarmpage">查看</a>&nbsp;&nbsp;' 
                         + '<a id="confirmLink' + msg + '" href="javascript:void(0);" >回复</a> ';
 //                $.messager.show('预警提示', strHtml, 0);

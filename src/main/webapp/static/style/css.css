@@ -158,3 +158,91 @@ html, body {
             }
     .radioBtn {height: 16px;vertical-align: middle;}
     .checkboxBtn {vertical-align: middle;margin-right: 2px;}
+    #hhk1{
+	position:absolute;
+	left:460px;
+	top:210px;
+	width:1075px;
+	height:27px;
+	z-index:1;
+}
+#xian{
+	position:absolute;
+	left:489px;
+	top:238px;
+	width:1075px;
+	height:27px;
+	z-index:1;
+}
+#bc1{
+	position:absolute;
+	left:1047px;
+	top:623px;
+	width:1075px;
+	height:27px;
+	z-index:1;
+}
+#bc2{
+	position:absolute;
+	left:1047px;
+	top:535px;
+	width:1075px;
+	height:27px;
+	z-index:1;
+}
+#bc3{
+	position:absolute;
+	left:865px;
+	top:600px;
+	width:1075px;
+	height:27px;
+	z-index:1;
+}
+#bc4{
+	position:absolute;
+	left:1090px;
+	top:600px;
+	width:1075px;
+	height:27px;
+	z-index:1;
+}
+#bc5{
+	position:absolute;
+	left:350px;
+	top:200px;
+	width:79px;
+	height:43px;
+	z-index:1;
+}
+#bc6{
+	position:absolute;
+	left:916px;
+	top:500px;
+	width:79px;
+	height:43px;
+	z-index:1;
+}
+#bc7{
+	position:absolute;
+	left:916px;
+	top:600px;
+	width:79px;
+	height:43px;
+	z-index:1;
+}
+#bc8{
+	position:absolute;
+	left:900px;
+	top:530px;
+	width:79px;
+	height:43px;
+	z-index:1;
+}
+#bc9{
+	position:absolute;
+	left:1050px;
+	top:530px;
+	width:79px;
+	height:43px;
+	z-index:1;
+}

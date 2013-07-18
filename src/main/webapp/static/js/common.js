@@ -6,4 +6,4 @@ function reflesh(){
     doOnLoad();
 }	
 // 每10秒钟刷新一次 
-setTimeout("reflesh()",60*1000);
+setInterval("reflesh()",600*1000);

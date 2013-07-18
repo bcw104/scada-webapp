@@ -1,5 +1,7 @@
 package com.ht.scada.web.mvc;
 
+import com.ht.scada.common.tag.entity.EndTagExtInfo;
+import com.ht.scada.common.tag.util.EndTagExtNameEnum;
 import com.ht.scada.common.tag.util.VarSubTypeEnum;
 import com.ht.scada.data.service.RealtimeDataService;
 import com.ht.scada.security.entity.User;
@@ -46,6 +48,13 @@ public class EndTagPointController {
             map.put("type", point.getEndTag().getType());
             map.put("sub_type", point.getEndTag().getSubType());
             map.put("state",realtimeDataService.getEndTagVarInfo(point.getEndTag().getCode(), VarSubTypeEnum.QI_TING_ZHUANG_TAI.toString().toLowerCase()));
+            List<EndTagExtInfo> extList = point.getEndTag().getExtInfo();
+            for(EndTagExtInfo ext : extList){
+                if(ext.getKeyName().equals(EndTagExtNameEnum.STAGE.toString())){
+                    map.put("stage", ext.getValue());
+                    break;
+                }
+            }
             rtn.add(map);
         }
         return rtn;

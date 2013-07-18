@@ -91,6 +91,10 @@ function createSg(p_code,p_data) {
                 }          
             });   
             
+            if (typeof(flag_sel)!="undefined"){
+                initTab1();
+            }
+            
             var weiyiTmp = 0;
             options.series = [];
             series.name = '示功图';

@@ -24,7 +24,10 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
         <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script>
+            var wellId_Gis;
             var dhxWins,dhxWins1,dhxWins2,dhxTabbar,dhLayout,lo,lc,ld,lh,Grid,Grid2,Grid3,Grid4,dhxd,dhxd1,dhxd2,dhxd3,gr,rtugr,lgbgr1,lgbgr2,lgbgr3,Grxn;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
             var dtu1='<div id="dt1" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/sgt.png"  style="width:100%; height:100%" /></div>';
@@ -40,15 +43,31 @@
             var yc='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc();">调参</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc_qx();">取消</button><td></tr></table></div>';
             var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input id="tc_scch" name="tc_scch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input id="tc_scci" name="tc_scci" type="text" value="" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input id="tc_xcch" name="tc_xcch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input id="tc_xcci" name="tc_xcci"  type="text" value="" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';
 
+             // 选择曲线信息
+             var rid_sel = '';
+             var cid_sel = '';
+             var flag_sel = '';
+             
+             var rid_sel_2 = '';
+             var cid_sel_2 = '';
+             var flag_sel_2 = '';
+             
             // 选择井信息
             var selEndTagState = '';
+            
+            $(function () {
+                wellId_Gis = ${info.id};
+                
+                // 页面布局设置
+                createTabble();
+            });
             
             /**
              * 页面初始化
              * @returns {undefined}
              */
             function doOnLoad(){
-                createTabble();
+
                  //工况信息
                 createlgbGr();
                 //RTU状态
@@ -73,6 +92,39 @@
                
             }
            
+           
+            function initTab1(){
+                 // tab1
+                switch(flag_sel){
+                    case '0':
+                        doGrClick(rid_sel, cid_sel);
+                        break;
+                    case '4':
+                        showDyqx(rid_sel, cid_sel);
+                        break; 
+                    default:
+                        if(gr.getRowsNum() > 0){                            
+                            doGrClick(gr.getRowId(0), 0);
+                        }
+                }
+            }
+            
+            function initTab2(){
+                // tab2
+                switch(flag_sel_2){
+                    case '1':
+                        doFzZzGrClick(rid_sel_2, cid_sel_2);
+                        break;
+                    case '2':
+                        doFzGrClick(rid_sel_2, cid_sel_2);
+                        break;
+                    default:
+                        if(lgbgr1.getRowsNum() > 0){                            
+                            doFzGrClick(lgbgr1.getRowId(0), 0);
+                        }
+                }
+            }
+
             function  createlgbsbGr(){
                Grid2= new dhtmlXGridObject('gr');
                Grid2.setImagePath("js/gridcodebase/imgs/");
@@ -140,10 +192,7 @@
                         });
 
                         lgbgr1.parse(dataInfo,'json');
-                        if(lgbgr1.getRowsNum() > 0){
-                            
-                            doFzGrClick(lgbgr1.getRowId(0), 0);
-                        }
+                        initTab2();
                     }
                 });  
                  // 事件绑定
@@ -156,6 +205,11 @@
              * @returns {undefined}             
              * */
             function doFzGrClick(gr_rId, gr_cInd){
+            
+                    rid_sel_2 = gr_rId;
+                    cid_sel_2 = gr_cInd;
+                    flag_sel_2 = '2';
+                    
                     var tmpName = gr_rId.split('||');
                     $("#dqqxTitle").html( tmpName[1] + '曲线');
                     // 获得工况信息
@@ -214,6 +268,7 @@
                         });
 
                         lgbgr2.parse(dataInfo,'json');
+                        initTab2();
                     }
                 }); 
                 
@@ -256,6 +311,7 @@
                         });
 
                         lgbgr3.parse(dataInfo,'json');
+                        initTab2();
                     }
                 });
                 
@@ -271,6 +327,10 @@
              * */
             function doFzZzGrClick(gr_rId, gr_cInd){
             
+                    rid_sel_2 = gr_rId;
+                    cid_sel_2 = gr_cInd;
+                    flag_sel_2 = '1';
+                    
                     var tmpName = gr_rId.split('||');
                     $("#dqqxTitle").html( tmpName[1] );
                     
@@ -321,7 +381,7 @@
              * @returns {undefined}
              */
             function createlgbGr(){
-                
+                    
                 gr=new dhtmlXGridObject('lgb');
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);               // 隐藏表头
@@ -362,11 +422,8 @@
                         });
 
                         gr.parse(youjingData,'json');
-                        //单击事件
-                        if(gr.getRowsNum() > 0){
-                            
-                            doGrClick(gr.getRowId(0), 0);
-                        }
+                        
+                        initTab1();
                     }
                 }); 
                 // 事件绑定
@@ -450,6 +507,7 @@
                         });
 
                         rtugr.parse(youjingData,'json');
+                        initTab1();
                     }
                 });  
                    
@@ -463,6 +521,10 @@
              * @returns {undefined}             
              * */
             function doGrClick(gr_rId, gr_cInd){
+                    
+                    rid_sel = gr_rId;
+                    cid_sel = gr_cInd;
+                    flag_sel = '0';
                     
                     var tmpName = gr_rId.split('||');
                     $("#ssqxTitle").html( tmpName[1] + '曲线');
@@ -515,6 +577,7 @@
                                 $("#dq_" + value.key).html(value.value);
                             }
                         });
+                        initTab1();
                     }
                 }); 
             }
@@ -1024,6 +1087,10 @@
               */
             function showDyqx(dy_code, dy_title){
 
+                    rid_sel = dy_code;
+                    cid_sel = dy_title;
+                    flag_sel = '4';
+                    
 //                    $("#container").html('');
                     $("#ssqxTitle").html('&nbsp&nbsp&nbsp（' + dy_title + '曲线）');
                     // 获得工况信息
@@ -1134,6 +1201,7 @@
                   <div id="ba15" style="width:5px; height:22px;  float:left" ></div>
                   <div id="ssqx3" style="width:1270px; font-size:14px; font-weight:bold; line-height:25px;height:22px; float:left; background-color:#9fdfae" align="left" class="ss2">
                   &nbsp实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp曲&nbsp;&nbsp;&nbsp线
+                  <span id="ssqxTitle"></span>
                       </div>	
                   <div id="ba16" style="width:5px; height:22px;   float:left" ></div>
                   <div id="ba17" style="width:5px; height:110px; float:left" ></div>
@@ -1214,7 +1282,9 @@
                 </div>
                 <!--地图-->
                 <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
-                    <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+                    <div  style="width:100%;height:100%; position: relative;">
+                        <div id="flashContent" style="width:100%;" ></div>                        
+                    </div>
                 </div>
                 <!--视频-->
                 <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
@@ -1252,30 +1322,6 @@
                 <div id="ady" style="width:60px; height:20px; float:left; font-size:14px; font-weight:bold; line-height:23px">
                     <a style="cursor:hand"onclick="yctc();">远程调参</a>
                 </div>   
-            </div>
-            <div id="yin" >
-                <img border="0"  src="${ctx}/static/img/1.png" />
-            </div>
-            <div id="yin1" >
-                <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
-            </div>
-            <div id="yin2" >
-                <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-            </div>
-            <div id="yin3" >
-                <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-            </div>
-            <div id="yin4" >
-                <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-            </div>
-            <div id="yin5" >
-                <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-            </div>
-            <div id="yin6" >
-                <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-            </div>
-            <div id="yin12" >
-                <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
             </div>
             <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>

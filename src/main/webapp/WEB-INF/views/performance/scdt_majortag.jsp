@@ -30,6 +30,8 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
         <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script type="text/javascript">
             var treeGrid,dhxWins,dhxWins1,tree;
             var drljl='<div id="dqlj" style="width:400px;height:200px"><img src="imagess/drljl.png"</div>';
@@ -1981,36 +1983,14 @@
             </div>
             <!--地图-->
             <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
-                <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+                <div  style="width:100%;height:100%; position: relative;">
+                        <div id="flashContent" style="width:100%;" ></div>                        
+                    </div>
             </div>
             <!--视频-->
             <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
                 <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
             </div>
-        </div>
-        <div id="yin" >
-            <img border="0"  src="${ctx}/static/img/1.png" />
-        </div>
-        <div id="yin1" >
-            <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin2" >
-            <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin3" >
-            <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-        </div>
-        <div id="yin4" >
-            <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-        </div>
-        <div id="yin5" >
-            <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin6" >
-            <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-        </div>
-        <div id="yin12" >
-            <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
         </div>
         <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>        

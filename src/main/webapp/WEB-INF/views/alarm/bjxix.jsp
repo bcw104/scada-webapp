@@ -19,6 +19,7 @@
         <script src="${ctx}/static/jquery/highstock.js"></script>
         <script src="${ctx}/static/js/map.js" type="text/javascript"></script>
         <script src="${ctx}/static/js/common.js" type="text/javascript"></script>
+        <script src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
@@ -29,6 +30,8 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
         <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script type="text/javascript">
             var treeGrid,dhxWins,dhxWins1,grid1,grid2,grid3,grid4,grid5,grid6;
             
@@ -153,6 +156,11 @@
              * @returns {undefined}
              */
             function doOnLoad(){
+                
+                $("#txtDx").val("");
+                $("#txtBl").val("");
+                $("#txtLx").val("");
+                $("#txtSj").val("");
                 
                 // 获得实时报警信息
                 $.ajax({
@@ -462,6 +470,133 @@
                 }); 
             }
             
+            /**
+             * 历史记录信息查询
+             * @returns {undefined}
+             */
+            function searchHistoryData(){                
+                
+                treeGrid = new dhtmlXGridObject('wltp');
+                treeGrid.selMultiRows = true;
+                treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/";
+                treeGrid.setHeader("序号,报警对象,设备,变量名,报警类型,报警原因,报警时间,解除时间,其它信息,负责人,回复时间,处理时间,评价");
+                treeGrid.setInitWidths("100,125,125,150,150,150,150,150,150,150,150,150,*");
+                treeGrid.setColAlign("center,center,center,center,center,center,center,center,center,left,center,center,center");
+                treeGrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,tree,ro,ro,ro");
+                treeGrid.enablePaging(true,10,3, "recinfoArea");
+                treeGrid.setPagingSkin("toolbar", "dhx_skyblue");
+                treeGrid.init();
+                            
+                // 获得工况信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/alarm/history',
+                    dateType:'json',
+                    success: function(json){
+
+                        var baojingData = new Object();
+                        baojingData.rows = [];
+
+                        $.each(json,function(key, value){
+
+                            var baojingItem = new Object();
+                            baojingItem.id = value.id;
+                            baojingItem.data = [];
+                            baojingItem.data.push(value.id);
+                            baojingItem.data.push(value.endTag.name);
+                            baojingItem.data.push(value.endTag.device.name);//待定
+                            baojingItem.data.push(value.varCnName);
+                            baojingItem.data.push(value.alarmType);
+                            baojingItem.data.push(value.info);
+                            
+                            dateTmp = new Date(value.actionTime);
+                            var dateBj = dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' + dateTmp.getDate();
+                            baojingItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
+
+                            // 查询判定
+                            // 报警对象
+                            if(value.endTag.name.indexOf($.trim($("#txtDx").val())) < 0){
+                                return true;
+                            }
+                            // 变量名
+                            if(value.varCnName.indexOf($.trim($("#txtBl").val())) < 0){
+                                return true;
+                            }
+                            // 报警类型
+                            if(value.alarmType.indexOf($.trim($("#txtLx").val())) < 0){
+                                return true;
+                            }
+                            // 报警时间
+                            if(dateBj.indexOf($.trim($("#txtSj").val())) < 0){
+                                return true;
+                            }
+
+                            if(value.status == "1"){
+                                dateTmp = new Date(value.resumeTime);
+                                baojingItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
+                            }else{
+                                baojingItem.data.push("");
+                            }
+                            
+                            baojingItem.data.push(value.remark);
+                            
+                            // 负责人信息设置
+                            var fuzerenInfo = {};
+                            fuzerenInfo.value = value.alarmHandleList.length + '人';
+                            fuzerenInfo.image = 'folder.gif'; 
+                            baojingItem.data.push(fuzerenInfo);
+                            
+                            baojingItem.rows = [];
+                            $.each(value.alarmHandleList,function(alarmkey, alarmvalue){
+                                var fuzerenInfoItem = {};
+                                fuzerenInfoItem.id = 'fzr_' + alarmvalue.user.id + '_' + value.id;
+                                fuzerenInfoItem.data = [];
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push('');
+                                fuzerenInfoItem.data.push(alarmvalue.user.name);
+                                
+                                dateTmp = new Date(alarmvalue.confirmTime);
+                                fuzerenInfoItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                        + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
+                                
+                                if(alarmvalue.handleTime == null){
+                                    fuzerenInfoItem.data.push('');
+                                }else{
+                                    dateTmp = new Date(alarmvalue.handleTime);
+                                    fuzerenInfoItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
+                                            + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
+                                }
+                                fuzerenInfoItem.data.push('');//待定
+                                
+                                baojingItem.rows.push(fuzerenInfoItem);
+                            });                          
+
+                            baojingData.rows.push(baojingItem);
+                        });
+                        
+                        treeGrid.parse(baojingData,'json');
+                        
+                        if(baojingData.rows.length == 0){
+                            
+                            dhtmlx.message({
+                                title: "消息提示",
+                                type: "alert",
+                                text: "没有与搜索条件匹配的项！"
+                            });
+                        }
+                    }
+                }); 
+            }
+            
             function runurl(){
                 window.location.href="bcxi.html";
             }
@@ -520,8 +655,35 @@
                 <div id="zhyrrr" style="width:1245px; height:595px; overflow:scrol; float:left">
                     <div id="gr" style="width:1245px; height:602px; overflow:scrol; float:left;display:none;overflow:scrol;">
                         <!--历史记录-->
-                        <div id="qm" style="width:1245px; height:10; background-color:#e6d5ff; font-size:14px; font-weight:bold; line-height:19px;border:solid; border-color:#e6d5ff; border-width:1px;  float:left">
+                        <div id="qm" style="width:375px; height:10; background-color:#e6d5ff; font-size:14px; font-weight:bold; line-height:19px;border:solid; border-color:#e6d5ff; border-width:1px;  float:left">
                             &nbsp;&nbsp;&nbsp历&nbsp;&nbsp;&nbsp史&nbsp;&nbsp;&nbsp记&nbsp;&nbsp;&nbsp录
+                        </div>
+                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                            报&nbsp;&nbsp;警&nbsp;&nbsp;对&nbsp;&nbsp;象
+                        </div>
+                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                            <input type="text" name="txtDx" id="txtDx" style=" height:13px; width:80px;"/>
+                        </div>
+                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                            变&nbsp;&nbsp;量&nbsp;&nbsp;名
+                        </div>
+                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                            <input type="text" name="txtBl" id="txtBl" style=" height:13px; width:80px;"/>
+                        </div>
+                         <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                            报&nbsp;&nbsp;警&nbsp;&nbsp;类&nbsp;&nbsp;型
+                        </div>
+                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                            <input type="text" name="txtLx" id="txtLx" style=" height:13px; width:80px;"/>
+                        </div>
+                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                            报&nbsp;&nbsp;警&nbsp;&nbsp;时&nbsp;&nbsp;间
+                        </div>
+                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                            <input type="text" name="txtSj" id="txtSj" style=" height:13px; width:80px;" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-M-d'})"/>
+                        </div>
+                        <div style="width:50px; height:19px; background-color:#e6d5ff; font-size:16px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                            <img src="${ctx}/static/img/chaxun.png" onclick="searchHistoryData();" style="cursor:pointer" />
                         </div>
                         <div id="wltp" style="width:1245px; height:547px; border:solid; border-color:#e6d5ff; border-width:1px;  float:left">
                         </div>
@@ -543,36 +705,14 @@
             </div>
             <!--地图-->
             <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;">
-                <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+                <div  style="width:100%;height:100%; position: relative;">
+                        <div id="flashContent" style="width:100%;" ></div>                        
+                    </div>
             </div>
             <!--视频-->
             <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;">
                 <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
             </div>
-        </div>
-        <div id="yin" >
-            <img border="0"  src="${ctx}/static/img/1.png" />
-        </div>
-        <div id="yin1" >
-            <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin2" >
-            <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin3" >
-            <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-        </div>
-        <div id="yin4" >
-            <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-        </div>
-        <div id="yin5" >
-            <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin6" >
-            <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-        </div>
-        <div id="yin12" >
-            <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
         </div>
         <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>

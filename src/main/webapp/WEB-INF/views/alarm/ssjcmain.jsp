@@ -25,6 +25,8 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
         <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script>
             var dhxWins,dhxWins1,dhxWins2,dhxd,dhxd1,dhxd2,dhxd3,dhxd4,dhxTabbar,dhLayout,lo,lc,ld,lh,Grid,Grid2,Grid3,gr,Gr,Grxn,dqgr,dqgr1,dqgr2;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
@@ -50,15 +52,18 @@
              var dateAction = new Date(${actionTime});   
              var datePar = dateAction.getFullYear() + '/' + (dateAction.getMonth() + 1) + '/' 
                 + dateAction.getDate() + ' ' + dateAction.getHours() + ':' + dateAction.getMinutes();
-                 
+             
+            $(function () {                
+                // 页面布局设置
+                createTabble();
+            });
+            
             /**
              * 页面初始化
              * @returns {undefined}
              */
             function doOnLoad(){
-                
-                // 页面布局设置
-                createTabble();
+
                 // 设置工况信息
                 createGr();
                 // 设置RTU状态
@@ -1659,7 +1664,9 @@
                 </div>
                 <!--地图-->
                 <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
-                    <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+                    <div  style="width:100%;height:100%; position: relative;">
+                        <div id="flashContent" style="width:100%;" ></div>                        
+                    </div>
                 </div>
                 <!--视频-->
                 <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
@@ -1697,30 +1704,6 @@
                 <div id="ady" style="width:60px; height:20px; float:left; font-size:14px; font-weight:bold; line-height:23px">
                     <a style="cursor:hand"onclick="yctc();">远程调参</a>
                 </div>   
-            </div>
-            <div id="yin" >
-                <img border="0"  src="${ctx}/static/img/1.png" />
-            </div>
-            <div id="yin1" >
-                <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
-            </div>
-            <div id="yin2" >
-                <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-            </div>
-            <div id="yin3" >
-                <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-            </div>
-            <div id="yin4" >
-                <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-            </div>
-            <div id="yin5" >
-                <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-            </div>
-            <div id="yin6" >
-                <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-            </div>
-            <div id="yin12" >
-                <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
             </div>
             <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>

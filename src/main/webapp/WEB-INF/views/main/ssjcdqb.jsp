@@ -23,7 +23,10 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
         <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script>
+            var wellId_Gis;
             var Grid,dhxWins,dhxd,dhxd1,dhxd2,dhxd3,gr,gr1;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
             var ew='<div id="y" style="width:186px;height:100px;float:left;font-size:14px;"><table><tr><td style="width:250px" align="left">&nbsp;&nbsp;&nbsp;用户名:&nbsp;<input id="kz_name" name="kz_name" type="text" value="" style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;<input id="kz_password" name="kz_password" type="password" value=""  style="width:95px;"/></td></tr><tr style="height:10px"></tr><tr><td  style="width:250px" align="left">&nbsp;&nbsp;&nbsp;操作原因:&nbsp;<input id="kz_content" name="kz_content" type="text" value=""  style="width:80px;"/></td></tr><tr style="height:10px"></tr></table></div><div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qd();">确定</button></td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="qx();">取消</button></td></tr></table></div>';
@@ -33,6 +36,11 @@
             var yc='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc();">调参</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc_qx();">取消</button><td></tr></table></div>';
             var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input id="tc_scch" name="tc_scch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input id="tc_scci" name="tc_scci" type="text" value="" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input id="tc_xcch" name="tc_xcch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input id="tc_xcci" name="tc_xcci"  type="text" value="" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';
 
+            // 选择曲线信息
+            var rid_sel = '';
+            var cid_sel = '';
+            var flag_sel = '';
+            
             // 选择井信息
             var selEndTagState = '';
             
@@ -41,10 +49,15 @@
              * @returns {undefined}
              */
             function doOnLoad(){
+
+                wellId_Gis = ${info.id};
+                
                 //工况信息
                 creategkGr();
                 //RTU状态
                 creatertuGr();
+                // 设置电气参数
+                createDq();
                 //传感器运行
                 createGrid();
                 createWindows();
@@ -52,14 +65,24 @@
                 createwind1();
                 createwind2();
                 createwi();
-                //工况信息
-                creategkGr();
-                //RTU状态
-                creatertuGr();
-                // 设置电气参数
-                createDq();
             }
            
+           function initTab1(){
+                 // tab1
+                switch(flag_sel){
+                    case '0':
+                        doGrClick(rid_sel, cid_sel);
+                        break;
+                    case '1':
+                        showDyqx(rid_sel, cid_sel);
+                        break;
+                    default:
+                        if(gr.getRowsNum() > 0){                            
+                            doGrClick(gr.getRowId(0), 0);
+                        }
+                }
+            }
+            
             /**
              * 页面布局设置
              * @returns {undefined}
@@ -113,11 +136,7 @@
                         });
 
                         gr.parse(youjingData,'json');
-                        //单击事件
-                        if(gr.getRowsNum() > 0){
-                            
-                            doGrClick(gr.getRowId(0), 0);
-                        }
+                        initTab1();
                     }
                 }); 
                 // 事件绑定
@@ -200,6 +219,7 @@
                         });
 
                         gr1.parse(youjingData,'json');
+                        initTab1();
                     }
                 });  
                    
@@ -214,6 +234,10 @@
              * */
             function doGrClick(gr_rId, gr_cInd){
             
+                    rid_sel = gr_rId;
+                    cid_sel = gr_cInd;
+                    flag_sel = '0';
+                    
                     var tmpName = gr_rId.split('||');
                     $("#ssqxTitle").html(tmpName[1] + '曲线');
                     // 获得工况信息
@@ -267,6 +291,8 @@
                                 $("#dq_" + value.key).html(value.value);
                             }
                         });
+                        
+                        initTab1();
                     }
                 }); 
             }
@@ -278,6 +304,10 @@
               */
             function showDyqx(dy_code, dy_title){
 
+                    rid_sel = dy_code;
+                    cid_sel = dy_title;
+                    flag_sel = '1';
+                    
 //                    $("#container").html('');
                     $("#ssqxTitle").html( dy_title + '曲线');
                     // 获得工况信息
@@ -871,36 +901,14 @@
         </div>
         <!--地图-->
         <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
-            <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+            <div  style="width:100%;height:100%; position: relative;">
+                <div id="flashContent" style="width:100%;" ></div>                
+            </div>
         </div>
         <!--视频-->
         <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
         <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
         </div>
-        </div>
-        <div id="yin" >
-        <img border="0"  src="imagess/1.png" />
-        </div>
-        <div id="yin1" >
-         <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin2" >
-         <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin3" >
-         <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-        </div>
-        <div id="yin4" >
-         <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-        </div>
-        <div id="yin5" >
-         <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin6" >
-         <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-        </div>
-        <div id="yin12" >
-         <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
         </div>
         <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>        

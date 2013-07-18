@@ -25,7 +25,10 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
         <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
+        <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script>
+            var wellId_Gis;
             var dhxWins,Grid,dhxWins,dhxWins1,dhxd,dhxd1,dhxd2,dhxd3,gr,dqgr,dqgr1,dqgr2;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
             var xb='<div id="gtc"  style="width:100%;height:100%;border-style:groove; border-width:1px;float:left" ><table><tr><td  style="width:250px" align="center">B相电压5次谐波:0.1</td><td  style="width:250px" align="center">B相电压7次谐波:0.2</td></tr><tr><td  style=" width:250px" align="center">B相电压11次谐波:0.3</td><td  style="width:250px" align="center">B相电压13次谐波:0.4</td></tr><tr><td  style="width:250px" align="center">B相电压17次谐波:0.5</td><td  style="width:250px" align="center">B相电压19次谐波:0.6</td></tr></table></div>';
@@ -36,6 +39,11 @@
             var yc='<div id="k" style="width:186px;height:60px;float:left"><table><tr><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc();">调参</button><td><td style="width:98px;" align="center"><button type="button" style="background:#81d4ff" onclick="tc_qx();">取消</button><td></tr></table></div>';
             var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input id="tc_scch" name="tc_scch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input id="tc_scci" name="tc_scci" type="text" value="" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input id="tc_xcch" name="tc_xcch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input id="tc_xcci" name="tc_xcci"  type="text" value="" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';
              
+            // 选择曲线信息
+            var rid_sel = '';
+            var cid_sel = '';
+            var flag_sel = '';
+             
              // 选择井信息
             var selEndTagState = '';
             
@@ -44,6 +52,8 @@
              * @returns {undefined}
              */
             function doOnLoad(){
+                
+                wellId_Gis = ${info.id};
                 createWindows();
                 createWindows1();
                 
@@ -61,6 +71,25 @@
                 // 开井确认操作
                 createwind2();
                 createwi();
+            }
+            
+            function initTab1(){
+                 // tab1
+                switch(flag_sel){
+                    case '0':
+                        doGrClick(rid_sel, cid_sel);
+                        break;
+                    case '1':
+                        doFzGrClick(rid_sel, cid_sel);
+                        break;
+                    case '2':
+                        doFzZzGrClick(rid_sel, cid_sel);
+                        break;
+                    default:
+                        if(gr.getRowsNum() > 0){                            
+                            doGrClick(gr.getRowId(0), 0);
+                        }
+                }
             }
             
             /**
@@ -114,11 +143,8 @@
                         });
 
                         gr.parse(youjingData,'json');
-                        //单击事件
-                        if(gr.getRowsNum() > 0){
-                            
-                            doGrClick(gr.getRowId(0), 0);
-                        }
+                        
+                        initTab1();
                     }
                 }); 
                 // 事件绑定
@@ -131,6 +157,11 @@
              * @returns {undefined}             
              * */
             function doGrClick(gr_rId, gr_cInd){
+            
+                    rid_sel = gr_rId;
+                    cid_sel = gr_cInd;
+                    flag_sel = '0';
+                    
                     var tmpName = gr_rId.split('||');
                     $("#ssqxTitle").html( tmpName[1] + '曲线');
                     // 获得工况信息
@@ -190,6 +221,8 @@
                         });
 
                         dqgr.parse(dataInfo,'json');
+                        
+                        initTab1();
                     }
                 });  
                  // 事件绑定
@@ -227,19 +260,26 @@
                         });
 
                         dqgr1.parse(dataInfo,'json');
+                        
+                        initTab1();
                     }
                 }); 
                 
                 // 事件绑定
                 dqgr1.attachEvent('onRowSelect', doFzGrClick); 
             }
-             /**
+             
+            /**
              * 信息点击
              * @param {type} gr_rId
              * @param {type} gr_cInd
              * @returns {undefined}             
              * */
             function doFzGrClick(gr_rId, gr_cInd){
+                    
+                    rid_sel = gr_rId;
+                    cid_sel = gr_cInd;
+                    flag_sel = '1';
                     
                     var tmpName = gr_rId.split('||');
                     $("#ssqxTitle").html( tmpName[1] + '曲线');
@@ -268,6 +308,7 @@
                         }
                     });                    
                 }  
+            
             function createdqgr2(){
                 dqgr2=new dhtmlXGridObject('zpdq3');
 				dqgr2.setImagePath("js/gridcodebase/imgs/");
@@ -304,12 +345,15 @@
                         });
 
                         dqgr2.parse(dataInfo,'json');
+                        
+                        initTab1();
                     }
                 });
                 
                  // 事件绑定
                 dqgr2.attachEvent('onRowSelect', doFzZzGrClick); 
             }
+            
             var xbJson;
              /**
              * 信息点击
@@ -319,6 +363,10 @@
              * */
             function doFzZzGrClick(gr_rId, gr_cInd){
             
+                    rid_sel = gr_rId;
+                    cid_sel = gr_cInd;
+                    flag_sel = '2';
+                    
                     var tmpName = gr_rId.split('||');
                     $("#ssqxTitle").html( tmpName[1] );
                     
@@ -835,36 +883,14 @@
         </div>
         <!--地图-->
         <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
-            <img src="${ctx}/static/img/ditu.jpg"  style="width:1280px;height:716px;"/>
+            <div  style="width:100%;height:100%; position: relative;">
+                        <div id="flashContent" style="width:100%;" ></div>                        
+                    </div>
         </div>
         <!--视频-->
         <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
         <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
         </div>
-        </div>
-        <div id="yin" >
-        <img border="0"  src="imagess/1.png" />
-        </div>
-        <div id="yin1" >
-         <a href="ssjczq.html" ><img border="0"  src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin2" >
-         <a href="ssjczp.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin3" >
-         <a href="ssjcyg.html"><img border="0" src="${ctx}/static/img/9.png" /></a>
-        </div>
-        <div id="yin4" >
-         <a href="ssjclxg.html"><img border="0" src="${ctx}/static/img/5.png" /></a>
-        </div>
-        <div id="yin5" >
-         <a href="ssjcmj.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
-        </div>
-        <div id="yin6" >
-         <a href="ssjcdqb.html"><img border="0" src="${ctx}/static/img/4.png" /></a>
-        </div>
-        <div id="yin12" >
-         <a href="ssjcmain.html"><img border="0" src="${ctx}/static/img/3.png" /></a>
         </div>
         <div id="sztitle" style="width:300px;"></div>
         <div id="szda" style="width:300px;"></div>
