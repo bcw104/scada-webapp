@@ -13,4 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface EndTagPointDao extends JpaRepository<EndTagPoint, Integer>{
     @Query("select distinct p from EndTagPoint p where p.endTag.id in (?1)")
     List<EndTagPoint> getPointListByIDS(Set<Integer> ids);
+    
+    @Query("select p from EndTagPoint p where p.endTag.id =?1")
+    EndTagPoint getPointByEndTagID(int id);
 }

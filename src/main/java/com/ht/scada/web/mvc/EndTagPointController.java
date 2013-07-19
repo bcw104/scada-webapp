@@ -1,6 +1,8 @@
 package com.ht.scada.web.mvc;
 
+import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.common.tag.entity.EndTagExtInfo;
+import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.common.tag.util.EndTagExtNameEnum;
 import com.ht.scada.common.tag.util.VarSubTypeEnum;
 import com.ht.scada.data.service.RealtimeDataService;
@@ -26,6 +28,8 @@ public class EndTagPointController {
     private UserService userService;
     @Autowired
     private EndTagPointService endTagPointService;
+    @Autowired
+    private EndTagService endTagService;
     @Autowired
     private UserExtInfoService userExtInfoService;
     @Autowired
@@ -58,5 +62,29 @@ public class EndTagPointController {
             rtn.add(map);
         }
         return rtn;
+    }
+    @RequestMapping(value = "point")
+    @ResponseBody
+    public EndTagPoint getEndTagPoint(int id){
+        return endTagPointService.getPointListByEndTagID(id);
+    }
+    @RequestMapping(value = "savepoint")
+    @ResponseBody
+    public int savepoint(int id,String pointx,String pointy,int endtagid){
+        EndTagPoint endTagPoint;
+        try{
+            endTagPoint = endTagPointService.getPointListByEndTagID(endtagid);
+            if(endTagPoint == null){
+                endTagPoint = new EndTagPoint();
+                EndTag endTag = endTagService.getById(endtagid);
+                endTagPoint.setEndTag(endTag);
+            }
+            endTagPoint.setX(pointx);
+            endTagPoint.setY(pointy);
+            endTagPointService.savePoint(endTagPoint);
+        }catch(Exception e){
+            return 0;
+        }
+        return 1;
     }
 }

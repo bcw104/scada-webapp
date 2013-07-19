@@ -37,9 +37,9 @@ public class UserAdminController {
 	
 	@Autowired
 	private UserService userService;
-    @Autowired
-	private UserExtInfoService userExtInfoService;
-    @Autowired
+        @Autowired
+            private UserExtInfoService userExtInfoService;
+        @Autowired
 	private MajorTagService majorTagService;
 
 	@RequestMapping(method = RequestMethod.GET)

@@ -31,5 +31,15 @@ public class EndTagPointServiceImpl implements EndTagPointService{
     public List<EndTagPoint> getPointListByIDS(Set<Integer> ids) {
         return endTagPointDao.getPointListByIDS(ids);
     }
+
+    @Override
+    public EndTagPoint getPointListByEndTagID(int id) {
+        return endTagPointDao.getPointByEndTagID(id);
+    }
+
+    @Override
+    public void  savePoint(EndTagPoint endTagPoint) {
+        endTagPointDao.save(endTagPoint);
+    }
     
 }

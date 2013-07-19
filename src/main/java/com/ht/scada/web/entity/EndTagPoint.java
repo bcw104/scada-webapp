@@ -4,6 +4,7 @@
  */
 package com.ht.scada.web.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.ht.scada.common.tag.entity.EndTag;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -17,8 +18,9 @@ public class EndTagPoint  extends AbstractPersistable<Integer> {
     @OneToOne
     @JoinColumn(name="endtag_id")
     private EndTag endTag;
-    private float x;
-    private float y;
+    private String x;
+    private String y;
+    
 
     public EndTag getEndTag() {
         return endTag;
@@ -28,19 +30,19 @@ public class EndTagPoint  extends AbstractPersistable<Integer> {
         this.endTag = endTag;
     }
 
-    public float getX() {
+    public String getX() {
         return x;
     }
 
-    public void setX(float x) {
+    public void setX(String x) {
         this.x = x;
     }
 
-    public float getY() {
+    public String getY() {
         return y;
     }
 
-    public void setY(float y) {
+    public void setY(String y) {
         this.y = y;
     }
     
