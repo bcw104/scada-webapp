@@ -29,6 +29,8 @@
         <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
         <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script>
+            // 刷新标识
+            var refFlag = true;
             var wellId_Gis;
             var dhxWins,dhxWins1,dhxWins2,dhxTabbar,dhLayout,lo,lc,ld,lh,Grid,Grid2,Grid3,dhxd,dhxd1,dhxd2,dhxd3,gr,yggr,yggr1,yggr2,rtugr,ygjgr;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
@@ -62,14 +64,6 @@
                 
                 // 页面布局设置
                 createTabble();
-            });
-            
-            /**
-             * 页面初始化
-             * @returns {undefined}
-             */
-            function doOnLoad(){
-
                 createGrid();
                 createWindows();
                 createWindows1();
@@ -79,6 +73,13 @@
                 createwind2();
                 createwi();
                 createWin();
+            });
+            
+            /**
+             * 页面初始化
+             * @returns {undefined}
+             */
+            function doOnLoad(){
                 //工况信息
                 createygGr();
                 //Rtu状态
@@ -522,7 +523,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);               // 隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("150");
+                gr.setInitWidths("260");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();                        
@@ -551,8 +552,14 @@
                                 var youjingItem = new Object();
                                 youjingItem.id = value.key + '||' + value.name + '||YOU_JING';
                                 youjingItem.data = [];
-                                youjingItem.data.push(value.name + '：' + value.value);
-
+//                                youjingItem.data.push(value.name + '：' + value.value);
+                                if(value.value == 'false'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/hongse.png"/>');
+                                }else if(value.value == 'true'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/lse.png"/>');
+                                }else{
+                                    youjingItem.data.push(value.name + '：' + value.value);
+                                }
                                 youjingData.rows.push(youjingItem);
                             }
                         });
@@ -823,10 +830,15 @@
              * @returns {undefined}
              */
             function sj(){
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
                 dhxd4.window("wa").show();
                 dhxd4.window("wa").setText("功图对比");
                 dhxd4.attachEvent("onClose", function(win){
                     dhxd4.window("wa").hide(); 
+                    // 刷新标识
+                    refFlag = true;
                 });
                 dhxd4.window("wa").attachHTMLString(gtdb);
             }
@@ -891,10 +903,15 @@
              * @returns {undefined}
              */
             function yckz(){
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
                 dhxd.window("wi").show();
                 dhxd.window("wi").setText("远程控制");
                 dhxd.attachEvent("onClose", function(win){
                     dhxd.window("wi").hide(); 
+                    // 刷新标识
+                    refFlag = true;
                 });
                 dhxd.window("wi").attachHTMLString(ew);
             }
@@ -904,10 +921,15 @@
              * @returns {undefined}
              */
             function yctc(){
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
                 dhxd.window("wi").show();
                 dhxd.window("wi").setText("远程调参");
                 dhxd.attachEvent("onClose", function(win){
                     dhxd.window("wi").hide(); 
+                    // 刷新标识
+                    refFlag = true;
                 });
                 dhxd.window("wi").attachHTMLString(yt);
             }
@@ -941,7 +963,9 @@
                             dhxd1.window("wi1").show();
                             dhxd1.window("wi1").setText("远程控制");
                             dhxd1.attachEvent("onClose", function(win){
-                               dhxd1.window("wi1").hide(); 
+                                dhxd1.window("wi1").hide(); 
+                                // 刷新标识
+                                refFlag = true;
                             });
                             dhxd1.window("wi1").attachHTMLString(anniu);
 
@@ -965,6 +989,8 @@
              * @returns {undefined}             
              * */
             function qx(){
+                // 刷新标识
+                refFlag = true;
                 dhxd.window("wi").hide();
             }
             
@@ -979,6 +1005,8 @@
                 dhxd2.window("wi2").setText("远程控制");
                 dhxd2.attachEvent("onClose", function(win){
                     dhxd2.window("wi2").hide(); 
+                    // 刷新标识
+                    refFlag = true;
                 });
                 dhxd2.window("wi2").attachHTMLString(sd);                 
             }
@@ -1004,7 +1032,9 @@
                         }                        
                     }
                 });
-                
+                  
+                // 刷新标识
+                refFlag = true;
                 dhxd1.window("wi1").hide();	
             }
             
@@ -1021,6 +1051,8 @@
                     data:{id:${info.id},state:"1",content:$.trim($("#kz_content").val())},
                     dateType:'json',
                     success: function(json){
+                        // 刷新标识
+                        refFlag = true;
                         if(json.state == "1"){
                             alert("调控成功！");
                         }else{
@@ -1038,6 +1070,8 @@
              * @returns {undefined}             
              * */
             function qxx(){
+                // 刷新标识
+                refFlag = true;
                 dhxd2.window("wi2").hide();
             }
             
@@ -1072,6 +1106,8 @@
                             dhxd1.window("wi1").setText("远程调参");
                             dhxd1.attachEvent("onClose", function(win){
                                 dhxd1.window("wi1").hide(); 
+                                // 刷新标识
+                                refFlag = true;
                             });
                             dhxd1.window("wi1").attachHTMLString(yc);
                         }else{
@@ -1087,6 +1123,8 @@
              * @returns {undefined}             
              * */
             function qx1(){
+                // 刷新标识
+                refFlag = true;
                 dhxd.window("wi").hide();
             }
             
@@ -1105,6 +1143,8 @@
                 dhxd3.window("wi3").setText("远程调参");
                 dhxd3.attachEvent("onClose", function(win){
                     dhxd3.window("wi3").hide(); 
+                    // 刷新标识
+                    refFlag = true;
                 }); 
             
                 // 用户验证
@@ -1172,6 +1212,8 @@
                         if(json.state == "1"){
                             alert("调参成功！");
                             dhxd3.window("wi3").hide();
+                            // 刷新标识
+                            refFlag = true;
                         }else{
                             alert("调参发生错误，请重新操作或与管理员联系！");
                             return false;
@@ -1185,42 +1227,52 @@
              * @returns {undefined}
              */
             function qx2(){
+                // 刷新标识
+                refFlag = true;
                 dhxd3.window("wi3").hide();
             }
-function createWindows(){
-	dhxWins = new dhtmlXWindows();
-	dhxWins.attachViewportTo(document.body);
-	dhxWins.createWindow("win",200,100,1000,500);
-	dhxWins.window("win").button('minmax2').hide();
-	dhxWins.window("win").button('minmax1').hide();
-	dhxWins.window("win").button('park').hide();
-	dhxWins.window("win").hide();	
-	}
-function createWindow(){
-	dhxWins2 = new dhtmlXWindows();
-	dhxWins2.attachViewportTo(document.body);
-	dhxWins2.createWindow("win2",600,200,400,150);
-	dhxWins2.window("win2").button('minmax2').hide();
-	dhxWins2.window("win2").button('minmax1').hide();
-	dhxWins2.window("win2").button('park').hide();
-	dhxWins2.window("win2").hide();	
-	}
+            
+            function createWindows(){
+                dhxWins = new dhtmlXWindows();
+                dhxWins.attachViewportTo(document.body);
+                dhxWins.createWindow("win",200,100,1000,500);
+                dhxWins.window("win").button('minmax2').hide();
+                dhxWins.window("win").button('minmax1').hide();
+                dhxWins.window("win").button('park').hide();
+                dhxWins.window("win").hide();	
+            }
+    
+            function createWindow(){
+                dhxWins2 = new dhtmlXWindows();
+                dhxWins2.attachViewportTo(document.body);
+                dhxWins2.createWindow("win2",600,200,400,150);
+                dhxWins2.window("win2").button('minmax2').hide();
+                dhxWins2.window("win2").button('minmax1').hide();
+                dhxWins2.window("win2").button('park').hide();
+                dhxWins2.window("win2").hide();	
+            }
             /**
              * 抽油杆受力分析
              * @returns {undefined}
              */
             function cyfslfx(){
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
                 dhxWins2.window("win2").show();
                 dhxWins2.window("win2").setText("抽油杆受力分析");
                 dhxWins2.attachEvent("onClose", function(win){
-                dhxWins2.window("win2").hide(); 
-                             });
+                    dhxWins2.window("win2").hide(); 
+                    // 刷新标识
+                    refFlag = true;
+                });
                 Grid3=dhxWins2.window("win2").attachGrid();;
                 Grid3.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 Grid3.setHeader(["序号","杆级","最大载荷","最小载荷"]);
                 Grid3.setInitWidths("70,100,100,*");
                 Grid3.setColAlign("center,center,center,center");
                 Grid3.setColTypes("ed,ed,ed,ed");
+                Grid3.setEditable(false);
                 Grid3.init();
                 
                 // 获得井基本信息
@@ -1266,46 +1318,21 @@ function wins(){
 	dhxWins1.window("win1").button('park').hide();
 	dhxWins1.window("win1").hide();	
 	}
+    
         function ztwin(){
-	 dhxWins.window("win").show();
-	 dhxWins.window("win").setText("工况");
-	 dhxWins.attachEvent("onClose", function(win){
-	 dhxWins.window("win").hide(); 
-   				 });
-	 dhxWins.window("win").attachHTMLString(dtu);
-	}
-	function sgtwin(){
-	 dhxWins.window("win").show();
-	 dhxWins.window("win").setText("示工图");
-	 dhxWins.attachEvent("onClose", function(win){
-	 dhxWins.window("win").hide(); 
-   				 });
-	 dhxWins.window("win").attachHTMLString(dtu1);
-	}
-	function dlqxwin(){
-	 dhxWins.window("win").show();
-	 dhxWins.window("win").setText("电流曲线");
-	 dhxWins.attachEvent("onClose", function(win){
-	 dhxWins.window("win").hide(); 
-   				 });
-	 dhxWins.window("win").attachHTMLString(dtu2);
-	}
-	function dgtwin(){
-	 dhxWins.window("win").show();
-	 dhxWins.window("win").setText("电功图");
-	 dhxWins.attachEvent("onClose", function(win){
-	 dhxWins.window("win").hide(); 
-   				 });
-	 dhxWins.window("win").attachHTMLString(dtu3);
-	}
-	function ygglqxwin(){
-	 dhxWins.window("win").show();
-	 dhxWins.window("win").setText("有功功率曲线");
-	 dhxWins.attachEvent("onClose", function(win){
-	 dhxWins.window("win").hide(); 
-   				 });
-	 dhxWins.window("win").attachHTMLString(dtu4);
-	}
+            if(!refFlag) return true;
+            // 刷新标识
+            refFlag = false;
+            dhxWins.window("win").show();
+            dhxWins.window("win").setText("工况");
+            dhxWins.attachEvent("onClose", function(win){
+                dhxWins.window("win").hide(); 
+                // 刷新标识
+                refFlag = true;
+   			});
+            dhxWins.window("win").attachHTMLString(dtu);
+        }
+        
             /**
             * 即时功能读取
             * @returns {undefined}             
@@ -1460,6 +1487,8 @@ function wins(){
                 $("#ssqx4").css("display","none");
                 $("#gtdb").css("display","block");
                 dhxd4.window("wa").hide(); 
+                // 刷新标识
+                refFlag = true;
             }
             
             function qxa(i){
@@ -1488,11 +1517,11 @@ function wins(){
     	<div id="gk" style="width:1280px; height:560px" >
          <div id="ba" style="width:1280px; height:5px;  float:left" ></div>
          <div id="baa" style="width:5px; height:22px;  float:left" ></div>
-         <div id="gk1" style="width:366px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
+         <div id="gk1" style="width:426px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
          &nbsp工&nbsp;&nbsp;&nbsp况
          </div>
          <div id="ba1" style="width:5px; height:22px; background-color:#FFF; float:left"></div>
-         <div id="gk2" style="width:260px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
+         <div id="gk2" style="width:200px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
          &nbspRTU&nbsp;&nbsp;&nbsp状&nbsp;&nbsp;&nbsp态
           </div>
           <div id="ba2" style="width:7px; height:22px; background-color:#FFF; float:left"></div>
@@ -1502,22 +1531,22 @@ function wins(){
           <div id="bas" style="width:5px; height:22px;  float:left"></div>
           <div id="wai" style="width:636px; height:365px; float:left">
           	<div id="ba4" style="width:5px; height:154px;  float:left"></div>
-             <div id="gk4" style="width:364px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
+             <div id="gk4" style="width:424px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
           <div id="gkk" style="width:245px; height:152px; float:left ">
            <a  ondblclick="ztwin();" style="cursor:hand;text-decoration:none"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:151px" /></a>
           </div>
           
-          <div id="gkk1" style="width:110px;height:153px; float:left">
-            <div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
+          <div id="gkk1" style="width:175px;height:153px; float:left">
+            <div id="tb" style="width:175px; height:35px;float:left; font-size:14px; line-height:40px">
               &nbsp;&nbsp;&nbsp;油井启停：<img src="${ctx}/static/img/hongse.png"/>
             </div>
-            <div id="yg" style="width:115px; height:107px; float:left">
+            <div id="yg" style="width:172px; height:107px; float:left;margin-left: 5px">
             </div>
      	  </div>
          </div>
          <!--RTU状态-->
           <div id="ba5" style="width:5px; height:154px;  float:left"></div>
-          <div id="rtu" style="width:258px; height:152px;border:solid; border-width:1px; border-color:#BAC3FD;float:left">
+          <div id="rtu" style="width:198px; height:152px;border:solid; border-width:1px; border-color:#BAC3FD;float:left">
               
            </div>
            <div id="ba8" style="width:636px; height:5px;  float:left"></div>

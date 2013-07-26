@@ -236,32 +236,36 @@ public class RealTimeController {
     @ResponseBody
     public List<Map> groupInfo(String code,String group){
         List<Map> rtn = new ArrayList<>();
-        Map<String,String> map;
-        map = realtimeDataService.getEndTagVarGroupInfo(code, group);
-        for(Map.Entry<String,String> entry : map.entrySet()){
-            Map tmp = new HashMap<>();
-            tmp.put("key", entry.getKey());
-            tmp.put("value", entry.getValue());
-            TagCfgTpl cfgtpl = tagService.getTagCfgTplByCodeAndVarName(code, entry.getKey());
-            tmp.put("name", cfgtpl.getTagName());
-            rtn.add(tmp);
-            
-        }
-        if(group.equals(VarGroupEnum.DIAN_XB.toString())){
-            ArrayList<String> keys = new ArrayList<>();
-            for(String key : map.keySet()){
-                keys.add(key + "_array");
-            }
-            Map<String,String> maps = realtimeDataService.getEndTagVarYcArray(code, keys);
-            for(Map.Entry<String,String> entry : maps.entrySet()){
+        try{
+           Map<String,String> map;
+            map = realtimeDataService.getEndTagVarGroupInfo(code, group);
+            for(Map.Entry<String,String> entry : map.entrySet()){
                 Map tmp = new HashMap<>();
                 tmp.put("key", entry.getKey());
                 tmp.put("value", entry.getValue());
                 TagCfgTpl cfgtpl = tagService.getTagCfgTplByCodeAndVarName(code, entry.getKey());
                 tmp.put("name", cfgtpl.getTagName());
                 rtn.add(tmp);
+
             }
-        }
+            if(group.equals(VarGroupEnum.DIAN_XB.toString())){
+                ArrayList<String> keys = new ArrayList<>();
+                for(String key : map.keySet()){
+                    keys.add(key + "_array");
+                }
+                Map<String,String> maps = realtimeDataService.getEndTagVarYcArray(code, keys);
+                for(Map.Entry<String,String> entry : maps.entrySet()){
+                    Map tmp = new HashMap<>();
+                    tmp.put("key", entry.getKey());
+                    tmp.put("value", entry.getValue());
+                    TagCfgTpl cfgtpl = tagService.getTagCfgTplByCodeAndVarName(code, entry.getKey());
+                    tmp.put("name", cfgtpl.getTagName());
+                    rtn.add(tmp);
+                }
+            } 
+        }catch(Exception ex){
+            
+        }        
         return rtn;
     }
     @RequestMapping(value="varinfo")
@@ -292,23 +296,32 @@ public class RealTimeController {
         Calendar cal = Calendar.getInstance();
         for(String nickname:sensor){
             Map tmp = new HashMap();
-            SensorDevice sen = tagService.getSensorDeviceByCodeAndNickName(code, nickname);
-            cal.setTime(sen.getFixTime());
-            cal.add(Calendar.DATE, Integer.parseInt(sen.getCheckInterval()));
-            if(cal.before(curDate)){
-                tmp.put("biaoding", "1");
-            }else{
-                tmp.put("biaoding", "0");
+            SensorDevice sen;
+            try{
+                sen = tagService.getSensorDeviceByCodeAndNickName(code, nickname);
+                
+                if(sen == null){
+                    continue;
+                }
+                cal.setTime(sen.getFixTime());
+                cal.add(Calendar.DATE, Integer.parseInt(sen.getCheckInterval()));
+                if(cal.before(curDate)){
+                    tmp.put("biaoding", "1");
+                }else{
+                    tmp.put("biaoding", "0");
+                }
+                String name = sen.getName();
+                //计算标定
+                tmp.put("sensorname", name);
+                tmp.put("nickname", nickname);
+                for(String key:keyname){
+                    String val = map.get(key + "_" + nickname);
+                    tmp.put(key, val);
+                }
+                data.add(tmp);            
+            }catch(Exception e){
+                continue;
             }
-            String name = sen.getName();
-            //计算标定
-            tmp.put("sensorname", name);
-            tmp.put("nickname", nickname);
-            for(String key:keyname){
-                String val = map.get(key + "_" + nickname);
-                tmp.put(key, val);
-            }
-            data.add(tmp);
         }
         return data;
     }

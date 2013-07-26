@@ -79,7 +79,7 @@
 <![CDATA[SEQ()]]></SortFormula>
 </Expand>
 </C>
-<C c="1" r="1" s="2">
+<C c="1" r="1" s="1">
 <O t="DSColumn">
 <Attributes dsName="ds4" columnName="name"/>
 <Condition class="com.fr.data.condition.ListCondition">
@@ -132,7 +132,7 @@
 </O>
 <Expand dir="0"/>
 </C>
-<C c="2" r="1" s="3">
+<C c="2" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds4" columnName="liquid_product"/>
 <Condition class="com.fr.data.condition.ListCondition"/>
@@ -147,7 +147,7 @@
 </O>
 <Expand/>
 </C>
-<C c="3" r="1" s="3">
+<C c="3" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds4" columnName="oil_product"/>
 <Condition class="com.fr.data.condition.ListCondition"/>
@@ -162,7 +162,7 @@
 </O>
 <Expand/>
 </C>
-<C c="4" r="1" s="3">
+<C c="4" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds4" columnName="han_shui"/>
 <Condition class="com.fr.data.condition.ListCondition"/>
@@ -177,7 +177,7 @@
 </O>
 <Expand/>
 </C>
-<C c="5" r="1" s="3">
+<C c="5" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds4" columnName="chong_cheng"/>
 <Condition class="com.fr.data.condition.ListCondition"/>
@@ -192,7 +192,7 @@
 </O>
 <Expand/>
 </C>
-<C c="6" r="1" s="3">
+<C c="6" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds4" columnName="chong_ci"/>
 <Condition class="com.fr.data.condition.ListCondition"/>
@@ -207,7 +207,7 @@
 </O>
 <Expand/>
 </C>
-<C c="7" r="1" s="3">
+<C c="7" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds4" columnName="you_ya"/>
 <Condition class="com.fr.data.condition.ListCondition"/>
@@ -222,7 +222,7 @@
 </O>
 <Expand/>
 </C>
-<C c="8" r="1" s="3">
+<C c="8" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds4" columnName="tao_ya"/>
 <Condition class="com.fr.data.condition.ListCondition"/>
@@ -272,7 +272,7 @@
 <ColumnWidth defaultValue="2743200">
 <![CDATA[914400,2743200,2362200,2743200,2743200,2743200,2743200,2400300,381000,8153400,2743200]]></ColumnWidth>
 <CellElementList>
-<C c="0" r="1" s="4">
+<C c="0" r="1" s="3">
 <O>
 <![CDATA[队]]></O>
 <Expand/>
@@ -297,12 +297,12 @@
 </Widget>
 <Expand/>
 </C>
-<C c="2" r="1" s="4">
+<C c="2" r="1" s="3">
 <O>
 <![CDATA[开始时间]]></O>
 <Expand/>
 </C>
-<C c="3" r="1" cs="2" s="5">
+<C c="3" r="1" cs="2" s="4">
 <O>
 <![CDATA[]]></O>
 <Widget class="com.fr.report.web.ui.DateEditor">
@@ -314,12 +314,12 @@
 </Widget>
 <Expand/>
 </C>
-<C c="5" r="1" s="4">
+<C c="5" r="1" s="3">
 <O>
 <![CDATA[结束时间]]></O>
 <Expand/>
 </C>
-<C c="6" r="1" cs="2" s="5">
+<C c="6" r="1" cs="2" s="4">
 <O>
 <![CDATA[]]></O>
 <Widget class="com.fr.report.web.ui.DateEditor">
@@ -439,16 +439,6 @@ switch(selState){
 <Style horizontal_alignment="0">
 <FRFont name="SimSun" style="0" size="72"/>
 <Background name="ColorBackground" color="-3368449"/>
-<Border>
-<Top style="1" color="-26164"/>
-<Bottom style="1" color="-26164"/>
-<Left style="1" color="-26164"/>
-<Right style="1" color="-26164"/>
-</Border>
-</Style>
-<Style horizontal_alignment="4">
-<FRFont name="SimSun" style="0" size="72"/>
-<Background name="NullBackground"/>
 <Border>
 <Top style="1" color="-26164"/>
 <Bottom style="1" color="-26164"/>

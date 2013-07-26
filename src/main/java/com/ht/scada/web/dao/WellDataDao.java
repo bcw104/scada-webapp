@@ -141,7 +141,7 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, SUM(u.oilProduct) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), SUM(u.oilProduct) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData(Date startDate, Date endDate);
     
     /**
@@ -157,7 +157,7 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, SUM(u.liquidProduct) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), SUM(u.liquidProduct) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData_liquid(Date startDate, Date endDate);
     
     /**
@@ -173,7 +173,7 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, SUM(u.runStatus) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), SUM(u.runStatus) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData_kjs(Date startDate, Date endDate);
     
     /**
@@ -189,7 +189,7 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, SUM(u.eleConsume) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), SUM(u.eleConsume) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData_ydl(Date startDate, Date endDate);
     
     /**
@@ -205,7 +205,7 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, SUM(u.zhuQi) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), SUM(u.zhuQi) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData_zql(Date startDate, Date endDate);
     
     /**
@@ -221,7 +221,7 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, SUM(u.water) FROM ZhuShuiHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), SUM(u.water) FROM ZhuShuiHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData_zsl(Date startDate, Date endDate);
     
     /**
@@ -237,7 +237,7 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, SUM(u.runStatus) FROM WaterWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), SUM(u.runStatus) FROM WaterWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData_sjkjs(Date startDate, Date endDate);
     
     /**
@@ -253,7 +253,7 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, SUM(u.eleConsume) FROM WaterWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), SUM(u.eleConsume) FROM WaterWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData_syjydl(Date startDate, Date endDate);
     
     /**
@@ -269,7 +269,7 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, SUM(u.eleConsume) FROM ZhuShuiHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), SUM(u.eleConsume) FROM ZhuShuiHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData_zszydl(Date startDate, Date endDate);
     
     /**
@@ -285,7 +285,7 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, SUM(u.eleConsume) FROM ZhuQiHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), SUM(u.eleConsume) FROM ZhuQiHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData_zqzydl(Date startDate, Date endDate);
     
     /**
@@ -301,7 +301,7 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, SUM(u.hanShui) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), SUM(u.hanShui) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData_hsl(Date startDate, Date endDate);
     
     /**
@@ -317,6 +317,6 @@ public interface WellDataDao extends JpaRepository<MenuItem, Integer>{
      * @param code
      * @return 
      */   
-    @Query("SELECT u.code, u.statisticsTime, COUNT(*) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, u.statisticsTime ORDER BY u.statisticsTime")
+    @Query("SELECT u.code, DATE_FORMAT(u.statisticsTime, '%H:00'), COUNT(*) FROM OilWellHourlyDataRecord u WHERE u.statisticsDate>=?1 AND u.statisticsDate<?2 GROUP BY u.code, DATE_FORMAT(u.statisticsTime, '%H:00') ORDER BY DATE_FORMAT(u.statisticsTime, '%H:00')")
 	public List getHourLineData_zjs(Date startDate, Date endDate);
 }

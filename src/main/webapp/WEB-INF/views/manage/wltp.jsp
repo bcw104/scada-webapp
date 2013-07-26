@@ -298,7 +298,7 @@
                 treeGrid.parse(wellData,'json');
                                     
                 treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
-                    selEndTagData = '';alert(rId);return false;
+                    selEndTagData = '';//alert(rId);return false;
                     if(rId.indexOf('j||') >= 0){
                         if(cInd == 1){
                             selEndTagData = rId;

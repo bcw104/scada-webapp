@@ -425,7 +425,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);               // 隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("150");
+                gr.setInitWidths("260");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();                   
@@ -454,8 +454,14 @@
                                 var youjingItem = new Object();
                                 youjingItem.id = value.key + '||' + value.name + '||YOU_JING';
                                 youjingItem.data = [];
-                                youjingItem.data.push(value.name + '：' + value.value);
-
+//                                youjingItem.data.push(value.name + '：' + value.value);
+                                if(value.value == 'false'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/hongse.png"/>');
+                                }else if(value.value == 'true'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/lse.png"/>');
+                                }else{
+                                    youjingItem.data.push(value.name + '：' + value.value);
+                                }
                                 youjingData.rows.push(youjingItem);
                             }
                         });
@@ -1415,11 +1421,11 @@
                     <div id="gk" style="width:1280px; height:560px" >
                     <div id="ba" style="width:1280px; height:5px;  float:left" ></div>
                     <div id="baa" style="width:5px; height:22px;  float:left" ></div>
-                    <div id="gk1" style="width:366px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
+                    <div id="gk1" style="width:426px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
                         &nbsp工&nbsp;&nbsp;&nbsp况
                     </div>
                     <div id="ba1" style="width:5px; height:22px; background-color:#FFF; float:left"></div>
-                    <div id="gk2" style="width:260px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
+                    <div id="gk2" style="width:200px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
                         &nbspRTU&nbsp;&nbsp;&nbsp状&nbsp;&nbsp;&nbsp态
                     </div>
                     <div id="ba2" style="width:7px; height:22px; background-color:#FFF; float:left"></div>
@@ -1429,20 +1435,20 @@
                     <div id="bas" style="width:5px; height:22px;  float:left"></div>
                     <div id="wai" style="width:636px; height:365px; float:left">
                         <div id="ba4" style="width:5px; height:154px;  float:left"></div>
-                            <div id="gk4" style="width:364px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
+                            <div id="gk4" style="width:424px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
                                 <div id="gkk" style="width:245px; height:152px; float:left ">
                                     <a  ondblclick="ztwin();" style="cursor:hand;text-decoration:none"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:151px" /></a>
                                 </div>          
-                                <div id="gkk1" style="width:118px;height:153px; float:left">
-                                    <div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
+                                <div id="gkk1" style="width:175px;height:153px; float:left">
+                                    <div id="tb" style="width:175px; height:35px;float:left; font-size:14px; line-height:40px">
                                         &nbsp;&nbsp;&nbsp;油井启停：<img id="youjingState" src="${ctx}/static/img/hongse.png" />
                                     </div>
-                                    <div id="yk" style="width:115px; height:107px; float:left"></div>
+                                    <div id="yk" style="width:172px; height:107px; float:left;margin-left: 5px"></div>
                                 </div>
                             </div>
                             <!--RTU状态-->
                             <div id="ba5" style="width:5px; height:154px;  float:left"></div>
-                            <div id="rtu" style="width:258px; height:152px; background-color:#000;border:solid; border-width:1px; border-color:#BAC3FD;float:left">
+                            <div id="rtu" style="width:198px; height:152px; background-color:#000;border:solid; border-width:1px; border-color:#BAC3FD;float:left">
                             </div>
                             <div id="ba8" style="width:636px; height:5px;  float:left"></div>
                             <div id="ba8" style="width:5px; height:80px;  float:left"></div>

@@ -129,7 +129,8 @@
                 treeGrid.setColAlign("left,center,center,center,center,center,center,center");
                 treeGrid.setColTypes("tree,txt,txt,txt,txt,txt,txt,txt");
                 treeGrid.init();
-                treeGrid.enableMultiselect(true);                
+                treeGrid.enableMultiselect(true);     
+                treeGrid.setEditable(false);           
 
                 treeGrid.clearAll();
                 var deviceDataJson = getDeviceData(deviceJson);
@@ -156,8 +157,8 @@
                 
                 // 封装网络表格JSON
                 $.each(p_json, function(key, value){
-                    
-                    if((value.name.indexOf($.trim($("#txtName").val())) >= 0) 
+                    var name_search = value.name.toLocaleLowerCase();
+                    if((name_search.indexOf($.trim($("#txtName").val().toLocaleLowerCase()))) >= 0 
                             && ($.trim($("#txtAddress").val()) == "" || (String(value.address) == $.trim($("#txtAddress").val())))){
                         var tmpDevice = new Object(); 
                         tmpDevice.id = value.id;
@@ -394,8 +395,8 @@
                 <div id="gr" style="width:1245px; height:600px; float:left;background-color: #00B83F">
                 </div>
                 <!--报表-->
-                <div  id="yjbb" style="width:1245px; height:570px;overflow:scroll;">
-                    <iframe id="reportIframe" src="" style="width:1245px; height:570px;overflow:scroll"></iframe>
+                <div  id="yjbb" style="width:1245px; height:570px;overflow:hidden;">
+                    <iframe id="reportIframe" src="" style="width:1245px; height:570px;overflow:hidden"></iframe>
                 </div>                
                 <!--设备监控管理Tabbar-->
                 <div id="gr1" style="width:1245px; height:602px; float:left; display:none">

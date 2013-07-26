@@ -61,7 +61,7 @@
 </O>
 <Expand leftParentDefault="false" left="B2"/>
 </C>
-<C c="1" r="1" s="2">
+<C c="1" r="1" s="1">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="name"/>
 <Condition class="com.fr.data.condition.ListCondition">
@@ -144,7 +144,7 @@
 </O>
 <Expand dir="0" extendable="1"/>
 </C>
-<C c="2" r="1" s="2">
+<C c="2" r="1" s="1">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="status"/>
 <Complex/>
@@ -155,7 +155,7 @@
 </O>
 <Expand dir="0"/>
 </C>
-<C c="3" r="1" s="2">
+<C c="3" r="1" s="1">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="date"/>
 <Complex/>
@@ -164,7 +164,7 @@
 </O>
 <Expand dir="0"/>
 </C>
-<C c="4" r="1" s="2">
+<C c="4" r="1" s="1">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="remark"/>
 <Complex/>
@@ -173,7 +173,7 @@
 </O>
 <Expand dir="0"/>
 </C>
-<C c="5" r="1" s="2">
+<C c="5" r="1" s="1">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="real_name"/>
 <Complex/>
@@ -217,7 +217,7 @@
 <ColumnWidth defaultValue="2743200">
 <![CDATA[1066800,2743200,952500,3771900,1562100,2743200,2743200,762000,2743200,2743200,2057400,2743200,647700,2743200]]></ColumnWidth>
 <CellElementList>
-<C c="0" r="1" s="3">
+<C c="0" r="1" s="2">
 <O>
 <![CDATA[队]]></O>
 <Expand/>
@@ -242,7 +242,7 @@
 </Widget>
 <Expand/>
 </C>
-<C c="2" r="1" s="3">
+<C c="2" r="1" s="2">
 <O>
 <![CDATA[井]]></O>
 <Expand/>
@@ -267,12 +267,12 @@
 </Widget>
 <Expand/>
 </C>
-<C c="4" r="1" s="3">
+<C c="4" r="1" s="2">
 <O>
 <![CDATA[时间]]></O>
 <Expand/>
 </C>
-<C c="5" r="1" cs="2" s="4">
+<C c="5" r="1" cs="2" s="3">
 <O>
 <![CDATA[]]></O>
 <Widget class="com.fr.report.web.ui.DateEditor">
@@ -284,12 +284,12 @@
 </Widget>
 <Expand/>
 </C>
-<C c="7" r="1" s="3">
+<C c="7" r="1" s="2">
 <O>
 <![CDATA[～]]></O>
 <Expand/>
 </C>
-<C c="8" r="1" cs="2" s="4">
+<C c="8" r="1" cs="2" s="3">
 <O>
 <![CDATA[]]></O>
 <Widget class="com.fr.report.web.ui.DateEditor">
@@ -301,7 +301,7 @@
 </Widget>
 <Expand/>
 </C>
-<C c="10" r="1" s="3">
+<C c="10" r="1" s="2">
 <O>
 <![CDATA[操作人]]></O>
 <Expand/>
@@ -392,17 +392,7 @@
 <Right style="1" color="-65281"/>
 </Border>
 </Style>
-<Style horizontal_alignment="4">
-<FRFont name="SimSun" style="0" size="72"/>
-<Background name="NullBackground"/>
-<Border>
-<Top style="1" color="-65281"/>
-<Bottom style="1" color="-65281"/>
-<Left style="1" color="-65281"/>
-<Right style="1" color="-65281"/>
-</Border>
-</Style>
-<Style>
+<Style horizontal_alignment="0">
 <FRFont name="SimSun" style="0" size="72"/>
 <Background name="NullBackground"/>
 <Border>

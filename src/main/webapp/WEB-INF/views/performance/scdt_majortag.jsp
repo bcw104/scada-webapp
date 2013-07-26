@@ -275,211 +275,210 @@
                         $('#txtStartDate').val(jsonDate.today);
                         $('#txtEndDate').val(jsonDate.today);
                         
-                        
-                                    // 获得井数据信息
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: '${ctx}/performance/getMajorDataList',
-                                        dateType:'json',
-                                        success: function(jsonYoujing){
+                        // 获得井数据信息
+                        $.ajax({
+                            type: 'POST',
+                            url: '${ctx}/performance/getMajorDataList',
+                            dateType:'json',
+                            success: function(jsonYoujing){
 
-                                            // 今日开井数
-                                            run_status_day = 0;
-                                            // 昨日开井数
-                                            run_status_yesterday = 0;
-                                            // 前日开井数
-                                            run_status_before = 0;
+                                // 今日开井数
+                                run_status_day = 0;
+                                // 昨日开井数
+                                run_status_yesterday = 0;
+                                // 前日开井数
+                                run_status_before = 0;
                                             
-                                            // 产油量
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'cyl';
-                                            scdtItemData.data = [];
+                                // 产油量
+                                scdtItemData = new Object();
+                                scdtItemData.id = 'cyl';
+                                scdtItemData.data = [];
 
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '产油量';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
+                                scdtItemRootData = new Object();
+                                scdtItemRootData.value = '产油量';
+                                scdtItemRootData.image = 'folder.gif';  
+                                scdtItemData.data.push(scdtItemRootData);
 
-                                            var tmpGridInfo = createGridItem(jsonYoujing, ${info.id});
+                                var tmpGridInfo = createGridItem(jsonYoujing, ${info.id});
 
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvg, 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvg, 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
-                                            scdtItemData.rows = tmpGridInfo.data;
+                                scdtItemData.rows = tmpGridInfo.data;
 
-                                            scdtData.rows.push(scdtItemData);
+                                scdtData.rows.push(scdtItemData);
                                             
-                                            // 已选择组织机构
-                                            selMajorTagData = ',';
+                                // 已选择组织机构
+                                selMajorTagData = ',';
                 
-                                            // 产液量
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'cyel';
-                                            scdtItemData.data = [];
+                                // 产液量
+                                scdtItemData = new Object();
+                                scdtItemData.id = 'cyel';
+                                scdtItemData.data = [];
 
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '产液量';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
+                                scdtItemRootData = new Object();
+                                scdtItemRootData.value = '产液量';
+                                scdtItemRootData.image = 'folder.gif';  
+                                scdtItemData.data.push(scdtItemRootData);
 
-                                            tmpGridInfo = createGridItem_liquid(jsonYoujing, ${info.id});
+                                tmpGridInfo = createGridItem_liquid(jsonYoujing, ${info.id});
 
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvg, 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvg, 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
-                                            scdtItemData.rows = tmpGridInfo.data;
+                                scdtItemData.rows = tmpGridInfo.data;
 
-                                            scdtData.rows.push(scdtItemData);
+                                scdtData.rows.push(scdtItemData);
+//                                            
+                                // 已选择组织机构
+                                selMajorTagData = ',';
                                             
-                                            // 已选择组织机构
-                                            selMajorTagData = ',';
+                                // 油井开井数            
+                                scdtItemData = new Object();
+                                scdtItemData.id = 'yjkj';
+                                scdtItemData.data = [];
+
+                                scdtItemRootData = new Object();
+                                scdtItemRootData.value = '油井开井数';
+                                scdtItemRootData.image = 'folder.gif';  
+                                scdtItemData.data.push(scdtItemRootData);
+
+                                scdtItemData.data.push(run_status_day);
+                                scdtItemData.data.push(run_status_yesterday - run_status_before);
+                                scdtItemData.data.push("-");
+                                scdtItemData.data.push("-");
+                                scdtItemData.data.push("-");
+                                scdtItemData.data.push("-");
+                                scdtItemData.data.push("-");
+                                scdtItemData.data.push("-");
+
+                                scdtData.rows.push(scdtItemData);
                                             
-                                            // 油井开井数            
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'yjkj';
-                                            scdtItemData.data = [];
+                                // 油井注气量
+                                scdtItemData = new Object();
+                                scdtItemData.id = 'yjzql';
+                                scdtItemData.data = [];
 
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '油井开井数';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
+                                scdtItemRootData = new Object();
+                                scdtItemRootData.value = '油井注气量';
+                                scdtItemRootData.image = 'folder.gif';  
+                                scdtItemData.data.push(scdtItemRootData);
 
-                                            scdtItemData.data.push(run_status_day);
-                                            scdtItemData.data.push(run_status_yesterday - run_status_before);
-                                            scdtItemData.data.push("-");
-                                            scdtItemData.data.push("-");
-                                            scdtItemData.data.push("-");
-                                            scdtItemData.data.push("-");
-                                            scdtItemData.data.push("-");
-                                            scdtItemData.data.push("-");
+                                tmpGridInfo = createGridItem_zhuqi(jsonYoujing);
 
-                                            scdtData.rows.push(scdtItemData);
+                                scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
+
+                                scdtData.rows.push(scdtItemData);
                                             
-                                            // 油井注气量
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'yjzql';
-                                            scdtItemData.data = [];
+                                // 注水量
+                                scdtItemData = new Object();
+                                scdtItemData.id = 'zsl';
+                                scdtItemData.data = [];
 
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '油井注气量';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
+                                scdtItemRootData = new Object();
+                                scdtItemRootData.value = '注水量';
+                                scdtItemRootData.image = 'folder.gif';  
+                                scdtItemData.data.push(scdtItemRootData);
 
-                                            tmpGridInfo = createGridItem_zhuqi(jsonYoujing);
+                                tmpGridInfo = createGridItem_zhushui(jsonYoujing);
 
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
-                                            scdtData.rows.push(scdtItemData);
+                                scdtData.rows.push(scdtItemData);
                                             
-                                            // 注水量
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'zsl';
-                                            scdtItemData.data = [];
-
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '注水量';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
-
-                                            tmpGridInfo = createGridItem_zhushui(jsonYoujing);
-
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
-
-                                            scdtData.rows.push(scdtItemData);
+                                // 已选择组织机构
+                                selMajorTagData = ',';
                                             
-                                            // 已选择组织机构
-                                            selMajorTagData = ',';
-                                            
-                                            // 油井用电量
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'yjydl';
-                                            scdtItemData.data = [];
+                                // 油井用电量
+                                scdtItemData = new Object();
+                                scdtItemData.id = 'yjydl';
+                                scdtItemData.data = [];
 
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '油井用电量';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
+                                scdtItemRootData = new Object();
+                                scdtItemRootData.value = '油井用电量';
+                                scdtItemRootData.image = 'folder.gif';  
+                                scdtItemData.data.push(scdtItemRootData);
 
-                                            tmpGridInfo = createGridItem_ele(jsonYoujing, ${info.id});
+                                tmpGridInfo = createGridItem_ele(jsonYoujing, ${info.id});
 
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvg, 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvg, 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
-                                            scdtItemData.rows = tmpGridInfo.data;
+                                scdtItemData.rows = tmpGridInfo.data;
 
-                                            scdtData.rows.push(scdtItemData);
-                                            
-                                            // 单井平均含水量
-                                            scdtItemData = new Object();
-                                            scdtItemData.id = 'djpjhsl';
-                                            scdtItemData.data = [];
+                                scdtData.rows.push(scdtItemData);
+//                                            
+                                // 单井平均含水量
+                                scdtItemData = new Object();
+                                scdtItemData.id = 'djpjhsl';
+                                scdtItemData.data = [];
 
-                                            scdtItemRootData = new Object();
-                                            scdtItemRootData.value = '单井平均含水量';
-                                            scdtItemRootData.image = 'folder.gif';  
-                                            scdtItemData.data.push(scdtItemRootData);
+                                scdtItemRootData = new Object();
+                                scdtItemRootData.value = '单井平均含水量';
+                                scdtItemRootData.image = 'folder.gif';  
+                                scdtItemData.data.push(scdtItemRootData);
 
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.dayCount, youjing_count), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accSub(accDiv(tmpGridInfo.yesterdayCount, youjing_count), accDiv(tmpGridInfo.beforeYesterdayCount, youjing_count)), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accDiv(tmpGridInfo.monCount, days), youjing_count), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.monCount, youjing_count),
-                                                accDiv(tmpGridInfo.lastyearMonCount, youjing_count)), accDiv(tmpGridInfo.lastyearMonCount, youjing_count)), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.monCount, youjing_count), 
-                                                accDiv(tmpGridInfo.beforeMonCount, youjing_count)), accDiv(tmpGridInfo.beforeMonCount, youjing_count)), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accDiv(tmpGridInfo.xunCount, youjing_count), xun_days), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.xunCount, youjing_count), 
-                                                accDiv(tmpGridInfo.lastmonXunCount, youjing_count)), accDiv(tmpGridInfo.lastmonXunCount, youjing_count)), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.xunCount, youjing_count), 
-                                                accDiv(tmpGridInfo.beforeXunCount, youjing_count)), accDiv(tmpGridInfo.beforeXunCount, youjing_count)), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.dayCount, youjing_count), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accSub(accDiv(tmpGridInfo.yesterdayCount, youjing_count), accDiv(tmpGridInfo.beforeYesterdayCount, youjing_count)), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accDiv(tmpGridInfo.monCount, days), youjing_count), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.monCount, youjing_count),
+                                    accDiv(tmpGridInfo.lastyearMonCount, youjing_count)), accDiv(tmpGridInfo.lastyearMonCount, youjing_count)), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.monCount, youjing_count), 
+                                    accDiv(tmpGridInfo.beforeMonCount, youjing_count)), accDiv(tmpGridInfo.beforeMonCount, youjing_count)), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accDiv(tmpGridInfo.xunCount, xun_days), youjing_count), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.xunCount, youjing_count), 
+                                    accDiv(tmpGridInfo.lastmonXunCount, youjing_count)), accDiv(tmpGridInfo.lastmonXunCount, youjing_count)), 100)), 100));
+                                scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.xunCount, youjing_count), 
+                                    accDiv(tmpGridInfo.beforeXunCount, youjing_count)), accDiv(tmpGridInfo.beforeXunCount, youjing_count)), 100)), 100));
                                               
-                                            scdtData.rows.push(scdtItemData);
+                                scdtData.rows.push(scdtItemData);
                                             
-                                            treeGrid.clearAll();
-                                            treeGrid.parse(scdtData,'json');
+                                treeGrid.clearAll();
+                                treeGrid.parse(scdtData,'json');
                                             
-                                            treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
+                                treeGrid.attachEvent('onRowDblClicked', function(rId, cInd){
                                                 
-                                               if(rId.indexOf("_") >= 0){  
-                                                   var wellTypeInfo = rId.split('_');
-                                                   if(wellTypeInfo[0] == 'j'){
-                                                       window.location.href = '${ctx}/performancepage/endtagpage?id=' + wellTypeInfo[1];
-                                                   }
-                                               }                                      
-                                            });
+                                    if(rId.indexOf("_") >= 0){  
+                                        var wellTypeInfo = rId.split('_');
+                                        if(wellTypeInfo[0] == 'j'){
+                                            window.location.href = '${ctx}/performancepage/endtagpage?id=' + wellTypeInfo[1];
                                         }
-                                    });
+                                    }                                      
+                                });
+                            }
+                        });
                     }
                 });                
             }
@@ -511,6 +510,10 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = 0;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = 0;
                 tmpReturnGridData.data = [];
                 // 今日累计
                 var dayCount = 0;
@@ -530,6 +533,10 @@
                 var lastmonXunCount = 0;
                 // 上旬累计
                 var beforeXunCount = 0;
+                // 当月累计平均
+                var monAvg = 0;
+                // 当旬累计平均
+                var xunAvg = 0;
                             
                 // 遍历油井
                 $.each(p_EndTagList, function(keyYoujing, valueYoujing){
@@ -579,6 +586,10 @@
                         lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count);
                         // 上旬累计
                         beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count);
+                        // 当月累计平均
+                        monAvg = accAdd(monAvg, valueYoujing.mon_avg);
+                        // 当旬累计平均
+                        xunAvg = accAdd(xunAvg, valueYoujing.xun_avg);
                     }              
                 });   
 
@@ -600,6 +611,10 @@
                 tmpReturnGridData.lastmonXunCount = lastmonXunCount;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = beforeXunCount;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = monAvg;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = xunAvg;
                 tmpReturnGridData.data = tmpGridData;
                 
                 return tmpReturnGridData;
@@ -629,6 +644,10 @@
                 var lastmonXunCount = 0;
                 // 上旬累计
                 var beforeXunCount = 0;
+                // 当月累计平均
+                var monAvg = 0;
+                // 当旬累计平均
+                var xunAvg = 0;
                        
                 var tmpGridData = [];
                 var tmpReturnGridData = new Object(); 
@@ -651,6 +670,10 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = 0;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = 0;
                 tmpReturnGridData.data = [];
                 
                 // 遍历油井
@@ -691,6 +714,10 @@
                                     lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count_liquid);
                                     // 上旬累计
                                     beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count_liquid);
+                                    // 当月累计平均
+                                    monAvg = accAdd(monAvg, valueYoujing.mon_avg_liquid);
+                                    // 当旬累计平均
+                                    xunAvg = accAdd(xunAvg, valueYoujing.xun_avg_liquid);
                                 }              
                             });
 
@@ -712,6 +739,10 @@
                 tmpReturnGridData.lastmonXunCount = lastmonXunCount;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = beforeXunCount;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = monAvg;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = xunAvg;
                 tmpReturnGridData.data = tmpGridData;
                 
                 return tmpReturnGridData;
@@ -741,6 +772,10 @@
                 var lastmonXunCount = 0;
                 // 上旬累计
                 var beforeXunCount = 0;
+                // 当月累计平均
+                var monAvg = 0;
+                // 当旬累计平均
+                var xunAvg = 0;
                        
                 var tmpGridData = [];
                 var tmpReturnGridData = new Object(); 
@@ -763,6 +798,10 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = 0;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = 0;
                 tmpReturnGridData.data = [];
                 
                 // 遍历油井
@@ -803,6 +842,10 @@
                                     lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count_ele);
                                     // 上旬累计
                                     beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count_ele);
+                                    // 当月累计平均
+                                    monAvg = accAdd(monAvg, valueYoujing.mon_avg_ele);
+                                    // 当旬累计平均
+                                    xunAvg = accAdd(xunAvg, valueYoujing.xun_avg_ele);
                                 }              
                             });
 
@@ -824,6 +867,10 @@
                 tmpReturnGridData.lastmonXunCount = lastmonXunCount;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = beforeXunCount;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = monAvg;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = xunAvg;
                 tmpReturnGridData.data = tmpGridData;
                 
                 return tmpReturnGridData;
@@ -898,7 +945,7 @@
                         // 上月当旬累计
                         lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count_zhuqi);
                         // 上旬累计
-                        beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count_zhuqi);  
+                        beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count_zhuqi); 
                     }
                 });
 
@@ -1091,6 +1138,10 @@
                 var lastmonXunCount = 0;
                 // 上旬累计
                 var beforeXunCount = 0;
+                // 当月累计平均
+                var monAvg = 0;
+                // 当旬累计平均
+                var xunAvg = 0;
 
                 var tmpReturnGridData = new Object(); 
 
@@ -1112,6 +1163,10 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = 0;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = 0;
                 
                 // 遍历油井
                 $.each(p_EndTagList, function(keyYoujing, valueYoujing){
@@ -1134,6 +1189,10 @@
                     lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count_ele);
                     // 上旬累计
                     beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count_ele);  
+                    // 当月累计平均
+                    monAvg = accAdd(monAvg, valueYoujing.mon_avg_ele);
+                    // 当旬累计平均
+                    xunAvg = accAdd(xunAvg, valueYoujing.xun_avg_ele);
                 });
 
                  // 今日累计
@@ -1154,6 +1213,10 @@
                 tmpReturnGridData.lastmonXunCount = lastmonXunCount;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = beforeXunCount;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = monAvg;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = xunAvg;
                 
                 return tmpReturnGridData;
             }
@@ -1183,6 +1246,10 @@
                 var lastmonXunCount = 0;
                 // 上旬累计
                 var beforeXunCount = 0;
+                // 当月累计平均
+                var monAvg = 0;
+                // 当旬累计平均
+                var xunAvg = 0;
 
                 var tmpReturnGridData = new Object(); 
 
@@ -1204,6 +1271,10 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = 0;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = 0;
                 
                 // 遍历油井
                 $.each(p_EndTagList, function(keyYoujing, valueYoujing){
@@ -1227,7 +1298,11 @@
                         // 上月当旬累计
                         lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count_hanshui);
                         // 上旬累计
-                        beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count_hanshui);  
+                        beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count_hanshui); 
+                        // 当月累计平均
+                        monAvg = accAdd(monAvg, valueYoujing.mon_avg_hanshui); 
+                        // 当旬累计平均
+                        xunAvg = accAdd(xunAvg, valueYoujing.xun_avg_hanshui);
                     }
                 });
 
@@ -1249,6 +1324,10 @@
                 tmpReturnGridData.lastmonXunCount = lastmonXunCount;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = beforeXunCount;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = monAvg;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = xunAvg;
                 
                 return tmpReturnGridData;
             }

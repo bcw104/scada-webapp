@@ -384,7 +384,6 @@
                 treeGrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,tree,ro,ro,ro");
 //                treeGrid.enableMultiselect(true);
                 
-                
                 // 获得工况信息
                 $.ajax({
                     type: 'POST',
@@ -461,10 +460,10 @@
 
                             baojingData.rows.push(baojingItem);
                         });
-
+                        treeGrid.init();
                         treeGrid.enablePaging(true,10,3, "recinfoArea");
                         treeGrid.setPagingSkin("toolbar", "dhx_skyblue");
-                        treeGrid.init();
+
                         treeGrid.parse(baojingData,'json');
                     }
                 }); 

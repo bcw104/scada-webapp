@@ -290,10 +290,10 @@
 
                                             scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvg, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvg, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
@@ -318,10 +318,10 @@
 
                                             scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvg, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvg, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
@@ -416,10 +416,10 @@
 
                                             scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvg, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvg, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
@@ -497,6 +497,10 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = 0;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = 0;
                 tmpReturnGridData.data = [];
                 // 今日累计
                 var dayCount = 0;
@@ -516,6 +520,10 @@
                 var lastmonXunCount = 0;
                 // 上旬累计
                 var beforeXunCount = 0;
+                // 当月累计平均
+                var monAvg = 0;
+                // 当旬累计平均
+                var xunAvg = 0;
                             
                 // 遍历油井
                 $.each(p_EndTagList, function(keyYoujing, valueYoujing){
@@ -551,6 +559,10 @@
                         lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count);
                         // 上旬累计
                         beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count);
+                        // 当月累计平均
+                        monAvg = accAdd(monAvg, valueYoujing.mon_avg);
+                        // 当旬累计平均
+                        xunAvg = accAdd(xunAvg, valueYoujing.xun_avg);
                     }              
                 });   
 
@@ -572,6 +584,10 @@
                 tmpReturnGridData.lastmonXunCount = lastmonXunCount;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = beforeXunCount;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = monAvg;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = xunAvg;
                 
                 return tmpReturnGridData;
             }
@@ -600,6 +616,10 @@
                 var lastmonXunCount = 0;
                 // 上旬累计
                 var beforeXunCount = 0;
+                // 当月累计平均
+                var monAvg = 0;
+                // 当旬累计平均
+                var xunAvg = 0;
                        
                 var tmpGridData = [];
                 var tmpReturnGridData = new Object(); 
@@ -622,6 +642,10 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = 0;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = 0;
                 tmpReturnGridData.data = [];
                 
                 // 遍历油井
@@ -647,6 +671,10 @@
                                     lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count_liquid);
                                     // 上旬累计
                                     beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count_liquid);
+                                    // 当月累计平均
+                                    monAvg = accAdd(monAvg, valueYoujing.mon_avg_liquid);
+                                    // 当旬累计平均
+                                    xunAvg = accAdd(xunAvg, valueYoujing.xun_avg_liquid);
                                 }              
                             });
 
@@ -668,6 +696,10 @@
                 tmpReturnGridData.lastmonXunCount = lastmonXunCount;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = beforeXunCount;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = monAvg;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = xunAvg;
                 
                 return tmpReturnGridData;
             }
@@ -696,6 +728,10 @@
                 var lastmonXunCount = 0;
                 // 上旬累计
                 var beforeXunCount = 0;
+                // 当月累计平均
+                var monAvg = 0;
+                // 当旬累计平均
+                var xunAvg = 0;
                        
                 var tmpGridData = [];
                 var tmpReturnGridData = new Object(); 
@@ -718,6 +754,10 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = 0;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = 0;
                 tmpReturnGridData.data = [];
                 
                 // 遍历油井
@@ -743,6 +783,10 @@
                                     lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count_ele);
                                     // 上旬累计
                                     beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count_ele);
+                                    // 当月累计平均
+                                    monAvg = accAdd(monAvg, valueYoujing.mon_avg_ele);
+                                    // 当旬累计平均
+                                    xunAvg = accAdd(xunAvg, valueYoujing.xun_avg_ele);
                                 }              
                             });
 
@@ -764,6 +808,10 @@
                 tmpReturnGridData.lastmonXunCount = lastmonXunCount;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = beforeXunCount;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = monAvg;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = xunAvg;
                 
                 return tmpReturnGridData;
             }

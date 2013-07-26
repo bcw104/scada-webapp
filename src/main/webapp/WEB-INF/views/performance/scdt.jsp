@@ -347,7 +347,7 @@
                     url: '${ctx}/performance/getDateData',
                     dateType:'json',
                     success: function(jsonDate){
-
+//alert(jsonDate.days + '---' + jsonDate.xun_days);
                         // 天数
                         days = jsonDate.days;
                         // 旬数
@@ -392,10 +392,10 @@
 
                                             scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvgCount, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvgCount, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
@@ -415,6 +415,7 @@
 
                                             scdtItemData_dj.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.dayCount, youjing_count), 100)), 100));
                                             scdtItemData_dj.data.push(accDiv(Math.round(accMul(accSub(accDiv(tmpGridInfo.yesterdayCount, youjing_count), accDiv(tmpGridInfo.beforeYesterdayCount, youjing_count)), 100)), 100));
+                                            
                                             scdtItemData_dj.data.push(accDiv(Math.round(accMul(accDiv(accDiv(tmpGridInfo.monCount, days), youjing_count), 100)), 100));
                                             scdtItemData_dj.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.monCount, youjing_count),
                                                 accDiv(tmpGridInfo.lastyearMonCount, youjing_count)), accDiv(tmpGridInfo.lastyearMonCount, youjing_count)), 100)), 100));
@@ -443,10 +444,10 @@
 
                                             scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvg, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvg, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
@@ -519,10 +520,10 @@
 
                                             scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvg, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvg, 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
 
@@ -663,7 +664,7 @@
                                                 accDiv(tmpGridInfo.lastyearMonCount, youjing_count)), accDiv(tmpGridInfo.lastyearMonCount, youjing_count)), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.monCount, youjing_count), 
                                                 accDiv(tmpGridInfo.beforeMonCount, youjing_count)), accDiv(tmpGridInfo.beforeMonCount, youjing_count)), 100)), 100));
-                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accDiv(tmpGridInfo.xunCount, youjing_count), xun_days), 100)), 100));
+                                            scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accDiv(tmpGridInfo.xunCount, xun_days), youjing_count), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.xunCount, youjing_count), 
                                                 accDiv(tmpGridInfo.lastmonXunCount, youjing_count)), accDiv(tmpGridInfo.lastmonXunCount, youjing_count)), 100)), 100));
                                             scdtItemData.data.push(accDiv(Math.round(accMul(accDiv(accSub(accDiv(tmpGridInfo.xunCount, youjing_count), 
@@ -740,6 +741,10 @@
                 var major_lastmonXunCount = 0;
                 // 上旬累计
                 var major_beforeXunCount = 0;
+                // 当月累计平均
+                var major_monAvgCount = 0;
+                // 当旬累计平均
+                var major_xunAvgCount = 0;
                        
                 var tmpGridData = [];
                 var tmpReturnGridData = new Object(); 
@@ -762,6 +767,10 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                // 当月累计平均
+                tmpReturnGridData.monAvgCount = 0;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvgCount = 0;
                 
                 // 封装信息JSON
                 $.each(p_MajorTagList, function(keyMajorTag, valueMajorTag){
@@ -795,7 +804,11 @@
                             // 上月当旬累计
                             var lastmonXunCount = 0;
                             // 上旬累计
-                            var beforeXunCount = 0;                        
+                            var beforeXunCount = 0; 
+                            // 当月累计平均
+                            var monAvgCount = 0;
+                            // 当旬累计平均
+                            var xunAvgCount = 0;
 
                             // 遍历油井
                             $.each(p_EndTagList, function(keyYoujing, valueYoujing){
@@ -845,15 +858,19 @@
                                     lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count);
                                     // 上旬累计
                                     beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count);
+                                    // 当月累计平均
+                                    monAvgCount = accAdd(monAvgCount, valueYoujing.mon_avg);
+                                    // 当旬累计平均
+                                    xunAvgCount = accAdd(xunAvgCount, valueYoujing.xun_avg);
                                 }              
                             });
 
                             tmpMajorTag.data.push(dayCount);
                             tmpMajorTag.data.push(accSub(yesterdayCount, beforeYesterdayCount));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(monCount, days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(monAvgCount, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, lastyearMonCount), lastyearMonCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, beforeMonCount), beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(xunCount, xun_days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(xunAvgCount, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, lastmonXunCount), lastmonXunCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, beforeXunCount), beforeXunCount), 100)), 100));
        
@@ -876,40 +893,48 @@
                             major_lastmonXunCount = accAdd(major_lastmonXunCount, lastmonXunCount);
                             // 上旬累计
                             major_beforeXunCount = accAdd(major_beforeXunCount, beforeXunCount);
+                            // 当月累计平均
+                            major_monAvgCount = accAdd(major_monAvgCount, monAvgCount);
+                            // 当旬累计平均
+                            major_xunAvgCount = accAdd(major_xunAvgCount, xunAvgCount);
                         }else{
 
                             var tmpGridInfo = createGridItem(p_MajorTagList, p_EndTagList, valueMajorTag.id);
                             
                             tmpMajorTag.data.push(tmpGridInfo.dayCount);
                             tmpMajorTag.data.push(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvgCount, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvgCount, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
                             
                             tmpMajorTag.rows = tmpGridInfo.data;
                                 
                              // 供上级使用
-                                    // 今日累计
+                            // 今日累计
                             major_dayCount = accAdd(major_dayCount, tmpGridInfo.dayCount);
-                                    // 昨日累计
+                            // 昨日累计
                             major_yesterdayCount = accAdd(major_yesterdayCount, tmpGridInfo.yesterdayCount);
-                                    // 前日累计
+                            // 前日累计
                             major_beforeYesterdayCount = accAdd(major_beforeYesterdayCount, tmpGridInfo.beforeYesterdayCount);
-                                    // 当月累计
+                            // 当月累计
                             major_monCount = accAdd(major_monCount, tmpGridInfo.monCount);
-                                    // 去年当月累计
+                            // 去年当月累计
                             major_lastyearMonCount = accAdd(major_lastyearMonCount, tmpGridInfo.lastyearMonCount);
-                                    // 上月累计
+                            // 上月累计
                             major_beforeMonCount = accAdd(major_beforeMonCount, tmpGridInfo.beforeMonCount);
-                                    // 当旬累计
+                            // 当旬累计
                             major_xunCount = accAdd(major_xunCount, tmpGridInfo.xunCount);
-                                    // 上月当旬累计
+                            // 上月当旬累计
                             major_lastmonXunCount = accAdd(major_lastmonXunCount, tmpGridInfo.lastmonXunCount);
-                                    // 上旬累计
+                            // 上旬累计
                             major_beforeXunCount = accAdd(major_beforeXunCount, tmpGridInfo.beforeXunCount);
+                            // 当月累计平均
+                            major_monAvgCount = accAdd(major_monAvgCount, tmpGridInfo.monAvgCount);
+                            // 当旬累计平均
+                            major_xunAvgCount = accAdd(major_xunAvgCount, tmpGridInfo.xunAvgCount);
                         }
                         
                         tmpGridData.push(tmpMajorTag);
@@ -936,6 +961,10 @@
                 tmpReturnGridData.lastmonXunCount = major_lastmonXunCount;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = major_beforeXunCount;
+                // 当月累计平均
+                tmpReturnGridData.monAvgCount = major_monAvgCount;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvgCount = major_xunAvgCount;
                 tmpReturnGridData.data = tmpGridData;
                 
                 return tmpReturnGridData;
@@ -966,6 +995,10 @@
                 var major_lastmonXunCount = 0;
                 // 上旬累计
                 var major_beforeXunCount = 0;
+                // 当月累计平均
+                var major_monAvg = 0;
+                // 当旬累计平均
+                var major_xunAvg = 0;
                        
                 var tmpGridData = [];
                 var tmpReturnGridData = new Object(); 
@@ -988,6 +1021,10 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = 0;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = 0;
                 
                 // 封装信息JSON
                 $.each(p_MajorTagList, function(keyMajorTag, valueMajorTag){
@@ -1021,7 +1058,11 @@
                             // 上月当旬累计
                             var lastmonXunCount = 0;
                             // 上旬累计
-                            var beforeXunCount = 0;                        
+                            var beforeXunCount = 0;
+                            // 当月累计平均
+                            var monAvg = 0;
+                            // 当旬累计平均
+                            var xunAvg = 0;
 
                             // 遍历油井
                             $.each(p_EndTagList, function(keyYoujing, valueYoujing){
@@ -1061,15 +1102,19 @@
                                     lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count_liquid);
                                     // 上旬累计
                                     beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count_liquid);
+                                    // 当月累计平均
+                                    monAvg = accAdd(monAvg, valueYoujing.mon_avg_liquid);
+                                    // 当旬累计平均
+                                    xunAvg = accAdd(xunAvg, valueYoujing.xun_avg_liquid);
                                 }              
                             });
 
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(dayCount, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accSub(yesterdayCount, beforeYesterdayCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(monCount, days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(monAvg, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, lastyearMonCount), lastyearMonCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, beforeMonCount), beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(xunCount, xun_days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(xunAvg, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, lastmonXunCount), lastmonXunCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, beforeXunCount), beforeXunCount), 100)), 100));
        
@@ -1092,40 +1137,48 @@
                             major_lastmonXunCount = accAdd(major_lastmonXunCount, lastmonXunCount);
                             // 上旬累计
                             major_beforeXunCount = accAdd(major_beforeXunCount, beforeXunCount);
+                            // 当月累计平均
+                            major_monAvg = accAdd(major_monAvg, monAvg);
+                            // 当旬累计平均
+                            major_xunAvg = accAdd(major_xunAvg, xunAvg);
                         }else{
 
                             var tmpGridInfo = createGridItem_liquid(p_MajorTagList, p_EndTagList, valueMajorTag.id);
                             
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvg, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvg, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
                             
                             tmpMajorTag.rows = tmpGridInfo.data;
                                 
-                             // 供上级使用
-                                    // 今日累计
+                            // 供上级使用
+                            // 今日累计
                             major_dayCount = accAdd(major_dayCount, tmpGridInfo.dayCount);
-                                    // 昨日累计
+                            // 昨日累计
                             major_yesterdayCount = accAdd(major_yesterdayCount, tmpGridInfo.yesterdayCount);
-                                    // 前日累计
+                            // 前日累计
                             major_beforeYesterdayCount = accAdd(major_beforeYesterdayCount, tmpGridInfo.beforeYesterdayCount);
-                                    // 当月累计
+                            // 当月累计
                             major_monCount = accAdd(major_monCount, tmpGridInfo.monCount);
-                                    // 去年当月累计
+                            // 去年当月累计
                             major_lastyearMonCount = accAdd(major_lastyearMonCount, tmpGridInfo.lastyearMonCount);
-                                    // 上月累计
+                            // 上月累计
                             major_beforeMonCount = accAdd(major_beforeMonCount, tmpGridInfo.beforeMonCount);
-                                    // 当旬累计
+                            // 当旬累计
                             major_xunCount = accAdd(major_xunCount, tmpGridInfo.xunCount);
-                                    // 上月当旬累计
+                            // 上月当旬累计
                             major_lastmonXunCount = accAdd(major_lastmonXunCount, tmpGridInfo.lastmonXunCount);
-                                    // 上旬累计
+                            // 上旬累计
                             major_beforeXunCount = accAdd(major_beforeXunCount, tmpGridInfo.beforeXunCount);
+                            // 当月累计平均
+                            major_monAvg = accAdd(major_monAvg, tmpGridInfo.monAvg);
+                            // 当旬累计平均
+                            major_xunAvg = accAdd(major_xunAvg, tmpGridInfo.xunAvg);
                         }
                         
                         tmpGridData.push(tmpMajorTag);
@@ -1151,7 +1204,12 @@
                 // 上月当旬累计
                 tmpReturnGridData.lastmonXunCount = major_lastmonXunCount;
                 // 上旬累计
-                tmpReturnGridData.beforeXunCount = major_beforeXunCount;
+                tmpReturnGridData.beforeXunCount = major_beforeXunCount;                
+                // 当月累计平均
+                tmpReturnGridData.monAvg = major_monAvg;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = major_xunAvg;
+                
                 tmpReturnGridData.data = tmpGridData;
                 
                 return tmpReturnGridData;
@@ -1182,6 +1240,10 @@
                 var major_lastmonXunCount = 0;
                 // 上旬累计
                 var major_beforeXunCount = 0;
+                // 当月累计平均
+                var major_monAvg = 0;
+                // 当旬累计平均
+                var major_xunAvg= 0;
                        
                 var tmpGridData = [];
                 var tmpReturnGridData = new Object(); 
@@ -1204,6 +1266,10 @@
                 tmpReturnGridData.lastmonXunCount = 0;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = 0;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = 0;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = 0;
                 
                 // 封装信息JSON
                 $.each(p_MajorTagList, function(keyMajorTag, valueMajorTag){
@@ -1237,7 +1303,11 @@
                             // 上月当旬累计
                             var lastmonXunCount = 0;
                             // 上旬累计
-                            var beforeXunCount = 0;                        
+                            var beforeXunCount = 0; 
+                            // 当月累计
+                            var monAvg = 0;
+                            // 当旬累计
+                            var xunAvg = 0;
 
                             // 遍历油井
                             $.each(p_EndTagList, function(keyYoujing, valueYoujing){
@@ -1277,15 +1347,19 @@
                                     lastmonXunCount = accAdd(lastmonXunCount, valueYoujing.lastmon_xun_count_ele);
                                     // 上旬累计
                                     beforeXunCount = accAdd(beforeXunCount, valueYoujing.before_xun_count_ele);
+                                    // 当月累计平均
+                                    monAvg = accAdd(monAvg, valueYoujing.mon_avg_ele);
+                                    // 当旬累计平均
+                                    xunAvg = accAdd(xunAvg, valueYoujing.xun_avg_ele);
                                 }              
                             });
 
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(dayCount, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accSub(yesterdayCount, beforeYesterdayCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(monCount, days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(monAvg, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, lastyearMonCount), lastyearMonCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(monCount, beforeMonCount), beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(xunCount, xun_days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(xunAvg, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, lastmonXunCount), lastmonXunCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(xunCount, beforeXunCount), beforeXunCount), 100)), 100));
        
@@ -1308,40 +1382,48 @@
                             major_lastmonXunCount = accAdd(major_lastmonXunCount, lastmonXunCount);
                             // 上旬累计
                             major_beforeXunCount = accAdd(major_beforeXunCount, beforeXunCount);
+                            // 当月累计平均
+                            major_monAvg = accAdd(major_monAvg, monAvg);
+                            // 当旬累计平均
+                            major_xunAvg = accAdd(major_xunAvg, xunAvg);
                         }else{
 
                             var tmpGridInfo = createGridItem_ele(p_MajorTagList, p_EndTagList, valueMajorTag.id);
                             
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(tmpGridInfo.dayCount, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accSub(tmpGridInfo.yesterdayCount, tmpGridInfo.beforeYesterdayCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.monCount, days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(tmpGridInfo.monAvg, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.lastyearMonCount), tmpGridInfo.lastyearMonCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.monCount, tmpGridInfo.beforeMonCount), tmpGridInfo.beforeMonCount), 100)), 100));
-                            tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(tmpGridInfo.xunCount, xun_days), 100)), 100));
+                            tmpMajorTag.data.push(accDiv(Math.round(accMul(tmpGridInfo.xunAvg, 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.lastmonXunCount), tmpGridInfo.lastmonXunCount), 100)), 100));
                             tmpMajorTag.data.push(accDiv(Math.round(accMul(accDiv(accSub(tmpGridInfo.xunCount, tmpGridInfo.beforeXunCount), tmpGridInfo.beforeXunCount), 100)), 100));
                             
                             tmpMajorTag.rows = tmpGridInfo.data;
                                 
                              // 供上级使用
-                                    // 今日累计
+                            // 今日累计
                             major_dayCount = accAdd(major_dayCount, tmpGridInfo.dayCount);
-                                    // 昨日累计
+                            // 昨日累计
                             major_yesterdayCount = accAdd(major_yesterdayCount, tmpGridInfo.yesterdayCount);
-                                    // 前日累计
+                            // 前日累计
                             major_beforeYesterdayCount = accAdd(major_beforeYesterdayCount, tmpGridInfo.beforeYesterdayCount);
-                                    // 当月累计
+                            // 当月累计
                             major_monCount = accAdd(major_monCount, tmpGridInfo.monCount);
-                                    // 去年当月累计
+                            // 去年当月累计
                             major_lastyearMonCount = accAdd(major_lastyearMonCount, tmpGridInfo.lastyearMonCount);
-                                    // 上月累计
+                            // 上月累计
                             major_beforeMonCount = accAdd(major_beforeMonCount, tmpGridInfo.beforeMonCount);
-                                    // 当旬累计
+                            // 当旬累计
                             major_xunCount = accAdd(major_xunCount, tmpGridInfo.xunCount);
-                                    // 上月当旬累计
+                            // 上月当旬累计
                             major_lastmonXunCount = accAdd(major_lastmonXunCount, tmpGridInfo.lastmonXunCount);
-                                    // 上旬累计
+                            // 上旬累计
                             major_beforeXunCount = accAdd(major_beforeXunCount, tmpGridInfo.beforeXunCount);
+                            // 当月累计平均
+                            major_monAvg = accAdd(major_monAvg, tmpGridInfo.monAvg);
+                            // 当旬累计平均
+                            major_xunAvg = accAdd(major_xunAvg, tmpGridInfo.xunAvg);
                         }
                         
                         tmpGridData.push(tmpMajorTag);
@@ -1368,6 +1450,10 @@
                 tmpReturnGridData.lastmonXunCount = major_lastmonXunCount;
                 // 上旬累计
                 tmpReturnGridData.beforeXunCount = major_beforeXunCount;
+                // 当月累计平均
+                tmpReturnGridData.monAvg = major_monAvg;
+                // 当旬累计平均
+                tmpReturnGridData.xunAvg = major_xunAvg;
                 tmpReturnGridData.data = tmpGridData;
                 
                 return tmpReturnGridData;

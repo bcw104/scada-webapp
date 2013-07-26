@@ -33,14 +33,19 @@ function tree_click(id){
                     type: 'POST',
                     url: objUrl + '/endtagpoint/point?id='+sd[1],
                     dateType:'json',
-                    success: function(json){
+                    success: function(json){                        
                           $("#pointx").val(json.x);
                           $("#pointy").val(json.y);
-                          $("#endtagid").val(json.endTag.id);
-                          $("#pointid").val(json.id)
+                          $("#endtagid").val(sd[1]);
+                          $("#pointid").val(json.id);
                     }
                 });
                 
+    }else{
+        $("#pointx").val("");
+        $("#pointy").val("");
+        $("#endtagid").val("0");
+        $("#pointid").val("0");
     }
 }
 //修改坐标
@@ -48,7 +53,24 @@ function addMapFormSubmit(){
      var pointx=$("#pointx").val();
      var pointy=$("#pointy").val();
      var endtagid=$("#endtagid").val();
-     var pointid=$("#pointid").val();
+     var pointid=($("#pointid").val() == "" ? 0 : $("#pointid").val());
+     
+     if(endtagid == "0"){
+        dhtmlx.message({
+            title: "消息提示",
+            type: "alert",
+            text: "请选择操作井！"
+        });        
+        return;
+     }else if(pointx == "" || pointy == ""){
+        dhtmlx.message({
+            title: "消息提示",
+            type: "alert",
+            text: "请输入坐标！"
+        });        
+        return; 
+     }
+     
      $.ajax({
             type: 'POST',
             url: objUrl + '/endtagpoint/savepoint',

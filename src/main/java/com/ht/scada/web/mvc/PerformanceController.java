@@ -609,7 +609,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
-            formatDate = new SimpleDateFormat("HH:mm:ss");
+            formatDate = null;
             lstDataCount = wellService.getHourLineData(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData(dateStart, calEnd.getTime());
@@ -634,7 +634,7 @@ public class PerformanceController {
                         map.put("subtype", endTag.getSubType());
                         map.put("major_tag_id",endTag.getMajorTag().getId());
 
-                        map.put("date", formatDate.format(dataTmp[1]));
+                        map.put("date", formatDate == null ? dataTmp[1] : formatDate.format(dataTmp[1]));
                         map.put("day_count", dataTmp[2]);
                         
                         lstOilProductData.add(map);
@@ -688,7 +688,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
-            formatDate = new SimpleDateFormat("HH:mm:ss");
+            formatDate = null;
             lstDataCount = wellService.getHourLineData_liquid(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_liquid(dateStart, calEnd.getTime());
@@ -713,7 +713,7 @@ public class PerformanceController {
                         map.put("subtype", endTag.getSubType());
                         map.put("major_tag_id",endTag.getMajorTag().getId());
 
-                        map.put("date", formatDate.format(dataTmp[1]));
+                        map.put("date", formatDate == null ? dataTmp[1] : formatDate.format(dataTmp[1]));
                         map.put("day_count", dataTmp[2]);
                         
                         lstOilProductData.add(map);
@@ -767,7 +767,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
-            formatDate = new SimpleDateFormat("HH:mm:ss");
+            formatDate = null;
             lstDataCount = wellService.getHourLineData_kjs(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_kjs(dateStart, calEnd.getTime());
@@ -792,8 +792,8 @@ public class PerformanceController {
                         map.put("subtype", endTag.getSubType());
                         map.put("major_tag_id",endTag.getMajorTag().getId());
 
-                        map.put("date", formatDate.format(dataTmp[1]));
-                        map.put("day_count", dataTmp[2]);
+                        map.put("date", formatDate == null ? dataTmp[1] : formatDate.format(dataTmp[1]));
+                        map.put("day_count", Integer.valueOf(dataTmp[2].toString())>0 ? 1 : 0);
                         
                         lstOilProductData.add(map);
                     }                    
@@ -846,7 +846,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
-            formatDate = new SimpleDateFormat("HH:mm:ss");
+            formatDate = null;
             lstDataCount = wellService.getHourLineData_ydl(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_ydl(dateStart, calEnd.getTime());
@@ -871,7 +871,7 @@ public class PerformanceController {
                         map.put("subtype", endTag.getSubType());
                         map.put("major_tag_id",endTag.getMajorTag().getId());
 
-                        map.put("date", formatDate.format(dataTmp[1]));
+                        map.put("date", formatDate == null ? dataTmp[1] : formatDate.format(dataTmp[1]));
                         map.put("day_count", dataTmp[2]);
                         
                         lstOilProductData.add(map);
@@ -925,7 +925,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
-            formatDate = new SimpleDateFormat("HH:mm:ss");
+            formatDate = null;
             lstDataCount = wellService.getHourLineData_zql(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_zql(dateStart, calEnd.getTime());
@@ -950,7 +950,7 @@ public class PerformanceController {
                         map.put("subtype", endTag.getSubType());
                         map.put("major_tag_id",endTag.getMajorTag().getId());
 
-                        map.put("date", formatDate.format(dataTmp[1]));
+                        map.put("date", formatDate == null ? dataTmp[1] : formatDate.format(dataTmp[1]));
                         map.put("day_count", dataTmp[2]);
                         
                         lstOilProductData.add(map);
@@ -1004,7 +1004,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
-            formatDate = new SimpleDateFormat("HH:mm:ss");
+            formatDate = null;
             lstDataCount = wellService.getHourLineData_zsl(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_zsl(dateStart, calEnd.getTime());
@@ -1029,7 +1029,7 @@ public class PerformanceController {
                         map.put("subtype", endTag.getSubType());
                         map.put("major_tag_id",endTag.getMajorTag().getId());
 
-                        map.put("date", formatDate.format(dataTmp[1]));
+                        map.put("date", formatDate == null ? dataTmp[1] : formatDate.format(dataTmp[1]));
                         map.put("day_count", dataTmp[2]);
                         
                         lstOilProductData.add(map);
@@ -1083,7 +1083,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
-            formatDate = new SimpleDateFormat("HH:mm:ss");
+            formatDate = null;
             lstDataCount = wellService.getHourLineData_sjkjs(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_sjkjs(dateStart, calEnd.getTime());
@@ -1108,8 +1108,8 @@ public class PerformanceController {
                         map.put("subtype", endTag.getSubType());
                         map.put("major_tag_id",endTag.getMajorTag().getId());
 
-                        map.put("date", formatDate.format(dataTmp[1]));
-                        map.put("day_count", dataTmp[2]);
+                        map.put("date", formatDate == null ? dataTmp[1] : formatDate.format(dataTmp[1]));
+                        map.put("day_count", Integer.valueOf(dataTmp[2].toString())>0 ? 1 : 0);
                         
                         lstOilProductData.add(map);
                     }                    
@@ -1162,7 +1162,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
-            formatDate = new SimpleDateFormat("HH:mm:ss");
+            formatDate = null;
             lstDataCount = wellService.getHourLineData_zydl(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_zydl(dateStart, calEnd.getTime());
@@ -1188,7 +1188,7 @@ public class PerformanceController {
                         map.put("subtype", endTag.getSubType());
                         map.put("major_tag_id",endTag.getMajorTag().getId());
 
-                        map.put("date", formatDate.format(dataTmp[1]));
+                        map.put("date", formatDate == null ? dataTmp[1] : formatDate.format(dataTmp[1]));
                         map.put("day_count", dataTmp[2]);
                         
                         lstOilProductData.add(map);
@@ -1242,7 +1242,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
-            formatDate = new SimpleDateFormat("HH:mm:ss");
+            formatDate = null;
             lstDataCount = wellService.getHourLineData_hsl(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_hsl(dateStart, calEnd.getTime());
@@ -1267,7 +1267,7 @@ public class PerformanceController {
                         map.put("subtype", endTag.getSubType());
                         map.put("major_tag_id",endTag.getMajorTag().getId());
 
-                        map.put("date", formatDate.format(dataTmp[1]));
+                        map.put("date", formatDate == null ? dataTmp[1] : formatDate.format(dataTmp[1]));
                         map.put("day_count", dataTmp[2]);
                         
                         lstOilProductData.add(map);
@@ -1321,7 +1321,7 @@ public class PerformanceController {
         // 累计数据
         List lstDataCount = null; 
         if(startDate.equals(endDate)){
-            formatDate = new SimpleDateFormat("HH:mm:ss");
+            formatDate = null;
             lstDataCount = wellService.getHourLineData_zjs(dateStart, calEnd.getTime());
         }else{
             lstDataCount = wellService.getLineData_zjs(dateStart, calEnd.getTime());
@@ -1346,8 +1346,8 @@ public class PerformanceController {
                         map.put("subtype", endTag.getSubType());
                         map.put("major_tag_id",endTag.getMajorTag().getId());
 
-                        map.put("date", formatDate.format(dataTmp[1]));
-                        map.put("day_count", dataTmp[2]);
+                        map.put("date", formatDate == null ? dataTmp[1] : formatDate.format(dataTmp[1]));
+                        map.put("day_count", Integer.valueOf(dataTmp[2].toString())>0 ? 1 : 0);
                         
                         lstOilProductData.add(map);
                     }                    

@@ -20,7 +20,7 @@
 <FC/>
 </ReportPageAttr>
 <RowHeight defaultValue="723900">
-<![CDATA[1714500,723900,723900,723900,723900,723900,723900,723900,723900,723900,723900]]></RowHeight>
+<![CDATA[2057400,723900,723900,723900,723900,723900,723900,723900,723900,723900,723900]]></RowHeight>
 <ColumnWidth defaultValue="2743200">
 <![CDATA[2743200,2743200,4191000,4191000,3124200,2743200,3581400,5448300,5372100,2743200,2743200]]></ColumnWidth>
 <CellElementList>
@@ -56,17 +56,23 @@
 </C>
 <C c="6" r="0" s="0">
 <O>
-<![CDATA[日耗电量(kw.h)]]></O>
+<![CDATA[日耗电量(kWh)]]></O>
 <Expand/>
 </C>
 <C c="7" r="0" s="0">
 <O>
-<![CDATA[日均外输瞬时流量(m³/s)]]></O>
+<![CDATA[日均外输瞬时流量(m<sup>3</sup>/s)]]></O>
+<CellGUIAttr showAsHTML="true"/>
+<CellPageAttr/>
+<CellInsertPolicy/>
 <Expand/>
 </C>
 <C c="8" r="0" s="0">
 <O>
-<![CDATA[日均外输累积流量(m³/s)]]></O>
+<![CDATA[日均外输累积流量(m<sup>3</sup>/s)]]></O>
+<CellGUIAttr showAsHTML="true"/>
+<CellPageAttr/>
+<CellInsertPolicy/>
 <Expand/>
 </C>
 <C c="0" r="1" s="1">
@@ -76,7 +82,7 @@
 </O>
 <Expand dir="0" leftParentDefault="false" left="B2"/>
 </C>
-<C c="1" r="1" s="2">
+<C c="1" r="1" s="1">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="name"/>
 <Condition class="com.fr.data.condition.ListCondition">
@@ -131,7 +137,7 @@
 </O>
 <Expand dir="0"/>
 </C>
-<C c="2" r="1" s="3">
+<C c="2" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="ya_li"/>
 <Complex/>
@@ -143,7 +149,7 @@
 </O>
 <Expand/>
 </C>
-<C c="3" r="1" s="3">
+<C c="3" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="jing_ya"/>
 <Complex/>
@@ -155,7 +161,7 @@
 </O>
 <Expand/>
 </C>
-<C c="4" r="1" s="3">
+<C c="4" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="wen_du"/>
 <Complex/>
@@ -167,7 +173,7 @@
 </O>
 <Expand/>
 </C>
-<C c="5" r="1" s="3">
+<C c="5" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="ye_wei"/>
 <Complex/>
@@ -179,7 +185,7 @@
 </O>
 <Expand/>
 </C>
-<C c="6" r="1" s="3">
+<C c="6" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="ele_consume"/>
 <Complex/>
@@ -191,7 +197,7 @@
 </O>
 <Expand/>
 </C>
-<C c="7" r="1" s="3">
+<C c="7" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="ssll"/>
 <Complex/>
@@ -203,7 +209,7 @@
 </O>
 <Expand/>
 </C>
-<C c="8" r="1" s="3">
+<C c="8" r="1" s="2">
 <O t="DSColumn">
 <Attributes dsName="ds1" columnName="water_product"/>
 <Complex/>
@@ -213,6 +219,26 @@
 </RG>
 <Parameters/>
 </O>
+<Expand/>
+</C>
+<C c="8" r="4">
+<O>
+<![CDATA[]]></O>
+<Expand/>
+</C>
+<C c="7" r="5">
+<O>
+<![CDATA[]]></O>
+<Expand/>
+</C>
+<C c="8" r="7">
+<O>
+<![CDATA[]]></O>
+<Expand/>
+</C>
+<C c="7" r="9">
+<O>
+<![CDATA[]]></O>
 <Expand/>
 </C>
 </CellElementList>
@@ -250,7 +276,7 @@
 <ColumnWidth defaultValue="2743200">
 <![CDATA[800100,2743200,2324100,2743200,2743200,2743200,2743200,2743200,381000,8458200,2743200]]></ColumnWidth>
 <CellElementList>
-<C c="0" r="1" s="4">
+<C c="0" r="1" s="3">
 <O>
 <![CDATA[队]]></O>
 <Expand/>
@@ -275,12 +301,12 @@
 </Widget>
 <Expand/>
 </C>
-<C c="2" r="1" s="4">
+<C c="2" r="1" s="3">
 <O>
 <![CDATA[开始时间]]></O>
 <Expand/>
 </C>
-<C c="3" r="1" cs="2" s="5">
+<C c="3" r="1" cs="2" s="4">
 <O>
 <![CDATA[]]></O>
 <Widget class="com.fr.report.web.ui.DateEditor">
@@ -292,12 +318,12 @@
 </Widget>
 <Expand/>
 </C>
-<C c="5" r="1" s="4">
+<C c="5" r="1" s="3">
 <O>
 <![CDATA[结束时间]]></O>
 <Expand/>
 </C>
-<C c="6" r="1" cs="2" s="5">
+<C c="6" r="1" cs="2" s="4">
 <O>
 <![CDATA[]]></O>
 <Widget class="com.fr.report.web.ui.DateEditor">
@@ -417,7 +443,7 @@ switch(selState){
 <Right style="1" color="-65281"/>
 </Border>
 </Style>
-<Style horizontal_alignment="4">
+<Style horizontal_alignment="0">
 <FRFont name="SimSun" style="0" size="72"/>
 <Background name="NullBackground"/>
 <Border>
@@ -427,17 +453,7 @@ switch(selState){
 <Right style="1" color="-65281"/>
 </Border>
 </Style>
-<Style>
-<FRFont name="SimSun" style="0" size="72"/>
-<Background name="NullBackground"/>
-<Border>
-<Top style="1" color="-65281"/>
-<Bottom style="1" color="-65281"/>
-<Left style="1" color="-65281"/>
-<Right style="1" color="-65281"/>
-</Border>
-</Style>
-<Style>
+<Style horizontal_alignment="0">
 <Format class="java.text.DecimalFormat">
 <![CDATA[#0.00]]></Format>
 <FRFont name="SimSun" style="0" size="72"/>

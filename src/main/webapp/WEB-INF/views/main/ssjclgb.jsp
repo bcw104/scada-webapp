@@ -27,6 +27,8 @@
         <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
         <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script>
+            // 刷新标识
+            var refFlag = true;
             var wellId_Gis;
             var dhxWins,dhxWins1,dhxWins2,dhxTabbar,dhLayout,lo,lc,ld,lh,Grid,Grid2,Grid3,Grid4,dhxd,dhxd1,dhxd2,dhxd3,gr,rtugr,lgbgr1,lgbgr2,lgbgr3,Grxn;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
@@ -60,6 +62,12 @@
                 
                 // 页面布局设置
                 createTabble();
+                createWindows1();
+                createWindows();
+                createwind();
+                createwind1();
+                createwind2();
+                createwi();
             });
             
             /**
@@ -82,14 +90,7 @@
                 // 设置电气参数
                 createlgbDq();
                 //传感器设备
-                createlgbsbGr();
-                createWindows1();
-                createWindows();
-                createwind();
-                createwind1();
-                createwind2();
-                createwi();
-               
+                createlgbsbGr();               
             }
            
            
@@ -386,7 +387,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);               // 隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("150");
+                gr.setInitWidths("260");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();                        
@@ -415,8 +416,14 @@
                                 var youjingItem = new Object();
                                 youjingItem.id = value.key + '||' + value.name + '||YOU_JING';
                                 youjingItem.data = [];
-                                youjingItem.data.push(value.name + '：' + value.value);
-
+//                                youjingItem.data.push(value.name + '：' + value.value);
+                                if(value.value == 'false'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/hongse.png"/>');
+                                }else if(value.value == 'true'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/lse.png"/>');
+                                }else{
+                                    youjingItem.data.push(value.name + '：' + value.value);
+                                }
                                 youjingData.rows.push(youjingItem);
                             }
                         });
@@ -757,10 +764,15 @@
              * @returns {undefined}
              */
             function yckz(){
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
                 dhxd.window("wi").show();
                 dhxd.window("wi").setText("远程控制");
                 dhxd.attachEvent("onClose", function(win){
-                    dhxd.window("wi").hide(); 
+                    dhxd.window("wi").hide();  
+                    // 刷新标识
+                    refFlag = true;
                 });
                 dhxd.window("wi").attachHTMLString(ew);
             }
@@ -770,10 +782,15 @@
              * @returns {undefined}
              */
             function yctc(){
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
                 dhxd.window("wi").show();
                 dhxd.window("wi").setText("远程调参");
                 dhxd.attachEvent("onClose", function(win){
-                    dhxd.window("wi").hide(); 
+                    dhxd.window("wi").hide();  
+                    // 刷新标识
+                    refFlag = true;
                 });
                 dhxd.window("wi").attachHTMLString(yt);
             }
@@ -807,7 +824,9 @@
                             dhxd1.window("wi1").show();
                             dhxd1.window("wi1").setText("远程控制");
                             dhxd1.attachEvent("onClose", function(win){
-                               dhxd1.window("wi1").hide(); 
+                                dhxd1.window("wi1").hide(); 
+                                // 刷新标识
+                                refFlag = true; 
                             });
                             dhxd1.window("wi1").attachHTMLString(anniu);
 
@@ -831,7 +850,9 @@
              * @returns {undefined}             
              * */
             function qx(){
-                dhxd.window("wi").hide();
+                dhxd.window("wi").hide();  
+                // 刷新标识
+                refFlag = true;
             }
             
             /**
@@ -845,6 +866,8 @@
                 dhxd2.window("wi2").setText("远程控制");
                 dhxd2.attachEvent("onClose", function(win){
                     dhxd2.window("wi2").hide(); 
+                    // 刷新标识
+                    refFlag = true; 
                 });
                 dhxd2.window("wi2").attachHTMLString(sd);                 
             }
@@ -870,7 +893,9 @@
                         }                        
                     }
                 });
-                
+                  
+                // 刷新标识
+                refFlag = true;
                 dhxd1.window("wi1").hide();	
             }
             
@@ -895,7 +920,9 @@
                         }                        
                     }
                 });
-                
+                  
+                // 刷新标识
+                refFlag = true;
                 dhxd2.window("wi2").hide();	
             }
             
@@ -904,7 +931,9 @@
              * @returns {undefined}             
              * */
             function qxx(){
-                dhxd2.window("wi2").hide();
+                dhxd2.window("wi2").hide();  
+                // 刷新标识
+                refFlag = true;
             }
             
             /**
@@ -938,6 +967,8 @@
                             dhxd1.window("wi1").setText("远程调参");
                             dhxd1.attachEvent("onClose", function(win){
                                 dhxd1.window("wi1").hide(); 
+                                // 刷新标识
+                                refFlag = true; 
                             });
                             dhxd1.window("wi1").attachHTMLString(yc);
                         }else{
@@ -953,7 +984,9 @@
              * @returns {undefined}             
              * */
             function qx1(){
-                dhxd.window("wi").hide();
+                dhxd.window("wi").hide();  
+                // 刷新标识
+                refFlag = true;
             }
             
             var tc_scch;
@@ -970,7 +1003,9 @@
                 dhxd3.window("wi3").show();
                 dhxd3.window("wi3").setText("远程调参");
                 dhxd3.attachEvent("onClose", function(win){
-                    dhxd3.window("wi3").hide(); 
+                    dhxd3.window("wi3").hide();  
+                    // 刷新标识
+                    refFlag = true;
                 }); 
             
                 // 用户验证
@@ -1037,7 +1072,9 @@
                     success: function(json){
                         if(json.state == "1"){
                             alert("调参成功！");
-                            dhxd3.window("wi3").hide();
+                            dhxd3.window("wi3").hide();  
+                            // 刷新标识
+                            refFlag = true;
                         }else{
                             alert("调参发生错误，请重新操作或与管理员联系！");
                             return false;
@@ -1051,7 +1088,9 @@
              * @returns {undefined}
              */
             function qx2(){
-                dhxd3.window("wi3").hide();
+                dhxd3.window("wi3").hide();  
+                // 刷新标识
+                refFlag = true;
             }
             function createWindows1(){
                     dhxWins1 = new dhtmlXWindows();
@@ -1072,13 +1111,18 @@
                     dhxWins.window("win").hide();	
                     }
             function ztwin(){
-                     dhxWins.window("win").show();
-                     dhxWins.window("win").setText("工况");
-                     dhxWins.attachEvent("onClose", function(win){
-                     dhxWins.window("win").hide(); 
-                                             });
-                     dhxWins.window("win").attachHTMLString(dtu);
-                    }
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
+                dhxWins.window("win").show();
+                dhxWins.window("win").setText("工况");
+                dhxWins.attachEvent("onClose", function(win){
+                     dhxWins.window("win").hide();  
+                    // 刷新标识
+                    refFlag = true;
+                });
+                dhxWins.window("win").attachHTMLString(dtu);
+            }
             /**
               * 电气参数信息点击
               * @param {type} dy_code

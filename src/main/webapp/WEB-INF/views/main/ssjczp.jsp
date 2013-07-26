@@ -28,6 +28,8 @@
         <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
         <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
         <script>
+            // 刷新标识
+            var refFlag = true;
             var wellId_Gis;
             var dhxWins,Grid,dhxWins,dhxWins1,dhxd,dhxd1,dhxd2,dhxd3,gr,dqgr,dqgr1,dqgr2;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
@@ -47,22 +49,10 @@
              // 选择井信息
             var selEndTagState = '';
             
-            /**
-             * 页面初始化
-             * @returns {undefined}
-             */
-            function doOnLoad(){
-                
+            $(function () {
                 wellId_Gis = ${info.id};
                 createWindows();
                 createWindows1();
-                
-                //工况信息
-                createzpgr();
-                //电气参数
-                createdqgr();
-                createdqgr1();
-                createdqgr2();
                 
                  // 调参、控制弹出框
                 createwind();
@@ -71,6 +61,20 @@
                 // 开井确认操作
                 createwind2();
                 createwi();
+            });
+            
+            /**
+             * 页面初始化
+             * @returns {undefined}
+             */
+            function doOnLoad(){
+                
+                //工况信息
+                createzpgr();
+                //电气参数
+                createdqgr();
+                createdqgr1();
+                createdqgr2();
             }
             
             function initTab1(){
@@ -108,7 +112,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);//隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("150");
+                gr.setInitWidths("260");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();
@@ -136,7 +140,14 @@
                                 var youjingItem = new Object();
                                 youjingItem.id = value.key + '||' + value.name + '||YOU_JING';
                                 youjingItem.data = [];
-                                youjingItem.data.push(value.name + '：' + value.value);
+                                
+                                if(value.value == 'false'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/hongse.png"/>');
+                                }else if(value.value == 'true'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/lse.png"/>');
+                                }else{
+                                    youjingItem.data.push(value.name + '：' + value.value);
+                                }
 
                                 youjingData.rows.push(youjingItem);
                             }
@@ -190,7 +201,8 @@
                         }
                     });                    
                 }               
-             function createdqgr(){
+             
+            function createdqgr(){
                 dqgr=new dhtmlXGridObject('zpdq1');
 				dqgr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
 				//dqgr.setNoHeader(true);//隐藏表头
@@ -397,7 +409,7 @@
                     te1(xAxisData, tmpName[1], '', '', yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
                 }  
             
-                function createWindows(){
+            function createWindows(){
                     dhxWins = new dhtmlXWindows();
                     dhxWins.attachViewportTo(document.body);
                     dhxWins.createWindow("win",200,100,1000,500);
@@ -478,10 +490,15 @@
              * @returns {undefined}
              */
             function yckz(){
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
                 dhxd.window("wi").show();
                 dhxd.window("wi").setText("远程控制");
                 dhxd.attachEvent("onClose", function(win){
                     dhxd.window("wi").hide(); 
+                    // 刷新标识
+                    refFlag = true;
                 });
                 dhxd.window("wi").attachHTMLString(ew);
             }
@@ -491,10 +508,15 @@
              * @returns {undefined}
              */
             function yctc(){
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
                 dhxd.window("wi").show();
                 dhxd.window("wi").setText("远程调参");
                 dhxd.attachEvent("onClose", function(win){
                     dhxd.window("wi").hide(); 
+                    // 刷新标识
+                    refFlag = true;
                 });
                 dhxd.window("wi").attachHTMLString(yt);
             }
@@ -529,6 +551,8 @@
                             dhxd1.window("wi1").setText("远程控制");
                             dhxd1.attachEvent("onClose", function(win){
                                dhxd1.window("wi1").hide(); 
+                               // 刷新标识
+                               refFlag = true;
                             });
                             dhxd1.window("wi1").attachHTMLString(anniu);
 
@@ -553,6 +577,8 @@
              * */
             function qx(){
                 dhxd.window("wi").hide();
+                // 刷新标识
+                refFlag = true;
             }
             
             /**
@@ -560,12 +586,15 @@
              * @returns {undefined}             
              * */
             function kj(){
-            
+                // 刷新标识
+                refFlag = false;
                 dhxd1.window("wi1").hide();
                 dhxd2.window("wi2").show();
                 dhxd2.window("wi2").setText("远程控制");
                 dhxd2.attachEvent("onClose", function(win){
-                    dhxd2.window("wi2").hide(); 
+                    dhxd2.window("wi2").hide();                     
+                    // 刷新标识
+                    refFlag = true;
                 });
                 dhxd2.window("wi2").attachHTMLString(sd);                 
             }
@@ -582,7 +611,9 @@
                     url: '${ctx}/manage/saveYkData',
                     data:{id:${info.id},state:"0",content:$.trim($("#kz_content").val())},
                     dateType:'json',
-                    success: function(json){
+                    success: function(json){                    
+                        // 刷新标识
+                        refFlag = true;
                         if(json.state == "1"){
                             alert("调控成功！");
                         }else{
@@ -608,6 +639,8 @@
                     data:{id:${info.id},state:"1",content:$.trim($("#kz_content").val())},
                     dateType:'json',
                     success: function(json){
+                        // 刷新标识
+                        refFlag = true;
                         if(json.state == "1"){
                             alert("调控成功！");
                         }else{
@@ -626,6 +659,8 @@
              * */
             function qxx(){
                 dhxd2.window("wi2").hide();
+                // 刷新标识
+                refFlag = true;
             }
             
             /**
@@ -659,6 +694,8 @@
                             dhxd1.window("wi1").setText("远程调参");
                             dhxd1.attachEvent("onClose", function(win){
                                 dhxd1.window("wi1").hide(); 
+                                // 刷新标识
+                                refFlag = true;
                             });
                             dhxd1.window("wi1").attachHTMLString(yc);
                         }else{
@@ -675,6 +712,8 @@
              * */
             function qx1(){
                 dhxd.window("wi").hide();
+                // 刷新标识
+                refFlag = true;
             }
             
             var tc_scch;
@@ -692,6 +731,8 @@
                 dhxd3.window("wi3").setText("远程调参");
                 dhxd3.attachEvent("onClose", function(win){
                     dhxd3.window("wi3").hide(); 
+                    // 刷新标识
+                    refFlag = true;
                 }); 
             
                 // 用户验证
@@ -759,6 +800,8 @@
                         if(json.state == "1"){
                             alert("调参成功！");
                             dhxd3.window("wi3").hide();
+                            // 刷新标识
+                            refFlag = true;
                         }else{
                             alert("调参发生错误，请重新操作或与管理员联系！");
                             return false;
@@ -773,6 +816,8 @@
              */
             function qx2(){
                 dhxd3.window("wi3").hide();
+                // 刷新标识
+                refFlag = true;
             }
             
             /**
@@ -780,10 +825,15 @@
              * @returns {undefined}
              */
             function ztwin(){
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
                 dhxWins.window("win").show();
                 dhxWins.window("win").setText("工况");
                 dhxWins.attachEvent("onClose", function(win){
                     dhxWins.window("win").hide(); 
+                    // 刷新标识
+                    refFlag = true;
                 });
                 dhxWins.window("win").attachHTMLString(dtu);
             }
@@ -830,34 +880,34 @@
     <!--标签页 监测信息-->
     <div id="ba" style="width:1280px; height:5px;float:left" ></div>
     <div id="ba1" style="width:4px; height:22px;float:left" ></div>
-    <div id="gk1" style="width:366px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
+    <div id="gk1" style="width:426px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
          &nbsp工&nbsp;&nbsp;&nbsp况
     </div>
     <div id="ba4" style="width:5px; height:22px;  float:left" ></div>
-    <div id="gk2" style="width:900px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#fdb4fd; float:left">
+    <div id="gk2" style="width:840px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#fdb4fd; float:left">
          &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
     </div>
      <div id="ba5" style="width:5px; height:22px; float:left" ></div>
     <div id="ba56" style="width:4px; height:154px;float:left"></div>
-    <div id="gk4" style="width:364px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
+    <div id="gk4" style="width:424px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
         <div id="gkk" style="width:245px; height:152px; float:left ">
            <a  ondblclick="ztwin();" style="cursor:hand;text-decoration:none"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:151px" /></a>
         </div>
-        <div id="gkk1" style="width:110px;height:153px; float:left">
-      	    <div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
+        <div id="gkk1" style="width:175px;height:153px; float:left">
+      	    <div id="tb" style="width:175px; height:35px;float:left; font-size:14px; line-height:40px">
               &nbsp;&nbsp;&nbsp;油井启停：<img  id="youjingState" src="${ctx}/static/img/hongse.png"/>
             </div>
-            <div id="zp" style="width:115px; height:107px; float:left">
+            <div id="zp" style="width:172px; height:107px; float:left;margin-left: 5px">
             </div>
         </div>
     </div>
     <div id="b" style="width:5px; height:154px;  float:left"></div>
-            <div id="zpdq" style="width:898px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
-                    <div id="zpdq1" style="width:299px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">        		
+            <div id="zpdq" style="width:838px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
+                    <div id="zpdq1" style="width:279px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">        		
                     </div>
-                    <div id="zpdq2" style="width:299px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left"> 
+                    <div id="zpdq2" style="width:279px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left"> 
                     </div>
-                    <div id="zpdq3" style="width:294px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
+                    <div id="zpdq3" style="width:274px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
                     </div>
             </div>
     <div id="xi1" style="width:5px; height:140px;float:left"></div>

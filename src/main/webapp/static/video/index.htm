@@ -1,0 +1,510 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <title>WEB SERVICE</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" ></head>
+  <link rel="stylesheet"type="text/css"  media="screen"  href="css/main.css" />
+<body>
+  <div id="video" class="videoContent" sytle="border:1px solid #ff0;"></div>
+  <div id="ptz_control" class="preview_rt" style="display:;">
+    <div id="pev_top" class="ptz_toper"></div>
+    <div id="pev_cot" class="ptz_righter">
+      <div id="yt" class="yt">
+        <a id="yt1" class="yt1" href="javascript:;"></a>
+        <a id="yt2" class="yt2" href="javascript:;"></a>
+        <a id="yt3" class="yt3" href="javascript:;"></a>
+        <a id="yt4" class="yt4" href="javascript:;"></a>
+        <a id="yt5" class="yt5" href="javascript:;"></a>
+        <a id="yt6" class="yt6" href="javascript:;"></a>
+        <a id="yt7" class="yt7" href="javascript:;"></a>
+        <a id="yt8" class="yt8" href="javascript:;"></a>
+        <a id="yt9" class="yt9" href="javascript:;"></a>
+      </div>
+      <div id="bc" class="step clearF" >
+        <span id="t_bc">步长(1-8):</span>
+        <select id="ps" class="wid45">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5" selected>5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+      </div>
+      <div id="tiaojie" class="modifyTX">
+        <a id="b_bb1" class="lessIcon" href="javascript:;"></a>
+        <a id="t_bb"  class="modiText">变倍</a>
+        <a id="b_bb2" class="moreIcon" href="javascript:;"></a>
+        <a id="b_bj1" class="lessIcon" href="javascript:;"></a>
+        <a id="t_bj"  class="modiText">变焦</a>
+        <a id="b_bj2" class="moreIcon" href="javascript:;"></a>
+        <a id="b_gq1" class="lessIcon" href="javascript:;"></a>
+        <a id="t_gq"  class="modiText">光圈</a>
+        <a id="b_gq2" class="moreIcon" href="javascript:;"></a>
+      </div>
+      <div class="prebotnew"></div>
+      <div class="colorbg"></div>
+      <!--2.2的PTZ设置-->
+      <div id="ytzcfg" class="adPtzSet">
+        <div class="ptz_top1">
+          <p class="pnow1" id="p_ptzset">云台设置</p>
+        </div>
+        <!--此处开始是云台设置内容-->
+        <div id="cfgPTZ" style="display:block;">
+          <div style="padding:8px 0;">
+            <select id="ytszSelect" class="sel140" onChange="changePtzSetup(this.value)">
+              <option value="xxsmCon" selected>线性扫描</option>
+              <option value="yzdCon">预置点</option>
+              <option value="xhzCon">巡航组</option>
+              <option value="xjCon">巡迹</option>
+              <option value="fzCon">辅助功能</option>
+              <option value="dgCon">灯光雨刷</option>
+            </select>
+          </div>
+          <div id="xxsmCon" style="display:block;">
+            <p class="butonPS">
+              <input type="text" id="i_xs" class="inputW140" style="display:none;"/>
+              <div class="butonPS IE6fix">
+                <a href="javascript:;" id="b_xxsm1" class="ptzbtn3" style="display:;">开始</a>
+                <a href="javascript:;" id="b_xxsm2" class="ptzbtn4" style="display:none;">停止</a>
+                <a href="javascript:;" id="b_xsset" class="ptzbtn5">设置</a>
+              </div>
+            </p>
+            <div class="TCcon1" style="display:none;" id="d_ptzset0">
+              <p>
+                <a href="javascript:;" id="b_setleft" class="ptzbtn1">设置左边界</a>
+                <a href="javascript:;" id="b_setright" class="ptzbtn1">设置右边界</a>
+              </p>
+            </div>
+          </div>
+          <div id="yzdCon" style="display:none;">
+            <p class="butonPS">
+              <input type="text" id="i_yzd" value="0" class="inputW90"/>
+              <span id="title_minPreset">0</span>
+              ~
+              <span id="title_maxPreset">255</span>
+              <a href="javascript:;" id="b_yzd1" class="ptzbtnsearch">查看</a>
+              <a href="javascript:;" id="b_addyzd" class="ptzbtnadd">增加</a>
+              <a href="javascript:;" id="b_delyzd" class="ptzbtndel">删除</a>
+            </p>
+          </div>
+          <div id="xhzCon" style="display:none">
+            <p class="butonPS">
+              <input type="text" id="i_xhz" value="1" class="inputW90"/>
+              <span id="title_TourMin">1</span>
+              ~
+              <span id="title_TourMax">255</span>
+              <a href="javascript:;" id="b_xhz1" class="ptzstart">开始</a>
+              <a href="javascript:;" id="b_xhz2" class="ptzstop" style="display:none;">停止</a>
+              <a href="javascript:;" id="b_xhset" class="ptzbtnadd">增加</a>
+              <a href="javascript:;" id="b_delxhz" class="ptzbtndel">删除</a>
+            </p>
+            <div class="TCcon1" style="display:none;" id="d_ptzset2">
+              <p>
+                <input type="text" id="i_pnt" value="0" class="inputW90"/>
+                <span id="title_minPnt">0</span>
+                ~
+                <span id="title_maxPnt">255</span>
+              </p>
+              <p>
+                <a href="javascript:;" id="b_addpnt" class="ptzbtn1">增加预置点</a>
+                <a href="javascript:;" id="b_delpnt" class="ptzbtn1">删除预置点</a>
+              </p>
+            </div>
+          </div>
+          <div id="xjCon" style="display:none;">
+            <p class="butonPS">
+              <input type="text" id="i_xj" value="1" class="inputW90"/>
+              <span id="title_PatternMin">1</span>
+              ~
+              <span id="title_PatternMax">255</span>
+              <a href="javascript:;" id="b_xj1" class="ptzstart">开始</a>
+              <a href="javascript:;" id="b_xj2" class="ptzstop" style="display:none;">停止</a>
+              <a href="javascript:;" id="b_xjset" class="ptzbtnadd">增加</a>
+              <a href="javascript:;" id="b_delxj" class="ptzbtndel">删除</a>
+            </p>
+            <div class="TCcon1" style="display:none;" id="d_ptzset3">
+                <p>
+                    <a href="javascript:;" id="b_startjl" class="ptzbtn3">开始记录</a>
+                    <a href="javascript:;" id="b_stopjl" class="ptzbtn4">停止记录</a>
+                </p>
+            </div>
+          </div>
+          <div id="fzCon" style="display:none;">
+            <p class="butonPS">
+              <input type="text" id="i_fzz" value="1" class="inputW90"/>
+              <span id="title_AuxMin">1</span>
+              ~
+              <span id="title_AuxMax">255</span>
+              <a href="javascript:;" id="b_fzk1" class="ptzbtn1 marT5">辅助开</a>
+              <a href="javascript:;" id="b_fzk2" class="ptzbtn1 marT5">辅助关</a>
+            </p>
+          </div>
+          <div id="dgCon" style="display:none;">
+            <p class="butonPS" >
+              <a href="javascript:;" id="b_lighton" class="ptzbtn1 marT5">开启</a>
+              <a href="javascript:;" id="b_lightoff" class="ptzbtn1 marT5">关闭</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+  <script type="text/javascript" src="js/m.js"></script>
+  <script type="text/javascript" src="js/more.js"></script>
+</html>
+<script language="javascript" for="ocx" event="OcxLoaded()">loginOCX();</script>
+<script>  
+var OCX = {
+  ip: '192.168.1.130',
+  logintype: 0,
+  username: 'admin',
+  password: 'admin',
+  tcpPort: 37777
+}
+
+function loadActivex() {
+  var wnd = 1;
+  var prt = 37777;
+  $('video').innerHTML = "<object id='ocx' width='100%' height='100%' classid='CLSID:51E7F2F2-DF6C-46f1-A7F2-855361D917A3' codebase='webrec.cab#version=3,1,0,3' onreadystatechange='iniocx(this)'><param name='lVideoWindNum' value=" + wnd + "><param name='VideoWindBGColor' value=''><param name='VideoWindBarColor' value=''><param name='VideoWindTextColor' value=''>" + "<param name='SetHostPort' value=" + prt + ">" + "</object>"
+}
+
+function loginOCX() {
+  var r = $('ocx').LoginDeviceEx(OCX.ip, OCX.tcpPort, OCX.username, OCX.password, OCX.logintype);
+  if (r == 1) {
+    $('ocx').ConnectRealVideo(0, 1)
+  }
+  $('ocx').VisibleBarBtn(0, false);
+  $('ocx').VisibleBarBtn(1, false);
+  $('ocx').VisibleBarBtn(4, false);
+  $('ocx').VisibleBarBtn(3, false);
+  $('ocx').VisibleBarBtn(15, false);
+}
+
+function iniocx(o) {
+
+}
+
+function changePtzSetup(id) {
+  $('xxsmCon').style.display = 'none';
+  $('yzdCon').style.display = 'none';
+  $('xhzCon').style.display = 'none';
+  $('xjCon').style.display = 'none';
+  $('fzCon').style.display = 'none';
+  $('dgCon').style.display = 'none';
+  $(id).style.display = '';
+}
+
+function showPtzset(n) {
+  if ($('d_ptzset' + n).style.display == 'none') {
+    $('d_ptzset' + n).style.display = '';
+  } else {
+    $('d_ptzset' + n).style.display = 'none';
+  }
+}
+
+function attachLimit(id, m, n) {
+  var obj = $(id);
+  obj.removeEvents('keyup');
+  obj.removeEvents('blur');
+  obj.addEvents({
+    'keyup': function() {
+      limit(this, n);
+    },
+    'blur': function() {
+      limit(this, n);
+      limitMin(this, m);
+    }
+  });
+}
+
+function limit(o, m) {
+  var inpt = o.value;
+  if (inpt == '') {
+    return;
+  }
+
+  if (/[^\d]/g.test(inpt)) {
+    o.value = inpt.replace(/[^\d]/g, '') - 0;
+  } else {
+    o.value = o.value - 0;
+  }
+  inpt = o.value;
+  if (inpt > m) {
+    o.value = m;
+  }
+}
+
+function limitMin(o, m) {
+  var inpt = o.value;
+  if (/[^\d]/g.test(inpt)) {
+    o.value = inpt.replace(/[^\d]/g, '') - 0;
+  }
+  inpt = o.value;
+  if (inpt == '') {
+    o.value = m;
+  } else if (inpt < m) {
+    o.value = m;
+  }
+}
+
+window.addEvent('domready', function() {
+  if ($('ocx')) {
+    loginOCX();
+  } else {
+    setTimeout('loadActivex()', 0);
+  }
+  attachLimit('i_yzd', 0, 255);
+  attachLimit('i_xhz', 1, 255);
+  attachLimit('i_xj', 1, 255);
+  attachLimit('i_fzz', 1, 255);
+  attachLimit('i_pnt', 0, 255);
+  //云台按钮
+  $('yt1').addEvent('mousedown', function() {
+    $('ocx') && $('ocx').ControlPtz(32, 5, $('ps').value - 0, 0, 0);
+  });
+  $('yt1').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(32, 5, $('ps').value - 0, 0, 1);
+  });
+  $('yt1').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(32, 5, $('ps').value - 0, 0, 1);
+  });
+
+  $('yt2').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(0, 0, $('ps').value - 0, 0, 0);
+  });
+  $('yt2').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(0, 0, $('ps').value - 0, 0, 1);
+  });
+  $('yt2').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(0, 0, $('ps').value - 0, 0, 1);
+  });
+
+  $('yt3').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(33, 5, $('ps').value - 0, 0, 0);
+  });
+  $('yt3').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(33, 5, $('ps').value - 0, 0, 1);
+  });
+  $('yt3').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(33, 5, $('ps').value - 0, 0, 1);
+  });
+
+
+  $('yt4').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(2, 0, $('ps').value - 0, 0, 0);
+  });
+  $('yt4').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(2, 0, $('ps').value - 0, 0, 1);
+  });
+  $('yt4').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(2, 0, $('ps').value - 0, 0, 1);
+  });
+
+  //$('yt5').addEvent('click', cptz);
+  $('yt6').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(3, 0, $('ps').value - 0, 0, 0);
+  });
+  $('yt6').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(3, 0, $('ps').value - 0, 0, 1);
+  });
+  $('yt6').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(3, 0, $('ps').value - 0, 0, 1);
+  });
+  $('yt7').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(34, 5, $('ps').value - 0, 0, 0);
+  });
+  $('yt7').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(34, 5, $('ps').value - 0, 0, 1);
+  });
+  $('yt7').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(34, 5, $('ps').value - 0, 0, 1);
+  });
+  $('yt8').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(1, 0, $('ps').value - 0, 0, 0);
+  });
+  $('yt8').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(1, 0, $('ps').value - 0, 0, 1);
+  });
+  $('yt8').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(1, 0, $('ps').value - 0, 0, 1);
+  });
+  $('yt9').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(35, 5, $('ps').value - 0, 0, 0);
+  });
+  $('yt9').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(35, 5, $('ps').value - 0, 0, 1);
+  });
+  $('yt9').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(35, 5, $('ps').value - 0, 0, 1);
+  });
+
+  $('b_bb1').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(4, 0, $('ps').value - 0, 0, 0);
+  });
+  $('b_bb1').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(4, 0, $('ps').value - 0, 0, 1);
+  });
+  $('b_bb1').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(4, 0, $('ps').value - 0, 0, 1);
+  });
+  $('b_bb2').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(5, 0, $('ps').value - 0, 0, 0);
+  });
+  $('b_bb2').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(5, 0, $('ps').value - 0, 0, 1);
+  });
+  $('b_bb2').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(5, 0, $('ps').value - 0, 0, 1);
+  });
+  $('b_bj2').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(7, 0, $('ps').value - 0, 0, 0);
+  });
+  $('b_bj2').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(7, 0, $('ps').value - 0, 0, 1);
+  });
+  $('b_bj2').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(7, 0, $('ps').value - 0, 0, 1);
+  });
+  $('b_bj1').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(6, 0, $('ps').value - 0, 0, 0);
+  });
+  $('b_bj1').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(6, 0, $('ps').value - 0, 0, 1);
+  });
+  $('b_bj1').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(6, 0, $('ps').value - 0, 0, 1);
+  });
+  $('b_gq2').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(9, 0, $('ps').value - 0, 0, 0);
+  });
+  $('b_gq2').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(9, 0, $('ps').value - 0, 0, 1);
+  });
+  $('b_gq2').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(9, 0, $('ps').value - 0, 0, 1);
+  });
+  $('b_gq1').addEvent('mousedown', function(e) {
+    $('ocx') && $('ocx').ControlPtz(8, 0, $('ps').value - 0, 0, 0);
+  });
+  $('b_gq1').addEvent('mouseup', function() {
+    $('ocx') && $('ocx').ControlPtz(8, 0, $('ps').value - 0, 0, 1);
+  });
+  $('b_gq1').addEvent('mouseout', function() {
+    $('ocx') && $('ocx').ControlPtz(8, 0, $('ps').value - 0, 0, 1);
+  });
+
+  //线性扫描
+  $('b_xxsm1').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(43, 0, 0, 0, 0);
+    changePtzBtn();
+    $('b_xxsm1').style.display = 'none';
+    $('b_xxsm2').style.display = '';
+  });
+  $('b_xxsm2').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(44, 0, 0, 0, 0);
+    $('b_xxsm1').style.display = '';
+    $('b_xxsm2').style.display = 'none';
+  });
+  $('b_setleft').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(41, 0, 0, 0, 0);
+  });
+  $('b_setright').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(42, 0, 0, 0, 0);
+  });
+  //预置点
+  $('b_yzd1').addEvent('click', function() {
+    changePtzBtn();
+    $('ocx') && $('ocx').ControlPtz(10, 0, $('i_yzd').value - 0, 0, 0);
+  });
+  $('b_addyzd').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(11, 0, $('i_yzd').value - 0, 0, 0);
+  });
+  $('b_delyzd').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(12, 0, $('i_yzd').value - 0, 0, 0);
+  });
+
+  $('b_xhz1').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(13, $('i_xhz').value - 0, 0, 76, 0);
+    changePtzBtn();
+    $('b_xhz1').style.display = 'none';
+    $('b_xhz2').style.display = '';
+  });
+  $('b_xhz2').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(13, $('i_xhz').value - 0, 0, 96, 0);
+    $('b_xhz1').style.display = '';
+    $('b_xhz2').style.display = 'none';
+  });
+
+  $('b_delxhz').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(38, $('i_xhz').value - 0, 0, 0, 0);
+  });
+  $('b_addpnt').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(36, $('i_xhz').value - 0, $('i_pnt').value - 0, 0, 0);
+  });
+  $('b_delpnt').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(37, $('i_xhz').value - 0, $('i_pnt').value - 0, 0, 0);
+  });
+  //巡迹
+  $('b_xj1').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(45, $('i_xj').value - 0, 0, 0, 0);
+    changePtzBtn();
+    $('b_xj1').style.display = 'none';
+    $('b_xj2').style.display = '';
+  });
+  $('b_xj2').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(46, $('i_xj').value - 0, 0, 0, 0);
+    $('b_xj1').style.display = '';
+    $('b_xj2').style.display = 'none';
+  });
+
+
+  $('b_startjl').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(47, $('i_xj').value - 0, 0, 0, 0);
+  });
+  $('b_stopjl').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(48, $('i_xj').value - 0, 0, 0, 0);
+  });
+
+  $('b_delxj').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(49, $('i_xj').value - 0, 0, 0, 0);
+  });
+  //辅助
+  $('b_fzk1').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(52, $('i_fzz').value - 0, 0, 0, 0);
+  });
+  $('b_fzk2').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(53, $('i_fzz').value - 0, 0, 0, 0);
+  });
+  //灯光雨刷
+  $('b_lighton').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(14, 1, 0, 0, 0);
+  });
+  $('b_lightoff').addEvent('click', function() {
+    $('ocx') && $('ocx').ControlPtz(14, 0, 0, 0, 0);
+  });
+
+  $('b_xsset').addEvent('click', function() {
+    showPtzset(0)
+  });
+  $('b_xhset').addEvent('click', function() {
+    showPtzset(2)
+  });
+  $('b_xjset').addEvent('click', function() {
+    showPtzset(3)
+  });
+});
+
+function changePtzBtn() {
+  $('b_xxsm1').style.display = '';
+  $('b_xxsm2').style.display = 'none';
+  $('b_xhz1').style.display = '';
+  $('b_xhz2').style.display = 'none';
+  $('b_xj1').style.display = '';
+  $('b_xj2').style.display = 'none';
+}
+
+</script>

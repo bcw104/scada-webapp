@@ -79,7 +79,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);//隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("150");
+                gr.setInitWidths("260");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();
@@ -107,8 +107,14 @@
                                 var youjingItem = new Object();
                                 youjingItem.id = value.key + '||' + value.name + '||YOU_JING';
                                 youjingItem.data = [];
-                                youjingItem.data.push(value.name + '：' + value.value);
-
+//                                youjingItem.data.push(value.name + '：' + value.value);
+                                if(value.value == 'false'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/hongse.png"/>');
+                                }else if(value.value == 'true'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/lse.png"/>');
+                                }else{
+                                    youjingItem.data.push(value.name + '：' + value.value);
+                                }
                                 youjingData.rows.push(youjingItem);
                             }
                         });
@@ -776,34 +782,34 @@
     <!--标签页 监测信息-->
     <div id="ba" style="width:1280px; height:5px;float:left" ></div>
     <div id="ba1" style="width:4px; height:22px;float:left" ></div>
-    <div id="gk1" style="width:366px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
+    <div id="gk1" style="width:426px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
          &nbsp工&nbsp;&nbsp;&nbsp况
     </div>
     <div id="ba4" style="width:5px; height:22px;  float:left" ></div>
-    <div id="gk2" style="width:900px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#fdb4fd; float:left">
+    <div id="gk2" style="width:840px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#fdb4fd; float:left">
          &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
     </div>
      <div id="ba5" style="width:5px; height:22px; float:left" ></div>
     <div id="ba56" style="width:4px; height:154px;float:left"></div>
-    <div id="gk4" style="width:364px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
+    <div id="gk4" style="width:424px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
         <div id="gkk" style="width:245px; height:152px; float:left ">
            <a  ondblclick="ztwin();" style="cursor:hand;text-decoration:none"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:151px" /></a>
         </div>
-        <div id="gkk1" style="width:110px;height:153px; float:left">
-      	    <div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
+        <div id="gkk1" style="width:175px;height:153px; float:left">
+      	    <div id="tb" style="width:175px; height:35px;float:left; font-size:14px; line-height:40px">
               &nbsp;&nbsp;&nbsp;油井启停：<img  id="youjingState" src="${ctx}/static/img/hongse.png" />
             </div>
-            <div id="mj" style="width:115px; height:107px; float:left">
+            <div id="mj" style="width:172px; height:107px; float:left;margin-left: 5px">
             </div>
         </div>
     </div>
     <div id="b" style="width:5px; height:154px;  float:left"></div>
-            <div id="cs" style="width:898px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
-                    <div id="mjdq1" style="width:299px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">        		
+            <div id="cs" style="width:838px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
+                    <div id="mjdq1" style="width:279px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">        		
                     </div>
-                    <div id="mjdq2" style="width:299px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left"> 
+                    <div id="mjdq2" style="width:279px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left"> 
                     </div>
-                    <div id="mjdq3" style="width:294px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
+                    <div id="mjdq3" style="width:274px; height:152px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
                     </div>
             </div>
     <div id="xi1" style="width:5px; height:140px;float:left"></div>
