@@ -27,6 +27,6 @@ $(function () {
         }
     });
         
-    $("#sztitle").html('胜利油田XXXX管理区');      
+    $("#sztitle").html('胜利油田胜利油田胜利油田胜利油田胜利油田');      
     $("#szda").html('欢迎您 ' + username + '，进入管理系统');                
 });

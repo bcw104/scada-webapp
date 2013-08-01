@@ -328,7 +328,7 @@
                 Grid= new dhtmlXGridObject('cg');
                 Grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
-                Grid.setInitWidths("65,65,65,100,80,50");
+                Grid.setInitWidths("65,65,65,100,80,*");
                 Grid.setColAlign("center,center,center,center,center,center");
                 Grid.setColTypes("ro,img,ro,ro,ro,img");
                 Grid.init();
@@ -891,7 +891,7 @@
         <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
         </div>
         </div>
-        <div id="sztitle" style="width:300px;"></div>
+        <div id="sztitle"></div>
         <div id="szda" style="width:300px;"></div>
         <div id="szan" >
             <c:if test="${sysmgr == 1}">

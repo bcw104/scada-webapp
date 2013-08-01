@@ -79,7 +79,7 @@
     </div>
     <div id="head_div" style="float:left;width: 100%;height:83px;">
         <img src="${ctx}/static/img/head.png" usemap="#planetmap" style="border: 0px; width: 100%"/>
-        <div id="sztitle" style="width:300px;"></div>
+        <div id="sztitle"></div>
         <div id="szda" style="width:300px;"></div>
         <div id="szan" >
             <a href="${ctx}/main"><img border="0" src="${ctx}/static/img/fh.png" /></a>
