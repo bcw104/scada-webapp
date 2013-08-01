@@ -98,18 +98,18 @@ html, body {
             }
             #sztitle {
                 position:absolute;
-                left:157px;
+                left:145px;
                 top:22px;
-                width:450px;
+                width:600px;
                 height:40px;
                 z-index:1;
                 color: #fff;
-                font-size: 28px;
+                font-size: 26px;
                 font-weight: bold;
             }
             #szda {
                 position:absolute;
-                left:724px;
+                left:804px;
                 top:38px;
                 width:1075px;
                 height:27px;

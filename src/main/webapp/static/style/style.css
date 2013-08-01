@@ -18,12 +18,15 @@ body{
 	color:#1D6DD2; font-weight:bold;
 	}
 .zitic{
-width:720px;
-height:31px;
-margin:auto;
-background-image:url(../img/biaoti.png);
-_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,src="img/biaoti.png"); 
-_background:none;
+    width:720px;
+    height:31px;
+    margin:auto;
+    /*background-image:url(../img/biaoti.png);*/
+    /*_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,src="img/biaoti.png");*/ 
+    _background:none;
+    color: #FFF;
+    font-size: 32px;
+    font-weight: bold;
 }
 .tar{
 	text-align:right;

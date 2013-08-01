@@ -8,6 +8,7 @@
         <title>登录</title>
         <link href="${ctx}/static/style/style.css" rel="stylesheet" type="text/css" />
         <script src="${ctx}/static/jquery/jquery-1.8.2.min.js"></script>
+        <script src="${ctx}/static/js/login_title.js"></script>
     </head>
 
     <body><br />
@@ -20,7 +21,7 @@
         <br />
         <form id="loginForm" action="${ctx}/login" method="post" class="form-horizontal">
             <div class="pda">
-                <div class="zitic"></div>
+                <div id="loginTitle" class="zitic"></div>
             </div>
             <div style="width:100%;" class="bgcolora gaoa">
                 <div class="fl" style="position: absolute; z-index:1">

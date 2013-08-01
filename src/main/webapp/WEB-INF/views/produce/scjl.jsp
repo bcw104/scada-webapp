@@ -689,7 +689,7 @@
         <div id="bc9" style=" display:none;background: url(${ctx}/static/img/dialog.png); text-align:center;padding-top:10px;color:red;font-size:10px" onclick="closedDiv(9);">
             线路不通<br>IP:192.168.1.5
         </div>
-        <div id="sztitle" style="width:300px;"></div>
+        <div id="sztitle"></div>
         <div id="szda" style="width:300px;"></div>        
         <div id="szan" >
             <c:if test="${sysmgr == 1}">

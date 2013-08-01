@@ -593,7 +593,7 @@
                 Grid= new dhtmlXGridObject('cgqyx2');
                 Grid.setImagePath("js/gridcodebase/imgs/");
                 Grid.setHeader(["传感器名","通讯状态","运行时间","剩余工作时间","剩余电量","标定"]);
-                Grid.setInitWidths("162,60,115,115,115,60");
+                Grid.setInitWidths("145,60,115,115,115,*");
                 Grid.setColAlign("center,center,center,center,center,center");
                 Grid.setColTypes("ro,img,ro,ro,ro,img");
                 Grid.init();
@@ -1765,7 +1765,7 @@ function wins(){
                     <a style="cursor:hand"onclick="yctc();">远程调参</a>
                 </div>   
             </div>
-            <div id="sztitle" style="width:300px;"></div>
+            <div id="sztitle"></div>
         <div id="szda" style="width:300px;"></div>
         <div id="szan" >
             <c:if test="${sysmgr == 1}">

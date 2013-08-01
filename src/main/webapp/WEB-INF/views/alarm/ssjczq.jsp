@@ -953,7 +953,7 @@
         <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
         </div>
         </div>
-        <div id="sztitle" style="width:300px;"></div>
+        <div id="sztitle"></div>
         <div id="szda" style="width:300px;"></div>
         <div id="szan" >
             <c:if test="${sysmgr == 1}">
