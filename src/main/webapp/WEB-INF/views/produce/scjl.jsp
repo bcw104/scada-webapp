@@ -38,6 +38,8 @@
                 $(".cssdiv").addClass("s1");
                 createTabble();
                 createTreeGrid1();
+                deviceOnload();
+                createWindow();
             }
             
             var mapReportPage = new Map();
@@ -215,16 +217,65 @@
                 dhxWin.window("win").hide();	
             }
             
-            function rtu(){
+            function rtu(code){
                 dhxWin.window("win").show();
                 Grid9=dhxWin.window("win").attachGrid();
                 Grid9.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-                Grid9.setHeader(["RTU对象","生产厂家","型号","启用信息","IP地址","通讯状态"]);
-                Grid9.setInitWidths("100,100,100,100,100,100");
-                Grid9.setColAlign("center,center,center,center,center,center");
-                Grid9.setColTypes("ed,ed,ed,ed,ed,ed");
+                Grid9.setHeader("设备名称,生产厂家,型号,序号,设备地址,井名,IP地址,通讯状态");
+                treeGrid.setInitWidths("150,150,150,150,150,150,150,*");
+                treeGrid.setColAlign("center,center,center,center,center,center,center,center");
+                treeGrid.setColTypes("txt,txt,txt,txt,txt,txt,txt,txt");
+//                Grid9.setHeader(["RTU对象","生产厂家","型号","启用信息","IP地址","通讯状态"]);
+//                Grid9.setInitWidths("100,100,100,100,100,100");
+//                Grid9.setColAlign("center,center,center,center,center,center");
+//                Grid9.setColTypes("ed,ed,ed,ed,ed,ed");
                 Grid9.init();
-                Grid9.load('data/bbbwin.json','json');
+                //Grid9.load('data/bbbwin.json','json');
+                // 获得井基本信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/produce/deviceListbycode',
+                    data:{code:code},
+                    dateType:'json',
+                    success: function(json){
+
+                        var loopId = 0;
+                        var dataInfo = new Object();
+                        dataInfo.rows = [];
+                        var dataItem;
+                        $.each(json,function(key, value){
+                            loopId += 1;
+                            
+                            dataItem = new Object();
+                            dataItem.id = loopId;
+                            dataItem.data = [];
+
+                            dataItem.data.push(value.name);
+                            dataItem.data.push(value.manufacture);
+                            dataItem.data.push(value.type);
+                            dataItem.data.push(value.number);
+                            dataItem.data.push(value.address);
+                            dataItem.data.push(value.endtagname);
+                            var ipTmp = value.ip.split('|');
+                            dataItem.data.push(ipTmp[1]);
+                            dataItem.data.push(value.state == "true" ? "正常" : "非正常");
+                            
+//                            dataItem.data.push(value.name); 
+//                            dataItem.data.push(value.manufacture);
+//                            dataItem.data.push(value.type);
+//                            dataItem.data.push(value.state);
+//                            dataItem.data.push(value.ip);
+//                            dataItem.data.push(value.state);
+                            
+                            
+
+                            dataInfo.rows.push(dataItem);
+
+                        });
+                        
+                        Grid9.parse(dataInfo,'json');
+                    }
+                });
                 dhxWin.window("win").setText("RTU对象");
                 dhxWin.attachEvent("onClose", function(win){
                     dhxWin.window("win").hide(); 
@@ -343,7 +394,92 @@
                 if(sd==0){createTabbar1();}
                 sd+=1;
             }
-            
+            function deviceOnload() {
+                var swfVersionStr = "11.1.0";
+                var xiSwfUrlStr = objUrl + "/static/gis/playerProductInstall.swf";
+                var flashvars = {};
+                var params = {};
+                params.quality = "high";
+                params.bgcolor = "#ffffff";
+                params.allowscriptaccess = "sameDomain";
+                params.allowfullscreen = "true";
+                params.wmode = "opaque"; // 注意这里，这里是关键部分
+                var attributes = {};
+                attributes.id = "devicemap";
+                attributes.name = "devicemap";
+                attributes.align = "middle";
+                swfobject.embedSWF(
+                        objUrl + "/static/gis/deviceMap.swf", "deviceContent",
+                        "100%", "100%",
+                        swfVersionStr, xiSwfUrlStr,
+                        flashvars, params, attributes);
+                swfobject.createCSS("#deviceContent", "display:block;text-align:left;");
+            //    solsmap = sols;
+            }
+            function deviceMapCompleteOver(){
+                $.ajax({
+                    type: 'POST',
+                    url: objUrl + '/devicepoint/list',
+                    dateType:'json',
+                    success: function(json){
+                        showDevicePointLine(json);
+                    }
+                });
+            }
+            function showDevicePointLine(data){
+                showDeviceLine(data);
+                showDevicePoint(data);
+            }
+            function showDevicePoint(data){
+                var shoplocationdata = [];
+                for(var i=0;i<data.length;i++){
+                    var value = data[i];
+                    var imgName = objUrl + '/static/img/rtu_img.jpg';
+                    if(data[i].devicetype == 'SJZX'){
+                        imgName = objUrl + '/static/img/sjzx_img.jpg';
+                    }else if(data[i].devicetype == 'JHJ'){
+                        imgName = objUrl + '/static/img/jhj_img.jpg';
+                    }
+                    var itemStr = '';
+                    itemStr += '{"geometry":{"x":' + value.x + ',"y":' + value.y + '},';
+                    itemStr += '"attributes":{"shopid":"' + value.id + "||" + value.code + '","shopname":"' + value.name + '","shoptype":"' + value.devicetype ;
+                    itemStr +='","picurl":"' + imgName + '"}';
+                    itemStr += '}';
+                    shoplocationdata.push(itemStr);
+                }
+                devicemap.swf_showShopLocation(shoplocationdata);
+                devicemap.swf_showShopTextLocation(shoplocationdata);
+            }
+            function showDeviceLine(data){
+                var color= 0x00ff00;
+                for(var i=0;i<data.length;i++){
+                    //判断无父不画线
+                    if(data[i].parent == 0){
+                        continue;
+                    }
+                    //画线
+                    var parentpoint = getPoint(data,data[i].parent);
+                    var orderLineDataStr= '{"paths":[[[' + data[i].x +  ',' + data[i].y +  '],[' + parentpoint.x +  ',' + parentpoint.y +  ']]],"attributes":{"lineId":"' + i +  '","info":"infomation","type":"orderLine"}}';
+                    devicemap.swf_drawOrderLine(orderLineDataStr,color);
+
+                }
+            }
+            function getPoint(data,id){
+                for(var i=0;i<data.length;i++){
+                    if(data[i].id == id){
+                        return data[i];
+                    }
+                }
+                return null;
+            }
+            function deviceMouseLeftDoubleClick(id,devicetype){
+                if(devicetype != "RTU"){
+                    return;
+                }
+                var wellInfo_Gis = id.split('||');
+                //alert("asfd");
+                rtu(wellInfo_Gis[1]);
+            }
         </script>
     </head>
     <body>
@@ -406,7 +542,7 @@
                             &nbsp;&nbsp;&nbsp;网&nbsp;&nbsp;&nbsp;络&nbsp;&nbsp;&nbsp;拓&nbsp;&nbsp;&nbsp;扑&nbsp;&nbsp;&nbsp;图
                         </div>
                         <div id="wltp" style="width:1270px; height:580px; background-color:#FFE0BB;border:solid; border-color:#e6d5ff; border-width:1px;  float:left" >
-                            <img src="${ctx}/static/img/wltpt.png" style="width:1270px; height:580px;" />
+                            <div id="deviceContent" style="width:1270px; height:580px;" ></div>
                         </div> 
                     </div>
                     <!--网络表格-->

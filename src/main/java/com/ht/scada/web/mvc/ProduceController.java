@@ -102,4 +102,41 @@ public class ProduceController {
         }
         return lstRusult;
     }
+    
+    @RequestMapping(value="deviceListbycode")
+    @ResponseBody
+    public List<Map> deviceListByCode(String code){
+        List<Map> lstSensor = new ArrayList<>();
+        EndTag loopEndTag = endTagService.getByCode(code);
+        AcquisitionDevice tmpDevice = loopEndTag.getDevice();
+        if(tmpDevice != null){
+            // 遍历传感器设备
+            
+            for(SensorDevice loopSensor:tmpDevice.getSensorDevices()){
+                HashMap mapSensor = new HashMap();
+                 // 设备ID
+                mapSensor.put("id", loopSensor.getId());
+                 // 设备名称
+                mapSensor.put("name", loopSensor.getName());
+                // 生产厂家
+                mapSensor.put("manufacture", loopSensor.getManufacture());
+                // 型号
+                mapSensor.put("type", loopSensor.getType());
+                // 序号
+                mapSensor.put("number", loopSensor.getNumber());
+                // 设备地址
+                mapSensor.put("address", loopSensor.getAddress());
+                // 井名
+                mapSensor.put("endtagname", loopEndTag.getName());
+                // IP地址
+                mapSensor.put("ip", tmpDevice.getChannel().getPortInfo());
+                // 通讯状态
+                mapSensor.put("state",realtimeDataService.getEndTagVarInfo(loopEndTag.getCode(), "cgq_rtu_status_" + loopSensor.getNickName()));
+
+                lstSensor.add(mapSensor);
+            }
+        }
+
+        return lstSensor;
+    }
 }

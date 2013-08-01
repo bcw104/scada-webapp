@@ -290,6 +290,7 @@ function mouseRightClick(id,code){
 }
 
 function mapServerUrl(){
+    
     //return "http://192.168.1.6:8399/arcgis/rest/services/zzidp/MapServer";
     return "http://www.arcgisonline.cn/ArcGIS/rest/services/ChinaCities_Community_BaseMap_CHN/jinan_Community_BaseMap_CHN/MapServer";
 }

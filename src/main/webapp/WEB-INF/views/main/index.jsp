@@ -74,6 +74,7 @@
         <div id="menu2" style="padding-left: 20px;padding-top: 5px;height:15px;"><a href="#" onclick="openTab(2,'修改密码','${ctx}/admin/user/pass')">修改密码</a></div>
         <div id="menu2" style="padding-left: 20px;padding-top: 5px;height:15px;"><a href="#" onclick="openTab(3,'角色管理','${ctx}/admin/role')">角色管理</a></div>
         <div id="menu2" style="padding-left: 20px;padding-top: 5px;height:15px;"><a href="#" onclick="openTab(4,'地图坐标','${ctx}/admin/map')">地图坐标</a></div>
+        <div id="menu2" style="padding-left: 20px;padding-top: 5px;height:15px;"><a href="#" onclick="openTab(5,'设备管理','${ctx}/admin/device')">设备管理</a></div>
         <!--<div id="menu2" style="padding-left: 20px;padding-top: 5px;height:15px;"><a href="#" onclick="openTab(4,'权限管理','${ctx}/admin/role/roleMenu')">权限管理</a></div>-->
     </div>
     <div id="head_div" style="float:left;width: 100%;height:83px;">
