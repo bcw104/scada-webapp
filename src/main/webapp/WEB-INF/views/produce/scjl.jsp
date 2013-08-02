@@ -282,25 +282,6 @@
                 });
             }
             
-            function createTabbar1(){
-                dhxTabbar1=new dhtmlXTabBar('gr2');
-                dhxTabbar1.setImagePath("${ctx}/static/dhtmlx/imgs/");
-                //dhxTabbar1.setSkin('modern');
-                dhxTabbar1.addTab("tab1", "工况监测历史", "120px");
-                dhxTabbar1.addTab("tab2", "报警信息历史记录", "150px");
-                dhxTabbar1.addTab("tab3", "故障诊断记录", "120px");
-                dhxTabbar1.addTab("tab4", "遥控记录", "100px");
-                dhxTabbar1.addTab("tab5", "遥调记录", "100px");
-                dhxTabbar1.addTab("tab6", "设备监测历史记录", "150px");
-                dhxTabbar1.setTabActive("tab1");
-                dhxTabbar1.cells("tab1").attachObject("bjxx");
-                dhxTabbar1.cells("tab2").attachObject("gkls");
-                dhxTabbar1.cells("tab3").attachObject("gzls");
-                dhxTabbar1.cells("tab4").attachObject("ykls");
-                dhxTabbar1.cells("tab5").attachObject("ytls");
-                dhxTabbar1.cells("tab6").attachObject("sbjcls");
-            }
-            
             function createWindows(){
                 dhxWins = new dhtmlXWindows();
                 dhxWins.attachViewportTo(document.body);
@@ -366,7 +347,6 @@
                 $(cdiv).addClass("s1");
                 $("#gr").css("display","block");
                 $("#gr1").css("display","none");
-                $("#gr2").css("display","none");
             }
             
             var i=0;
@@ -377,23 +357,11 @@
                 $(cdiv).addClass("s1");
                 $("#gr").css("display","none");
                 $("#gr1").css("display","block");
-                $("#gr2").css("display","none");
                 if(i==0){createTabble3();}
                 i+=1;
             }
             
             var sd=0;
-            function jk2(cdiv){
-                $(".cssdiv").removeClass("s1");
-                $(".cssdiv1").removeClass("s1");
-                $(".cssdiv3").removeClass("s1");
-                $(cdiv).addClass("s1");
-                $("#gr").css("display","none");
-                $("#gr1").css("display","none");
-                $("#gr2").css("display","block");
-                if(sd==0){createTabbar1();}
-                sd+=1;
-            }
             function deviceOnload() {
                 var swfVersionStr = "11.1.0";
                 var xiSwfUrlStr = objUrl + "/static/gis/playerProductInstall.swf";
@@ -523,8 +491,7 @@
                        &nbsp;&nbsp;设<br/>&nbsp;&nbsp;备<br/>&nbsp;&nbsp;监<br/>&nbsp;&nbsp;控<br/>&nbsp;&nbsp;管<br/>&nbsp;&nbsp;理
                     </div>
                     <!--生产运行历史记录-->
-                    <div id="scyx" class="cssdiv2" onclick="jk2(this);" style=" width:33px;cursor:pointer;  height:247px; background-color:#ffc8db; font-size:14px; line-height:30px; font-weight:bold; float:center;border-right-style:solid; border-right-color:#06F; border-right-width:1px;border-top-style:solid; border-top-color:#06F; border-top-width:1px;">
-                       &nbsp;&nbsp;生<br/>&nbsp;&nbsp;产<br/>&nbsp;&nbsp;运<br/>&nbsp;&nbsp;行<br/>&nbsp;&nbsp;历<br/>&nbsp;&nbsp;史<br/>&nbsp;&nbsp;记<br/>&nbsp;&nbsp;录
+                    <div id="scyx" class="cssdiv2" style=" width:33px;cursor:pointer;  height:247px; font-size:14px; line-height:30px; font-weight:bold; float:center;border-right-style:solid; border-right-color:#06F; border-right-width:1px;border-top-style:solid; border-top-color:#06F; border-top-width:1px;">
                     </div>
                 </div>
                 <!--报表信息Tabbar-->
@@ -566,220 +533,7 @@
                         </div>    
                         <div id="ysbscjc" style="width:1248px; height:558px"></div>
                     </div>
-                </div>
-                <!--生产运行历史记录Tabbar-->
-                <div id="gr2" style="width:1245px; height:602px;  float:left;display:none">
-                <!--工况监测历史记录-->
-                    <div id="bjxx" style="width:1245px; height:578px;overflow:scrol;border:solid; border-color:#e6d5ff; border-width:1px;">
-                        <div id="bjjl" style="width:40px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;&nbsp;队
-                        </div>
-                        <div id="bjj2" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfie1" id="textfie1" style=" height:13px; width:80px;"/>
-                        </div>		
-                        <div id="bjj3" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;井&nbsp;&nbsp;号
-                        </div>
-                        <div id="bjj4" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfie2" id="textfie2" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="bjj5" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;日&nbsp;&nbsp;期
-                        </div>
-                        <div id="bjj6" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfie4" id="textfie4" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="bjj8" style="width:20px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            ～
-                        </div>	
-                        <div id="bjj7" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfie5" id="textfie5" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="bjj9" style="width:17px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <img src="${ctx}/static/img/chaxun.png" style="cursor:pointer" />
-                        </div>	
-                        <div id="bjj10" style="width:665px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;查&nbsp;&nbsp;询
-                        </div>	
-                        <div id="bjgr" style="width:1245px; height:558px;  font-size:14px;line-height:25px;">	
-                        </div>
-                    </div>
-                    <!--报警信息历史记录-->
-                    <div id="gkls" style="width:1245px; height:578px;border:solid; border-color:#e6d5ff; border-width:1px; ">
-                        <div id="gklsjl" style="width:40px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;&nbsp;队
-                        </div>
-                        <div id="gklsj2" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiegg1" id="textfiegg1" style=" height:13px; width:80px;"/>
-                        </div>		
-                        <div id="gklsj3" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;井&nbsp;&nbsp;号
-                        </div>
-                        <div id="gklsj4" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfieg2" id="textfieg2" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="gklsj5" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;日&nbsp;&nbsp;期
-                        </div>
-                        <div id="gklsj6" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfieg4" id="textfieg4" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="gklsj8" style="width:20px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            ～
-                        </div>	
-                        <div id="gklsj7" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfieg5" id="textfieg5" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="gklsj9" style="width:17px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <img src="${ctx}/static/img/chaxun.png" style="cursor:pointer" />
-                        </div>	
-                        <div id="gklsj10" style="width:665px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;查&nbsp;&nbsp;询
-                        </div>
-                        <div id="gkljlgr" style="width:1245px; height:558px;  font-size:14px;line-height:25px;">	
-                        </div>
-                    </div>
-                    <!--故障诊断历史记录-->
-                    <div id="gzls" style="width:1245px; height:578px;border:solid; border-color:#e6d5ff; border-width:1px;">
-                        <div id="gzlsjl" style="width:40px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;&nbsp;队
-                        </div>
-                        <div id="gzlsj2" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiegs1" id="textfiegs1" style=" height:13px; width:80px;"/>
-                        </div>		
-                        <div id="gzlsj3" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;井&nbsp;&nbsp;号
-                        </div>
-                        <div id="gzlsj4" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiegs2" id="textfiegs2" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="gzlsj5" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;日&nbsp;&nbsp;期
-                        </div>
-                        <div id="gzlsj6" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiegs4" id="textfiegs4" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="gzlsj8" style="width:20px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            ～
-                        </div>	
-                        <div id="gzlsj7" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiegs5" id="textfiegs5" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="gzlsj9" style="width:17px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <img src="${ctx}/static/img/chaxun.png" style="cursor:pointer" />
-                        </div>	
-                        <div id="gzlsj10" style="width:665px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;查&nbsp;&nbsp;询
-                        </div>	
-                        <div id="gzgr" style="width:1245px; height:558px;  font-size:14px; line-height:25px;">	
-                        </div>
-                    </div>
-                    <!--遥控历史记录-->
-                    <div id="ykls" style="width:1245px; height:578px;border:solid; border-color:#e6d5ff; border-width:1px; ">
-                        <div id="ykjl" style="width:40px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;&nbsp;队
-                        </div>
-                        <div id="ykj2" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiey1" id="textfiey1" style=" height:13px; width:80px;"/>
-                        </div>		
-                        <div id="ykj3" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;井&nbsp;&nbsp;号
-                        </div>
-                        <div id="ykj4" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiey2" id="textfiey2" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="ykj5" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;日&nbsp;&nbsp;期
-                        </div>
-                        <div id="ykj6" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiey4" id="textfiey4" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="ykj8" style="width:20px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            ～
-                        </div>	
-                        <div id="ykj7" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiey5" id="textfiey5" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="ykj9" style="width:17px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <img src="${ctx}/static/img/chaxun.png" style="cursor:pointer" />
-                        </div>	
-                        <div id="ykj10" style="width:665px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;查&nbsp;&nbsp;询
-                        </div>	
-                        <div id="ykgr" style="width:1245px; height:558px;font-size:14px;line-height:25px;">	
-                        </div>
-                    </div>
-                    <!--遥调历史记录-->
-                    <div id="ytls" style="width:1245px; height:578px;border:solid; border-color:#e6d5ff; border-width:1px;">
-                        <div id="ytjl" style="width:40px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;&nbsp;队
-                        </div>
-                        <div id="ytj2" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiet1" id="textfiet1" style=" height:13px; width:80px;"/>
-                        </div>		
-                        <div id="ytj3" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;井&nbsp;&nbsp;号
-                        </div>
-                        <div id="ytj4" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiet2" id="textfiet2" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="ytj5" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;日&nbsp;&nbsp;期
-                        </div>
-                        <div id="ytj6" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiet4" id="textfiet4" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="ytj8" style="width:20px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            ～
-                        </div>	
-                        <div id="ytj7" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfiet5" id="textfiet5" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="ytj9" style="width:17px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <img src="${ctx}/static/img/chaxun.png" style="cursor:pointer" />
-                        </div>	
-                        <div id="ytj10" style="width:665px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;查&nbsp;&nbsp;询
-                        </div>	
-                        <div id="ytgr" style="width:1245px; height:558px;font-size:14px;line-height:25px;">	
-                        </div>
-                    </div>
-                    <!--设备监测历史记录-->
-                    <div id="sbjcls" style="width:1245px; height:578px;border:solid; border-color:#e6d5ff; border-width:1px;">
-                        <div id="sbjclsjl" style="width:40px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;&nbsp;队
-                        </div>
-                        <div id="sbjclsj2" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfies1" id="textfies1" style=" height:13px; width:80px;"/>
-                        </div>		
-                        <div id="sbjclsj3" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;井&nbsp;&nbsp;号
-                        </div>
-                        <div id="sbjclsj4" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfies2" id="textfies2" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="sbjclsj5" style="width:60px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;日&nbsp;&nbsp;期
-                        </div>
-                        <div id="sbjclsj6" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfies4" id="textfies4" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="sbjclsj8" style="width:20px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            ～
-                        </div>	
-                        <div id="sbjclsj7" style="width:90px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <input type="text" name="textfies5" id="textfies5" style=" height:13px; width:80px;"/>
-                        </div>	
-                        <div id="sbjclsj9" style="width:17px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            <img src="${ctx}/static/img/chaxun.png" style="cursor:pointer" />
-                        </div>	
-                        <div id="sbjclsj10" style="width:665px;height:19px;line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            &nbsp;&nbsp;查&nbsp;&nbsp;询
-                        </div>	
-                        <div id="sbjclsjlgr" style="width:1245px; height:558px; font-size:14px;line-height:25px;">	
-                        </div>
-                    </div>
-                </div>   
+                </div>                   
             </div>
             <!--地图-->
             <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;">

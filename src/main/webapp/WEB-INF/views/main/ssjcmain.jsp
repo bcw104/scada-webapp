@@ -957,7 +957,7 @@
                             options1.xAxis.max = Math.ceil(weiyiTmp1);
                             options1.xAxis.title.text = dateTmp.getFullYear() + "-" + (dateTmp.getMonth() + 1) + "-" 
                                     + dateTmp.getDate() + " " + dateTmp.getHours() + ":" + dateTmp.getMinutes();
-                            options1.yAxis.title.text = '示&nbsp;&nbsp;功&nbsp;&nbsp;图';
+                            options1.yAxis.title.text = '示功图';
                             options1.series.push(series);
                             new Highcharts.Chart(options1);  
                             
@@ -1657,43 +1657,43 @@
                                 </table>
                             </div>
                            <div id="gtc1" onclick="showGtqx('maxZaihe', '最大载荷');" style="cursor:hand; width:210px;line-height:25px; height:25px; font-size:14px;float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px " >
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp最大载荷(KN)：<span id="maxZaihe"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;最大载荷(KN)：<span id="maxZaihe"></span>
                             </div>
                             <div id="gtc2" onclick="showGtqx('minZaihe', '最小载荷');" style="cursor:hand; width:210px; line-height:25px;height:25px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px;font-size:14px ">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp最小载荷(KN)：<span id="minZaihe"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;最小载荷(KN)：<span id="minZaihe"></span>
                             </div>
                             <div id="gtc3" onclick="showGtqx('bengXiao', '泵效');" style="cursor:hand; width:208px; line-height:25px;height:25px;font-size:14px; float:left">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;泵效：<span id="bengXiao"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;泵效：<span id="bengXiao"></span>
                             </div>
                             <div id="gtc4" onclick="showGtqx('shangChongChengTime', '上冲程时间');" style="cursor:hand; width:210px; line-height:25px;height:25px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px;font-size:14px; background-color:#deeeff ">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp上冲程时间(s)：<span id="shangChongChengTime"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;上冲程时间(s)：<span id="shangChongChengTime"></span>
                             </div>
                             <div id="gtc5" onclick="showGtqx('xiaChongChengTime', '下冲程时间');" style="cursor:hand; width:210px; height:25px; line-height:25px;float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px;font-size:14px; background-color:#deeeff " >
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp下冲程时间(s)：<span id="xiaChongChengTime"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;下冲程时间(s)：<span id="xiaChongChengTime"></span>
                             </div>
                             <div id="gtc6" onclick="showGtqx('chongCi', '冲次');" style="cursor:hand; width:208px;line-height:25px; font-size:14px;height:25px; float:left; background-color:#deeeff" >
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp冲次(min<SUP>-1</SUP>)：<span id="chongCi"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;冲次(min<SUP>-1</SUP>)：<span id="chongCi"></span>
                             </div>
                             <div id="gtc7" onclick="showGtqx('nenghaoShang', '上冲程能耗');" style="cursor:hand; width:210px; line-height:25px;height:25px;font-size:14px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px " >
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp上冲程能耗(kWh)：<span id="nenghaoShang"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;上冲程能耗(kWh)：<span id="nenghaoShang"></span>
                             </div>
                             <div id="gtc8" onclick="showGtqx('nenghaoXia', '下冲程能耗');" style="cursor:hand; width:210px;line-height:25px;font-size:14px; height:25px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px ">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp下冲程能耗(kWh)：<span id="nenghaoXia"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;下冲程能耗(kWh)：<span id="nenghaoXia"></span>
                             </div>
                             <div id="gtc9" onclick="showGtqx('pingHengDu', '平衡度');" style="cursor:hand; width:208px;line-height:25px; font-size:14px;height:25px; float:left" >
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp平衡度：<span id="pingHengDu"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;平衡度：<span id="pingHengDu"></span>
                             </div>
                             <div id="gtc10" onclick="showGtqx('riHaoDian', '单井日耗电量');" style="cursor:hand; width:210px;line-height:25px;font-size:14px; height:25px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px ; background-color:#deeeff">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp单井日耗电量(kWh)：<span id="riHaoDian"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;日耗电量(kWh)：<span id="riHaoDian"></span>
                             </div>
                             <div id="gtc11" onclick="showGtqx('dianBiaoNum', '当前电表数');" style="cursor:hand; width:210px;line-height:25px; font-size:14px;height:25px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px; background-color:#deeeff " >
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp当前电表数：<span id="dianBiaoNum"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;当前电表数：<span id="dianBiaoNum"></span>
                             </div>
                             <div id="gtc12" onclick="showGtqx('chanYeLiang', '产液量');" style="cursor:hand; width:208px; font-size:14px;line-height:25px;height:25px; float:left; background-color:#deeeff" >
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp产液量(t/d)：<span id="chanYeLiang"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;产液量(t/d)：<span id="chanYeLiang"></span>
                             </div>
                             <div id="gtc13" style="width:210px; font-size:14px;line-height:25px;height:30px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px ">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;诊断：<span id="falutDiagnoseInfo"></span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;诊断：<span id="falutDiagnoseInfo"></span>
                             </div>
                             <div id="gtc14" style="width:210px;line-height:25px; height:30px; float:left; border-right:solid; border-right-color:#C4E1FF; border-right-width:1px " >
                             </div>

@@ -285,7 +285,7 @@
                                     
                                     selMajorTagData_qx = ',';
                                     createQx_kjs(0, '油井开井数', 'container', 
-                                        '油&nbsp;&nbsp;井&nbsp;&nbsp;开&nbsp;&nbsp;井&nbsp;&nbsp;数', 
+                                        '油井开井数', 
                                         '${ctx}/performance/getOilProductDataList_kjs');  
                                 }
                             });
@@ -2200,7 +2200,7 @@
                         case 'cyl_0' :
                             $("#container1").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                            createQx_oil(0, '油井产油量', 'container1', '油井产油量', 
                                 '${ctx}/performance/getOilProductDataList', 't');
                             $("#radio_" + treeNode.children[0].id).attr("checked", false);
                             break;
@@ -2208,7 +2208,7 @@
                         case 'cyel_0' :
                             $("#container2").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                            createQx_oil(0, '油井产液量', 'container2', '油井产液量', 
                                 '${ctx}/performance/getOilProductDataList_liquid', 'm³');
                             $("#radio_" + treeNode.children[0].id).attr("checked", false);
                             break;
@@ -2220,7 +2220,7 @@
                         case 'yjydl_0' :
                             $("#container4").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                            createQx_oil(0, '油井用电量', 'container4', '油井用电量', 
                                 '${ctx}/performance/getOilProductDataList_ydl', 'kWh');  
                             $("#radio_" + treeNode.children[0].id).attr("checked", false);
                             break;
@@ -2228,49 +2228,49 @@
                         case 'yjzql_0' :
                             $("#container5").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井注气量', 'container5', '油&nbsp;&nbsp;井&nbsp;&nbsp;注&nbsp;&nbsp;气&nbsp;&nbsp;量', 
+                            createQx_oil(0, '油井注气量', 'container5', '油井注气量', 
                                 '${ctx}/performance/getOilProductDataList_zql', 'm³');
                             break;
                         //注水量
                         case 'zsl_0' :
                             $("#container6").css("display","block");                            
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '油井注水量', 'container6', '油&nbsp;&nbsp;井&nbsp;&nbsp;注&nbsp;&nbsp;水&nbsp;&nbsp;量', 
+                            createQx_oil(0, '油井注水量', 'container6', '油井注水量', 
                                 '${ctx}/performance/getOilProductDataList_zsl', 'm³');
                             break;
                         //总用电量
                         case 'zydl_0' :
                             $("#container7").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil(0, '总用电量', 'container7', '总&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                            createQx_oil(0, '总用电量', 'container7', '总用电量', 
                                 '${ctx}/performance/getOilProductDataList_zydl', 'kWh');
                             break;
                         //单井平均产量
                         case 'djpjcl_0' :
                             $("#container8").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil_pj(0, '单井平均产量', 'container8', '单&nbsp;&nbsp;井&nbsp;&nbsp;平&nbsp;&nbsp;均&nbsp;&nbsp;产&nbsp;&nbsp;量', 
+                            createQx_oil_pj(0, '单井平均产量', 'container8', '单井平均产量', 
                                 '${ctx}/performance/getOilProductDataList', 't');
                             break;
                         //平均含水量
                         case 'pjhsl_0' :
                             $("#container9").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_oil_pj(0, '平均含水量', 'container9', '平&nbsp;&nbsp;均&nbsp;&nbsp;含&nbsp;&nbsp;水&nbsp;&nbsp;量', 
+                            createQx_oil_pj(0, '平均含水量', 'container9', '平均含水量', 
                                 '${ctx}/performance/getOilProductDataList_hsl', '%');
                             break;	
                         //油井井数			
                         case 'yjzjs_0' :
                             $("#container10").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_kjs(0, '油井总井数', 'container10', '油&nbsp;&nbsp;井&nbsp;&nbsp;总&nbsp;&nbsp;井&nbsp;&nbsp;数', 
+                            createQx_kjs(0, '油井总井数', 'container10', '油井总井数', 
                                 '${ctx}/performance/getOilProductDataList_zjs');
                             break;	
                         //水井开井数			
                         case 'yjkjs_0' :
                             $("#container11").css("display","block");
                             selMajorTagData_qx = ',';
-                            createQx_kjs(0, '水井开井数', 'container11', '水&nbsp;&nbsp;井&nbsp;&nbsp;开&nbsp;&nbsp;井&nbsp;&nbsp;数', 
+                            createQx_kjs(0, '水井开井数', 'container11', '水井开井数', 
                                 '${ctx}/performance/getOilProductDataList_sjkjs');
                             break;	
                     }                        
@@ -2390,13 +2390,13 @@
                             //产油量
                             case 'cyl' : 
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                                createQx_oil(trId[1], '油井产油量', 'container1', '油井产油量', 
                                     '${ctx}/performance/getOilProductDataList', 't');
                                 break;
                             //产液量
                             case 'cyel' : 
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                                createQx_oil(trId[1], '油井产液量', 'container2', '油井产液量', 
                                     '${ctx}/performance/getOilProductDataList_liquid', 'm³');
                                 break;
                             //产气量
@@ -2405,7 +2405,7 @@
                             //油井用电量
                             case 'yjydl' :
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                createQx_oil(trId[1], '油井用电量', 'container4', '油井用电量', 
                                     '${ctx}/performance/getOilProductDataList_ydl', 'kWh');
                                 break;
                             //油井注气量
@@ -2436,22 +2436,22 @@
                             //产油量
                             case 'cyl' : 
                                 if(trId[1] == 'yj'){
-                                    createQxForWell_oil(trId[2], '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                                    createQxForWell_oil(trId[2], '油井产油量', 'container1', '油井产油量', 
                                         '${ctx}/performance/getOilProductDataList', 't');  
                                 }else{
                                     selMajorTagData_qx = ',';
-                                    createQx_oil(trId[1], '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                                    createQx_oil(trId[1], '油井产油量', 'container1', '油井产油量', 
                                         '${ctx}/performance/getOilProductDataList', 't');
                                 }
                                 break;
                             //产液量
                             case 'cyel' : 
                                 if(trId[1] == 'yj'){
-                                    createQxForWell_oil(trId[2], '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                                    createQxForWell_oil(trId[2], '油井产液量', 'container2', '油井产液量', 
                                         '${ctx}/performance/getOilProductDataList_liquid', 'm³');  
                                 }else{
                                     selMajorTagData_qx = ',';
-                                    createQx_oil(trId[1], '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                                    createQx_oil(trId[1], '油井产液量', 'container2', '油井产液量', 
                                         '${ctx}/performance/getOilProductDataList_liquid', 'm³');
                                 }
                                 break;
@@ -2461,11 +2461,11 @@
                             //油井用电量
                             case 'yjydl' :  
                                 if(trId[1] == 'yj'){
-                                    createQxForWell_oil(trId[2], '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                    createQxForWell_oil(trId[2], '油井用电量', 'container4', '油井用电量', 
                                         '${ctx}/performance/getOilProductDataList_ydl', 'kWh');  
                                 }else{
                                     selMajorTagData_qx = ',';
-                                    createQx_oil(trId[1], '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                    createQx_oil(trId[1], '油井用电量', 'container4', '油井用电量', 
                                         '${ctx}/performance/getOilProductDataList_ydl', 'kWh');
                                 }
                                 break;
@@ -2497,11 +2497,11 @@
                         //产油量
                         case 'cyl' : 
                             if(trId[1] == 'yj'){
-                                createQxForWell_oil(trId[2], '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                                createQxForWell_oil(trId[2], '油井产油量', 'container1', '油井产油量', 
                                         '${ctx}/performance/getOilProductDataList', 't');
                             }else{
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产油量', 'container1', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;油&nbsp;&nbsp;量', 
+                                createQx_oil(trId[1], '油井产油量', 'container1', '油井产油量', 
                                         '${ctx}/performance/getOilProductDataList', 't');
                             }
                             
@@ -2512,11 +2512,11 @@
                         //产液量
                         case 'cyel' : 
                             if(trId[1] == 'yj'){
-                                createQxForWell_oil(trId[2], '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                                createQxForWell_oil(trId[2], '油井产液量', 'container2', '油井产液量', 
                                         '${ctx}/performance/getOilProductDataList_liquid', 'm³');
                             }else{
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井产液量', 'container2', '油&nbsp;&nbsp;井&nbsp;&nbsp;产&nbsp;&nbsp;液&nbsp;&nbsp;量', 
+                                createQx_oil(trId[1], '油井产液量', 'container2', '油井产液量', 
                                         '${ctx}/performance/getOilProductDataList_liquid', 'm³');
                             }
                             if(checkedRadio!=null){
@@ -2529,11 +2529,11 @@
                         //油井用电量
                         case 'yjydl' : 
                             if(trId[1] == 'yj'){
-                                createQxForWell_oil(trId[2], '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                createQxForWell_oil(trId[2], '油井用电量', 'container4', '油井用电量', 
                                     '${ctx}/performance/getOilProductDataList_ydl', 'kWh');  
                            }else{
                                 selMajorTagData_qx = ',';
-                                createQx_oil(trId[1], '油井用电量', 'container4', '油&nbsp;&nbsp;井&nbsp;&nbsp;用&nbsp;&nbsp;电&nbsp;&nbsp;量', 
+                                createQx_oil(trId[1], '油井用电量', 'container4', '油井用电量', 
                                     '${ctx}/performance/getOilProductDataList_ydl', 'kWh');
                            }
                            if(checkedRadio!=null){
@@ -2633,7 +2633,7 @@
                         
                         selMajorTagData_qx = ',';
                         createQx_kjs(0, '油井开井数', 'container', 
-                            '油&nbsp;&nbsp;井&nbsp;&nbsp;开&nbsp;&nbsp;井&nbsp;&nbsp;数', 
+                            '油井开井数', 
                             '${ctx}/performance/getOilProductDataList_kjs');  
                     }
                 });
