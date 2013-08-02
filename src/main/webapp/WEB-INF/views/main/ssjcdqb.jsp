@@ -22,6 +22,7 @@
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.comet.js"></script>
         <script type="text/javascript" src="${ctx}/static/js/util.js"></script>
+        <script type="text/javascript" src="${ctx}/static/js/math.js"></script>
         <script type="text/javascript" src="${ctx}/static/application.js"></script>
         <script type="text/javascript" src="${ctx}/static/gis/swfobject.js"></script>
         <script type="text/javascript" src="${ctx}/static/gis/gis.js"></script>
@@ -142,7 +143,7 @@
                                 }else if(value.value == 'true'){
                                     youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/lse.png"/>');
                                 }else{
-                                    youjingItem.data.push(value.name + '：' + value.value);
+                                    youjingItem.data.push(value.name + '：' + formatNumber(value.value, 2));
                                 }
                                 youjingData.rows.push(youjingItem);
                             }
@@ -301,7 +302,7 @@
 
                             if(strDqTitle.indexOf(',' + value.key + ',') >= 0){
                                         
-                                $("#dq_" + value.key).html(value.value);
+                                $("#dq_" + value.key).html(formatNumber(value.value, 2));
                             }
                         });
                         
@@ -386,9 +387,9 @@
                             }else{
                                 dataItem.data.push('${ctx}/static/img/lse.png');
                             }
-                            dataItem.data.push(value.cgq_rtu_time);
-                            dataItem.data.push(value.cgq_remained_time);
-                            dataItem.data.push(value.cgq_remained_dianliang);                                    
+                            dataItem.data.push(formatNumber(value.cgq_rtu_time, 2));
+                            dataItem.data.push(formatNumber(value.cgq_remained_time, 2));
+                            dataItem.data.push(formatNumber(value.cgq_remained_dianliang, 2));                                    
                                     
                             if(value.cgq_rtu_status == 'false'){
                                 dataItem.data.push('${ctx}/static/img/hongse.png');

@@ -124,7 +124,7 @@
                 lgbgr1=new dhtmlXGridObject('lgbdq1');
                 lgbgr1.setImagePath("js/gridcodebase/imgs/");
                 lgbgr1.setHeader(["电力"]);
-                lgbgr1.setInitWidths("420");
+                lgbgr1.setInitWidths("*");
                 lgbgr1.setColAlign("left");
                 lgbgr1.setColTypes("ro");
                 lgbgr1.init();
@@ -143,7 +143,7 @@
                                 var dataItem = new Object();
                                 dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
                                 dataItem.data = [];
-                                dataItem.data.push(value.name + '：' + value.value);
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
 
                                 dataInfo.rows.push(dataItem);
                         });
@@ -197,7 +197,7 @@
                 lgbgr2=new dhtmlXGridObject('lgbdq2');
                 lgbgr2.setImagePath("js/gridcodebase/imgs/");
                 lgbgr2.setHeader(["电量"]);
-                lgbgr2.setInitWidths("420");
+                lgbgr2.setInitWidths("*");
                 lgbgr2.setColAlign("left");
                 lgbgr2.setColTypes("ro");
                 lgbgr2.init();
@@ -217,7 +217,7 @@
                             var dataItem = new Object();
                                 dataItem.id = value.key + '||' + value.name + '||DIAN_YM';
                                 dataItem.data = [];
-                                dataItem.data.push(value.name + '：' + value.value);
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
 
                                 dataInfo.rows.push(dataItem);
                         });
@@ -258,7 +258,7 @@
                            var dataItem = new Object();
                                 dataItem.id = value.key + '||' + value.name + '||DIAN_XB';
                                 dataItem.data = [];
-                                dataItem.data.push(value.name + '：' + value.value);
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
 
                                 dataInfo.rows.push(dataItem);
                                 }
@@ -370,7 +370,7 @@
                                 }else if(value.value == 'true'){
                                     youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/lse.png"/>');
                                 }else{
-                                    youjingItem.data.push(value.name + '：' + value.value);
+                                    youjingItem.data.push(value.name + '：' + formatNumber(value.value, 2));
                                 }
                                 youjingData.rows.push(youjingItem);
                             }
@@ -527,7 +527,7 @@
 
                             if(strDqTitle.indexOf(',' + value.key + ',') >= 0){
                                         
-                                $("#dq_" + value.key).html(value.value);
+                                $("#dq_" + value.key).html(formatNumber(value.value, 2));
                             }
                         });
                     }
@@ -577,9 +577,9 @@
                             }else{
                                 dataItem.data.push('${ctx}/static/img/lse.png');
                             }                               
-                            dataItem.data.push(value.cgq_rtu_time);
-                            dataItem.data.push(value.cgq_remained_time);
-                            dataItem.data.push(value.cgq_remained_dianliang);                                    
+                            dataItem.data.push(formatNumber(value.cgq_rtu_time, 2));
+                            dataItem.data.push(formatNumber(value.cgq_remained_time, 2));
+                            dataItem.data.push(formatNumber(value.cgq_remained_dianliang, 2));                                    
                                     
                             if(value.cgq_rtu_status == 'false'){
                                 dataItem.data.push('${ctx}/static/img/hongse.png');

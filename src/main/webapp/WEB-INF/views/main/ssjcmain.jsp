@@ -96,15 +96,7 @@
                 // 设置井基本信息
                 createXinxi();
                 
-//                // 示功图
-//                createSg('${info.code}');
-//                // 电流曲线
-//                createDl('${info.code}');
-//                // 功率曲线
-//                createDg('${info.code}');
-//                // 有功功率曲线
-//                createYggl('${info.code}');
-                
+                // 示功图 电流曲线 功率曲线 有功功率曲线
                 createAllQx('${info.code}');
                 
                 // 功图对比查询框生成
@@ -664,9 +656,9 @@
                             }else{
                                 dataItem.data.push('${ctx}/static/img/lse.png');
                             }                                  
-                            dataItem.data.push(value.cgq_rtu_time);
-                            dataItem.data.push(value.cgq_remained_time);
-                            dataItem.data.push(value.cgq_remained_dianliang);                                    
+                            dataItem.data.push(formatNumber(value.cgq_rtu_time, 2));
+                            dataItem.data.push(formatNumber(value.cgq_remained_time, 2));
+                            dataItem.data.push(formatNumber(value.cgq_remained_dianliang, 2));                                    
                                     
                             if(value.cgq_rtu_status == 'false'){
                                 dataItem.data.push('${ctx}/static/img/hongse.png');
@@ -784,14 +776,7 @@
             * @returns {undefined}             
             * */
             function run1(){
-//                // 示功图
-//                createSg('${info.code}');
-//                // 电流曲线
-//                createDl('${info.code}');
-//                // 电功图
-//                createDg('${info.code}');
-//                // 有功功率曲线
-//                createYggl('${info.code}');
+                // 示功图 电流曲线 电功图 有功功率曲线
                 createAllQx('${info.code}');
             }
             

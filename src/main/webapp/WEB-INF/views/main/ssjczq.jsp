@@ -69,9 +69,9 @@
 
                 // 注气参数
                 createGrid();
-                //工况信息
+                // 工况信息
                 createzqGr();
-                //电气参数
+                // 电气参数
                 createzqdqGr();
                 createzqdqGr1();
                 createzqdqGr2();
@@ -196,19 +196,19 @@
                             switch(value.key){
                             
                                 case 'zc_zqll_sh':
-                                    youjingItem.data[0] = value.value;
+                                    youjingItem.data[0] = formatNumber(value.value, 2);
                                     break;
                                 case 'zc_zqll_lj':
-                                    youjingItem.data[1] = value.value;
+                                    youjingItem.data[1] = formatNumber(value.value, 2);
                                     break;
                                 case 'zc_zqyl':
-                                    youjingItem.data[2] = value.value;
+                                    youjingItem.data[2] = formatNumber(value.value, 2);
                                     break;
                                 case 'zc_zqwd':
-                                    youjingItem.data[3] = value.value;
+                                    youjingItem.data[3] = formatNumber(value.value, 2);
                                     break;
                                 case 'zc_zqgd':
-                                    youjingItem.data[4] = value.value;
+                                    youjingItem.data[4] = formatNumber(value.value, 2);
                                     break;
                             }                        
                         });
@@ -317,7 +317,7 @@
                                 }else if(value.value == 'true'){
                                     youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/lse.png"/>');
                                 }else{
-                                    youjingItem.data.push(value.name + '：' + value.value);
+                                    youjingItem.data.push(value.name + '：' + formatNumber(value.value, 2));
                                 }
                                 youjingData.rows.push(youjingItem);
                             }
@@ -357,7 +357,7 @@
                             var dataItem = new Object();
                                 dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
                                 dataItem.data = [];
-                                dataItem.data.push(value.name + '：' + value.value);
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
 
                                 dataInfo.rows.push(dataItem);
                         });
@@ -396,7 +396,7 @@
                             var dataItem = new Object();
                                 dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
                                 dataItem.data = [];
-                                dataItem.data.push(value.name + '：' + value.value);
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
 
                                 dataInfo.rows.push(dataItem);
                         });
@@ -483,7 +483,7 @@
                             var dataItem = new Object();
                                 dataItem.id = value.key + '||' + value.name + '||DIAN_XB';
                                 dataItem.data = [];
-                                dataItem.data.push(value.name + '：' + value.value);
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
 
                                 dataInfo.rows.push(dataItem);
                                 }

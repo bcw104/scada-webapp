@@ -113,7 +113,7 @@
                                 }else if(value.value == 'true'){
                                     youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/lse.png"/>');
                                 }else{
-                                    youjingItem.data.push(value.name + '：' + value.value);
+                                    youjingItem.data.push(value.name + '：' + formatNumber(value.value, 2));
                                 }
                                 youjingData.rows.push(youjingItem);
                             }
@@ -185,7 +185,7 @@
                              var dataItem = new Object();
                                 dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
                                 dataItem.data = [];
-                                dataItem.data.push(value.name + '：' + value.value);
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
 
                                 dataInfo.rows.push(dataItem);
                         });
@@ -256,7 +256,7 @@
                            var dataItem = new Object();
                                 dataItem.id = value.key + '||' + value.name + '||DIAN_YM';
                                 dataItem.data = [];
-                                dataItem.data.push(value.name + '：' + value.value);
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
 
                                 dataInfo.rows.push(dataItem);
                         });
@@ -296,7 +296,7 @@
                            var dataItem = new Object();
                                 dataItem.id = value.key + '||' + value.name + '||DIAN_XB';
                                 dataItem.data = [];
-                                dataItem.data.push(value.name + '：' + value.value);
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
 
                                 dataInfo.rows.push(dataItem);
                                 }
