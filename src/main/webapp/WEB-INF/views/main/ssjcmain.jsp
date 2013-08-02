@@ -96,14 +96,17 @@
                 // 设置井基本信息
                 createXinxi();
                 
-                // 示功图
-                createSg('${info.code}');
-                // 电流曲线
-                createDl('${info.code}');
-                // 功率曲线
-                createDg('${info.code}');
-                // 有功功率曲线
-                createYggl('${info.code}');
+//                // 示功图
+//                createSg('${info.code}');
+//                // 电流曲线
+//                createDl('${info.code}');
+//                // 功率曲线
+//                createDg('${info.code}');
+//                // 有功功率曲线
+//                createYggl('${info.code}');
+                
+                createAllQx('${info.code}');
+                
                 // 功图对比查询框生成
                 createWin();
                 // 电气参数（电力）
@@ -781,14 +784,15 @@
             * @returns {undefined}             
             * */
             function run1(){
-                // 示功图
-                createSg('${info.code}');
-                // 电流曲线
-                createDl('${info.code}');
-                // 电功图
-                createDg('${info.code}');
-                // 有功功率曲线
-                createYggl('${info.code}');
+//                // 示功图
+//                createSg('${info.code}');
+//                // 电流曲线
+//                createDl('${info.code}');
+//                // 电功图
+//                createDg('${info.code}');
+//                // 有功功率曲线
+//                createYggl('${info.code}');
+                createAllQx('${info.code}');
             }
             
             /**

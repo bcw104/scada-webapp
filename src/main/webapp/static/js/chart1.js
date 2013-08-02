@@ -257,3 +257,134 @@ function createYggl(p_code,p_data) {
         }
     });
 }
+
+/**
+ * 创建全部曲线
+ * @param {type} p_code
+ * @returns {undefined}
+ */
+function createAllQx(p_code,p_data) {
+    
+    // 载荷，示功图横坐标
+    var str_yAxis_sg = [];
+    // 载荷，电流曲线横坐标
+    var str_yAxis_dl = [];
+    // 载荷，功率曲线横坐标
+    var str_yAxis_dg = [];
+    // 载荷，有功功率曲线横坐标
+    var str_yAxis_yg = [];
+    // 位移，纵坐标
+    var str_xAxis = [];
+
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/realtime/welldata',
+        data:{code:p_code,data:p_data},
+        dateType:'json',
+        success: function(json){
+
+            var series = { 
+                data: []            
+            };            
+            
+            $.each(json, function(key, value) {   
+                
+                if(key == 'zaihe'){                    
+                    str_yAxis_sg = value;
+                }else if(key == 'weiyi'){
+                    str_xAxis = value;                    
+                }else if($("#" + key).length > 0){
+                    
+                    $("#" + key).html(value);
+                    
+                    if($("#" + key + "_fu").length > 0){                    
+                        $("#" + key + "_fu").html(value);
+                    }     
+                }          
+            });   
+            
+            if (typeof(flag_sel)!="undefined"){
+                initTab1();
+            }
+            
+            $.ajax({
+                type: 'POST',
+                url: objUrl + '/realtime/welldgtdata',
+                data:{code:p_code,data:p_data},
+                dateType:'json',
+                success: function(json){
+                    
+                    $.each(json, function(key, value) { 
+                        if(key == 'power_factor'){
+                            str_yAxis_yg = value; 
+                        }else if(key == 'power'){
+                            str_yAxis_dg = value;
+                        }else if(key == 'ib'){                    
+                            str_yAxis_dl = value;
+                        }else if(key == 'weiyi'){
+                            str_xAxis = value;                    
+                        }
+                    });
+                    
+                    var weiyiTmp = 0;
+                    options.series = [];
+                    series.name = '示功图';
+                    series.unit = 'm';
+                    series.data = [];
+                    for (var i=0; i<str_xAxis.length; i++){
+
+                        if((Number(str_xAxis[i])) > weiyiTmp){
+                            weiyiTmp = str_xAxis[i];
+                        }
+
+                        series.data.push([str_xAxis[i], str_yAxis_sg[i]]);
+                    }
+                    options.chart.renderTo = 'containerr';
+                    options.xAxis.max = Math.ceil(weiyiTmp);
+                    options.yAxis.title.text = '示功图';
+                    options.series.push(series);
+                    new Highcharts.Chart(options);
+
+                    options.series = [];
+                    series.name = '电流曲线';
+                    series.unit = 'm';
+                    series.data = [];
+                    for (var i=0; i<str_xAxis.length; i++){
+                        series.data.push([str_xAxis[i], str_yAxis_dl[i]]);
+                    }
+                    options.chart.renderTo = 'containerr1';
+                    options.xAxis.max = Math.ceil(weiyiTmp);
+                    options.yAxis.title.text = '电流曲线';
+                    options.series.push(series);
+                    new Highcharts.Chart(options);
+
+                    options.series = [];
+                    series.name = '功率曲线';
+                    series.unit = 'm';
+                    series.data = [];
+                    for (var i=0; i<str_xAxis.length; i++){
+                        series.data.push([str_xAxis[i], str_yAxis_dg[i]]);
+                    }
+                    options.chart.renderTo = 'containerr2';
+                    options.xAxis.max = Math.ceil(weiyiTmp);
+                    options.yAxis.title.text = '功率曲线';
+                    options.series.push(series);
+                    new Highcharts.Chart(options);
+
+                    options.series = [];
+                    series.name = '功率因数曲线';
+                    series.unit = 'm';
+                    series.data = [];
+                    for (var i=0; i<str_xAxis.length; i++){
+                        series.data.push([str_xAxis[i], str_yAxis_yg[i]]);
+                    }
+                    options.chart.renderTo = 'containerr3';
+                    options.xAxis.max = Math.ceil(weiyiTmp);
+                    options.yAxis.title.text = '功率因数曲线';
+                    options.series.push(series);
+                    new Highcharts.Chart(options);
+                }
+            }); 
+        }
+    });
+}
