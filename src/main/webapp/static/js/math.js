@@ -69,3 +69,17 @@ return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m)
 Number.prototype.mul = function (arg){ 
 return accMul(arg, this); 
 } 
+
+//格式化小数 
+//说明：格式化传入参数，并保留固定位数。 
+//参数：arg1:要格式化的参数，arg2:位数
+//调用：formatNumber(arg1,arg2) 
+//返回值：处理结果 
+function formatNumber(arg1, arg2){
+    if(isNaN(arg1)){
+        return arg1;
+    }else{
+        var a = Math.pow(10, arg2);
+        return accDiv(Math.round(accMul(arg1, a)), a);
+    }
+}

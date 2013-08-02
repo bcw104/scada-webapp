@@ -295,10 +295,10 @@ function createAllQx(p_code,p_data) {
                     str_xAxis = value;                    
                 }else if($("#" + key).length > 0){
                     
-                    $("#" + key).html(value);
+                    $("#" + key).html(formatNumber(value, 2));
                     
                     if($("#" + key + "_fu").length > 0){                    
-                        $("#" + key + "_fu").html(value);
+                        $("#" + key + "_fu").html(formatNumber(value, 2));
                     }     
                 }          
             });   
