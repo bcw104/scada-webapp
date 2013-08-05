@@ -78,6 +78,9 @@
                 plotOptions: {
                     pointInterval: 3600000
                 },
+                global : {    
+                    useUTC : false
+                },
                 series:[]
             }
             
