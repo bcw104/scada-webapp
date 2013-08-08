@@ -387,7 +387,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);               // 隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("260");
+                gr.setInitWidths("*");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();                        
@@ -1164,7 +1164,34 @@
                             j += 1;
                         }
                     });                    
-                }
+                }          
+            var i=1;
+            function bd(){
+                if(i%2==0){
+                    $("#gk2").css("display","block");
+                    $("#rtu").css("display","block");
+                    $("#ba4").css("display","block");
+                    $("#ba8").css("display","block");
+                    $("#gk1").css("width","363px");
+                    $("#gk4").css("width","361px");
+                    $("#tb").css("width","110px");
+                    $("#lgb").css("width","110px");
+                    $("#gkk1").css("width","110px");
+                }else{
+                    $("#gk2").css("display","none");
+                    $("#rtu").css("display","none");
+                    $("#ba4").css("display","none");
+                    $("#ba8").css("display","none");
+                    $("#gk1").css("width","560px");
+                    $("#gk4").css("width","558px");
+                    $("#tb").css("width","312px");
+                    $("#lgb").css("width","307px");
+                    $("#gkk1").css("width","312px");
+				}
+                i++;
+                
+                createlgbGr();
+            }
         </script>
     </head>
     <body>
@@ -1176,90 +1203,92 @@
                     <!--标签页 监测信息-->
                     <div id="tabbl" style="width:1280px; height:570px; float:left" ></div>
                     <div id="gk" style="width:1280px; height:560px" >
-                      <div id="ba" style="width:1280px; height:5px;float:left" ></div>
-                  <div id="ba1" style="width:4px; height:22px;float:left" ></div>
-                  <div id="gk1" style="width:366px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
-                       &nbsp工&nbsp;&nbsp;&nbsp况
-                       </div>
-                  <div id="ba4" style="width:5px; height:22px;  float:left" ></div>
-                  <div id="gk2" style="width:190px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
-                       &nbspRTU&nbsp;&nbsp;&nbsp状&nbsp;&nbsp;&nbsp态
-                  </div>
-                  <div id="ba5" style="width:5px; height:22px;   float:left" ></div>
-                  <div id="dqcs1" style=" width:270px; height:22px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
-                       &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
-                  </div>
-                  <div id="ba6" style="width:5px; height:22px; float:left" ></div>
-                  <div id="cgqyx1" style="width:430px; height:22px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#fde7fd" >
-                          &nbsp传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp运&nbsp;&nbsp;&nbsp行
-                  </div>
-                  <div id="ba7" style="width:5px; height:22px; float:left" ></div>
-                   <div id="ba4" style="width:4px; height:154px;  float:left"></div>
-                    <div id="gk4" style="width:364px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
-                        <div id="gkk" style="width:245px; height:152px; float:left ">
-                         <a  ondblclick="ztwin();" style="cursor:hand;text-decoration:none"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:151px" /></a>
+                        <div id="ba" style="width:1280px; height:5px;float:left" ></div>
+                        <div id="ba1" style="width:4px; height:22px;float:left" ></div>
+                        <div id="gk1" style="width:366px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
+                            <table width="100%">
+                                 <tr>
+                                     <td width="95%">&nbsp工&nbsp;&nbsp;&nbsp况</td>
+                                     <td style="text-align:left" width="5%"><a onclick="bd();" style="cursor:hand;text-decoration:none">《 </a></td>
+                                 </tr>
+                             </table>
                         </div>
-
-                        <div id="gkk1" style="width:118px;height:153px; float:left">
-                         <div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
-                            &nbsp;&nbsp;&nbsp;油井启停：<img src="${ctx}/static/img/hongse.png"/>
-                          </div>
-                          <div id="lgb" style="width:115px; height:107px; float:left">
-                          </div>
-                       </div>
-                       </div>
-                     <!--RTU状态-->
+                        <div id="ba4" style="width:5px; height:22px;  float:left" ></div>
+                        <div id="gk2" style="width:190px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
+                            &nbspRTU&nbsp;&nbsp;&nbsp状&nbsp;&nbsp;&nbsp态
+                        </div>
+                        <div id="ba5" style="width:5px; height:22px;   float:left" ></div>
+                        <div id="dqcs1" style=" width:270px; height:22px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
+                             &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
+                        </div>
+                        <div id="ba6" style="width:5px; height:22px; float:left" ></div>
+                        <div id="cgqyx1" style="width:430px; height:22px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#fde7fd" >
+                                &nbsp传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp运&nbsp;&nbsp;&nbsp行
+                        </div>
+                        <div id="ba7" style="width:5px; height:22px; float:left" ></div>
+                        <div id="ba1" style="width:4px; height:22px;float:left" ></div>
+                        <div id="gk4" style="width:363px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
+                            <div id="gkk" style="width:245px; height:152px; float:left ">
+                                <a ondblclick="ztwin();" style="cursor:hand;text-decoration:none"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:151px" /></a>
+                            </div>
+                            <div id="gkk1" style="width:118px;height:153px; float:left">
+                                <div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
+                                    &nbsp;&nbsp;&nbsp;油井启停：<img src="${ctx}/static/img/hongse.png"/>
+                                </div>
+                                <div id="lgb" style="width:115px; height:107px; float:left"></div>
+                            </div>
+                        </div>
+                        <!--RTU状态-->
                         <div id="ba5" style="width:5px; height:154px;  float:left"></div>
                         <div id="rtu" style="width:188px; height:152px;border:solid; border-width:1px; border-color:#BAC3FD;float:left">
-
-                         </div>
-                      <div id="ba8" style="width:5px; height:154px;float:left" ></div>
-                      <div id="dqcs" style="width:268px; height:154px; float:right; border:solid; border-width:1px; float:left; border-color:#b4da72; background-color:#fbfff3">
-                      <div id="dq0" class="cssdiv"  onclick="showDyqx('u_a', 'A相电压');" style="width:134px;cursor:pointer; height:38px;font-size:14px ;line-height:40px;float:left;border-right-style:solid; border-right-color:#cced94; border-right-width:1px; ">
-                          A相电压：<span id="dq_u_a">0</span>
-                      </div>
-                      <div id="dq1" class="cssdiv"  onclick="showDyqx('u_a', 'A相电流');" style="width:133px;cursor:pointer; height:38px;font-size:14px;line-height:40px;float:left">
-                         A相电流：<span id="dq_i_a">0</span>
-                      </div>
-                      <div id="dq2" class="cssdiv" onclick="showDyqx('u_b', 'B相电压');" style="width:134px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc; border-right-style:solid; border-right-width:1px">
-                         B相电压：<span id="dq_u_b">0</span>
-                      </div>
-                      <div id="dq3" class="cssdiv"  onclick="showDyqx('i_b', 'B相电流');" style="width:133px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;background-color:#f5ffdc">
-                         B相电流：<span id="dq_i_b">0</span>
-                      </div>
-                      <div id="dq4" class="cssdiv"  onclick="showDyqx('u_c', 'C相电压');" style="width:134px;cursor:pointer; height:38px;font-size:14px;line-height:40px;float:left; border-right-color:#cced94;border-right-style:solid; border-right-width:1px">
-                          C相电压：<span id="dq_u_c">0</span>
-                      </div>
-                      <div id="dq5" class="cssdiv"  onclick="showDyqx('i_c', 'C相电流');" style="width:133px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left">
-                           C相电流：<span id="dq_i_c">0</span>
-                      </div>
-                      <div id="dq6" class="cssdiv"  onclick="showDyqx('gl_ys', '平均功率因数');" style="width:267px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
-                           平均功率因数：<span id="dq_gl_ys">0</span>
-                      </div>
-                   </div>
-                  <div id="ba9" style="width:5px; height:154px;float:left" ></div>
-                   <div id="cgqyx2" style="width:430px; height:155px; float:left;background-color:#fde7fd" >
-                   </div>
-                  <div id="ba13" style="width:5px; height:130px;  float:left" ></div>
-                  <div id="ba14" style="width:1280px; height:5px; float:left" ></div>
-                  <div id="ba15" style="width:5px; height:22px;  float:left" ></div>
-                  <div id="ssqx3" style="width:1270px; font-size:14px; font-weight:bold; line-height:25px;height:22px; float:left; background-color:#9fdfae" align="left" class="ss2">
-                  &nbsp实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp曲&nbsp;&nbsp;&nbsp线
-                  <span id="ssqxTitle"></span>
-                      </div>	
-                  <div id="ba16" style="width:5px; height:22px;   float:left" ></div>
-                  <div id="ba17" style="width:5px; height:110px; float:left" ></div>
-                  <div id="ssqx4" style="width:1268px; height:330px; border-style:solid; border-color:#9fdfae; border-width:1px;  float:left">
-                               <div id="div1" style="width:100%;height:100%;">
-                                    <div id="container" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
-                                </div>
-                                <div id="div2" style="width:100%;height:100%; display: none ">
-                                    <div id="container1" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
-                                </div>
-                                <div id="div4" style="width:100%;height:100%; display: none ">
-                                    <div id="container1122" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
-                                </div>
-                           </div>
+                        </div>
+                        <div id="ba8" style="width:5px; height:154px;float:left" ></div>
+                        <div id="dqcs" style="width:268px; height:154px; float:right; border:solid; border-width:1px; float:left; border-color:#b4da72; background-color:#fbfff3">
+                            <div id="dq0" class="cssdiv"  onclick="showDyqx('u_a', 'A相电压');" style="width:134px;cursor:pointer; height:38px;font-size:14px ;line-height:40px;float:left;border-right-style:solid; border-right-color:#cced94; border-right-width:1px; ">
+                                A相电压：<span id="dq_u_a">0</span>
+                            </div>
+                            <div id="dq1" class="cssdiv"  onclick="showDyqx('u_a', 'A相电流');" style="width:133px;cursor:pointer; height:38px;font-size:14px;line-height:40px;float:left">
+                               A相电流：<span id="dq_i_a">0</span>
+                            </div>
+                            <div id="dq2" class="cssdiv" onclick="showDyqx('u_b', 'B相电压');" style="width:134px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc; border-right-style:solid; border-right-width:1px">
+                               B相电压：<span id="dq_u_b">0</span>
+                            </div>
+                            <div id="dq3" class="cssdiv"  onclick="showDyqx('i_b', 'B相电流');" style="width:133px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;background-color:#f5ffdc">
+                               B相电流：<span id="dq_i_b">0</span>
+                            </div>
+                            <div id="dq4" class="cssdiv"  onclick="showDyqx('u_c', 'C相电压');" style="width:134px;cursor:pointer; height:38px;font-size:14px;line-height:40px;float:left; border-right-color:#cced94;border-right-style:solid; border-right-width:1px">
+                                C相电压：<span id="dq_u_c">0</span>
+                            </div>
+                            <div id="dq5" class="cssdiv"  onclick="showDyqx('i_c', 'C相电流');" style="width:133px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left">
+                                 C相电流：<span id="dq_i_c">0</span>
+                            </div>
+                            <div id="dq6" class="cssdiv"  onclick="showDyqx('gl_ys', '平均功率因数');" style="width:267px;cursor:pointer;height:38px;font-size:14px;line-height:40px;float:left;border-right-color:#cced94;background-color:#f5ffdc;border-right-style:solid; border-right-width:1px">
+                                 平均功率因数：<span id="dq_gl_ys">0</span>
+                            </div>
+                        </div>
+                        <div id="ba9" style="width:5px; height:154px;float:left" ></div>
+                        <div id="cgqyx2" style="width:430px; height:155px; float:left;background-color:#fde7fd" >
+                        </div>
+                        <div id="ba13" style="width:5px; height:130px;  float:left" ></div>
+                        <div id="ba14" style="width:1280px; height:5px; float:left" ></div>
+                        <div id="ba15" style="width:5px; height:22px;  float:left" ></div>
+                        <div id="ssqx3" style="width:1270px; font-size:14px; font-weight:bold; line-height:25px;height:22px; float:left; background-color:#9fdfae" align="left" class="ss2">
+                            &nbsp实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp曲&nbsp;&nbsp;&nbsp线
+                            <span id="ssqxTitle"></span>
+                        </div>	
+                        <div id="ba16" style="width:5px; height:22px;   float:left" ></div>
+                        <div id="ba17" style="width:5px; height:110px; float:left" ></div>
+                        <div id="ssqx4" style="width:1268px; height:330px; border-style:solid; border-color:#9fdfae; border-width:1px;  float:left">
+                            <div id="div1" style="width:100%;height:100%;">
+                                <div id="container" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
+                            </div>
+                            <div id="div2" style="width:100%;height:100%; display: none ">
+                                <div id="container1" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
+                            </div>
+                            <div id="div4" style="width:100%;height:100%; display: none ">
+                                <div id="container1122" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
+                            </div>
+                        </div>
                     </div>
                     <!--辅助信息-->
                     <div id="fz" style="width:1280px; height:530px;">

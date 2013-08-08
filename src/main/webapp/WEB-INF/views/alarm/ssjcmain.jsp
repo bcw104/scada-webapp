@@ -419,7 +419,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);               // 隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("260");
+                gr.setInitWidths("*");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();                   
@@ -1396,6 +1396,90 @@
                 te(dyDate,dqname,"V",ys);
                 j+=1;
             }
+            
+            var i=1;
+            function bd(){
+                if(i%2==0){
+                    $("#gk2").css("display","block");
+                    $("#ba1").css("display","block");
+                    $("#rtu").css("display","block");
+                    $("#ba5").css("display","block");
+                    $("#gk1").css("width","426px");
+                    $("#gk4").css("width","424px");
+                    $("#tb").css("width","175px");
+                    $("#yk").css("width","172px");
+                    $("#gkk1").css("width","110px");
+                }else{
+                    $("#gk2").css("display","none");
+                    $("#ba1").css("display","none");
+                    $("#rtu").css("display","none");
+                    $("#ba5").css("display","none");
+                    $("#gk1").css("width","631px");
+                    $("#gk4").css("width","628px");
+                    $("#tb").css("width","382px");
+                    $("#yk").css("width","378px");
+                    $("#gkk1").css("width","370px");
+                    
+				}
+                i++;
+                
+                createGr();
+            }            
+            
+            // 弹出功图(4个)
+            function sgtwin(p_flag){
+                
+                switch(p_flag){
+                    // 示功图
+                    case 1:
+                        createSgForShow('${info.code}');
+                        dhxWins.window("win").show();
+                        dhxWins.window("win").setText("示工图");
+                        dhxWins.attachEvent("onClose", function(win){
+                            $("#dt1").hide();
+                            dhxWins.window("win").hide(); 
+                        });
+                        $("#dt1").show();
+                        dhxWins.window("win").attachObject("dt1");
+                        break;
+                    // 电流曲线
+                    case 2:
+                        createDlForShow('${info.code}');
+                        dhxWins.window("win").show();
+                        dhxWins.window("win").setText("电流曲线");
+                        dhxWins.attachEvent("onClose", function(win){
+                            $("#dt2").hide();
+                            dhxWins.window("win").hide(); 
+                        });
+                        $("#dt2").show();
+                        dhxWins.window("win").attachObject("dt2");
+                        break;
+                    // 功率曲线
+                    case 3:
+                        createDgForShow('${info.code}');
+                        dhxWins.window("win").show();
+                        dhxWins.window("win").setText("功率曲线");
+                        dhxWins.attachEvent("onClose", function(win){
+                            $("#dt3").hide();
+                            dhxWins.window("win").hide(); 
+                        });
+                        $("#dt3").show();
+                        dhxWins.window("win").attachObject("dt3");
+                        break;
+                    // 功率因数曲线
+                    case 4:
+                        createYgglForShow('${info.code}');
+                        dhxWins.window("win").show();
+                        dhxWins.window("win").setText("功率因数曲线");
+                        dhxWins.attachEvent("onClose", function(win){
+                            $("#dt4").hide();
+                            dhxWins.window("win").hide(); 
+                        });
+                        $("#dt4").show();
+                        dhxWins.window("win").attachObject("dt4");
+                        break;
+                }
+            }
         </script>
     </head>
     <body>
@@ -1410,7 +1494,12 @@
                     <div id="ba" style="width:1280px; height:5px;  float:left" ></div>
                     <div id="baa" style="width:5px; height:22px;  float:left" ></div>
                     <div id="gk1" style="width:426px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
-                        &nbsp工&nbsp;&nbsp;&nbsp况
+                        <table width="100%">
+                            <tr>
+                                <td width="95%">&nbsp工&nbsp;&nbsp;&nbsp况</td>
+                                <td style="text-align:left" width="5%"><a onclick="bd();" style="cursor:hand;text-decoration:none">《 </a></td>
+                            </tr>
+                        </table>
                     </div>
                     <div id="ba1" style="width:5px; height:22px; background-color:#FFF; float:left"></div>
                     <div id="gk2" style="width:200px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
@@ -1495,16 +1584,16 @@
                                 </div>
                             </div>
                             <div id="gt7" style="width:160px; height:30px; font-size:14px;float:left; line-height:30px;background-color:#deeeff" align="center" >
-                                &nbsp示&nbsp功&nbsp图
+                                <a onclick="sgtwin(1);" style="cursor: hand;text-decoration:none">&nbsp示&nbsp功&nbsp图</a>
                             </div>
                             <div id="gt8" style="width:160px; height:30px;font-size:14px; float:left;line-height:30px; background-color:#deeeff" align="center" >
-                                &nbsp电&nbsp流&nbsp曲&nbsp线
+                                <a onclick="sgtwin(2);" style="cursor: hand;text-decoration:none">&nbsp电&nbsp流&nbsp曲&nbsp线</a>
                             </div>
                             <div id="gt9" style="width:160px; height:30px; font-size:14px;float:left; line-height:30px;background-color:#deeeff" align="center" >
-                                &nbsp;功&nbsp;率&nbsp;曲&nbsp;线
+                                <a onclick="sgtwin(3);" style="cursor: hand;text-decoration:none">&nbsp;功&nbsp;率&nbsp;曲&nbsp;线</a>
                             </div>
                             <div id="gt10" style="width:150px; height:30px;font-size:14px; float:left;line-height:30px; background-color:#deeeff" align="center" >
-                                &nbsp功&nbsp率&nbsp因&nbsp数&nbsp曲&nbsp线
+                                <a onclick="sgtwin(4);" style="cursor: hand;text-decoration:none">&nbsp功&nbsp率&nbsp因&nbsp数&nbsp曲&nbsp线</a>
                             </div>
                             <div id="gtt" style="width:158px; height:150px; line-height:30px;float:left">
                             <div id="containerr" style="height:158px;width:150px; "></div>
@@ -1708,6 +1797,22 @@
         </div>
         <div id="tcan" >
             <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
+        </div>
+        <!-- 示功图 -->
+        <div id="dt1" style="width:950px; height:450px; display:none">
+            <div id="containerr_sgt" style="width:950px; height:450px; "></div>
+        </div>
+        <!-- 电流曲线 -->
+        <div id="dt2" style="width:950px; height:450px; display:none">
+            <div id="containerr_dl" style="width:950px; height:450px; "></div>
+        </div>
+        <!-- 功率曲线 -->
+        <div id="dt3" style="width:950px; height:450px; display:none">
+            <div id="containerr_gl" style="width:950px; height:450px; "></div>
+        </div>
+        <!-- 功率因数曲线 -->
+        <div id="dt4" style="width:950px; height:450px; display:none">
+            <div id="containerr_ys" style="width:950px; height:450px; "></div>
         </div>
     </body>
 </html>

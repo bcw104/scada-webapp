@@ -107,7 +107,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);//隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("260");
+                gr.setInitWidths("*");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();
@@ -829,6 +829,34 @@
                 // 刷新标识
                 refFlag = true;
             }
+            
+            var i=1;
+            function bd(){
+                if(i%2==0){
+                    $("#gk2").css("display","block");
+                    $("#rtu").css("display","block");
+                    $("#ba4").css("display","block");
+                    $("#ba8").css("display","block");
+                    $("#gk1").css("width","363px");
+                    $("#gk4").css("width","361px");
+                    $("#tb").css("width","110px");
+                    $("#gk").css("width","110px");
+                    $("#gkk1").css("width","110px");
+                }else{
+                    $("#gk2").css("display","none");
+                    $("#rtu").css("display","none");
+                    $("#ba4").css("display","none");
+                    $("#ba8").css("display","none");
+                    $("#gk1").css("width","560px");
+                    $("#gk4").css("width","558px");
+                    $("#tb").css("width","312px");
+                    $("#gk").css("width","307px");
+                    $("#gkk1").css("width","312px");
+				}
+                i++;
+                
+                creategkGr();
+            }
         </script>
     </head>
     <body>
@@ -873,8 +901,13 @@
                 <div id="ba" style="width:1280px; height:5px;float:left" ></div>
                 <div id="ba1" style="width:4px; height:22px;float:left" ></div>
                 <div id="gk1" style="width:366px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
-                     &nbsp工&nbsp;&nbsp;&nbsp况
-                     </div>
+                     <table width="100%">
+                        <tr>
+                            <td width="95%">&nbsp工&nbsp;&nbsp;&nbsp况</td>
+                            <td style="text-align:left" width="5%"><a onclick="bd();" style="cursor:hand;text-decoration:none">《 </a></td>
+                        </tr>
+                    </table>
+                </div>
                 <div id="ba4" style="width:5px; height:22px;  float:left" ></div>
                 <div id="gk2" style="width:190px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
                      &nbspRTU&nbsp;&nbsp;&nbsp状&nbsp;&nbsp;&nbsp态
@@ -897,7 +930,7 @@
                     <div id="tb" style="width:118px; height:35px;float:left; font-size:14px; line-height:40px">
                         &nbsp;&nbsp;&nbsp;油井启停：<img id="youjingState" src="${ctx}/static/img/hongse.png"/>
                     </div>
-                    <div id="gk" style="width:115px; height:118px; float:left;">
+                    <div id="gk" style="width:115px; height:110px; float:left;">
                     </div>
                 </div>
          </div>

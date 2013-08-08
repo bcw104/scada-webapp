@@ -78,9 +78,6 @@
                 plotOptions: {
                     pointInterval: 3600000
                 },
-                global : {    
-                    useUTC : false
-                },
                 series:[]
             }
             
@@ -153,6 +150,8 @@
                 
             // 曲线点
             var mapPoint;
+            // 颜色数组
+            var stt=["#CDC9C9","#0000FF","#008B00","#00B2EE","#00CD66","#00EE00","#00FA9A","#CD6839","#CD9B9B","#00008B"];
             
             /**
              * 报警信息初始化
@@ -165,6 +164,10 @@
                 $("#txtLx").val("");
                 $("#txtSj").val("");
                 
+                Highcharts.setOptions({ 
+                    global: { useUTC: false  } 
+                });
+                        
                 // 获得实时报警信息
                 $.ajax({
                     type: 'POST',
@@ -191,6 +194,9 @@
                         // 负责人
                         var fuzerenData;
                         
+                        var intLoopFuzern = 0;                                    
+                        var mapFuzerenColor = new Map();
+                                        
                         // 遍历井
                         $.each(json,function(key, value){
                                 
@@ -240,7 +246,22 @@
 
                                             // 回复时间
                                             if(alarmvalue.confirmTime != null && alarmvalue.confirmTime != ''){
-                                                seriesItme2Tmp.push([Number(alarmvalue.confirmTime), (value.length - itemkey)]);
+                                                
+                                                if(mapFuzerenColor.get(alarmvalue.user.id) == null){
+                                                    mapFuzerenColor.set(alarmvalue.user.id, stt[intLoopFuzern]); 
+                                                    intLoopFuzern++;
+                                                    if(intLoopFuzern == 10){
+                                                        intLoopFuzern = 0;
+                                                    }
+                                                }
+                                                
+                                                var seriesItme2Tmp_Item = new Object();
+                                                seriesItme2Tmp_Item.x = Number(alarmvalue.confirmTime);
+                                                seriesItme2Tmp_Item.y = (value.length - itemkey);
+//                                                seriesItme2Tmp_Item.fillColor = mapFuzerenColor.get(alarmvalue.user.id);                       
+                                                seriesItme2Tmp_Item.marker = {symbol:'square',fillColor:mapFuzerenColor.get(alarmvalue.user.id)};
+                                                seriesItme2Tmp.push(seriesItme2Tmp_Item);
+                                                
                                                 dateTmp = new Date(alarmvalue.confirmTime);
                                                 mapPoint.set(alarmvalue.confirmTime, '回复时间:' + dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
                                                         + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes() 
@@ -248,18 +269,34 @@
                                             }
                                             // 处理时间
                                             if(alarmvalue.handleTime != null && alarmvalue.handleTime != ''){
-                                                seriesItme2Tmp.push([Number(alarmvalue.handleTime), (value.length - itemkey)]);
-                                                dateTmp = new Date(alarmvalue.confirmTime);
+                                                
+                                                if(mapFuzerenColor.get(alarmvalue.user.id) == null){
+                                                    mapFuzerenColor.set(alarmvalue.user.id, stt[intLoopFuzern]); 
+                                                    intLoopFuzern++;
+                                                    if(intLoopFuzern == 10){
+                                                        intLoopFuzern = 0;
+                                                    }
+                                                }
+                                                
+                                                var seriesItme2Tmp_Item = new Object();
+                                                seriesItme2Tmp_Item.x = Number(alarmvalue.handleTime);
+                                                seriesItme2Tmp_Item.y = (value.length - itemkey);
+//                                                seriesItme2Tmp_Item.fillColor = mapFuzerenColor.get(alarmvalue.user.id);                                                
+                                                seriesItme2Tmp_Item.marker = {symbol:'circle',fillColor:mapFuzerenColor.get(alarmvalue.user.id)};
+                                                seriesItme2Tmp.push(seriesItme2Tmp_Item);
+                                           
+                                                dateTmp = new Date(alarmvalue.handleTime);
                                                 mapPoint.set(alarmvalue.handleTime, '处理时间:' + dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
                                                         + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes() 
+                                                        + '<br/>' + '处理信息:' + alarmvalue.handleMsg
                                                         + '<br/>' + '负责人:' + alarmvalue.user.name);
                                             }
-
+                                                
                                             // 负责人
                                             var fuzerenItem = new Object();
                                             fuzerenItem.id = alarmvalue.user.id;
                                             fuzerenItem.data = [alarmvalue.user.name];
-                                            fuzerenData.rows.push(fuzerenItem);
+                                            fuzerenData.rows.push(fuzerenItem);                                            
                                         });
 
                                         seriesItme2.push(seriesItme2Tmp);
@@ -321,6 +358,11 @@
                                     grid1.parse(baojingData,'json');                            
                                     grid2.parse(fuzerenData,'json');
 
+                                    grid2.forEachRow(function(id){
+                                  
+                                        grid2.setRowColor(id,mapFuzerenColor.get(id));
+                                    });
+
                                     // 事件绑定
                                     grid1.attachEvent('onRowSelect', doGrClick);
                                     loopIndex++;
@@ -381,8 +423,8 @@
                 treeGrid = new dhtmlXGridObject('wltp');
                 treeGrid.selMultiRows = true;
                 treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/";
-                treeGrid.setHeader("序号,报警对象,设备,变量名,报警类型,报警原因,报警时间,解除时间,其它信息,负责人,回复时间,处理时间,评价");
-                treeGrid.setInitWidths("100,125,125,150,150,150,150,150,150,150,150,150,*");
+                treeGrid.setHeader("序号,报警对象,设备,变量名,报警类型,报警原因,报警时间,解除时间,其它信息,负责人,回复时间,处理时间,处理信息");
+                treeGrid.setInitWidths("100,125,125,150,150,150,150,150,150,150,150,150,150");
                 treeGrid.setColAlign("center,center,center,center,center,center,center,center,center,left,center,center,center");
                 treeGrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,tree,ro,ro,ro");
 //                treeGrid.enableMultiselect(true);
@@ -456,7 +498,7 @@
                                     fuzerenInfoItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
                                             + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
                                 }
-                                fuzerenInfoItem.data.push('');//待定
+                                fuzerenInfoItem.data.push(alarmvalue.handleMsg);//待定
                                 
                                 baojingItem.rows.push(fuzerenInfoItem);
                             });                          
@@ -481,8 +523,8 @@
                 treeGrid = new dhtmlXGridObject('wltp');
                 treeGrid.selMultiRows = true;
                 treeGrid.imgURL = "${ctx}/static/dhtmlx/js/gridcodebase/imgs/";
-                treeGrid.setHeader("序号,报警对象,设备,变量名,报警类型,报警原因,报警时间,解除时间,其它信息,负责人,回复时间,处理时间,评价");
-                treeGrid.setInitWidths("100,125,125,150,150,150,150,150,150,150,150,150,*");
+                treeGrid.setHeader("序号,报警对象,设备,变量名,报警类型,报警原因,报警时间,解除时间,其它信息,负责人,回复时间,处理时间,处理信息");
+                treeGrid.setInitWidths("100,125,125,150,150,150,150,150,150,150,150,150,150");
                 treeGrid.setColAlign("center,center,center,center,center,center,center,center,center,left,center,center,center");
                 treeGrid.setColTypes("ro,ro,ro,ro,ro,ro,ro,ro,ro,tree,ro,ro,ro");
                 treeGrid.enablePaging(true,10,3, "recinfoArea");
@@ -577,7 +619,7 @@
                                     fuzerenInfoItem.data.push(dateTmp.getFullYear() + '-' + (dateTmp.getMonth() + 1) + '-' 
                                             + dateTmp.getDate() + ' ' + dateTmp.getHours() + '：' + dateTmp.getMinutes());
                                 }
-                                fuzerenInfoItem.data.push('');//待定
+                                fuzerenInfoItem.data.push(alarmvalue.handleMsg);//待定
                                 
                                 baojingItem.rows.push(fuzerenInfoItem);
                             });                          

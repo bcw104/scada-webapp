@@ -239,7 +239,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);//隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("260");
+                gr.setInitWidths("*");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();
@@ -841,6 +841,29 @@
                                              });
                      dhxWins1.window("win1").attachHTMLString(xb);
                     }
+                    
+                    var i=1;
+            function bd(){
+                if(i%2==0){
+                    $("#gk2").css("display","block");
+                    $("#b").css("display","block");
+                    $("#gk1").css("width","426px");
+                    $("#gk1_1").css("width","426px");
+                    $("#tb").css("width","175px");
+                    $("#zq").css("width","172px");
+                    $("#gkk1").css("width","175px");
+                }else{
+                    $("#gk2").css("display","none");
+                    $("#b").css("display","none");
+                    $("#gk1").css("width","1265px");
+                    $("#gk1_1").css("width","1265px");
+                    $("#tb").css("width","1010px");
+                    $("#gkk1").css("width","1010px");  
+                    $("#zq").css("width","1010px");                  
+				}
+                i++;                
+                createzqGr();
+            }
         </script>
     </head>
     <body>
@@ -885,8 +908,13 @@
       <div id="ba" style="width:1280px; height:5px;float:left" ></div>
     <div id="ba1" style="width:4px; height:22px;float:left" ></div>
      <div id="gk1" style="width:426px; height:174px;font-size:14px;line-height:25px;border:solid; border-color:#FFBC6C; border-width:1px;  float:left">
-        <div id="gk1" style="width:426px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
-         &nbsp工&nbsp;&nbsp;&nbsp况
+        <div id="gk1_1" style="width:426px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
+            <table width="100%">
+                <tr>
+                    <td width="95%">&nbsp工&nbsp;&nbsp;&nbsp况</td>
+                    <td style="text-align:left" width="5%"><a onclick="bd();" style="cursor:hand;text-decoration:none">《 </a></td>
+                </tr>
+            </table>
         </div>
         <div id="gkk" style="width:248px; height:152px; float:left ">
            <a  ondblclick="ztwin();" style="cursor:hand;text-decoration:none"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:151px" /></a>
@@ -901,7 +929,7 @@
      </div>
      <div id="b" style="width:5px; height:176px;float:left"></div>
      <div id="gk2" style="width:835px;font-size:14px;line-height:25px;border:solid; border-width:1px; border-color:#e6d5ff; font-weight:bold; height:174px;float:left">
-         <div id="gk2" style="width:835px;font-size:14px;line-height:25px;border:solid; border-width:1px; border-color:#e6d5ff; font-weight:bold; height:22px; background-color:#e6d5ff; float:left">
+         <div id="gk2_1" style="width:835px;font-size:14px;line-height:25px;border:solid; border-width:1px; border-color:#e6d5ff; font-weight:bold; height:22px; background-color:#e6d5ff; float:left">
          &nbsp注&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
         </div>
         <div id="dqcs" style="width:835px; height:150px;border:solid; border-width:1px; border-color:#e6d5ff;float:left">

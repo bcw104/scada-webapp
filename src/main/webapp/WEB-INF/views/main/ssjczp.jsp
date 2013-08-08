@@ -112,7 +112,7 @@
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);//隐藏表头
                 gr.setHeader(["序号"]);
-                gr.setInitWidths("260");
+                gr.setInitWidths("*");
                 gr.setColAlign("left");
                 gr.setColTypes("ro");
                 gr.init();
@@ -837,6 +837,33 @@
                 });
                 dhxWins.window("win").attachHTMLString(dtu);
             }
+            
+            var i=1;
+            function bd(){
+                if(i%2==0){
+                    $("#gk1").css("width","426px");
+                    $("#gk4").css("width","424px");
+                    $("#tb").css("width","175px");
+                    $("#zp").css("width","172px");
+                    $("#ba4").css("display","block");
+                    $("#gk2").css("display","block");
+                    $("#b").css("display","block");
+                    $("#zpdq").css("display","block");
+                }else{
+                    $("#gk1").css("width","1271px");
+                    $("#gk4").css("width","1267px");
+                    $("#tb").css("width","1023px");
+                    $("#zp").css("width","1017px");
+                    $("#ba4").css("display","none");
+                    $("#gk2").css("display","none");
+                    $("#b").css("display","none");
+                    $("#zpdq").css("display","none");
+                }
+                
+                //工况信息
+                createzpgr();
+                i++;
+            }
         </script>
     </head>
     <body>
@@ -881,7 +908,12 @@
     <div id="ba" style="width:1280px; height:5px;float:left" ></div>
     <div id="ba1" style="width:4px; height:22px;float:left" ></div>
     <div id="gk1" style="width:426px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
-         &nbsp工&nbsp;&nbsp;&nbsp况
+         <table width="100%">
+            <tr>
+                <td width="95%">&nbsp工&nbsp;&nbsp;&nbsp况</td>
+                <td style="text-align:left" width="5%"><a onclick="bd();" style="cursor:hand;text-decoration:none">《 </a></td>
+            </tr>
+        </table>
     </div>
     <div id="ba4" style="width:5px; height:22px;  float:left" ></div>
     <div id="gk2" style="width:840px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#fdb4fd; float:left">
