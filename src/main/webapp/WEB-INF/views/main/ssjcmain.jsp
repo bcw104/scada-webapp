@@ -20,7 +20,7 @@
         <script src="${ctx}/static/js/chart1.js"></script>
         <script src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
         <script src="${ctx}/static/js/math.js"></script>
-        <script src="${ctx}/static/js/common.js" type="text/javascript"></script>
+        <script src="${ctx}/static/js/refresh_parameters.js" type="text/javascript"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery.atmosphere.js"></script>
         <script type="text/javascript" src="${ctx}/static/jquery/jQuery.Tip.js"></script>
@@ -109,6 +109,20 @@
                 createdqGr3();
                 // 抽油杆信息窗体
                 createWindow();
+                
+                // 定时刷新
+                // 工况信息刷新 
+                setInterval("createGr()",gkTime);
+                // 功图信息刷新 （包括控制参数）
+                setInterval("createAllQx('${info.code}');",gkTime);
+                // 电气参数信息刷新（第一个选项卡） 
+                setInterval("createDq()",dq1Time);
+                // 传感器运行信息刷新 
+                setInterval("createGrid()",cgqTime);
+                // 电气参数信息刷新（第二个选项卡） 
+                setInterval("createdqGr()",dq2Time); // 电气参数（电力）
+                setInterval("createdqGr2()",dq2Time); // 电气参数（电量）
+                setInterval("createdqGr3()",dq2Time); // 电气参数（谐波）
             }
             
             function initTab1(){
@@ -481,7 +495,7 @@
              * @returns {undefined}
              */
             function createGr(){
-                
+//                alert("d");
                 gr=new dhtmlXGridObject('yk');
                 gr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
                 gr.setNoHeader(true);               // 隐藏表头
@@ -1515,6 +1529,7 @@
             var i=1;
             function bd(){
                 if(i%2==0){
+                    $("#kuoGk").html(">>");
                     $("#gk2").css("display","block");
                     $("#ba1").css("display","block");
                     $("#rtu").css("display","block");
@@ -1525,6 +1540,7 @@
                     $("#yk").css("width","172px");
                     $("#gkk1").css("width","110px");
                 }else{
+                    $("#kuoGk").html("<<<");
                     $("#gk2").css("display","none");
                     $("#ba1").css("display","none");
                     $("#rtu").css("display","none");
@@ -1608,11 +1624,13 @@
                     <div id="gk" style="width:1280px; height:560px" >
                     <div id="ba" style="width:1280px; height:5px;  float:left" ></div>
                     <div id="baa" style="width:5px; height:22px;  float:left" ></div>
-                    <div id="gk1" style="width:426px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left">
+                    <div id="gk1" style="width:426px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left;">
                         <table width="100%">
                             <tr>
-                                <td width="95%">&nbsp工&nbsp;&nbsp;&nbsp况</td>
-                                <td style="text-align:left" width="5%"><a onclick="bd();" style="cursor:hand;text-decoration:none">《 </a></td>
+                                <td width="95%" style="text-align:left;">&nbsp工&nbsp;&nbsp;&nbsp况</td>
+                                <td style="text-align:left;vertical-align:text-top; line-height:15px" width="5%">
+                                    <a id="kuoGk" onclick="bd();" style="cursor:hand;text-decoration:none;">>></a>
+                                </td>
                             </tr>
                         </table>
                     </div>

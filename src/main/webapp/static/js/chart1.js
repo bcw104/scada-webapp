@@ -13,6 +13,10 @@ var options = {
     xAxis: {
         categories: [],
         gridLineWidth:1,
+        title:{
+            text:'',
+            style:{font:'normal 11px Verdana,sans-serif'}
+        },
         max:0
     },
     yAxis: {
@@ -287,6 +291,8 @@ function createSgForShow(p_code,p_data) {
                     str_yAxis = value;
                 }else if(key == 'weiyi'){
                     str_xAxis = value;                    
+                }else if(key == 'time'){
+                    date_sgt = new Date(value);
                 }else if($("#" + key).length > 0){
                     
                     $("#" + key).html(value);
@@ -315,6 +321,10 @@ function createSgForShow(p_code,p_data) {
             }
             options.chart.renderTo = 'containerr_sgt';
             options.xAxis.max = Math.ceil(weiyiTmp);
+            options.xAxis.title.text = date_sgt.getFullYear() + "-" + (date_sgt.getMonth() + 1) + "-" 
+                + date_sgt.getDate() + " " + date_sgt.getHours() + ":" + date_sgt.getMinutes();
+                
+            options.xAxis.title.style.font ='normal 20px Verdana,sans-serif';
             options.yAxis.title.text = '示功图';
             options.series.push(series);
             new Highcharts.Chart(options);
@@ -470,7 +480,12 @@ function createYgglForShow(p_code,p_data) {
  * @returns {undefined}
  */
 function createAllQx(p_code,p_data) {
-    
+//    alert(p_code);
+
+    // 示功图时间
+    var date_sgt;
+    // 曲线时间
+    var date_qx;
     // 载荷，示功图横坐标
     var str_yAxis_sg = [];
     // 载荷，电流曲线横坐标
@@ -499,6 +514,8 @@ function createAllQx(p_code,p_data) {
                     str_yAxis_sg = value;
                 }else if(key == 'weiyi'){
                     str_xAxis = value;                    
+                }else if(key == 'time'){
+                    date_sgt = new Date(value);
                 }else if($("#" + key).length > 0){
                     
                     $("#" + key).html(formatNumber(value, 2));
@@ -529,6 +546,8 @@ function createAllQx(p_code,p_data) {
                             str_yAxis_dl = value;
                         }else if(key == 'weiyi'){
                             str_xAxis = value;                    
+                        }else if(key == 'time'){
+                            date_qx = new Date(value);
                         }
                     });
                     
@@ -548,6 +567,8 @@ function createAllQx(p_code,p_data) {
                     options.series = [];
                     options.chart.renderTo = 'containerr';
                     options.xAxis.max = Math.ceil(weiyiTmp);
+                    options.xAxis.title.text = date_sgt.getFullYear() + "-" + (date_sgt.getMonth() + 1) + "-" 
+                        + date_sgt.getDate() + " " + date_sgt.getHours() + ":" + date_sgt.getMinutes();
                     options.yAxis.title.text = '示功图';
                     options.series.push(series);
                     new Highcharts.Chart(options);
@@ -562,6 +583,8 @@ function createAllQx(p_code,p_data) {
                     options.series = [];
                     options.chart.renderTo = 'containerr1';
                     options.xAxis.max = Math.ceil(weiyiTmp);
+                    options.xAxis.title.text = date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
+                        + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes();
                     options.yAxis.title.text = '电流曲线';
                     options.series.push(series);
                     new Highcharts.Chart(options);
@@ -576,6 +599,8 @@ function createAllQx(p_code,p_data) {
                     options.series = [];
                     options.chart.renderTo = 'containerr2';
                     options.xAxis.max = Math.ceil(weiyiTmp);
+                    options.xAxis.title.text = date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
+                        + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes();
                     options.yAxis.title.text = '功率曲线';
                     options.series.push(series);
                     new Highcharts.Chart(options);
@@ -590,6 +615,8 @@ function createAllQx(p_code,p_data) {
                     options.series = [];
                     options.chart.renderTo = 'containerr3';
                     options.xAxis.max = Math.ceil(weiyiTmp);
+                    options.xAxis.title.text = date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
+                        + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes();
                     options.yAxis.title.text = '功率因数曲线';
                     options.series.push(series);
                     new Highcharts.Chart(options);
