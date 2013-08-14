@@ -20,7 +20,7 @@ public class WellDataServiceImpl implements WellService {
 
 	@Override
 	public List<WellData> getWellDataByWellNumAndDatetime(String wellNum,
-		Date startTime, Date endTime) throws Exception {
+		Date startTime, Date endTime){
 		List<WellData> list = new ArrayList<>();
 		list.add(getWellData());
 		list.add(getWellData());
@@ -44,7 +44,7 @@ public class WellDataServiceImpl implements WellService {
 	}
 
 	@Override
-	public WellData getLatestWellDataByWellNum(String wellNum) throws Exception {
+	public WellData getLatestWellDataByWellNum(String wellNum){
 		
 		return getWellData();
 	}
@@ -69,8 +69,7 @@ public class WellDataServiceImpl implements WellService {
 	}
 
 	@Override
-	public WellDGTData getLatestWellDGTDataByWellNum(String wellNum)
-			throws Exception {
+	public WellDGTData getLatestWellDGTDataByWellNum(String wellNum){
 		WellDGTData dgt = new WellDGTData();
 		dgt.setCode(wellNum);
 		dgt.setWeiyi(getWeiYi());
