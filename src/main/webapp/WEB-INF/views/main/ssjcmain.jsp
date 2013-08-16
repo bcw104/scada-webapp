@@ -33,7 +33,7 @@
             // 刷新标识
             var refFlag = true;
             var wellId_Gis;
-            var dhxWins,dhxWins1,dhxWins2,dhxd,dhxd1,dhxd2,dhxd3,dhxd4,dhxTabbar,dhLayout,lo,lc,ld,lh,Grid,Grid2,Grid3,gr,Gr,Grxn,dqgr,dqgr1,dqgr2;
+            var dhxWins,dhxWins_gk,dhxWins_gt,dhxWins1,dhxWins2,dhxd,dhxd1,dhxd2,dhxd3,dhxd4,dhxTabbar,dhLayout,lo,lc,ld,lh,Grid,Grid2,Grid3,gr,Gr,Grxn,dqgr,dqgr1,dqgr2;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
             var dtu1='<div id="dt1" style="width:620px; height:350px;"><div id="containerr_sgt" style="width:620px; height:350px; "></div></div>';
             var dtu2='<div id="dt2" style="width:620px; height:350px;"><div id="containerr_dl" style="width:620px; height:350px; "></div></div>';
@@ -49,6 +49,10 @@
             var ytc='<div id="y"style="width:380px;height:60px;float:left"><table border="0" width="100%"><tr><td style="width:150px; " align="left">上行冲程(m)：<input id="tc_scch" name="tc_scch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">上行冲次(min<SUP>-1</SUP>)：<input id="tc_scci" name="tc_scci" type="text" value="" style="width:20px;"/></td></tr><tr><td style="width:150px; ba" align="left">下行冲程(m)：<input id="tc_xcch" name="tc_xcch" type="text" value="" style="width:20px;"/></td><td style="width:150px; " align="left">下行冲次(min<SUP>-1</SUP>)：<input id="tc_xcci" name="tc_xcci"  type="text" value="" style="width:20px;"/></td></tr></table></div><div id="k" style="width:100%;height:60px;float:left"><table width="100%"><tr><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qd2();">确定</button><td><td style="width:50%;" align="center"><button type="button" style="background:#81d4ff" onclick="qx2();">取消</button><td></tr></table></div>';
 
             var gtdb='<div id="y"style="width:500px;height:30px;float:left;font-size:14px;"><table><tr><td  style="width:350px" align="left">&nbsp;&nbsp;&nbsp;日期:&nbsp;<input id="gtStart" type="text" onClick="WdatePicker({readOnly:true,dateFmt:\'yyyy/MM/dd HH时\'})" style="width:100px;"/>～<input id="gtEnd" type="text" onClick="WdatePicker({readOnly:true,dateFmt:\'yyyy/MM/dd HH时\'})" style="width:100px;"/>&nbsp;<button type="button" style="background:#81d4ff" onclick="run2();">查询</button></td></tr></table></div>';
+            
+            var info_gk='<div id="info_gk" style="width:100%; height:100%;"><div id="gtid_gk" style="width:100%; height:335px;"></div><div style="float:right;padding-right:10px"><a onclick="createGr_win();" style="cursor: hand;font-size:14px;">刷新</a></div></div>';
+            var info_dq='<div id="info_dq" style="width:100%; height:100%;"><div id="gtid_dq" style="width:100%; height:366px;"></div><div style="float:right;padding-right:10px"><a onclick="dq_show(dp_flag);" style="cursor: hand;font-size:14px;">刷新</a></div></div>';
+            
              // 选择曲线信息
              var rid_sel = '';
              var cid_sel = '';
@@ -76,6 +80,8 @@
                 
                 createWindows();
                 createWindows_gt();
+                createWindows_gk();
+                createWindows_dq();
             });
             
             /**
@@ -112,18 +118,18 @@
                 createWindow();
                 
                 // 定时刷新
-                // 工况信息刷新 
-                setInterval("createGr()",gkTime);
+//                // 工况信息刷新 
+//                setInterval("createGr()",gkTime);
                 // 功图信息刷新 （包括控制参数）
                 setInterval("createAllQx('${info.code}');",gkTime);
                 // 电气参数信息刷新（第一个选项卡） 
                 setInterval("createDq()",dq1Time);
                 // 传感器运行信息刷新 
                 setInterval("createGrid()",cgqTime);
-                // 电气参数信息刷新（第二个选项卡） 
-                setInterval("createdqGr()",dq2Time); // 电气参数（电力）
-                setInterval("createdqGr2()",dq2Time); // 电气参数（电量）
-                setInterval("createdqGr3()",dq2Time); // 电气参数（谐波）
+//                // 电气参数信息刷新（第二个选项卡） 
+//                setInterval("createdqGr()",dq2Time); // 电气参数（电力）
+//                setInterval("createdqGr2()",dq2Time); // 电气参数（电量）
+//                setInterval("createdqGr3()",dq2Time); // 电气参数（谐波）
             }
             
             function initTab1(){
@@ -258,8 +264,8 @@
             function createdqGr(){
                 dqgr=new dhtmlXGridObject('cs1');
 				dqgr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
-				//dqgr.setNoHeader(true);//隐藏表头
-				dqgr.setHeader(["电力"]);
+//				dqgr.setNoHeader(true);//隐藏表头
+				dqgr.setHeader(["<a onclick='win_dq_show(1);' style='cursor: hand;'>电力</a>"]);
 				dqgr.setInitWidths("*");
 				dqgr.setColAlign("left");
 				dqgr.setColTypes("ro");
@@ -278,11 +284,12 @@
                         $.each(json,function(key, value){
 
                             var dataItem = new Object();
-                                dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
-                                dataItem.data = [];
-                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
-
-                                dataInfo.rows.push(dataItem);
+                            dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
+                            dataItem.data = [];
+                            dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
+                            dataInfo.rows.push(dataItem);
+                                
+                            if(key == 3) return false;
                         });
 
                         dqgr.parse(dataInfo,'json');
@@ -292,6 +299,9 @@
                  
                 // 事件绑定
                 dqgr.attachEvent('onRowSelect', doFzGrClick); 
+//                dqgr.attachEvent("onHeaderClick", function(ind,obj){
+//                    win_dq_show(1);
+//                });
             }
             
             /**
@@ -301,10 +311,11 @@
                 dqgr1=new dhtmlXGridObject('cs2');
 				dqgr1.setImagePath("js/gridcodebase/imgs/");
 				//dqgr.setNoHeader(true);//隐藏表头
-				dqgr1.setHeader(["电量"]);
+                dqgr1.setHeader(["<a onclick='win_dq_show(2);' style='cursor: hand;'>电量</a>"]);
 				dqgr1.setInitWidths("*");
 				dqgr1.setColAlign("left");
 				dqgr1.setColTypes("ro");
+                dqgr1.setStyle("cursor:hand","","","");
 				dqgr1.init();
 				// 获得电量信息
                 $.ajax({
@@ -325,6 +336,8 @@
                                 dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
 
                                 dataInfo.rows.push(dataItem);
+                                
+                            if(key == 3) return false;
                         });
 
                         dqgr1.parse(dataInfo,'json');
@@ -333,7 +346,10 @@
                 });                        
                  
                 // 事件绑定
-                dqgr1.attachEvent('onRowSelect', doFzGrClick); 
+                dqgr1.attachEvent('onRowSelect', doFzGrClick);  
+                dqgr1.attachEvent("onHeaderClick", function(ind,obj){
+                    win_dq_show(2);
+                });
             }
             
             var xbJson;
@@ -345,10 +361,11 @@
                 dqgr2=new dhtmlXGridObject('cs3');
 				dqgr2.setImagePath("js/gridcodebase/imgs/");
 				//dqgr.setNoHeader(true);//隐藏表头
-				dqgr2.setHeader(["谐波"]);
+                dqgr2.setHeader(["<a onclick='win_dq_show(3);' style='cursor: hand;'>谐波</a>"]);
 				dqgr2.setInitWidths("*");
 				dqgr2.setColAlign("left");
 				dqgr2.setColTypes("ro");
+                dqgr2.setStyle("cursor:hand","","","");
 				dqgr2.init();
 				// 获得电量信息
                 $.ajax({
@@ -362,16 +379,19 @@
                         var dataInfo = new Object();
                         dataInfo.rows = [];
 
+                        var loopDq3 = 0;
                         $.each(json,function(key, value){
 
                             if(value.key.indexOf("_array") < 0){                                
-                            
+                                loopDq3++;
                                 var dataItem = new Object();
                                 dataItem.id = value.key + '||' + value.name + '||DIAN_XB';
                                 dataItem.data = [];
                                 dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
 
                                 dataInfo.rows.push(dataItem);
+                                
+                                if(loopDq3 == 4) return false;
                             }
                         });
 
@@ -381,7 +401,10 @@
                 });
                 
                 // 事件绑定
-                dqgr2.attachEvent('onRowSelect', doFzZzGrClick); 
+                dqgr2.attachEvent('onRowSelect', doFzZzGrClick);  
+                dqgr2.attachEvent("onHeaderClick", function(ind,obj){
+                    win_dq_show(3);
+                });
             }
             /**
              * 页面布局设置
@@ -516,7 +539,8 @@
 
                         var youjingData = new Object();
                         youjingData.rows = [];
-
+                        
+                        var loopGk = 0;
                         $.each(json,function(key, value){
 
                             if(value.key == 'qi_ting_zhuang_tai'){
@@ -529,6 +553,7 @@
                                 }
                             }else{
 
+                                loopGk++;
                                 var youjingItem = new Object();
                                 youjingItem.id = value.key + '||' + value.name + '||YOU_JING';
                                 youjingItem.data = [];
@@ -543,6 +568,8 @@
 
                                 youjingData.rows.push(youjingItem);
                             }
+                            
+                            if(loopGk == 4) return false;
                         });
 
                         gr.parse(youjingData,'json');
@@ -1526,7 +1553,300 @@
                     refFlag = true;
                 });
                 dhxWins.window("win").attachHTMLString(dtu);
-            }            
+            }    
+            
+            /**
+             * 工况详细信息
+             * @returns {undefined}
+             */
+            function createWindows_gk(){
+                dhxWins_gk = new dhtmlXWindows();
+                dhxWins_gk.attachViewportTo(document.body);
+                dhxWins_gk.createWindow("win_gk",6,180,633,390);
+                dhxWins_gk.window("win_gk").denyResize();
+                dhxWins_gk.window("win_gk").button('minmax2').hide();
+                dhxWins_gk.window("win_gk").button('minmax1').hide();
+                dhxWins_gk.window("win_gk").button('park').hide();
+                dhxWins_gk.window("win_gk").hide();
+            } 
+            function win_gk_show(){
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
+                dhxWins_gk.window("win_gk").show();
+                dhxWins_gk.window("win_gk").setText("工况");
+                dhxWins_gk.attachEvent("onClose", function(win){
+                    dhxWins_gk.window("win_gk").hide(); 
+                    // 刷新标识
+                    refFlag = true;
+                });
+                dhxWins_gk.window("win_gk").attachHTMLString(info_gk);
+                createGr_win()
+            }
+            
+            /**
+             * 工况详细信息
+             * @returns {undefined}
+             */
+            function createWindows_dq(){
+                dhxWins_dq = new dhtmlXWindows();
+                dhxWins_dq.attachViewportTo(document.body);
+                dhxWins_dq.createWindow("win_dq",6,180,633,422);
+                dhxWins_dq.window("win_dq").denyResize();
+                dhxWins_dq.window("win_dq").button('minmax2').hide();
+                dhxWins_dq.window("win_dq").button('minmax1').hide();
+                dhxWins_dq.window("win_dq").button('park').hide();
+                dhxWins_dq.window("win_dq").hide();
+            } 
+            var dp_flag = 1;
+            function win_dq_show(p_dp_flag){
+                if(!refFlag) return true;
+                // 刷新标识
+                refFlag = false;
+                dp_flag = p_dp_flag;
+                dhxWins_dq.window("win_dq").show();
+                
+                switch(p_dp_flag){
+                    case 1:
+                        dhxWins_dq.window("win_dq").setText("电力");
+                        break;
+                    case 2:
+                        dhxWins_dq.window("win_dq").setText("电量");
+                        break;
+                    case 3:
+                        dhxWins_dq.window("win_dq").setText("谐波");
+                        break;
+                }
+                
+                dhxWins_dq.attachEvent("onClose", function(win){
+                    dhxWins_dq.window("win_dq").hide(); 
+                    // 刷新标识
+                    refFlag = true;
+                });
+                dhxWins_dq.window("win_dq").attachHTMLString(info_dq);
+                switch(p_dp_flag){
+                    case 1:
+                        createdqGr_dq();
+                        break;
+                    case 2:
+                        createdqGr2_dq();
+                        break;
+                    case 3:
+                        createdqGr3_dq();
+                        break;
+                }
+            }
+            
+            function dq_show(p_dp_flag){
+                
+                switch(p_dp_flag){
+                    case 1:
+                        createdqGr_dq();
+                        break;
+                    case 2:
+                        createdqGr2_dq();
+                        break;
+                    case 3:
+                        createdqGr3_dq();
+                        break;
+                }
+            }
+            
+            /**
+             * 电气参数（电力）
+             * @returns {undefined}
+             */
+            function createdqGr_dq(){
+                dqgr=new dhtmlXGridObject('gtid_dq');
+				dqgr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+				dqgr.setNoHeader(true);//隐藏表头
+				dqgr.setHeader(["电力"]);
+				dqgr.setInitWidths("*");
+				dqgr.setColAlign("left");
+				dqgr.setColTypes("ro");
+				dqgr.init();
+				// 获得电力信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/groupinfo',
+                    data:{code:'${info.code}',group:'DIAN_YC'},
+                    dateType:'json',
+                    success: function(json){
+
+                        var dataInfo = new Object();
+                        dataInfo.rows = [];
+
+                        $.each(json,function(key, value){
+
+                            var dataItem = new Object();
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_YC';
+                                dataItem.data = [];
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
+
+                                dataInfo.rows.push(dataItem);
+                        });
+
+                        dqgr.parse(dataInfo,'json');
+                        initTab2();
+                    }
+                });                        
+                 
+                // 事件绑定
+                dqgr.attachEvent('onRowSelect', doFzGrClick); 
+            }
+            
+            /**
+            * 电气参数（电量）
+             */
+            function createdqGr2_dq(){
+                dqgr1=new dhtmlXGridObject('gtid_dq');
+				dqgr1.setImagePath("js/gridcodebase/imgs/");
+				dqgr1.setNoHeader(true);//隐藏表头
+				dqgr1.setHeader(["电量"]);
+				dqgr1.setInitWidths("*");
+				dqgr1.setColAlign("left");
+				dqgr1.setColTypes("ro");
+				dqgr1.init();
+				// 获得电量信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/groupinfo',
+                    data:{code:'${info.code}',group:'DIAN_YM'},
+                    dateType:'json',
+                    success: function(json){
+
+                        var dataInfo = new Object();
+                        dataInfo.rows = [];
+
+                        $.each(json,function(key, value){
+
+                            var dataItem = new Object();
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_YM';
+                                dataItem.data = [];
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
+
+                                dataInfo.rows.push(dataItem);
+                        });
+
+                        dqgr1.parse(dataInfo,'json');
+                        initTab2();
+                    }
+                });                        
+                 
+                // 事件绑定
+                dqgr1.attachEvent('onRowSelect', doFzGrClick); 
+            }
+            
+            var xbJson;
+            /**
+            * 电气参数（谐波）
+            * @returns {undefined}             
+            * */
+            function createdqGr3_dq(){
+                dqgr2=new dhtmlXGridObject('gtid_dq');
+				dqgr2.setImagePath("js/gridcodebase/imgs/");
+				dqgr2.setNoHeader(true);//隐藏表头
+				dqgr2.setHeader(["谐波"]);
+				dqgr2.setInitWidths("*");
+				dqgr2.setColAlign("left");
+				dqgr2.setColTypes("ro");
+				dqgr2.init();
+				// 获得电量信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/groupinfo',
+                    data:{code:'${info.code}',group:'DIAN_XB'},
+                    dateType:'json',
+                    success: function(json){
+
+                        xbJson = json;
+                        var dataInfo = new Object();
+                        dataInfo.rows = [];
+
+                        $.each(json,function(key, value){
+
+                            if(value.key.indexOf("_array") < 0){                                
+                            
+                                var dataItem = new Object();
+                                dataItem.id = value.key + '||' + value.name + '||DIAN_XB';
+                                dataItem.data = [];
+                                dataItem.data.push(value.name + '：' + formatNumber(value.value, 2));
+
+                                dataInfo.rows.push(dataItem);
+                            }
+                        });
+
+                        dqgr2.parse(dataInfo,'json');
+                        initTab2();
+                    }
+                });
+                
+                // 事件绑定
+                dqgr2.attachEvent('onRowSelect', doFzZzGrClick); 
+            }
+            
+            /**
+             * 设置工况信息
+             * @returns {undefined}
+             */
+            function createGr_win(){
+//                alert("d");
+                gr_gk_win=new dhtmlXGridObject('gtid_gk');
+                gr_gk_win.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
+                gr_gk_win.setNoHeader(true);               // 隐藏表头
+                gr_gk_win.setHeader(["序号"]);
+                gr_gk_win.setInitWidths("*");
+                gr_gk_win.setColAlign("left");
+                gr_gk_win.setColTypes("ro");                
+                gr_gk_win.init();                        
+                        
+                // 获得工况信息
+                $.ajax({
+                    type: 'POST',
+                    url: '${ctx}/realtime/groupinfo',
+                    data:{code:'${info.code}',group:'YOU_JING'},
+                    dateType:'json',
+                    success: function(json){
+
+                        var youjingData = new Object();
+                        youjingData.rows = [];
+
+                        $.each(json,function(key, value){
+
+                            if(value.key == 'qi_ting_zhuang_tai'){
+
+                                selEndTagState = value.value;
+                                if(value.value == 'false'){
+                                    $("#youjingState").attr("src","${ctx}/static/img/hongse.png");
+                                }else{
+                                    $("#youjingState").attr("src","${ctx}/static/img/lse.png");
+                                }
+                            }else{
+
+                                var youjingItem = new Object();
+                                youjingItem.id = value.key + '||' + value.name + '||YOU_JING';
+                                youjingItem.data = [];
+                                
+                                if(value.value == 'false'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/hongse.png"/>');
+                                }else if(value.value == 'true'){
+                                    youjingItem.data.push(value.name + '：' + '<img src="${ctx}/static/img/lse.png"/>');
+                                }else{
+                                    youjingItem.data.push(value.name + '：' + formatNumber(value.value, 2));
+                                }
+
+                                youjingData.rows.push(youjingItem);
+                            }
+                        });
+
+                        gr_gk_win.parse(youjingData,'json');
+                    }
+                });                        
+                 
+                // 事件绑定
+                gr_gk_win.attachEvent('onRowSelect', doGrClick);
+            }  
+            
             var i=1;
             function bd(){
                 if(i%2==0){
@@ -1552,13 +1872,13 @@
              * @returns {undefined}
              */
             function createWindows_gt(){
-                dhxWins = new dhtmlXWindows();
-                dhxWins.attachViewportTo(document.body);
-                dhxWins.createWindow("win_gt",642,180,635,390);
-                dhxWins.window("win_gt").button('minmax2').hide();
-                dhxWins.window("win_gt").button('minmax1').hide();
-                dhxWins.window("win_gt").button('park').hide();
-                dhxWins.window("win_gt").hide();	
+                dhxWins_gt = new dhtmlXWindows();
+                dhxWins_gt.attachViewportTo(document.body);
+                dhxWins_gt.createWindow("win_gt",642,180,635,390);
+                dhxWins_gt.window("win_gt").button('minmax2').hide();
+                dhxWins_gt.window("win_gt").button('minmax1').hide();
+                dhxWins_gt.window("win_gt").button('park').hide();
+                dhxWins_gt.window("win_gt").hide();	
             }
             
             // 弹出功图(4个)
@@ -1567,42 +1887,42 @@
                 switch(p_flag){
                     // 示功图
                     case 1:
-                        dhxWins.window("win_gt").show();
-                        dhxWins.window("win_gt").setText("示工图");
-                        dhxWins.attachEvent("onClose", function(win){
-                            dhxWins.window("win_gt").hide(); 
+                        dhxWins_gt.window("win_gt").show();
+                        dhxWins_gt.window("win_gt").setText("示功图");
+                        dhxWins_gt.attachEvent("onClose", function(win){
+                            dhxWins_gt.window("win_gt").hide(); 
                         });
-                        dhxWins.window("win_gt").attachHTMLString(dtu1);
+                        dhxWins_gt.window("win_gt").attachHTMLString(dtu1);
                         createSgForShow('${info.code}');
                         break;
                     // 电流曲线
                     case 2:
-                        dhxWins.window("win_gt").show();
-                        dhxWins.window("win_gt").setText("电流曲线");
-                        dhxWins.attachEvent("onClose", function(win){
-                            dhxWins.window("win_gt").hide(); 
+                        dhxWins_gt.window("win_gt").show();
+                        dhxWins_gt.window("win_gt").setText("电流曲线");
+                        dhxWins_gt.attachEvent("onClose", function(win){
+                            dhxWins_gt.window("win_gt").hide(); 
                         });
-                        dhxWins.window("win_gt").attachHTMLString(dtu2);
+                        dhxWins_gt.window("win_gt").attachHTMLString(dtu2);
                         createDlForShow('${info.code}');
                         break;
                     // 功率曲线
                     case 3:
-                        dhxWins.window("win_gt").show();
-                        dhxWins.window("win_gt").setText("功率曲线");
-                        dhxWins.attachEvent("onClose", function(win){
-                            dhxWins.window("win_gt").hide(); 
+                        dhxWins_gt.window("win_gt").show();
+                        dhxWins_gt.window("win_gt").setText("功率曲线");
+                        dhxWins_gt.attachEvent("onClose", function(win){
+                            dhxWins_gt.window("win_gt").hide(); 
                         });
-                        dhxWins.window("win_gt").attachHTMLString(dtu3);
+                        dhxWins_gt.window("win_gt").attachHTMLString(dtu3);
                         createDgForShow('${info.code}');
                         break;
                     // 功率因数曲线
                     case 4:
-                        dhxWins.window("win_gt").show();
-                        dhxWins.window("win_gt").setText("功率因数曲线");
-                        dhxWins.attachEvent("onClose", function(win){
-                            dhxWins.window("win_gt").hide(); 
+                        dhxWins_gt.window("win_gt").show();
+                        dhxWins_gt.window("win_gt").setText("功率因数曲线");
+                        dhxWins_gt.attachEvent("onClose", function(win){
+                            dhxWins_gt.window("win_gt").hide(); 
                         });
-                        dhxWins.window("win_gt").attachHTMLString(dtu4);
+                        dhxWins_gt.window("win_gt").attachHTMLString(dtu4);
                         createYgglForShow('${info.code}');
                         break;
                 }
@@ -1623,7 +1943,11 @@
                     <div id="gk1" style="width:426px; height:22px;font-size:14px;line-height:25px; font-weight:bold; background-color:#FFE0BB; float:left;">
                         <table width="100%">
                             <tr>
-                                <td width="95%" style="text-align:left;">&nbsp工&nbsp;&nbsp;&nbsp况</td>
+                                <td width="95%" style="text-align:left;">
+                                    <a onclick="win_gk_show();" style="cursor: hand;font-size:14px;">
+                                        &nbsp工&nbsp;&nbsp;&nbsp况
+                                    </a>
+                                </td>
                                 <td style="text-align:left;vertical-align:text-top; line-height:15px" width="5%">
                                     <a id="kuoGk" onclick="bd();" style="cursor:hand;text-decoration:none;"><<</a>
                                 </td>
@@ -1646,10 +1970,12 @@
                                     <a onclick="ztwin();" style="cursor:hand;text-decoration:none"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:151px" /></a>
                                 </div>          
                                 <div id="gkk1" style="width:175px;height:153px; float:left">
-                                    <div id="tb" style="width:175px; height:35px;float:left; font-size:14px; line-height:40px">
+                                    <div id="tb" style="width:175px; height:24px;float:left; font-size:14px; line-height:24px">
                                         &nbsp;&nbsp;&nbsp;油井启停：<img id="youjingState" src="${ctx}/static/img/hongse.png"/>
                                     </div>
-                                    <div id="yk" style="width:172px; height:107px; float:left;margin-left: 5px;"></div>
+                                    <div id="yk" style="width:172px; height:120px; float:left;margin-left: 3px;">                                        
+                                        
+                                    </div>
                                 </div>
                             </div>
                             <!--RTU状态-->
@@ -1849,12 +2175,12 @@
                         </div> 
                         <div id="bia4" style="width:5px; height:22px;  float:left; "></div>
                         <div id="bias" style="width:5px; height:140px;  float:left; "></div>
-                        <div id="cs" style="width:1265px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
-                            <div id="cs1" style="width:420px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">                            
+                        <div id="cs" style="width:1265px; height:150px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
+                            <div id="cs1" style="width:420px; height:150px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">                            
                             </div>
-                            <div id="cs2" style="width:420px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">                            
+                            <div id="cs2" style="width:420px; height:150px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">                            
                             </div>
-                            <div id="cs3" style="width:418px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
+                            <div id="cs3" style="width:418px; height:150px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
                             </div>
                         </div>
                         <div id="bia13" style="width:1340px; height:5px;float:left; "></div>
