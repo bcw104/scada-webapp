@@ -101,7 +101,8 @@ var optionsZz = {
             },
             series: []
 }
-
+var qxCharts_foot;
+var qxCharts_foot_1;
 function te(a,b,c,d,e,f){
     
     var series = { 
@@ -118,7 +119,11 @@ function te(a,b,c,d,e,f){
     optionsQx.xAxis.categories=e;
     optionsQx.series.push(series);
     
-    new Highcharts.Chart(optionsQx);
+    if(qxCharts_foot != null){
+        qxCharts_foot.destroy(); 
+        qxCharts_foot = null;
+    }    
+    qxCharts_foot = new Highcharts.Chart(optionsQx);
 }	
 
 function te1(a,b,c,d,e,f){
@@ -138,5 +143,9 @@ function te1(a,b,c,d,e,f){
     optionsZz.yAxis.title.text = '';
     optionsZz.series.push(series);
     
-    new Highcharts.Chart(optionsZz);
+    if(qxCharts_foot_1 != null){
+        qxCharts_foot_1.destroy(); 
+        qxCharts_foot_1 = null;
+    }    
+    qxCharts_foot_1 = new Highcharts.Chart(optionsZz);
 }	

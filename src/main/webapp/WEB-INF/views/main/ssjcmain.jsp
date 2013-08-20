@@ -32,6 +32,7 @@
         <script>
             // 刷新标识
             var refFlag = true;
+            var refFlag_dl = true;
             var wellId_Gis;
             var dhxWins,dhxWins_gk,dhxWins_gt,dhxWins1,dhxWins2,dhxd,dhxd1,dhxd2,dhxd3,dhxd4,dhxTabbar,dhLayout,lo,lc,ld,lh,Grid,Grid2,Grid3,gr,Gr,Grxn,dqgr,dqgr1,dqgr2;
             var dtu ='<div id="dt" style="width:100%; height:100%; background-color:#C3F"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:100%"></img></div>';
@@ -118,18 +119,15 @@
                 createWindow();
                 
                 // 定时刷新
-//                // 工况信息刷新 
-//                setInterval("createGr()",gkTime);
                 // 功图信息刷新 （包括控制参数）
                 setInterval("createAllQx('${info.code}');",gkTime);
                 // 电气参数信息刷新（第一个选项卡） 
                 setInterval("createDq()",dq1Time);
                 // 传感器运行信息刷新 
                 setInterval("createGrid()",cgqTime);
-//                // 电气参数信息刷新（第二个选项卡） 
-//                setInterval("createdqGr()",dq2Time); // 电气参数（电力）
-//                setInterval("createdqGr2()",dq2Time); // 电气参数（电量）
-//                setInterval("createdqGr3()",dq2Time); // 电气参数（谐波）
+
+//                setInterval("CollectGarbage();", gcTime);
+
             }
             
             function initTab1(){
@@ -211,7 +209,8 @@
                             ys = yse[j];	
                             te(xAxisData, tmpName[1], '', ys, yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
                             j += 1;
-                        }
+                        },
+                        complete: function (XHR, TS) { XHR = null } 
                     });                    
                 }  
                 
@@ -294,14 +293,12 @@
 
                         dqgr.parse(dataInfo,'json');
                         initTab2();
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
                 // 事件绑定
                 dqgr.attachEvent('onRowSelect', doFzGrClick); 
-//                dqgr.attachEvent("onHeaderClick", function(ind,obj){
-//                    win_dq_show(1);
-//                });
             }
             
             /**
@@ -342,14 +339,12 @@
 
                         dqgr1.parse(dataInfo,'json');
                         initTab2();
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
                 // 事件绑定
-                dqgr1.attachEvent('onRowSelect', doFzGrClick);  
-                dqgr1.attachEvent("onHeaderClick", function(ind,obj){
-                    win_dq_show(2);
-                });
+                dqgr1.attachEvent('onRowSelect', doFzGrClick); 
             }
             
             var xbJson;
@@ -397,14 +392,12 @@
 
                         dqgr2.parse(dataInfo,'json');
                         initTab2();
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });
                 
                 // 事件绑定
-                dqgr2.attachEvent('onRowSelect', doFzZzGrClick);  
-                dqgr2.attachEvent("onHeaderClick", function(ind,obj){
-                    win_dq_show(3);
-                });
+                dqgr2.attachEvent('onRowSelect', doFzZzGrClick);
             }
             /**
              * 页面布局设置
@@ -464,7 +457,8 @@
                             ys = yse[j];	
                             te(xAxisData, dy_title, '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
                             j += 1;
-                        }
+                        },
+                        complete: function (XHR, TS) { XHR = null } 
                     });                    
                 }
                 
@@ -510,7 +504,8 @@
                             ys = yse[j];	
                             te(xAxisData, tmpName[1], '', ys, yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
                             j += 1;
-                        }
+                        },
+                        complete: function (XHR, TS) { XHR = null } 
                     });                    
                 }               
             
@@ -575,7 +570,8 @@
                         gr.parse(youjingData,'json');
                         
                         initTab1();
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
                 // 事件绑定
@@ -627,7 +623,8 @@
                         Gr.parse(youjingData,'json');
                         
                         initTab1();
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });  
                    
                 // 事件绑定
@@ -659,10 +656,15 @@
                         });
                         
                         initTab1();
-                    }
+                    },
+                    complete: function(XHR, TS){ 
+                        XHR = null; 
+                        CollectGarbage();
+                    } 
                 });
             }
             
+            var dataInfo;
             /**
             * 设置传感器运行信息
             * @returns {undefined}             
@@ -684,7 +686,10 @@
                     dateType:'json',
                     success: function(json){
 
-                        var dataInfo = new Object();
+                        if(dataInfo != null){
+                            dataInfo = null;
+                        }
+                        dataInfo = new Object();
                         dataInfo.rows = [];
 
                         $.each(json,function(key, value){
@@ -712,7 +717,11 @@
                         });
 
                         Grid.parse(dataInfo,'json');
-                    }
+                    },
+                    complete: function (XHR, TS) { 
+                        XHR = null;
+                        CollectGarbage();
+                    } 
                 });
             }
             
@@ -756,7 +765,8 @@
                         });
 
                         Grid2.parse(dataInfo,'json');
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });
             }
             
@@ -809,7 +819,8 @@
                         }
                         
                         Grxn.parse(dataInfo,'json');
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });
             }
             
@@ -990,7 +1001,8 @@
                             
 //                            $("#container_gtdb_" + key).append("<div>" + value.time + "</div>");
                         }); 
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });
                                     
                 // 刷新标识
@@ -1045,7 +1057,8 @@
                         ys = yse[j];	//alert(str_xAxis + '----' + str_yAxis);
                         te(str_xAxis, p_gtParTitle, '', ys, str_yAxis, 'container');
                         j += 1;                           
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });
                       
                 $("#ssqxTitle").html('&nbsp&nbsp&nbsp（' + p_gtParTitle + '）');
@@ -1118,7 +1131,8 @@
                         });
                         
                         Grid3.parse(dataInfo,'json');
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });
             }
             /**
@@ -1263,7 +1277,8 @@
                             alert("用户名或密码错误！");
                             return false;
                         }                        
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });                                
             }
 
@@ -1317,7 +1332,8 @@
                             alert("调控发生错误，请重新操作或与管理员联系！");
                             return false;
                         }                        
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });
                 
                 dhxd1.window("wi1").hide();	
@@ -1344,7 +1360,8 @@
                             alert("调控发生错误，请重新操作或与管理员联系！");
                             return false;
                         }                        
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });
                 
                 dhxd2.window("wi2").hide();	
@@ -1401,7 +1418,8 @@
                             alert("用户名或密码错误！");
                             return false;
                         }                        
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 }); 
             }
             
@@ -1458,7 +1476,8 @@
                             $("#tc_xcch").val(tc_xcch);
                             $("#tc_xcci").val(tc_xcci);
                         }                       
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });
             }
             
@@ -1509,7 +1528,8 @@
                             alert("调参发生错误，请重新操作或与管理员联系！");
                             return false;
                         }                        
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 }); 
             }
             
@@ -1600,9 +1620,10 @@
             } 
             var dp_flag = 1;
             function win_dq_show(p_dp_flag){
-                if(!refFlag) return true;
+                if(!refFlag && refFlag_dl) return true;
                 // 刷新标识
                 refFlag = false;
+                refFlag_dl = false;
                 dp_flag = p_dp_flag;
                 dhxWins_dq.window("win_dq").show();
                 
@@ -1622,6 +1643,7 @@
                     dhxWins_dq.window("win_dq").hide(); 
                     // 刷新标识
                     refFlag = true;
+                    refFlag_dl = true;
                 });
                 dhxWins_dq.window("win_dq").attachHTMLString(info_dq);
                 switch(p_dp_flag){
@@ -1688,7 +1710,8 @@
 
                         dqgr.parse(dataInfo,'json');
                         initTab2();
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
                 // 事件绑定
@@ -1730,7 +1753,8 @@
 
                         dqgr1.parse(dataInfo,'json');
                         initTab2();
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
                 // 事件绑定
@@ -1778,7 +1802,8 @@
 
                         dqgr2.parse(dataInfo,'json');
                         initTab2();
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });
                 
                 // 事件绑定
@@ -1840,7 +1865,8 @@
                         });
 
                         gr_gk_win.parse(youjingData,'json');
-                    }
+                    },
+                    complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
                 // 事件绑定

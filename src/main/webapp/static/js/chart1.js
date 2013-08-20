@@ -265,6 +265,17 @@ function createYggl(p_code,p_data) {
 var sgJson;
 var qxJson;
 
+var qxCharts;
+
+var qxCharts_1;
+var qxCharts_2;
+var qxCharts_3;
+var qxCharts_4;
+var qxCharts_big_1;
+var qxCharts_big_2;
+var qxCharts_big_3;
+var qxCharts_big_4;
+
 /**
  * 创建示功图
  * @param {type} p_code
@@ -320,7 +331,18 @@ function createSgForShow(p_code,p_data) {
     options.xAxis.title.style.font ='normal 20px Verdana,sans-serif';
     options.yAxis.title.text = '示功图';
     options.series.push(series);
-    new Highcharts.Chart(options);
+    
+    if(qxCharts_big_1 != null){
+        qxCharts_big_1.destroy(); 
+        qxCharts_big_1 = null;
+    }    
+    qxCharts_big_1 = new Highcharts.Chart(options);
+    
+//    if(qxCharts_big_1==null){
+//        qxCharts_big_1 = new Highcharts.Chart(options);
+//    }else{
+//        qxCharts_big_1.redraw();
+//    }
 }
 
 /**
@@ -371,7 +393,17 @@ function createDlForShow(p_code,p_data) {
     options.xAxis.title.style.font ='normal 20px Verdana,sans-serif';
     options.yAxis.title.text = '电流曲线';
     options.series.push(series);
-    new Highcharts.Chart(options);
+    
+    if(qxCharts_big_2 != null){
+        qxCharts_big_2.destroy(); 
+        qxCharts_big_2 = null;
+    }    
+    qxCharts_big_2 = new Highcharts.Chart(options);
+//if(qxCharts_big_2==null){
+//        qxCharts_big_2 = new Highcharts.Chart(options);
+//    }else{
+//        qxCharts_big_2.redraw();
+//    }
 }
 
 /**
@@ -422,7 +454,17 @@ function createDgForShow(p_code,p_data) {
     options.xAxis.title.style.font ='normal 20px Verdana,sans-serif';
     options.yAxis.title.text = '功率曲线';
     options.series.push(series);
-    new Highcharts.Chart(options);
+    
+    if(qxCharts_big_3 != null){
+        qxCharts_big_3.destroy(); 
+        qxCharts_big_3 = null;
+    }    
+    qxCharts_big_3 = new Highcharts.Chart(options);
+//if(qxCharts_big_3==null){
+//        qxCharts_big_3 = new Highcharts.Chart(options);
+//    }else{
+//        qxCharts_big_3.redraw();
+//    }
 }
 
 /**
@@ -473,7 +515,17 @@ function createYgglForShow(p_code,p_data) {
     options.xAxis.title.style.font ='normal 20px Verdana,sans-serif';
     options.yAxis.title.text = '功率因数曲线';
     options.series.push(series);
-    new Highcharts.Chart(options);
+    
+    if(qxCharts_big_4 != null){
+        qxCharts_big_4.destroy(); 
+        qxCharts_big_4 = null;
+    }    
+    qxCharts_big_4 = new Highcharts.Chart(options);
+//if(qxCharts_big_4==null){
+//        qxCharts_big_4 = new Highcharts.Chart(options);
+//    }else{
+//        qxCharts_big_4.redraw();
+//    }
 }
 
 /**
@@ -576,7 +628,17 @@ function createAllQx(p_code,p_data) {
                     options.xAxis.title.style.font ='normal 11px Verdana,sans-serif';
                     options.yAxis.title.text = '示功图';
                     options.series.push(series);
-                    new Highcharts.Chart(options);
+    
+    if(qxCharts_1 != null){
+        qxCharts_1.destroy(); 
+        qxCharts_1 = null;
+    }    
+    qxCharts_1 = new Highcharts.Chart(options);
+//                    if(qxCharts_1==null){
+//                        qxCharts_1 = new Highcharts.Chart(options);
+//                    }else{
+//                        qxCharts_1.redraw();
+//                    }
 
                     series.name = '电流曲线';
                     series.unit = 'm';
@@ -593,7 +655,17 @@ function createAllQx(p_code,p_data) {
                     options.xAxis.title.style.font ='normal 11px Verdana,sans-serif';
                     options.yAxis.title.text = '电流曲线';
                     options.series.push(series);
-                    new Highcharts.Chart(options);
+    
+    if(qxCharts_2 != null){
+        qxCharts_2.destroy(); 
+        qxCharts_2 = null;
+    }    
+                    qxCharts_2 = new Highcharts.Chart(options);
+//if(qxCharts_2==null){
+//        qxCharts_2 = new Highcharts.Chart(options);
+//    }else{
+//        qxCharts_2.redraw();
+//    }
 
                     series.name = '功率曲线';
                     series.unit = 'm';
@@ -610,7 +682,17 @@ function createAllQx(p_code,p_data) {
                     options.xAxis.title.style.font ='normal 11px Verdana,sans-serif';
                     options.yAxis.title.text = '功率曲线';
                     options.series.push(series);
-                    new Highcharts.Chart(options);
+    
+    if(qxCharts_3 != null){
+        qxCharts_3.destroy(); 
+        qxCharts_3 = null;
+    }    
+    qxCharts_3 = new Highcharts.Chart(options);
+//if(qxCharts_3==null){
+//        qxCharts_3 = new Highcharts.Chart(options);
+//    }else{
+//        qxCharts_3.redraw();
+//    }
                     
                     series.name = '功率因数曲线';
                     series.unit = 'm';
@@ -627,9 +709,23 @@ function createAllQx(p_code,p_data) {
                     options.xAxis.title.style.font ='normal 11px Verdana,sans-serif';
                     options.yAxis.title.text = '功率因数曲线';
                     options.series.push(series);
-                    new Highcharts.Chart(options);
+    
+    if(qxCharts_4 != null){
+        qxCharts_4.destroy(); 
+        qxCharts_4 = null;
+    }    
+    qxCharts_4 = new Highcharts.Chart(options);
+//if(qxCharts_4==null){
+//        qxCharts_4 = new Highcharts.Chart(options);
+//    }else{
+//        qxCharts_4.redraw();
+//    }
                 }
             }); 
-        }
+        },
+                    complete: function (XHR, TS) { 
+                        XHR = null;
+                        CollectGarbage();
+                    } 
     });
 }

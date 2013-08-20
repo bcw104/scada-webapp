@@ -10,3 +10,5 @@ var cgqTime = 3*60*1000;
 var kzTime = 60*1000;
 // 电气参数刷新时间（第二个选项卡）
 var dq2Time = 5*6*1000;
+// 垃圾回收
+var gcTime = 5*6*1000;
