@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      #container {
+        width : 150px;
+        height: 160px;
+        margin: 8px auto;
+      }
+    </style>
+	<!--[if IE]>
+    <script type="text/javascript" src="flashcanvas.js"></script>
+    <![endif]-->
+	<script type="text/javascript" src="flotr2.min.js"></script>
+    <script type="text/javascript">
+      function pageload() {
+        var container = document.getElementById('container'),
+          data = [],
+          graph, i;
+
+        // Sample the sine function
+        for (i = 0; i < 100; i += 1) {
+          data.push([i,Math.random()*100]);
+        }
+		var dd = {data:data,label : 'aaaa', lines : { show : true }, points : { show : true }}
+        // Draw Graph
+        graph = Flotr.draw(container, [ dd ],{
+
+			  mouse : {
+				track : true,
+				relative : true,
+			    trackFormatter: function(obj){
+				  return 'x: ' + obj.x +'<br/>y: ' + obj.y;
+				}
+			  }
+    });
+      }
+    </script>
+  </head>
+  <body onload="setInterval(pageload, 1000);">
+    <div id="container"></div>
+    
+    
+  </body>
+</html>

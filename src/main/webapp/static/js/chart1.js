@@ -549,7 +549,11 @@ function createAllQx(p_code,p_data) {
     // 载荷，有功功率曲线横坐标
     var str_yAxis_yg = [];
     // 位移，纵坐标
-    var str_xAxis = [];
+    var str_xAxis_qt = [];
+    var str_xAxis_sg = [];
+
+    var graph;
+    var data_qx = [];
 
     $.ajax({
         type: 'POST',
@@ -558,7 +562,7 @@ function createAllQx(p_code,p_data) {
         dateType:'json',
         success: function(json){
 
-            sgJson = json;
+//            sgJson = json;
             var series = { 
                 data: []            
             };            
@@ -568,7 +572,7 @@ function createAllQx(p_code,p_data) {
                 if(key == 'zaihe'){                    
                     str_yAxis_sg = value;
                 }else if(key == 'weiyi'){
-                    str_xAxis = value;                    
+                    str_xAxis_sg = value;                    
                 }else if(key == 'time'){
                     date_sgt = new Date(value);
                 }else if($("#" + key).length > 0){
@@ -579,11 +583,7 @@ function createAllQx(p_code,p_data) {
                         $("#" + key + "_fu").html(formatNumber(value, 2));
                     }     
                 }          
-            });   
-            
-            if (typeof(flag_sel)!="undefined"){
-                initTab1();
-            }
+            });  
             
             $.ajax({
                 type: 'POST',
@@ -592,7 +592,7 @@ function createAllQx(p_code,p_data) {
                 dateType:'json',
                 success: function(json){
                     
-                    qxJson = json;
+//                    qxJson = json;
                     $.each(json, function(key, value) { 
                         if(key == 'power_factor'){
                             str_yAxis_yg = value; 
@@ -601,125 +601,92 @@ function createAllQx(p_code,p_data) {
                         }else if(key == 'ib'){                    
                             str_yAxis_dl = value;
                         }else if(key == 'weiyi'){
-                            str_xAxis = value;                    
+                            str_xAxis_qt = value;                    
                         }else if(key == 'time'){
                             date_qx = new Date(value);
                         }
                     });
                     
                     var weiyiTmp = 0;
-                    series.name = '示功图';
-                    series.unit = 'm';
-                    series.data = [];
-                    for (var i=0; i<str_xAxis.length; i++){
+                    for (var i=0; i<str_xAxis_sg.length; i++){
 
-                        if((Number(str_xAxis[i])) > weiyiTmp){
-                            weiyiTmp = str_xAxis[i];
+//                        if((Number(str_xAxis_sg[i])) > weiyiTmp){
+//                            weiyiTmp = str_xAxis_sg[i];
+//                        }
+                        data_qx.push([str_xAxis_sg[i],str_yAxis_sg[i]]);
+//                        series.data.push([str_xAxis_sg[i], str_yAxis_sg[i]]);
+                    }
+
+                    var dd = {data:data_qx, lines : { show : true }}
+                    // Draw Graph
+                    var containerr = document.getElementById('containerr')
+                    graph = Flotr.draw(containerr, [ dd ],{
+
+                        mouse : {
+                            track : true,
+                            relative : true,
+                            trackFormatter: function(obj){
+                                return 'x: ' + obj.x +'<br/>y: ' + obj.y;
+                            }
                         }
-
-                        series.data.push([str_xAxis[i], str_yAxis_sg[i]]);
-                    }
-                    // 页面显示用
-                    options.series = [];
-                    options.chart.renderTo = 'containerr';
-                    options.xAxis.max = Math.ceil(weiyiTmp);
-                    options.xAxis.title.text = date_sgt.getFullYear() + "-" + (date_sgt.getMonth() + 1) + "-" 
-                        + date_sgt.getDate() + " " + date_sgt.getHours() + ":" + date_sgt.getMinutes();               
-                    options.xAxis.title.style.font ='normal 11px Verdana,sans-serif';
-                    options.yAxis.title.text = '示功图';
-                    options.series.push(series);
-    
-    if(qxCharts_1 != null){
-        qxCharts_1.destroy(); 
-        qxCharts_1 = null;
-    }    
-    qxCharts_1 = new Highcharts.Chart(options);
-//                    if(qxCharts_1==null){
-//                        qxCharts_1 = new Highcharts.Chart(options);
-//                    }else{
-//                        qxCharts_1.redraw();
-//                    }
-
-                    series.name = '电流曲线';
-                    series.unit = 'm';
-                    series.data = [];
-                    for (var i=0; i<str_xAxis.length; i++){
-                        series.data.push([str_xAxis[i], str_yAxis_dl[i]]);
-                    }
-                    // 页面显示用
-                    options.series = [];
-                    options.chart.renderTo = 'containerr1';
-                    options.xAxis.max = Math.ceil(weiyiTmp);
-                    options.xAxis.title.text = date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
-                        + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes();               
-                    options.xAxis.title.style.font ='normal 11px Verdana,sans-serif';
-                    options.yAxis.title.text = '电流曲线';
-                    options.series.push(series);
-    
-    if(qxCharts_2 != null){
-        qxCharts_2.destroy(); 
-        qxCharts_2 = null;
-    }    
-                    qxCharts_2 = new Highcharts.Chart(options);
-//if(qxCharts_2==null){
-//        qxCharts_2 = new Highcharts.Chart(options);
-//    }else{
-//        qxCharts_2.redraw();
-//    }
-
-                    series.name = '功率曲线';
-                    series.unit = 'm';
-                    series.data = [];
-                    for (var i=0; i<str_xAxis.length; i++){
-                        series.data.push([str_xAxis[i], str_yAxis_dg[i]]);
-                    }
-                    // 页面显示用
-                    options.series = [];
-                    options.chart.renderTo = 'containerr2';
-                    options.xAxis.max = Math.ceil(weiyiTmp);
-                    options.xAxis.title.text = date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
-                        + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes();               
-                    options.xAxis.title.style.font ='normal 11px Verdana,sans-serif';
-                    options.yAxis.title.text = '功率曲线';
-                    options.series.push(series);
-    
-    if(qxCharts_3 != null){
-        qxCharts_3.destroy(); 
-        qxCharts_3 = null;
-    }    
-    qxCharts_3 = new Highcharts.Chart(options);
-//if(qxCharts_3==null){
-//        qxCharts_3 = new Highcharts.Chart(options);
-//    }else{
-//        qxCharts_3.redraw();
-//    }
+                    });
                     
-                    series.name = '功率因数曲线';
-                    series.unit = 'm';
-                    series.data = [];
-                    for (var i=0; i<str_xAxis.length; i++){
-                        series.data.push([str_xAxis[i], str_yAxis_yg[i]]);
+                    data_qx = [];
+                    for (var i=0; i<str_xAxis_qt.length; i++){
+
+                        data_qx.push([str_xAxis_qt[i],str_yAxis_dl[i]]);
                     }
-                    // 页面显示用
-                    options.series = [];
-                    options.chart.renderTo = 'containerr3';
-                    options.xAxis.max = Math.ceil(weiyiTmp);
-                    options.xAxis.title.text = date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
-                        + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes();               
-                    options.xAxis.title.style.font ='normal 11px Verdana,sans-serif';
-                    options.yAxis.title.text = '功率因数曲线';
-                    options.series.push(series);
-    
-    if(qxCharts_4 != null){
-        qxCharts_4.destroy(); 
-        qxCharts_4 = null;
-    }    
-    qxCharts_4 = new Highcharts.Chart(options);
-//if(qxCharts_4==null){
-//        qxCharts_4 = new Highcharts.Chart(options);
-//    }else{
-//        qxCharts_4.redraw();
-//    }
+                    dd = {data:data_qx, lines : { show : true }}
+                    // Draw Graph
+                    var containerr1 = document.getElementById('containerr1')
+                    graph = Flotr.draw(containerr1, [ dd ],{
+
+                        mouse : {
+                            track : true,
+                            relative : true,
+                            trackFormatter: function(obj){
+                                return 'x: ' + obj.x +'<br/>y: ' + obj.y;
+                            }
+                        }
+                    });
+                    
+                    data_qx = [];
+                    for (var i=0; i<str_xAxis_qt.length; i++){
+
+                        data_qx.push([str_xAxis_qt[i],str_yAxis_dg[i]]);
+                    }
+                    dd = {data:data_qx, lines : { show : true }}
+                    // Draw Graph
+                    var containerr2 = document.getElementById('containerr2')
+                    graph = Flotr.draw(containerr2, [ dd ],{
+
+                        mouse : {
+                            track : true,
+                            relative : true,
+                            trackFormatter: function(obj){
+                                return 'x: ' + obj.x +'<br/>y: ' + obj.y;
+                            }
+                        }
+                    });
+                    
+                    data_qx = [];
+                    for (var i=0; i<str_xAxis_qt.length; i++){
+
+                        data_qx.push([str_xAxis_qt[i],str_yAxis_yg[i]]);
+                    }
+                    dd = {data:data_qx, lines : { show : true }}
+                    // Draw Graph
+                    var containerr3 = document.getElementById('containerr3')
+                    graph = Flotr.draw(containerr3, [ dd ],{
+
+                        mouse : {
+                            track : true,
+                            relative : true,
+                            trackFormatter: function(obj){
+                                return 'x: ' + obj.x +'<br/>y: ' + obj.y;
+                            }
+                        }
+                    });
                 }
             }); 
         },

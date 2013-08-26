@@ -15,7 +15,11 @@
         </script>
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
-        <script src="${ctx}/static/js/highcharts.src.js"></script>
+        <!--<script src="${ctx}/static/js/highcharts.src.js"></script>-->
+        <!--[if IE]>
+        <script type="text/javascript" src="${ctx}/static/js/flotr2/flashcanvas.js"></script>
+        <![endif]-->
+        <script type="text/javascript" src="${ctx}/static/js/flotr2/flotr2.min.js"></script>
         <script src="${ctx}/static/js/chart.js"></script>
         <script src="${ctx}/static/js/chart1.js"></script>
         <script src="${ctx}/static/js/My97DatePicker/WdatePicker.js"></script>
@@ -103,7 +107,6 @@
                 createCgqGrid();
                 // 设置井基本信息
                 createXinxi();
-                
                 // 示功图 电流曲线 功率曲线 有功功率曲线
                 createAllQx('${info.code}');
                 
@@ -120,54 +123,54 @@
                 
                 // 定时刷新
                 // 功图信息刷新 （包括控制参数）
-                setInterval("createAllQx('${info.code}');",gkTime);
-                // 电气参数信息刷新（第一个选项卡） 
-                setInterval("createDq()",dq1Time);
-                // 传感器运行信息刷新 
-                setInterval("createGrid()",cgqTime);
+                setInterval("createAllQx('${info.code}');",gtTime);
+//                // 电气参数信息刷新（第一个选项卡） 
+//                setInterval("createDq()",dq1Time);
+//                // 传感器运行信息刷新 
+//                setInterval("createGrid()",cgqTime);
 
 //                setInterval("CollectGarbage();", gcTime);
 
             }
-            
+                  
             function initTab1(){
-                 // tab1
-                switch(flag_sel){
-                    case '0':
-                        doGrClick(rid_sel, cid_sel);
-                        break;
-                    case '3':
-                        showGtqx(rid_sel, cid_sel);
-                        break;
-                    case '4':
-                        showDyqx(rid_sel, cid_sel);
-                        break;                        
-                    case '5':                        
-                        $("#gtStart").val(rid_sel);
-                        $("#gtEnd").val(cid_sel);
-                        run2();
-                        break;
-                    default:
-                        if(gr.getRowsNum() > 0){                            
-                            doGrClick(gr.getRowId(0), 0);
-                        }
-                }
+//                 // tab1
+//                switch(flag_sel){
+//                    case '0':
+//                        doGrClick(rid_sel, cid_sel);
+//                        break;
+//                    case '3':
+//                        showGtqx(rid_sel, cid_sel);
+//                        break;
+//                    case '4':
+//                        showDyqx(rid_sel, cid_sel);
+//                        break;                        
+//                    case '5':                        
+//                        $("#gtStart").val(rid_sel);
+//                        $("#gtEnd").val(cid_sel);
+//                        run2();
+//                        break;
+//                    default:
+//                        if(gr.getRowsNum() > 0){                            
+//                            doGrClick(gr.getRowId(0), 0);
+//                        }
+//                }
             }
             
             function initTab2(){
-                // tab2
-                switch(flag_sel_2){
-                    case '1':
-                        doFzZzGrClick(rid_sel_2, cid_sel_2);
-                        break;
-                    case '2':
-                        doFzGrClick(rid_sel_2, cid_sel_2);
-                        break;
-                    default:
-                        if(dqgr.getRowsNum() > 0){                            
-                            doFzGrClick(dqgr.getRowId(0), 0);
-                        }
-                }
+//                // tab2
+//                switch(flag_sel_2){
+//                    case '1':
+//                        doFzZzGrClick(rid_sel_2, cid_sel_2);
+//                        break;
+//                    case '2':
+//                        doFzGrClick(rid_sel_2, cid_sel_2);
+//                        break;
+//                    default:
+//                        if(dqgr.getRowsNum() > 0){                            
+//                            doFzGrClick(dqgr.getRowId(0), 0);
+//                        }
+//                }
             }
             
             /**
@@ -297,8 +300,8 @@
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-                // 事件绑定
-                dqgr.attachEvent('onRowSelect', doFzGrClick); 
+//                // 事件绑定
+//                dqgr.attachEvent('onRowSelect', doFzGrClick); 
             }
             
             /**
@@ -343,8 +346,8 @@
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-                // 事件绑定
-                dqgr1.attachEvent('onRowSelect', doFzGrClick); 
+//                // 事件绑定
+//                dqgr1.attachEvent('onRowSelect', doFzGrClick); 
             }
             
             var xbJson;
@@ -396,8 +399,8 @@
                     complete: function (XHR, TS) { XHR = null } 
                 });
                 
-                // 事件绑定
-                dqgr2.attachEvent('onRowSelect', doFzZzGrClick);
+//                // 事件绑定
+//                dqgr2.attachEvent('onRowSelect', doFzZzGrClick);
             }
             /**
              * 页面布局设置
@@ -574,8 +577,8 @@
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-                // 事件绑定
-                gr.attachEvent('onRowSelect', doGrClick);
+//                // 事件绑定
+//                gr.attachEvent('onRowSelect', doGrClick);
             }  
                 
             /**
@@ -627,8 +630,8 @@
                     complete: function (XHR, TS) { XHR = null } 
                 });  
                    
-                // 事件绑定
-                Gr.attachEvent('onRowSelect', doGrClick);
+//                // 事件绑定
+//                Gr.attachEvent('onRowSelect', doGrClick);
             }
             
             // 电气参数标题项目
@@ -1714,8 +1717,8 @@
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-                // 事件绑定
-                dqgr.attachEvent('onRowSelect', doFzGrClick); 
+//                // 事件绑定
+//                dqgr.attachEvent('onRowSelect', doFzGrClick); 
             }
             
             /**
@@ -1757,8 +1760,8 @@
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-                // 事件绑定
-                dqgr1.attachEvent('onRowSelect', doFzGrClick); 
+//                // 事件绑定
+//                dqgr1.attachEvent('onRowSelect', doFzGrClick); 
             }
             
             var xbJson;
@@ -1806,8 +1809,8 @@
                     complete: function (XHR, TS) { XHR = null } 
                 });
                 
-                // 事件绑定
-                dqgr2.attachEvent('onRowSelect', doFzZzGrClick); 
+//                // 事件绑定
+//                dqgr2.attachEvent('onRowSelect', doFzZzGrClick); 
             }
             
             /**
@@ -1869,8 +1872,8 @@
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-                // 事件绑定
-                gr_gk_win.attachEvent('onRowSelect', doGrClick);
+//                // 事件绑定
+//                gr_gk_win.attachEvent('onRowSelect', doGrClick);
             }  
             
             var i=1;
@@ -1959,7 +1962,7 @@
         <!--主界面-->
             <div id="zz" style="width:3845px; height:717px;border:solid; border-color:#000; border-width:1px">
                 <!--数据-->
-                <div id="ssjcm" style="width:1280px; height:69px;  float:left; font-size: 0 " >
+                <div id="ssjcm" style="width:1280px; height:69px; float:left; font-size: 0 " >
                     <%@ include file="ssjcCommon.jsp"%> 
                     <!--标签页 监测信息-->
                     <div id="tabbl" style="width:1280px; height:570px; float:left" ></div>
@@ -2076,17 +2079,17 @@
                             <div id="gt10" style="width:150px; height:30px;font-size:14px; float:left;line-height:30px; background-color:#deeeff" align="center" >
                                 <a onclick="sgtwin(4);" style="cursor: hand;text-decoration:none">&nbsp功&nbsp率&nbsp因&nbsp数&nbsp曲&nbsp线</a>
                             </div>
-                            <div id="gtt" style="width:158px; height:150px; line-height:30px;float:left">
-                            <div id="containerr" style="height:158px;width:150px; "></div>
+                            <div id="gtt" style="width:155px; height:150px; line-height:30px;float:left;">
+                            <div id="containerr" style="height:150px;width:150px;font-size:12px;"></div>
                              </div>
-                             <div id="gtt1" style="width:158px; height:10; float:left">
-                                <div id="containerr1" style="height:158px;width:150px; "></div>
+                             <div id="gtt1" style="width:155px; height:150px; line-height:30px; float:left">
+                                <div id="containerr1" style="height:150px;width:150px;font-size:12px;"></div>
                                </div>
-                               <div id="gtt2" style="width:158px; height:10; float:left ">
-                                <div id="containerr2" style="height:158px;width:150px; "></div>
+                               <div id="gtt2" style="width:155px; height:150px; line-height:30px; float:left ">
+                                <div id="containerr2" style="height:150px;width:150px;font-size:12px;"></div>
                                </div>
-                               <div id="gtt3" style="width:120px; height:10; float:left " >
-                               <div id="containerr3" style="height:158px;width:150px; "></div>
+                               <div id="gtt3" style="width:155px; height:150px; line-height:30px;float:left " >
+                               <div id="containerr3" style="height:150px;width:150px;font-size:12px;"></div>
                                </div>
                             <div id="gtcs" style="width:630px; height:25px; float:left;line-height:30px;font-size:14px; background-color:#deeeff">
                                 <table>
