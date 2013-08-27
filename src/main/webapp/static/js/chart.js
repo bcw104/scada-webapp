@@ -104,48 +104,76 @@ var optionsZz = {
 var qxCharts_foot;
 var qxCharts_foot_1;
 function te(a,b,c,d,e,f){
-    
-    var series = { 
-        data: []            
-    };  
-    
-    series.data = a;
-    series.name = b;
-    series.unit = c;
-    series.color = d;
-    
-    optionsQx.series = [];
-    optionsQx.chart.renderTo=f;
-    optionsQx.xAxis.categories=e;
-    optionsQx.series.push(series);
-    
-    if(qxCharts_foot != null){
-        qxCharts_foot.destroy(); 
-        qxCharts_foot = null;
-    }    
-    qxCharts_foot = new Highcharts.Chart(optionsQx);
+    var graph;
+    var data_qx = [];
+    for (var i=0; i<a.length; i++){
+        data_qx.push([e[i],a[i]]);
+    }
+//             alert(data_qx);
+    var dd = {data:data_qx, lines : { show : true }};
+    // Draw Graph
+    var containerr = document.getElementById(f);
+    graph = Flotr.draw(containerr, [ dd ],{
+        xaxis : {
+            mode : 'time',
+            min : null,
+            max : null
+        },
+        yaxis : {
+            min : null,
+            max : null
+        }
+    });
 }	
 
 function te1(a,b,c,d,e,f){
     
-    var series = new Object();
-    series.data = [];
-
-//    alert(e);
-    series.data = e;
-    series.name = b;
-    series.unit = c;
-    series.color = d;
-//    alert(series);
-    optionsZz.series = [];
-    optionsZz.chart.renderTo = f;
-    optionsZz.xAxis.categories = a;
-    optionsZz.yAxis.title.text = '';
-    optionsZz.series.push(series);
+    var graph;
+    var data_qx = [];
+    for (var i=0; i<a.length; i++){
+        data_qx.push([e[i],a[i]]);
+    }
+//             alert(data_qx);
+    var dd = {data:data_qx};
+    // Draw Graph
+    var containerr = document.getElementById(f);
+    graph = Flotr.draw(containerr, [dd],{
+        bars : {
+          show : true,
+          stacked : true,
+          horizontal : false,
+          barWidth : 0.01,
+          lineWidth : 1,
+          shadowSize : 0
+        },
+        yaxis : {
+          min : 0,
+          autoscaleMargin : 0.01
+        }, 
+        markers: {
+        show: true,
+        position: 'ct'
+        }
+    });
     
-    if(qxCharts_foot_1 != null){
-        qxCharts_foot_1.destroy(); 
-        qxCharts_foot_1 = null;
-    }    
-    qxCharts_foot_1 = new Highcharts.Chart(optionsZz);
+//    var series = new Object();
+//    series.data = [];
+//
+////    alert(e);
+//    series.data = e;
+//    series.name = b;
+//    series.unit = c;
+//    series.color = d;
+////    alert(series);
+//    optionsZz.series = [];
+//    optionsZz.chart.renderTo = f;
+//    optionsZz.xAxis.categories = a;
+//    optionsZz.yAxis.title.text = '';
+//    optionsZz.series.push(series);
+//    
+//    if(qxCharts_foot_1 != null){
+//        qxCharts_foot_1.destroy(); 
+//        qxCharts_foot_1 = null;
+//    }    
+//    qxCharts_foot_1 = new Highcharts.Chart(optionsZz);
 }	

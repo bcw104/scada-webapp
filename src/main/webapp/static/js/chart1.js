@@ -262,20 +262,6 @@ function createYggl(p_code,p_data) {
     });
 }
 
-var sgJson;
-var qxJson;
-
-var qxCharts;
-
-var qxCharts_1;
-var qxCharts_2;
-var qxCharts_3;
-var qxCharts_4;
-var qxCharts_big_1;
-var qxCharts_big_2;
-var qxCharts_big_3;
-var qxCharts_big_4;
-
 /**
  * 创建示功图
  * @param {type} p_code
@@ -283,66 +269,73 @@ var qxCharts_big_4;
  */
 function createSgForShow(p_code,p_data) {
     
+    var graph;
+    var data_qx = [];
     // 示功图时间
     var date_sgt;
     // 载荷，示功图纵坐标
     var str_xAxis = [];
     // 位移，示功图横坐标
     var str_yAxis = [];
-
-    var series = { 
-        data: []            
-    };            
-            
-    $.each(sgJson, function(key, value) {   
-                
-        if(key == 'zaihe'){                    
-            str_yAxis = value;
-        }else if(key == 'weiyi'){
-            str_xAxis = value;                    
-        }else if(key == 'time'){
-            date_sgt = new Date(value);
-        }else if($("#" + key).length > 0){
-                    
-            $("#" + key).html(value);
-                    
-            if($("#" + key + "_fu").length > 0){                    
-                $("#" + key + "_fu").html(value);
-            }     
-        }          
-    }); 
-            
-    var weiyiTmp = 0;
-    options.series = [];
-    series.name = '示功图';
-    series.unit = 'm';
-    for (var i=0; i<str_xAxis.length; i++){
-
-        if((Number(str_xAxis[i])) > weiyiTmp){
-            weiyiTmp = str_xAxis[i];
-        }
-
-        series.data.push([str_xAxis[i], str_yAxis[i]]);
-    }
-    options.chart.renderTo = 'containerr_sgt';
-    options.xAxis.max = Math.ceil(weiyiTmp);
-    options.xAxis.title.text = date_sgt.getFullYear() + "-" + (date_sgt.getMonth() + 1) + "-" 
-        + date_sgt.getDate() + " " + date_sgt.getHours() + ":" + date_sgt.getMinutes();                
-    options.xAxis.title.style.font ='normal 20px Verdana,sans-serif';
-    options.yAxis.title.text = '示功图';
-    options.series.push(series);
     
-    if(qxCharts_big_1 != null){
-        qxCharts_big_1.destroy(); 
-        qxCharts_big_1 = null;
-    }    
-    qxCharts_big_1 = new Highcharts.Chart(options);
-    
-//    if(qxCharts_big_1==null){
-//        qxCharts_big_1 = new Highcharts.Chart(options);
-//    }else{
-//        qxCharts_big_1.redraw();
-//    }
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/realtime/welldata',
+        data:{code:p_code,data:p_data},
+        dateType:'json',
+        success: function(json){        
+            $.each(json, function(key, value) {   
+
+                if(key == 'zaihe'){                    
+                    str_yAxis = value;
+                }else if(key == 'weiyi'){
+                    str_xAxis = value;                    
+                }else if(key == 'time'){
+                    date_sgt = new Date(value);
+                }       
+            }); 
+            
+            var maxTmp_x = 0;
+            var maxTmp_y = 0;
+            for (var i=0; i<str_xAxis.length; i++){
+                if((Number(str_xAxis[i])) > maxTmp_x){                            
+                    maxTmp_x = str_xAxis[i];
+                }
+                if((Number(str_yAxis[i])) > maxTmp_y){
+                    maxTmp_y = str_yAxis[i];
+                }
+                data_qx.push([str_xAxis[i],str_yAxis[i]]);
+             }
+//alert(minTmp_x);
+             var dd = {data:data_qx, lines : { show : true }}
+             // Draw Graph
+             var containerr = document.getElementById('containerr_sgt')
+             graph = Flotr.draw(containerr, [ dd ],{
+                title:date_sgt.getFullYear() + "-" + (date_sgt.getMonth() + 1) + "-" 
+                    + date_sgt.getDate() + " " + date_sgt.getHours() + ":" + date_sgt.getMinutes(),
+                xaxis : {
+                    min : null,
+                    max : accAdd(maxTmp_x, accMul(maxTmp_x, 0.1))
+                },
+                yaxis : {
+                    min : null,
+                    max : accAdd(maxTmp_y, accMul(maxTmp_y, 0.1))
+                },
+                mouse : {
+                    track : true,
+                    trackAll: false,
+                    trackY: false,
+                    trackFormatter: function(obj){
+                        return '<b>示功图</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
+                    }
+                }
+            });
+        },
+        complete: function (XHR, TS) { 
+            XHR = null;
+            CollectGarbage();
+        } 
+    });
 }
 
 /**
@@ -352,58 +345,73 @@ function createSgForShow(p_code,p_data) {
  */
 function createDlForShow(p_code,p_data) {
     
+    var graph;
+    var data_qx = [];
     // 曲线时间
     var date_qx;
     // 载荷，示功图纵坐标
     var str_xAxis = [];
     // 位移，示功图横坐标
     var str_yAxis = [];
-
-    var series = { 
-        data: []            
-    };            
-            
-    $.each(qxJson, function(key, value) {   
-                
-        if(key == 'ib'){                    
-            str_yAxis = value;
-        }else if(key == 'weiyi'){ 
-            str_xAxis = value;
-        }else if(key == 'time'){
-            date_qx = new Date(value);
-        }           
-    });   
-            
-    var weiyiTmp = 0;
-    options.series = [];
-    series.name = '电流曲线';
-    series.unit = 'm';
-    for (var i=0; i<str_xAxis.length; i++){
-
-        if((Number(str_xAxis[i])) > weiyiTmp){
-            weiyiTmp = str_xAxis[i];
-        }
-                
-        series.data.push([str_xAxis[i],str_yAxis[i]]);
-    }
-    options.chart.renderTo = 'containerr_dl';
-    options.xAxis.max = Math.ceil(weiyiTmp);
-    options.xAxis.title.text = date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
-        + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes();                
-    options.xAxis.title.style.font ='normal 20px Verdana,sans-serif';
-    options.yAxis.title.text = '电流曲线';
-    options.series.push(series);
     
-    if(qxCharts_big_2 != null){
-        qxCharts_big_2.destroy(); 
-        qxCharts_big_2 = null;
-    }    
-    qxCharts_big_2 = new Highcharts.Chart(options);
-//if(qxCharts_big_2==null){
-//        qxCharts_big_2 = new Highcharts.Chart(options);
-//    }else{
-//        qxCharts_big_2.redraw();
-//    }
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/realtime/welldgtdata',
+        data:{code:p_code,data:p_data},
+        dateType:'json',
+        success: function(json){        
+            $.each(json, function(key, value) {   
+
+                if(key == 'ib'){                    
+                    str_yAxis = value;
+                }else if(key == 'weiyi'){ 
+                    str_xAxis = value;
+                }else if(key == 'time'){
+                    date_qx = new Date(value);
+                }           
+            });   
+
+            var maxTmp_x = 0;
+            var maxTmp_y = 0;
+            for (var i=0; i<str_xAxis.length; i++){
+                if((Number(str_xAxis[i])) > maxTmp_x){                            
+                    maxTmp_x = str_xAxis[i];
+                }
+                if((Number(str_yAxis[i])) > maxTmp_y){
+                    maxTmp_y = str_yAxis[i];
+                }
+                data_qx.push([str_xAxis[i],str_yAxis[i]]);
+             }
+//alert(minTmp_x);
+             var dd = {data:data_qx, lines : { show : true }}
+             // Draw Graph
+             var containerr = document.getElementById('containerr_dl');
+             graph = Flotr.draw(containerr, [ dd ],{
+                title:date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
+                    + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes(),
+                xaxis : {
+                    min : null,
+                    max : accAdd(maxTmp_x, accMul(maxTmp_x, 0.1))
+                },
+                yaxis : {
+                    min : null,
+                    max : accAdd(maxTmp_y, accMul(maxTmp_y, 0.1))
+                },
+                mouse : {
+                    track : true,
+                    trackAll: false,
+                    trackY: false,
+                    trackFormatter: function(obj){
+                        return '<b>电流曲线</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
+                    }
+                }
+            });
+        },
+        complete: function (XHR, TS) { 
+            XHR = null;
+            CollectGarbage();
+        } 
+    });
 }
 
 /**
@@ -413,58 +421,73 @@ function createDlForShow(p_code,p_data) {
  */
 function createDgForShow(p_code,p_data) {
     
+    var graph;
+    var data_qx = [];
     // 曲线时间
     var date_qx;
     // 载荷，电功图纵坐标
     var str_xAxis = [];
     // 位移，电功图横坐标
     var str_yAxis = [];
-
-    var series = { 
-        data: []            
-    };            
-            
-    $.each(qxJson, function(key, value) {   
-                
-        if(key == 'power'){
-            str_yAxis = value;
-        }else if(key == 'weiyi'){
-            str_xAxis = value;
-        }else if(key == 'time'){
-            date_qx = new Date(value);
-        }
-    });   
-            
-    var weiyiTmp = 0;
-    options.series = [];
-    series.name = '功率曲线';
-    series.unit = 'm';
-    for (var i=0; i<str_xAxis.length; i++){
-
-        if((Number(str_xAxis[i])) > weiyiTmp){
-            weiyiTmp = str_xAxis[i];
-        }
-                
-        series.data.push([str_xAxis[i],str_yAxis[i]]);
-    }
-    options.chart.renderTo = 'containerr_gl';
-    options.xAxis.max = Math.ceil(weiyiTmp);
-    options.xAxis.title.text = date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
-        + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes();                
-    options.xAxis.title.style.font ='normal 20px Verdana,sans-serif';
-    options.yAxis.title.text = '功率曲线';
-    options.series.push(series);
     
-    if(qxCharts_big_3 != null){
-        qxCharts_big_3.destroy(); 
-        qxCharts_big_3 = null;
-    }    
-    qxCharts_big_3 = new Highcharts.Chart(options);
-//if(qxCharts_big_3==null){
-//        qxCharts_big_3 = new Highcharts.Chart(options);
-//    }else{
-//        qxCharts_big_3.redraw();
-//    }
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/realtime/welldgtdata',
+        data:{code:p_code,data:p_data},
+        dateType:'json',
+        success: function(json){   
+            $.each(json, function(key, value) {   
+
+                if(key == 'power'){
+                    str_yAxis = value;
+                }else if(key == 'weiyi'){
+                    str_xAxis = value;
+                }else if(key == 'time'){
+                    date_qx = new Date(value);
+                }
+            });   
+
+            var maxTmp_x = 0;
+            var maxTmp_y = 0;
+            for (var i=0; i<str_xAxis.length; i++){
+                if((Number(str_xAxis[i])) > maxTmp_x){                            
+                    maxTmp_x = str_xAxis[i];
+                }
+                if((Number(str_yAxis[i])) > maxTmp_y){
+                    maxTmp_y = str_yAxis[i];
+                }
+                data_qx.push([str_xAxis[i],str_yAxis[i]]);
+             }
+//alert(minTmp_x);
+             var dd = {data:data_qx, lines : { show : true }}
+             // Draw Graph
+             var containerr = document.getElementById('containerr_gl');
+             graph = Flotr.draw(containerr, [ dd ],{
+                title:date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
+                    + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes(),
+                xaxis : {
+                    min : null,
+                    max : accAdd(maxTmp_x, accMul(maxTmp_x, 0.1))
+                },
+                yaxis : {
+                    min : null,
+                    max : accAdd(maxTmp_y, accMul(maxTmp_y, 0.1))
+                },
+                mouse : {
+                    track : true,
+                    trackAll: false,
+                    trackY: false,
+                    trackFormatter: function(obj){
+                        return '<b>功率曲线</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
+                    }
+                }
+            });
+        },
+        complete: function (XHR, TS) { 
+            XHR = null;
+            CollectGarbage();
+        } 
+    });
 }
 
 /**
@@ -474,58 +497,73 @@ function createDgForShow(p_code,p_data) {
  */
 function createYgglForShow(p_code,p_data) {
         
+    var graph;
+    var data_qx = [];
     // 曲线时间
     var date_qx;
     // 载荷，示功图纵坐标
     var str_xAxis = [];
     // 位移，示功图横坐标
     var str_yAxis = [];
-
-    var series = { 
-        data: []            
-    };            
             
-    $.each(qxJson, function(key, value) {   
-                
-        if(key == 'power_factor'){
-            str_yAxis = value; 
-        }else if(key == 'weiyi'){
-            str_xAxis = value;
-        }else if(key == 'time'){
-            date_qx = new Date(value);
-        }
-    });   
-            
-    var weiyiTmp = 0;
-    options.series = [];
-    series.name = '功率因数曲线';
-    series.unit = 'm';
-    for (var i=0; i<str_xAxis.length; i++){
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/realtime/welldgtdata',
+        data:{code:p_code,data:p_data},
+        dateType:'json',
+        success: function(json){   
+            $.each(json, function(key, value) {   
 
-        if((Number(str_xAxis[i])) > weiyiTmp){
-            weiyiTmp = str_xAxis[i];
-        }
-                
-        series.data.push([str_xAxis[i],str_yAxis[i]]);
-    }
-    options.chart.renderTo = 'containerr_ys';
-    options.xAxis.max = Math.ceil(weiyiTmp);
-    options.xAxis.title.text = date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
-        + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes();                
-    options.xAxis.title.style.font ='normal 20px Verdana,sans-serif';
-    options.yAxis.title.text = '功率因数曲线';
-    options.series.push(series);
-    
-    if(qxCharts_big_4 != null){
-        qxCharts_big_4.destroy(); 
-        qxCharts_big_4 = null;
-    }    
-    qxCharts_big_4 = new Highcharts.Chart(options);
-//if(qxCharts_big_4==null){
-//        qxCharts_big_4 = new Highcharts.Chart(options);
-//    }else{
-//        qxCharts_big_4.redraw();
-//    }
+                if(key == 'power_factor'){
+                    str_yAxis = value; 
+                }else if(key == 'weiyi'){
+                    str_xAxis = value;
+                }else if(key == 'time'){
+                    date_qx = new Date(value);
+                }
+            });   
+
+            var maxTmp_x = 0;
+            var maxTmp_y = 0;
+            for (var i=0; i<str_xAxis.length; i++){
+                if((Number(str_xAxis[i])) > maxTmp_x){                            
+                    maxTmp_x = str_xAxis[i];
+                }
+                if((Number(str_yAxis[i])) > maxTmp_y){
+                    maxTmp_y = str_yAxis[i];
+                }
+                data_qx.push([str_xAxis[i],str_yAxis[i]]);
+             }
+//alert(minTmp_x);
+             var dd = {data:data_qx, lines : { show : true }}
+             // Draw Graph
+             var containerr = document.getElementById('containerr_ys');
+             graph = Flotr.draw(containerr, [ dd ],{
+                title:date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
+                    + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes(),
+                xaxis : {
+                    min : null,
+                    max : accAdd(maxTmp_x, accMul(maxTmp_x, 0.1))
+                },
+                yaxis : {
+                    min : null,
+                    max : accAdd(maxTmp_y, accMul(maxTmp_y, 0.1))
+                },
+                mouse : {
+                    track : true,
+                    trackAll: false,
+                    trackY: false,
+                    trackFormatter: function(obj){
+                        return '<b>功率因数曲线</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
+                    }
+                }
+            });
+        },
+        complete: function (XHR, TS) { 
+            XHR = null;
+            CollectGarbage();
+        } 
+    });
 }
 
 /**
@@ -606,93 +644,168 @@ function createAllQx(p_code,p_data) {
                             date_qx = new Date(value);
                         }
                     });
-                    
-                    var weiyiTmp = 0;
+
+                    var maxTmp_x = 0;
+                    var maxTmp_y = 0;
                     for (var i=0; i<str_xAxis_sg.length; i++){
-
-//                        if((Number(str_xAxis_sg[i])) > weiyiTmp){
-//                            weiyiTmp = str_xAxis_sg[i];
-//                        }
+                        if((Number(str_xAxis_sg[i])) > maxTmp_x){                            
+                            maxTmp_x = str_xAxis_sg[i];
+                        }
+                        if((Number(str_yAxis_sg[i])) > maxTmp_y){
+                            maxTmp_y = str_yAxis_sg[i];
+                        }
                         data_qx.push([str_xAxis_sg[i],str_yAxis_sg[i]]);
-//                        series.data.push([str_xAxis_sg[i], str_yAxis_sg[i]]);
                     }
-
+//alert(minTmp_x);
                     var dd = {data:data_qx, lines : { show : true }}
                     // Draw Graph
                     var containerr = document.getElementById('containerr')
                     graph = Flotr.draw(containerr, [ dd ],{
-
+                        title:date_sgt.getFullYear() + "-" + (date_sgt.getMonth() + 1) + "-" 
+                            + date_sgt.getDate() + " " + date_sgt.getHours() + ":" + date_sgt.getMinutes(),
+                        xaxis : {
+                          min : null,
+                          max : accAdd(maxTmp_x, accMul(maxTmp_x, 0.1))
+                        },
+                        yaxis : {
+                          min : null,
+                          max : accAdd(maxTmp_y, accMul(maxTmp_y, 0.1))
+                        },
                         mouse : {
                             track : true,
-                            relative : true,
-                            trackFormatter: function(obj){
-                                return 'x: ' + obj.x +'<br/>y: ' + obj.y;
+                            trackAll: false,
+                            trackY: false,
+                            relative : false,
+                            radius:0.1,
+                            trackFormatter: function(obj){                                
+                                return '<b>示功图</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
                             }
                         }
                     });
                     
                     data_qx = [];
+                    maxTmp_x = 0;
+                    maxTmp_y = 0;
                     for (var i=0; i<str_xAxis_qt.length; i++){
-
+                        if((Number(str_xAxis_qt[i])) > maxTmp_x){                            
+                            maxTmp_x = str_xAxis_qt[i];
+                        }
+                        if((Number(str_yAxis_dl[i])) > maxTmp_y){
+                            maxTmp_y = str_yAxis_dl[i];
+                        }
                         data_qx.push([str_xAxis_qt[i],str_yAxis_dl[i]]);
                     }
                     dd = {data:data_qx, lines : { show : true }}
                     // Draw Graph
                     var containerr1 = document.getElementById('containerr1')
                     graph = Flotr.draw(containerr1, [ dd ],{
-
+                        title:date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
+                            + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes(),
+                        xaxis : {
+                          min : null,
+                          max : accAdd(maxTmp_x, accMul(maxTmp_x, 0.1))
+                        },
+                        yaxis : {
+                          min : null,
+                          max : accAdd(maxTmp_y, accMul(maxTmp_y, 0.1))
+                        },
                         mouse : {
                             track : true,
-                            relative : true,
+                            trackAll: false,
+                            trackY: false,
+                            relative : false,
+                            radius:0.1,
                             trackFormatter: function(obj){
-                                return 'x: ' + obj.x +'<br/>y: ' + obj.y;
+                                return '<b>电流曲线</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
                             }
                         }
                     });
                     
                     data_qx = [];
+                    maxTmp_x = 0;
+                    maxTmp_y = 0;
                     for (var i=0; i<str_xAxis_qt.length; i++){
-
+                        if((Number(str_xAxis_qt[i])) > maxTmp_x){                            
+                            maxTmp_x = str_xAxis_qt[i];
+                        }
+                        if((Number(str_yAxis_dg[i])) > maxTmp_y){
+                            maxTmp_y = str_yAxis_dg[i];
+                        }
                         data_qx.push([str_xAxis_qt[i],str_yAxis_dg[i]]);
                     }
                     dd = {data:data_qx, lines : { show : true }}
                     // Draw Graph
                     var containerr2 = document.getElementById('containerr2')
                     graph = Flotr.draw(containerr2, [ dd ],{
-
+                        title:date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
+                            + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes(),
+                        xaxis : {
+                          min : null,
+                          max : accAdd(maxTmp_x, accMul(maxTmp_x, 0.1))
+                        },
+                        yaxis : {
+                          min : null,
+                          max : accAdd(maxTmp_y, accMul(maxTmp_y, 0.1))
+                        },
                         mouse : {
                             track : true,
-                            relative : true,
+                            trackAll: false,
+                            trackY: false,
+                            relative : false,
+                            radius:0.1,
                             trackFormatter: function(obj){
-                                return 'x: ' + obj.x +'<br/>y: ' + obj.y;
+                                return '<b>功率曲线</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
                             }
                         }
                     });
                     
                     data_qx = [];
+                    maxTmp_x = 0;
+                    maxTmp_y = 0;
                     for (var i=0; i<str_xAxis_qt.length; i++){
-
+                        if((Number(str_xAxis_qt[i])) > maxTmp_x){                            
+                            maxTmp_x = str_xAxis_qt[i];
+                        }
+                        if((Number(str_yAxis_yg[i])) > maxTmp_y){
+                            maxTmp_y = str_yAxis_yg[i];
+                        }
                         data_qx.push([str_xAxis_qt[i],str_yAxis_yg[i]]);
                     }
                     dd = {data:data_qx, lines : { show : true }}
                     // Draw Graph
                     var containerr3 = document.getElementById('containerr3')
                     graph = Flotr.draw(containerr3, [ dd ],{
-
+                        title:date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
+                            + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes(),
+                        xaxis : {
+                          min : null,
+                          max : accAdd(maxTmp_x, accMul(maxTmp_x, 0.1))
+                        },
+                        yaxis : {
+                          min : null,
+                          max : accAdd(maxTmp_y, accMul(maxTmp_y, 0.1))
+                        },
                         mouse : {
                             track : true,
-                            relative : true,
+                            trackAll: false,
+                            trackY: false,
+                            relative : false,
+                            radius:0.1,
                             trackFormatter: function(obj){
-                                return 'x: ' + obj.x +'<br/>y: ' + obj.y;
+                                return '<b>功率因数曲线</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
                             }
                         }
                     });
-                }
+                },
+                complete: function (XHR, TS) { 
+                    XHR = null;
+                    CollectGarbage();
+                } 
             }); 
         },
-                    complete: function (XHR, TS) { 
-                        XHR = null;
-                        CollectGarbage();
-                    } 
+        complete: function (XHR, TS) { 
+            XHR = null;
+            CollectGarbage();
+        } 
     });
 }

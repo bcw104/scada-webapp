@@ -15,7 +15,7 @@
         </script>
         <script src="${ctx}/static/dhtmlx/dhtmlx.js"></script>
         <script src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
-        <!--<script src="${ctx}/static/js/highcharts.src.js"></script>-->
+        <script src="${ctx}/static/js/highcharts.src.js"></script>
         <!--[if IE]>
         <script type="text/javascript" src="${ctx}/static/js/flotr2/flashcanvas.js"></script>
         <![endif]-->
@@ -124,53 +124,13 @@
                 // 定时刷新
                 // 功图信息刷新 （包括控制参数）
                 setInterval("createAllQx('${info.code}');",gtTime);
-//                // 电气参数信息刷新（第一个选项卡） 
-//                setInterval("createDq()",dq1Time);
-//                // 传感器运行信息刷新 
-//                setInterval("createGrid()",cgqTime);
+                // 电气参数信息刷新（第一个选项卡） 
+                setInterval("createDq()",dq1Time);
+                // 传感器运行信息刷新 
+                setInterval("createGrid()",cgqTime);
 
 //                setInterval("CollectGarbage();", gcTime);
 
-            }
-                  
-            function initTab1(){
-//                 // tab1
-//                switch(flag_sel){
-//                    case '0':
-//                        doGrClick(rid_sel, cid_sel);
-//                        break;
-//                    case '3':
-//                        showGtqx(rid_sel, cid_sel);
-//                        break;
-//                    case '4':
-//                        showDyqx(rid_sel, cid_sel);
-//                        break;                        
-//                    case '5':                        
-//                        $("#gtStart").val(rid_sel);
-//                        $("#gtEnd").val(cid_sel);
-//                        run2();
-//                        break;
-//                    default:
-//                        if(gr.getRowsNum() > 0){                            
-//                            doGrClick(gr.getRowId(0), 0);
-//                        }
-//                }
-            }
-            
-            function initTab2(){
-//                // tab2
-//                switch(flag_sel_2){
-//                    case '1':
-//                        doFzZzGrClick(rid_sel_2, cid_sel_2);
-//                        break;
-//                    case '2':
-//                        doFzGrClick(rid_sel_2, cid_sel_2);
-//                        break;
-//                    default:
-//                        if(dqgr.getRowsNum() > 0){                            
-//                            doFzGrClick(dqgr.getRowId(0), 0);
-//                        }
-//                }
             }
             
             /**
@@ -200,9 +160,7 @@
                             $.each(json,function(key, value){
 
                                 xAxisData.push(value.value);
-                                
-                                var dateTmp = new Date(value.date)
-                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                                yAxisData.push(value.date);
                             });
 
                             var ys;
@@ -245,11 +203,11 @@
                             for(var loopTmp = 0; loopTmp < valueTmp.length; loopTmp++){
                                 
                                 xAxisData.push(loopTmp + 1); 
-                                
-                                var dataTmp = new Object();
-                                dataTmp.y = accDiv(Math.round(accMul(valueTmp[loopTmp], 1000)), 1000);
-                                dataTmp.color = colors[loopTmp % 9];
-                                yAxisData.push(dataTmp);
+//                                
+//                                var dataTmp = new Object();
+//                                dataTmp.y = accDiv(Math.round(accMul(valueTmp[loopTmp], 1000)), 1000);
+//                                dataTmp.color = colors[loopTmp % 9];
+                                yAxisData.push(accDiv(Math.round(accMul(valueTmp[loopTmp], 1000)), 1000));
                             }
                             
                             return false;
@@ -294,14 +252,18 @@
                             if(key == 3) return false;
                         });
 
-                        dqgr.parse(dataInfo,'json');
-                        initTab2();
+                        dqgr.parse(dataInfo,'json');                        
+                        
+                        if(dqgr.getRowsNum() > 0){
+                            
+                            doFzGrClick(dqgr.getRowId(0), 0);
+                        }
                     },
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-//                // 事件绑定
-//                dqgr.attachEvent('onRowSelect', doFzGrClick); 
+                // 事件绑定
+                dqgr.attachEvent('onRowSelect', doFzGrClick); 
             }
             
             /**
@@ -341,13 +303,12 @@
                         });
 
                         dqgr1.parse(dataInfo,'json');
-                        initTab2();
                     },
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-//                // 事件绑定
-//                dqgr1.attachEvent('onRowSelect', doFzGrClick); 
+                // 事件绑定
+                dqgr1.attachEvent('onRowSelect', doFzGrClick); 
             }
             
             var xbJson;
@@ -394,13 +355,12 @@
                         });
 
                         dqgr2.parse(dataInfo,'json');
-                        initTab2();
                     },
                     complete: function (XHR, TS) { XHR = null } 
                 });
                 
-//                // 事件绑定
-//                dqgr2.attachEvent('onRowSelect', doFzZzGrClick);
+                // 事件绑定
+                dqgr2.attachEvent('onRowSelect', doFzZzGrClick);
             }
             /**
              * 页面布局设置
@@ -448,9 +408,7 @@
                             $.each(json,function(key, value){
 
                                 xAxisData.push(value.value);
-                                
-                                var dateTmp = new Date(value.date)
-                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                                yAxisData.push(value.date);
                             });
 
                             var ys;
@@ -495,9 +453,7 @@
                             $.each(json,function(key, value){
 
                                 xAxisData.push(value.value);
-                                
-                                var dateTmp = new Date(value.date)
-                                yAxisData.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                                yAxisData.push(value.date);
                             });
 
                             var ys;
@@ -572,13 +528,16 @@
 
                         gr.parse(youjingData,'json');
                         
-                        initTab1();
+                        if(gr.getRowsNum() > 0){
+                            
+                            doGrClick(gr.getRowId(0), 0);
+                        }
                     },
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-//                // 事件绑定
-//                gr.attachEvent('onRowSelect', doGrClick);
+                // 事件绑定
+                gr.attachEvent('onRowSelect', doGrClick);
             }  
                 
             /**
@@ -624,14 +583,12 @@
                         });
 
                         Gr.parse(youjingData,'json');
-                        
-                        initTab1();
                     },
                     complete: function (XHR, TS) { XHR = null } 
                 });  
                    
-//                // 事件绑定
-//                Gr.attachEvent('onRowSelect', doGrClick);
+                // 事件绑定
+                Gr.attachEvent('onRowSelect', doGrClick);
             }
             
             // 电气参数标题项目
@@ -657,8 +614,6 @@
                                 $("#dq_" + value.key).html(formatNumber(value.value, 2));
                             }
                         });
-                        
-                        initTab1();
                     },
                     complete: function(XHR, TS){ 
                         XHR = null; 
@@ -972,35 +927,52 @@
                         $("#ssqxTitle").html('&nbsp&nbsp&nbsp（功图对比）');
                         $.each(json, function(key, value) {   
                             
-                            $("#gtdb").append("<div id='container_gtdb_" + key + "' style='width: 200px; height: 100%; margin: 0 auto; float:left;'></div>");
+                            $("#gtdb").append("<div id='container_gtdb_" + key + "' style='width: 200px; height: 100%; margin: 0 auto; float:left;font-size:12px'></div>");
 
-                            var series = { 
-                                data: []            
-                            };  
+                            var graph;
+    var data_qx = []; 
 //                            alert(value.weiyi + '---' + value.zaihe);
                             str_xAxis = value.weiyi;
                             str_yAxis = value.zaihe;
                             
-                            var weiyiTmp1 = 0;
-                            options1.series = [];
-                            series.name = '示功图';
-                            series.unit = 'm';
+                            var maxTmp_x = 0;
+                            var maxTmp_y = 0;
                             for (var i=0; i<str_xAxis.length; i++){
                                 
-                                if((Number(str_xAxis[i])) > weiyiTmp1){
-                                    weiyiTmp1 = str_xAxis[i];
+                                if((Number(str_xAxis[i])) > maxTmp_x){                            
+                                    maxTmp_x = str_xAxis[i];
+                                }
+                                if((Number(str_yAxis[i])) > maxTmp_y){
+                                    maxTmp_y = str_yAxis[i];
                                 }
 
-                                series.data.push([str_xAxis[i],str_yAxis[i]]);
+                                data_qx.push([str_xAxis[i],str_yAxis[i]]);
                             }
-                            options1.chart.renderTo = 'container_gtdb_' + key;
-                            var dateTmp = new Date(value.time);
-                            options1.xAxis.max = Math.ceil(weiyiTmp1);
-                            options1.xAxis.title.text = dateTmp.getFullYear() + "-" + (dateTmp.getMonth() + 1) + "-" 
-                                    + dateTmp.getDate() + " " + dateTmp.getHours() + ":" + dateTmp.getMinutes();
-                            options1.yAxis.title.text = '示功图';
-                            options1.series.push(series);
-                            new Highcharts.Chart(options1);  
+                            
+                             var dd = {data:data_qx, lines : { show : true }}
+                             var dateTmp = new Date(value.time);
+                            // Draw Graph
+                            var containerr = document.getElementById('container_gtdb_' + key)
+                            graph = Flotr.draw(containerr, [ dd ],{
+                               title:dateTmp.getFullYear() + "-" + (dateTmp.getMonth() + 1) + "-" 
+                                    + dateTmp.getDate() + " " + dateTmp.getHours() + ":" + dateTmp.getMinutes(),
+                               xaxis : {
+                                   min : null,
+                                   max : accAdd(maxTmp_x, accMul(maxTmp_x, 0.1))
+                               },
+                               yaxis : {
+                                   min : null,
+                                   max : accAdd(maxTmp_y, accMul(maxTmp_y, 0.1))
+                               },
+                               mouse : {
+                                   track : true,
+                                   trackAll: false,
+                                   trackY: false,
+                                   trackFormatter: function(obj){
+                                       return '<b>示功图</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
+                                   }
+                               }
+                            });
                             
 //                            $("#container_gtdb_" + key).append("<div>" + value.time + "</div>");
                         }); 
@@ -1048,9 +1020,12 @@
                         $.each(json, function(key, value) {   
                             
                             str_xAxis.push(value[p_gtParKey]);
-                                
-                            var dateTmp = new Date(value.time)
-                            str_yAxis.push(dateTmp.getHours() + ':' + dateTmp.getMinutes());
+                            
+                            var dateTmp = new Date(value.time);
+//                            alert(dateTmp.getFullYear() + "/" + (dateTmp.getMonth()+1) 
+//                                    + "/" + dateTmp.getDate() + " " + dateTmp.getHours() + ":" + dateTmp.getMinutes());
+                            str_yAxis.push(new Date(dateTmp.getFullYear() + "/" + (dateTmp.getMonth()+1) 
+                                    + "/" + dateTmp.getDate() + " " + dateTmp.getHours() + ":" + dateTmp.getMinutes()));
                         }); 
                         
                         var ys;
@@ -1712,13 +1687,12 @@
                         });
 
                         dqgr.parse(dataInfo,'json');
-                        initTab2();
                     },
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-//                // 事件绑定
-//                dqgr.attachEvent('onRowSelect', doFzGrClick); 
+                // 事件绑定
+                dqgr.attachEvent('onRowSelect', doFzGrClick); 
             }
             
             /**
@@ -1755,13 +1729,12 @@
                         });
 
                         dqgr1.parse(dataInfo,'json');
-                        initTab2();
                     },
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-//                // 事件绑定
-//                dqgr1.attachEvent('onRowSelect', doFzGrClick); 
+                // 事件绑定
+                dqgr1.attachEvent('onRowSelect', doFzGrClick); 
             }
             
             var xbJson;
@@ -1804,13 +1777,12 @@
                         });
 
                         dqgr2.parse(dataInfo,'json');
-                        initTab2();
                     },
                     complete: function (XHR, TS) { XHR = null } 
                 });
                 
-//                // 事件绑定
-//                dqgr2.attachEvent('onRowSelect', doFzZzGrClick); 
+                // 事件绑定
+                dqgr2.attachEvent('onRowSelect', doFzZzGrClick); 
             }
             
             /**
@@ -1872,8 +1844,8 @@
                     complete: function (XHR, TS) { XHR = null } 
                 });                        
                  
-//                // 事件绑定
-//                gr_gk_win.attachEvent('onRowSelect', doGrClick);
+                // 事件绑定
+                gr_gk_win.attachEvent('onRowSelect', doGrClick);
             }  
             
             var i=1;
@@ -1960,7 +1932,7 @@
     </head>
     <body>
         <!--主界面-->
-            <div id="zz" style="width:3845px; height:717px;border:solid; border-color:#000; border-width:1px">
+            <div id="zz" style="width:3845px; height:717px;border:solid; border-color:#000; border-width:1px; ">
                 <!--数据-->
                 <div id="ssjcm" style="width:1280px; height:69px; float:left; font-size: 0 " >
                     <%@ include file="ssjcCommon.jsp"%> 
@@ -2148,8 +2120,8 @@
                                 <span id="ssqxTitle"></span>
                             </div>	
                             <div id="ssqx4" style="width:1268px; height:120px; float:left">
-                                <div id="div1" style="width:100%;height:100%;">
-                                    <div id="container" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
+                                <div id="div1" style="width:100%;height:90%;">
+                                    <div id="container" style="min-width: 90%; height: 90%;font-size:12px;margin-top: 10px"></div>
                                 </div>
                                 <div id="div2" style="width:100%;height:100%; ">
                                     <div id="container1" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
@@ -2221,7 +2193,7 @@
                         <div id="bia2" style="width:5px; height:20px; float:left;" ></div>
                         <div id="dqcsqxt" style=" width:1266px; height:95px; border-style:solid; border-color:#9fdfae; border-width:1px;  float:left" >
                             <div id="div3" style="width:100%;height:100%;">
-                                <div id="container2" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
+                                <div id="container2" style="min-width: 90%; height: 70%;font-size:12px;margin-top: 10px"></div>
                             </div>
                             <div id="div4" style="width:100%; height:100%">
                                 <div id="container5" style=" min-width:90%; height:100%;margin:0 auto"></div>
