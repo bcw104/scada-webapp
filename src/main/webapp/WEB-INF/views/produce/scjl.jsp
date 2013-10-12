@@ -505,12 +505,7 @@
                 <div id="gr1" style="width:1245px; height:602px; float:left; display:none">
                     <!--网络拓扑图-->
                     <div  id="wltpt" style="width:1270px; height:580px;">
-                        <div id="qm" style="width:1270px; height:21px; font-size:14px; line-height:20px; font-weight:bold;background-color:#e6d5ff;border:solid; border-color:#e6d5ff; border-width:1px;  float:left">
-                            &nbsp;&nbsp;&nbsp;网&nbsp;&nbsp;&nbsp;络&nbsp;&nbsp;&nbsp;拓&nbsp;&nbsp;&nbsp;扑&nbsp;&nbsp;&nbsp;图
-                        </div>
-                        <div id="wltp" style="width:1270px; height:580px; background-color:#FFE0BB;border:solid; border-color:#e6d5ff; border-width:1px;  float:left" >
-                            <div id="deviceContent" style="width:1270px; height:580px;" ></div>
-                        </div> 
+                        <div id="flashContent"></div>
                     </div>
                     <!--网络表格-->
                     <div  id="wlbg" style="width:1248px; height:578px;">
@@ -589,5 +584,30 @@
         <div id="tcan" >
             <a href="${ctx}/logout"><img border="0" src="${ctx}/static/img/tc.png" /></a>
         </div>
+        
+        <script type="text/javascript" src="${ctx}/static/topo/swfobject.js"></script>
+        <script type="text/javascript">
+            // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
+            var swfVersionStr = "11.1.0";
+            // To use express install, set to playerProductInstall.swf, otherwise the empty string. 
+            var xiSwfUrlStr = "${ctx}/static/topo/playerProductInstall.swf";
+            var flashvars = {url:"${ctx}/topology/dataList"};
+            var params = {};
+            params.quality = "high";
+            params.bgcolor = "#ffffff";
+            params.allowscriptaccess = "sameDomain";
+            params.allowfullscreen = "true";
+            var attributes = {};
+            attributes.id = "topoMap";
+            attributes.name = "topoMap";
+            attributes.align = "middle";
+            swfobject.embedSWF(
+                "${ctx}/static/topo/topoMap.swf", "flashContent", 
+                "100%", "100%", 
+                swfVersionStr, xiSwfUrlStr, 
+                flashvars, params, attributes);
+            // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
+            swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+        </script>
     </body>
 </html>
