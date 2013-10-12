@@ -124,6 +124,11 @@ function te(a,b,c,d,e,f){
             max : null
         }
     });
+                    
+                    if(graph != null){
+                        graph.destroy();
+                        graph = null;
+                    }
 }	
 
 function te1(a,b,c,d,e,f){
@@ -155,6 +160,11 @@ function te1(a,b,c,d,e,f){
         position: 'ct'
         }
     });
+                    
+                    if(graph != null){
+                        graph.destroy();
+                        graph = null;
+                    }
     
 //    var series = new Object();
 //    series.data = [];

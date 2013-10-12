@@ -683,6 +683,11 @@ function createAllQx(p_code,p_data) {
                         }
                     });
                     
+                    if(graph != null){
+                        graph.destroy();
+                        graph = null;
+                    }
+                    
                     data_qx = [];
                     maxTmp_x = 0;
                     maxTmp_y = 0;
@@ -720,6 +725,11 @@ function createAllQx(p_code,p_data) {
                             }
                         }
                     });
+                    
+                    if(graph != null){
+                        graph.destroy();
+                        graph = null;
+                    }
                     
                     data_qx = [];
                     maxTmp_x = 0;
@@ -759,6 +769,11 @@ function createAllQx(p_code,p_data) {
                         }
                     });
                     
+                    if(graph != null){
+                        graph.destroy();
+                        graph = null;
+                    }
+                    
                     data_qx = [];
                     maxTmp_x = 0;
                     maxTmp_y = 0;
@@ -773,7 +788,7 @@ function createAllQx(p_code,p_data) {
                     }
                     dd = {data:data_qx, lines : { show : true }}
                     // Draw Graph
-                    var containerr3 = document.getElementById('containerr3')
+                    var containerr3 = document.getElementById('containerr3');
                     graph = Flotr.draw(containerr3, [ dd ],{
                         title:date_qx.getFullYear() + "-" + (date_qx.getMonth() + 1) + "-" 
                             + date_qx.getDate() + " " + date_qx.getHours() + ":" + date_qx.getMinutes(),
@@ -796,6 +811,11 @@ function createAllQx(p_code,p_data) {
                             }
                         }
                     });
+                    data_qx = [];
+                    if(graph != null){
+                        graph.destroy();
+                        graph = null;
+                    }
                 },
                 complete: function (XHR, TS) { 
                     XHR = null;

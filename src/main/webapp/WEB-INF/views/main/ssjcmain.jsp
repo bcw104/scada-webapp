@@ -87,6 +87,8 @@
                 createWindows_gt();
                 createWindows_gk();
                 createWindows_dq();
+                
+//                setInterval("location.reload();",60 * 1000);
             });
             
             /**
@@ -121,15 +123,15 @@
                 // 抽油杆信息窗体
                 createWindow();
                 
-                // 定时刷新
-                // 功图信息刷新 （包括控制参数）
-                setInterval("createAllQx('${info.code}');",gtTime);
-                // 电气参数信息刷新（第一个选项卡） 
-                setInterval("createDq()",dq1Time);
-                // 传感器运行信息刷新 
-                setInterval("createGrid()",cgqTime);
-
-//                setInterval("CollectGarbage();", gcTime);
+//                // 定时刷新
+//                // 功图信息刷新 （包括控制参数）
+//                setInterval("createAllQx('${info.code}');",gtTime);
+//                // 电气参数信息刷新（第一个选项卡） 
+//                setInterval("createDq()",dq1Time);
+//                // 传感器运行信息刷新 
+//                setInterval("createGrid()",cgqTime);
+//
+////                setInterval("CollectGarbage();", gcTime);
 
             }
             
@@ -922,7 +924,7 @@
                         var str_xAxis = [];
                         // 位移，示功图横坐标
                         var str_yAxis = [];
-                        
+                        alert($("#gtStart").val().replace("时", "") +'-----------'+$("#gtEnd").val().replace("时", ""));
                         $("#gtdb").html('');                        
                         $("#ssqxTitle").html('&nbsp&nbsp&nbsp（功图对比）');
                         $.each(json, function(key, value) {   
