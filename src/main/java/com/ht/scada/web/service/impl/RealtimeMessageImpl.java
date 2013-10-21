@@ -15,6 +15,7 @@ import com.ht.scada.data.entity.YxRecord;
 import com.ht.scada.oildata.OilDataMessageListener;
 import com.ht.scada.oildata.entity.FaultDiagnoseRecord;
 import com.ht.scada.security.entity.User;
+import com.ht.scada.web.alarm.AlarmCache;
 import com.ht.scada.web.entity.AlarmRecord;
 import com.ht.scada.web.entity.UserExtInfo;
 import com.ht.scada.web.service.AlarmInfoService;
@@ -23,19 +24,15 @@ import java.util.List;
 import javax.inject.Inject;
 import org.atmosphere.cpr.MetaBroadcaster;
 
+public class RealtimeMessageImpl implements RealtimeMessageListener, OilDataMessageListener {
 
-public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessageListener {
-	
-	private static final Logger log = LoggerFactory.getLogger(RealtimeMessageImpl.class);
-	private static final String ALARM_FAULT = "遥信故障";
+    private static final Logger log = LoggerFactory.getLogger(RealtimeMessageImpl.class);
+    private static final String ALARM_FAULT = "遥信故障";
     private static final String ALARM_OFFLIMITS = "遥测越限";
     private static final String ALARM_YXCHANGED = "遥信变位";
     private static final String ALARM_FAULTDIAGNOSE = "功图故障";
-    
-    
     private static final int ALARM_STATUS_OCCURED = 0;
     private static final int ALARM_STATUS_RESUMED = 1;
-    
     @Inject
     private EndTagService endTagService;
     @Inject
@@ -44,45 +41,53 @@ public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessa
     private UserExtInfoService userExtInfoService;
     @Inject
     private TagService tagService;
-    
-	@Override
-	public synchronized void faultOccured(FaultRecord record) {
+
+    @Override
+    public synchronized void faultOccured(FaultRecord record) {
         log.info("接收报警信息——faultOccured");
-        AlarmRecord oldalarm = alarmInfoService.getAlarmByAlarmId(record.getId());
-        if(oldalarm != null){
+        if (AlarmCache.getInstance().getAlarm(record.getId()) != null) {//报警未解除
             return;
         }
+//        AlarmRecord oldalarm = alarmInfoService.getAlarmByAlarmId(record.getId());
+//        if(oldalarm != null){
+//            return;
+//        }
+
         EndTag endTag = endTagService.getByCode(record.getCode());
         AlarmRecord alarm = new AlarmRecord();
         alarm.setAlarmType(ALARM_FAULT);
         alarm.setAlarmId(record.getId());
         alarm.setEndTag(endTag);
         alarm.setActionTime(record.getActionTime());
-		alarm.setInfo(record.getInfo());
+        alarm.setInfo(record.getInfo());
         alarm.setVarName(record.getName());
         alarm.setRemark(record.getInfo());
-        //alarmInfoService.saveAlarmRecord(alarm);
-        pushAlarm(alarm);
-	}
 
-	@Override
-	public synchronized void faultResumed(FaultRecord record) {
-		// TODO Auto-generated method stub
-		log.info("报警信息解除--faultResumed");
-        AlarmRecord alarm = alarmInfoService.getAlarmByAlarmId(record.getId());
-        log.info(alarm.getAlarmType());
+        AlarmCache.getInstance().putAlarm(record.getId(), alarm);//加入报警缓存
+        pushAlarm(alarm);
+    }
+
+    @Override
+    public synchronized void faultResumed(FaultRecord record) {
+        // TODO Auto-generated method stub
+        log.info("报警信息解除--faultResumed");
+        AlarmRecord alarm = AlarmCache.getInstance().getAlarm(record.getId());//从缓存取报警
+        if(alarm == null) {
+            return;
+        }
         alarm.setResumeTime(record.getResumeTime());
         alarm.setStatus(ALARM_STATUS_RESUMED);
-        //alarmInfoService.saveAlarmRecord(alarm);
+        
+        AlarmCache.getInstance().removeAlarm(record.getId());//解除报警
         pushAlarm(alarm);
-	}
+    }
 
-	@Override
-	public synchronized void offLimitsOccured(OffLimitsRecord record) {
-		// TODO Auto-generated method stub
-		log.info("接收报警信息——offLimitsOccured");
+    @Override
+    public synchronized void offLimitsOccured(OffLimitsRecord record) {
+        // TODO Auto-generated method stub
+        log.info("接收报警信息——offLimitsOccured");
         AlarmRecord oldalarm = alarmInfoService.getAlarmByAlarmId(record.getId());
-        if(oldalarm != null){
+        if (oldalarm != null) {
             return;
         }
         EndTag endTag = endTagService.getByCode(record.getCode());
@@ -91,30 +96,30 @@ public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessa
         alarm.setAlarmId(record.getId());
         alarm.setEndTag(endTag);
         alarm.setActionTime(record.getActionTime());
-		alarm.setInfo(record.getInfo());
+        alarm.setInfo(record.getInfo());
         alarm.setVarName(record.getName());
         alarm.setRemark(record.getInfo());
         //alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
-	}
+    }
 
-	@Override
-	public synchronized void offLimitsResumed(OffLimitsRecord record) {
-		// TODO Auto-generated method stub
-		log.info("报警信息解除——offLimitsResumed");
+    @Override
+    public synchronized void offLimitsResumed(OffLimitsRecord record) {
+        // TODO Auto-generated method stub
+        log.info("报警信息解除——offLimitsResumed");
         AlarmRecord alarm = alarmInfoService.getAlarmByAlarmId(record.getId());
         alarm.setResumeTime(record.getResumeTime());
         alarm.setStatus(ALARM_STATUS_RESUMED);
         //alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
-	}
+    }
 
-	@Override
-	public synchronized void yxChanged(YxRecord record) {
-		// TODO Auto-generated method stub
-		log.info("接收报警信息——yxChanged");
+    @Override
+    public synchronized void yxChanged(YxRecord record) {
+        // TODO Auto-generated method stub
+        log.info("接收报警信息——yxChanged");
         AlarmRecord oldalarm = alarmInfoService.getAlarmByAlarmId(record.getId());
-        if(oldalarm != null){
+        if (oldalarm != null) {
             return;
         }
         //ALARM_YXCHANGED
@@ -126,12 +131,12 @@ public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessa
         alarm.setActionTime(record.getDatetime());
         alarm.setResumeTime(record.getDatetime());
         alarm.setStatus(ALARM_STATUS_RESUMED);
-		alarm.setInfo(record.getInfo());
+        alarm.setInfo(record.getInfo());
         alarm.setVarName(record.getName());
         alarm.setRemark(record.getInfo());
         //alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
-	}
+    }
 
     @Override
     public synchronized void faultOccured(FaultDiagnoseRecord record) {
@@ -141,7 +146,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessa
         alarm.setAlarmId(record.getId());
         alarm.setEndTag(endTag);
         alarm.setActionTime(record.getActionTime());
-		alarm.setInfo(record.getInfo());
+        alarm.setInfo(record.getInfo());
         alarm.setVarName(record.getName());
         alarm.setRemark(record.getInfo());
         //alarmInfoService.saveAlarmRecord(alarm);
@@ -156,19 +161,19 @@ public class RealtimeMessageImpl implements RealtimeMessageListener,OilDataMessa
         //alarmInfoService.saveAlarmRecord(alarm);
         pushAlarm(alarm);
     }
-    
-    private synchronized void pushAlarm(AlarmRecord alarm){
+
+    private synchronized void pushAlarm(AlarmRecord alarm) {
         log.debug(ALARM_FAULT + Thread.currentThread().getId());
-        TagCfgTpl cfgtpl = tagService.getTagCfgTplByCodeAndVarName(alarm.getEndTag().getCode(), alarm.getVarName());
-        alarm.setVarCnName(cfgtpl.getTagName());
-        alarmInfoService.saveAlarmRecord(alarm);
         List<UserExtInfo> list = userExtInfoService.getUserExtInfoByEndTag(alarm.getEndTag().getId());
-        for(UserExtInfo extInfo:list){
-            if(extInfo.getHeadflg().equals("1")){
+        for (UserExtInfo extInfo : list) {
+            if (extInfo.getHeadflg().equals("1")) {
                 User user = extInfo.getUser();
                 //MetaBroadcaster.getDefault().broadcastTo("/" + user.getUsername(), alarm.getId().toString());
                 BroadcasterCache.getInstance().broadcast("/" + user.getUsername(), alarm.getId());
             }
         }
+        TagCfgTpl cfgtpl = tagService.getTagCfgTplByCodeAndVarName(alarm.getEndTag().getCode(), alarm.getVarName());
+        alarm.setVarCnName(cfgtpl.getTagName());
+        alarmInfoService.saveAlarmRecord(alarm);    //将报警记录写入数据库
     }
 }
