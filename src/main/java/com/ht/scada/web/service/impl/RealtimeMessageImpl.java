@@ -169,7 +169,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener, OilDataMess
             if (extInfo.getHeadflg().equals("1")) {
                 User user = extInfo.getUser();
                 //MetaBroadcaster.getDefault().broadcastTo("/" + user.getUsername(), alarm.getId().toString());
-                BroadcasterCache.getInstance().broadcast("/" + user.getUsername(), alarm.getId());
+                BroadcasterCache.getInstance().broadcast("/" + user.getUsername(), alarm.getAlarmId());
             }
         }
         TagCfgTpl cfgtpl = tagService.getTagCfgTplByCodeAndVarName(alarm.getEndTag().getCode(), alarm.getVarName());
