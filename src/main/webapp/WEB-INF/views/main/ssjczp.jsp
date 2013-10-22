@@ -77,6 +77,10 @@
                 createdqgr2();
             }
             
+            /**
+             * 初始化时曲线显示
+             * @returns {undefined}
+             */
             function initTab1(){
                  // tab1
                 switch(flag_sel){
@@ -201,7 +205,10 @@
                         }
                     });                    
                 }               
-             
+             /**
+             * 电力信息
+
+              * @returns {undefined}              */
             function createdqgr(){
                 dqgr=new dhtmlXGridObject('zpdq1');
 				dqgr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
@@ -240,7 +247,10 @@
                  // 事件绑定
                 dqgr.attachEvent('onRowSelect', doFzGrClick); 
             }
-            
+            /**
+            * 电量信息
+
+             * @returns {undefined}             */
             function createdqgr1(){
                 dqgr1=new dhtmlXGridObject('zpdq2');
 				dqgr1.setImagePath("js/gridcodebase/imgs/");
@@ -320,7 +330,10 @@
                         }
                     });                    
                 }  
-            
+            /**
+            * 谐波信息
+
+             * @returns {undefined}             */
             function createdqgr2(){
                 dqgr2=new dhtmlXGridObject('zpdq3');
 				dqgr2.setImagePath("js/gridcodebase/imgs/");
@@ -408,7 +421,10 @@
 	
                     te1(xAxisData, tmpName[1], '', '', yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
                 }  
-            
+            /**
+             * 创建浮动窗口
+             * @returns {undefined}
+             */
             function createWindows(){
                     dhxWins = new dhtmlXWindows();
                     dhxWins.attachViewportTo(document.body);
@@ -418,7 +434,10 @@
                     dhxWins.window("win").button('park').hide();
                     dhxWins.window("win").hide();	
                 }
-                    
+            /**
+             * 创建浮动窗口
+             * @returns {undefined}
+             */        
             function createWindows1(){
                     dhxWins1 = new dhtmlXWindows();
                     dhxWins1.attachViewportTo(document.body);

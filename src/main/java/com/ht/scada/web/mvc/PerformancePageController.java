@@ -32,6 +32,11 @@ public class PerformancePageController {
     @Autowired
     private MajorTagService majorTagService;
     
+    /**
+     * 生产动态主页面
+     * @param model
+     * @return 
+     */
     @RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
 
@@ -47,6 +52,12 @@ public class PerformancePageController {
         return "performance/scdt";
 	}
 
+    /**
+     * 组织机构页面
+     * @param id
+     * @param model
+     * @return 
+     */
     @RequestMapping(value="majortagpage")
 	public String majortagpage(@RequestParam("id") int id, Model model) {
 
@@ -64,6 +75,12 @@ public class PerformancePageController {
         return "performance/scdt_majortag";
 	}
 
+    /**
+     * 井信息页面
+     * @param id
+     * @param model
+     * @return 
+     */
     @RequestMapping(value="endtagpage")
 	public String endtagpage(@RequestParam("id") int id, Model model) {
 

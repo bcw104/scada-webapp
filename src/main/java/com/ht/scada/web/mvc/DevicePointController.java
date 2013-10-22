@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- *
+ * 网络拓补图Controller（已废弃）
  * @author admin
  */
 @Controller
@@ -22,6 +22,10 @@ public class DevicePointController {
     @Autowired
     private DevicePointService devicePointService;   
     
+    /**
+     * 设备列表
+     * @return 
+     */
     @RequestMapping(value = "list")
     @ResponseBody
     public List<Map> list(){

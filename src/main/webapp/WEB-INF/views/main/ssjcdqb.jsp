@@ -75,6 +75,10 @@
                 createGrid();
             }
            
+           /**
+            * 初始化显示曲线
+            * @returns {undefined}
+            */
            function initTab1(){
                  // tab1
                 switch(flag_sel){
@@ -404,6 +408,11 @@
                     }
                 });
             }
+           
+            /**
+            * 浮动窗口
+
+             * @returns {undefined}             */
             function createWindows(){
                     dhxWins = new dhtmlXWindows();
                     dhxWins.attachViewportTo(document.body);
@@ -413,6 +422,11 @@
                     dhxWins.window("win").button('park').hide();
                     dhxWins.window("win").hide();	
                     }
+            
+            /**
+             * 工况图片
+             * @returns {Boolean}
+             */
             function ztwin(){
                 if(!refFlag) return true;
                 // 刷新标识
@@ -426,6 +440,12 @@
                 });
                 dhxWins.window("win").attachHTMLString(dtu);
             }
+            
+            /**
+             * 曲线显示
+             * @param {type} i
+             * @returns {undefined}
+             */
             function qxa(i){
                 $("#ssqx4").css("display","block");
                 $("#gtdb").css("display","none");
@@ -831,6 +851,10 @@
             }
             
             var i=1;
+            /**
+             * 工况信息伸缩
+             * @returns {undefined}
+             */
             function bd(){
                 if(i%2==0){
                     $("#gk2").css("display","block");

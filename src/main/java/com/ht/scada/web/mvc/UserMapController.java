@@ -89,6 +89,12 @@ public class UserMapController {
         mapResult.put("item", listResult);
         return mapResult;
     }
+    
+    /**
+     * 权限对应组织机构
+     * @param lstMajorTag
+     * @return 
+     */
      private List<Map> permissionListItem(List<MajorTag> lstMajorTag){
         
         Map<String,Object> map = null;   
@@ -130,6 +136,11 @@ public class UserMapController {
         return listResult;
     }
     
+     /**
+      * 井信息
+      * @param lstEndTag
+      * @return 
+      */
     private List<Map> permissionListEndItem(List<EndTag> lstEndTag){
         
         Map<String,Object> map = null; 

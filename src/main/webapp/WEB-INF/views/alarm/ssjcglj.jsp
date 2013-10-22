@@ -131,7 +131,7 @@
                     $("#gtdb").css("display","none");                   
                 }
                 
-                /**
+            /**
              * 功图曲线显示
              * @returns {undefined}
              */
@@ -218,7 +218,11 @@
                         }
                     });                    
                 }  
-                
+              
+            /**
+             * 电力信息
+             * @returns {undefined}             
+             * */
             function createygdqGr(){
                 yggr=new dhtmlXGridObject('ygdq1');
 				yggr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
@@ -261,6 +265,11 @@
                 // 事件绑定
                 yggr.attachEvent('onRowSelect', doFzGrClick); 
             }
+            
+            /**
+            * 电量信息
+
+             * @returns {undefined}             */
             function createygdqGr1(){
                 yggr1=new dhtmlXGridObject('ygdq2');
 				yggr1.setImagePath("js/gridcodebase/imgs/");
@@ -338,6 +347,11 @@
                 }  
                 
             var xbJson;
+            
+            /**
+             * 谐波信息
+             * @returns {undefined}
+             */
             function createygdqGr2(){
                 yggr2=new dhtmlXGridObject('ygdq3');
 				yggr2.setImagePath("js/gridcodebase/imgs/");
@@ -379,6 +393,7 @@
                 // 事件绑定
                 yggr2.attachEvent('onRowSelect', doFzZzGrClick); 
             }
+            
             /**
              * 页面布局设置
              * @returns {undefined}
@@ -392,6 +407,7 @@
                 dhxTabbar.cells("tab1").attachObject("gk");
                 dhxTabbar.cells("tab2").attachObject("fz");
             }
+            
             var yse=['black','blue'];
             var j=0;
             var dyDate= [0.57,0.52,0.56,0.59,0.55,0.6,0.57,0.5,0.57,0.55,0.6,0.52,0.57,0.5,0.5,0.56,0.59,0.53,0.58,0.56,0.54,0.6,0.51,0.59,0.55,0.51,0.59,0.52,0.58,0.54,0.59,0.52,0.51,0.57,0.53,0.54,0.58,0.5,0.53,0.53,0.59,0.57,0.56,0.51,0.54,0.6,0.51,0.6,0.52,0.53,0.58,0.53,0.51,0.59,0.59,0.6,0.54,0.57,0.51,0.51,0.58,0.55,0.6,0.6,0.6,0.58,0.59,0.55,0.52,0.56,0.52,0.53,0.59,0.54,0.55,0.58,0.55,0.5,0.6,0.55,0.57,0.57,0.51,0.51,0.51,0.59,0.59,0.53,0.54,0.54,0.54,0.6,0.6,0.5,0.59,0.53,0.58,0.5,0.53,0.55,0.59,0.59,0.53,0.54,0.56,0.51,0.53,0.59,0.56,0.5,0.51,0.57,0.6,0.55,0.57,0.5,0.53,0.54,0.54,0.57,0.54,0.58,0.58,0.59,0.54,0.57,0.52,0.6,0.55,0.5,0.56,0.55,0.52,0.55,0.57,0.55,0.59,0.52,0.56,0.6,0.51,0.6,0.54,0.6,0.59,0.53,0.52,0.51,0.54,0.52,0.52,0.57,0.58,0.54,0.58,0.59,0.51,0.52,0.53,0.53,0.54,0.5,0.58,0.59,0.58,0.54,0.54,0.53,0.59,0.55,0.6,0.58,0.51,0.51,0.56,0.57,0.55,0.57,0.6,0.51,0.51,0.55,0.5,0.55,0.54,0.52,0.6,0.53,0.59,0.6,0.59,0.58,0.54,0.6,0.55,0.56,0.5,0.52,0.57,0.57,0.51,0.55,0.51,0.53,0.57,0.56,0.6,0.54,0.56,0.55,0.51,0.51,0.51,0.52,0.51,0.52,0.59,0.54,0.54,0.57,0.51,0.59,0.6,0.58,0.53,0.56,0.53,0.5,0.53,0.53,0.58,0.51,0.54,0.53,0.51,0.6,0.58,0.5,0.52,0.56,0.52,0.5,0.56,0.52,0.52,0.53,0.53,0.55,0.56,0.5,0.54,0.52,0.6,0.56,0.57,0.56,0.53,0.53,0.55,0.51,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
@@ -554,6 +570,7 @@
             
             // 电气参数标题项目
             var strDqTitle = ',u_a,u_b,u_c,i_a,i_b,i_c,gl_ys,';
+            
             /**
              * 设置电气参数
              * @returns {undefined}
@@ -633,6 +650,7 @@
                     }
                 });
             }
+            
             /**
             * 设置传感器设备信息
             * @returns {undefined}             
@@ -1115,24 +1133,34 @@
                 dhxd3.window("wi3").hide();
             }
             
-function createWindows(){
-	dhxWins = new dhtmlXWindows();
-	dhxWins.attachViewportTo(document.body);
-	dhxWins.createWindow("win",200,100,1000,500);
-	dhxWins.window("win").button('minmax2').hide();
-	dhxWins.window("win").button('minmax1').hide();
-	dhxWins.window("win").button('park').hide();
-	dhxWins.window("win").hide();	
-	}
-function createWindow(){
-	dhxWins2 = new dhtmlXWindows();
-	dhxWins2.attachViewportTo(document.body);
-	dhxWins2.createWindow("win2",600,200,400,150);
-	dhxWins2.window("win2").button('minmax2').hide();
-	dhxWins2.window("win2").button('minmax1').hide();
-	dhxWins2.window("win2").button('park').hide();
-	dhxWins2.window("win2").hide();	
-	}
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
+            function createWindows(){
+                dhxWins = new dhtmlXWindows();
+                dhxWins.attachViewportTo(document.body);
+                dhxWins.createWindow("win",200,100,1000,500);
+                dhxWins.window("win").button('minmax2').hide();
+                dhxWins.window("win").button('minmax1').hide();
+                dhxWins.window("win").button('park').hide();
+                dhxWins.window("win").hide();	
+            }
+
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
+            function createWindow(){
+                dhxWins2 = new dhtmlXWindows();
+                dhxWins2.attachViewportTo(document.body);
+                dhxWins2.createWindow("win2",600,200,400,150);
+                dhxWins2.window("win2").button('minmax2').hide();
+                dhxWins2.window("win2").button('minmax1').hide();
+                dhxWins2.window("win2").button('park').hide();
+                dhxWins2.window("win2").hide();	
+            }
+            
             /**
              * 抽油杆受力分析
              * @returns {undefined}
@@ -1182,58 +1210,95 @@ function createWindow(){
                     }
                 });
             }
-function wins(){
-	dhxWins.window("win").show();
-	}
-	function createWindows1(){
-	dhxWins1 = new dhtmlXWindows();
-	dhxWins1.attachViewportTo(document.body);
-	dhxWins1.createWindow("win1",600,150,400,130);
-	dhxWins1.window("win1").button('minmax2').hide();
-	dhxWins1.window("win1").button('minmax1').hide();
-	dhxWins1.window("win1").button('park').hide();
-	dhxWins1.window("win1").hide();	
-	}
-        function ztwin(){
-	 dhxWins.window("win").show();
-	 dhxWins.window("win").setText("工况");
-	 dhxWins.attachEvent("onClose", function(win){
-	 dhxWins.window("win").hide(); 
-   				 });
-	 dhxWins.window("win").attachHTMLString(dtu);
-	}
-	function sgtwin(){
-	 dhxWins.window("win").show();
-	 dhxWins.window("win").setText("示工图");
-	 dhxWins.attachEvent("onClose", function(win){
-	 dhxWins.window("win").hide(); 
-   				 });
-	 dhxWins.window("win").attachHTMLString(dtu1);
-	}
-	function dlqxwin(){
-	 dhxWins.window("win").show();
-	 dhxWins.window("win").setText("电流曲线");
-	 dhxWins.attachEvent("onClose", function(win){
-	 dhxWins.window("win").hide(); 
-   				 });
-	 dhxWins.window("win").attachHTMLString(dtu2);
-	}
-	function dgtwin(){
-	 dhxWins.window("win").show();
-	 dhxWins.window("win").setText("电功图");
-	 dhxWins.attachEvent("onClose", function(win){
-	 dhxWins.window("win").hide(); 
-   				 });
-	 dhxWins.window("win").attachHTMLString(dtu3);
-	}
-	function ygglqxwin(){
-	 dhxWins.window("win").show();
-	 dhxWins.window("win").setText("有功功率曲线");
-	 dhxWins.attachEvent("onClose", function(win){
-	 dhxWins.window("win").hide(); 
-   				 });
-	 dhxWins.window("win").attachHTMLString(dtu4);
-	}
+
+            /**
+            * 显示浮动窗口
+
+             * @returns {undefined}             */
+            function wins(){
+                dhxWins.window("win").show();
+            }
+            
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
+            function createWindows1(){
+                dhxWins1 = new dhtmlXWindows();
+                dhxWins1.attachViewportTo(document.body);
+                dhxWins1.createWindow("win1",600,150,400,130);
+                dhxWins1.window("win1").button('minmax2').hide();
+                dhxWins1.window("win1").button('minmax1').hide();
+                dhxWins1.window("win1").button('park').hide();
+                dhxWins1.window("win1").hide();	
+            }
+            
+            /**
+             * 工况图片
+             * @returns {undefined}
+             */
+            function ztwin(){
+                dhxWins.window("win").show();
+                dhxWins.window("win").setText("工况");
+                dhxWins.attachEvent("onClose", function(win){
+                    dhxWins.window("win").hide(); 
+                });
+                dhxWins.window("win").attachHTMLString(dtu);
+            }
+            
+            /**
+             * 示功图放大显示
+             * @param {type} p_flag
+             * @returns {undefined}
+             */
+            function sgtwin(){
+                dhxWins.window("win").show();
+                dhxWins.window("win").setText("示工图");
+                dhxWins.attachEvent("onClose", function(win){
+                    dhxWins.window("win").hide(); 
+                });
+                dhxWins.window("win").attachHTMLString(dtu1);
+            }
+            
+            /**
+             * 电流曲线放大显示
+             * @returns {undefined}
+             */
+            function dlqxwin(){
+                dhxWins.window("win").show();
+                dhxWins.window("win").setText("电流曲线");
+                dhxWins.attachEvent("onClose", function(win){
+                dhxWins.window("win").hide(); 
+                            });
+                dhxWins.window("win").attachHTMLString(dtu2);
+            }
+            
+            /**
+             * 电功图放大显示
+             * @returns {undefined}
+             */
+            function dgtwin(){
+                dhxWins.window("win").show();
+                dhxWins.window("win").setText("电功图");
+                dhxWins.attachEvent("onClose", function(win){
+                dhxWins.window("win").hide(); 
+                            });
+                dhxWins.window("win").attachHTMLString(dtu3);
+            }
+            
+            /**
+             * 有功功率曲线
+             * @returns {undefined}
+             */
+            function ygglqxwin(){
+                dhxWins.window("win").show();
+                dhxWins.window("win").setText("有功功率曲线");
+                dhxWins.attachEvent("onClose", function(win){
+                dhxWins.window("win").hide(); 
+                            });
+                dhxWins.window("win").attachHTMLString(dtu4);
+            }
+            
             /**
             * 即时功能读取
             * @returns {undefined}             
@@ -1380,6 +1445,11 @@ function wins(){
                 dhxd4.window("wa").hide(); 
             }
             
+            /**
+            * 曲线显示
+
+             * @param {type} i
+             * @returns {undefined}             */
             function qxa(i){
                 $("#ssqx4").css("display","block");
                 $("#gtdb").css("display","none");
@@ -1395,6 +1465,10 @@ function wins(){
             }
             
             var i=1;
+            /**
+             * 工况信息拉伸显示
+             * @returns {undefined}
+             */
             function bd(){
                 if(i%2==0){
                     $("#gk2").css("display","block");

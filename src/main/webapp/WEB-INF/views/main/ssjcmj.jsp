@@ -75,6 +75,10 @@
                 createmjdqgr2();
             }
             
+            /**
+             * 初始化时曲线显示
+             * @returns {undefined}
+             */
             function initTab1(){
                  // tab1
                 switch(flag_sel){
@@ -158,7 +162,13 @@
                 // 事件绑定
                 gr.attachEvent('onRowSelect', doGrClick);
             }
-                
+               
+               /**
+               * 信息点击
+
+                * @param {type} gr_rId
+                * @param {type} gr_cInd
+                * @returns {undefined}                */
              function doGrClick(gr_rId, gr_cInd){
              
                rid_sel = gr_rId;
@@ -194,6 +204,10 @@
                     });                    
              }   
              
+             /**
+             * 电力信息
+
+              * @returns {undefined}              */
             function createmjdqgr(){
                 mjgr=new dhtmlXGridObject('mjdq1');
 				mjgr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
@@ -272,7 +286,10 @@
                         }
                     });                    
                 }  
-            
+            /**
+            * 电量信息
+
+             * @returns {undefined}             */
             function createmjdqgr1(){
                 mjgr1=new dhtmlXGridObject('mjdq2');
 				mjgr1.setImagePath("js/gridcodebase/imgs/");
@@ -310,7 +327,10 @@
                 // 事件绑定
                 mjgr1.attachEvent('onRowSelect', doFzGrClick); 
             } 
-            
+            /**
+            * 谐波信息
+
+             * @returns {undefined}             */
             function createmjdqgr2(){
                 mjgr2=new dhtmlXGridObject('mjdq3');
 				mjgr2.setImagePath("js/gridcodebase/imgs/");
@@ -394,7 +414,10 @@
 
                     te1(xAxisData, tmpName[1], '', '', yAxisData, 'container');//alert(xAxisData + '----' + yAxisData);
                 }  
-            
+            /**
+             * 创建浮动窗口
+             * @returns {undefined}
+             */
             function createWindows(){
                     dhxWins = new dhtmlXWindows();
                     dhxWins.attachViewportTo(document.body);
@@ -404,6 +427,10 @@
                     dhxWins.window("win").button('park').hide();
                     dhxWins.window("win").hide();	
                     }
+            /**
+             * 创建浮动窗口
+             * @returns {undefined}
+             */
             function createWindows1(){
                     dhxWins1 = new dhtmlXWindows();
                     dhxWins1.attachViewportTo(document.body);

@@ -93,7 +93,10 @@
                 createlgbsbGr();               
             }
            
-           
+           /**
+            * 初始化曲线
+            * @returns {undefined}
+            */
             function initTab1(){
                  // tab1
                 switch(flag_sel){
@@ -109,7 +112,10 @@
                         }
                 }
             }
-            
+            /**
+             * 初始化显示曲线
+             * @returns {undefined}
+             */
             function initTab2(){
                 // tab2
                 switch(flag_sel_2){
@@ -125,7 +131,10 @@
                         }
                 }
             }
-
+            /**
+             * 传感器设备
+             * @returns {undefined}
+             */
             function  createlgbsbGr(){
                Grid2= new dhtmlXGridObject('gr');
                Grid2.setImagePath("js/gridcodebase/imgs/");
@@ -164,6 +173,10 @@
                     }
                 });
             }
+            /**
+            * 电力信息
+
+             * @returns {undefined}             */
             function createlgbdqGr(){
                 lgbgr1=new dhtmlXGridObject('lgbdq1');
                 lgbgr1.setImagePath("js/gridcodebase/imgs/");
@@ -239,6 +252,10 @@
                         }
                     });                    
                 }  
+            /**
+            * 电量信息
+
+             * @returns {undefined}             */
             function createlgbdqGr1(){
                 lgbgr2=new dhtmlXGridObject('lgbdq2');
                 lgbgr2.setImagePath("js/gridcodebase/imgs/");
@@ -276,7 +293,10 @@
                 // 事件绑定
                 lgbgr2.attachEvent('onRowSelect', doFzGrClick); 
             }
-            
+            /**
+            * 谐波信息
+
+             * @returns {undefined}             */
             function createlgbdqGr2(){
                 lgbgr3=new dhtmlXGridObject('lgbdq3');
                 lgbgr3.setImagePath("js/gridcodebase/imgs/");
@@ -1092,6 +1112,10 @@
                 // 刷新标识
                 refFlag = true;
             }
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindows1(){
                     dhxWins1 = new dhtmlXWindows();
                     dhxWins1.attachViewportTo(document.body);
@@ -1101,6 +1125,10 @@
                     dhxWins1.window("win1").button('park').hide();
                     dhxWins1.window("win1").hide();	
                     }
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindows(){
                     dhxWins = new dhtmlXWindows();
                     dhxWins.attachViewportTo(document.body);
@@ -1110,6 +1138,10 @@
                     dhxWins.window("win").button('park').hide();
                     dhxWins.window("win").hide();	
                     }
+            /**
+             * 工况图片
+             * @returns {Boolean}
+             */
             function ztwin(){
                 if(!refFlag) return true;
                 // 刷新标识
@@ -1166,6 +1198,10 @@
                     });                    
                 }          
             var i=1;
+            /**
+            * 工况信息伸缩
+
+             * @returns {undefined}             */
             function bd(){
                 if(i%2==0){
                     $("#gk2").css("display","block");

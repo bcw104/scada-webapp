@@ -98,7 +98,10 @@
                 createCgqGrid();
             }
            
-           
+           /**
+            * 初始化曲线显示
+            * @returns {undefined}
+            */
             function initTab1(){
                  // tab1
                 switch(flag_sel){
@@ -122,7 +125,10 @@
                         }
                 }
             }
-            
+            /**
+             * 初始化曲线显示
+             * @returns {undefined}
+             */
             function initTab2(){
                 // tab2
                 switch(flag_sel_2){
@@ -280,7 +286,11 @@
                         }
                     });                    
                 }  
-                
+              
+            /**
+            * 电力信息
+
+             * @returns {undefined}             */
             function createygdqGr(){
                 yggr=new dhtmlXGridObject('ygdq1');
 				yggr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
@@ -320,6 +330,11 @@
                 // 事件绑定
                 yggr.attachEvent('onRowSelect', doFzGrClick); 
             }
+             
+            /**
+            * 电量信息
+
+             * @returns {undefined}             */
             function createygdqGr1(){
                 yggr1=new dhtmlXGridObject('ygdq2');
 				yggr1.setImagePath("js/gridcodebase/imgs/");
@@ -402,6 +417,10 @@
                 }  
                 
             var xbJson;
+            /**
+             * 谐波信息
+             * @returns {undefined}
+             */
             function createygdqGr2(){
                 yggr2=new dhtmlXGridObject('ygdq3');
 				yggr2.setImagePath("js/gridcodebase/imgs/");
@@ -1225,7 +1244,10 @@
                 refFlag = true;
                 dhxd3.window("wi3").hide();
             }
-            
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindows(){
                 dhxWins = new dhtmlXWindows();
                 dhxWins.attachViewportTo(document.body);
@@ -1235,7 +1257,10 @@
                 dhxWins.window("win").button('park').hide();
                 dhxWins.window("win").hide();	
             }
-    
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindow(){
                 dhxWins2 = new dhtmlXWindows();
                 dhxWins2.attachViewportTo(document.body);
@@ -1300,10 +1325,18 @@
                     }
                 });
             }
-function wins(){
+            /**
+            * 显示浮动窗口
+
+             * @returns {undefined}             */
+    function wins(){
 	dhxWins.window("win").show();
 	}
-	function createWindows1(){
+	/**
+     * 浮动窗口
+     * @returns {undefined}
+     */
+    function createWindows1(){
 	dhxWins1 = new dhtmlXWindows();
 	dhxWins1.attachViewportTo(document.body);
 	dhxWins1.createWindow("win1",600,150,400,130);
@@ -1312,7 +1345,10 @@ function wins(){
 	dhxWins1.window("win1").button('park').hide();
 	dhxWins1.window("win1").hide();	
 	}
-    
+    /**
+     * 工况图片
+     * @returns {Boolean}
+     */
         function ztwin(){
             if(!refFlag) return true;
             // 刷新标识
@@ -1478,7 +1514,11 @@ function wins(){
                 // 刷新标识
                 refFlag = true;
             }
-            
+            /**
+            * 曲线显示
+
+             * @param {type} i
+             * @returns {undefined}             */
             function qxa(i){
                 $("#ssqx4").css("display","block");
                 $("#gtdb").css("display","none");
@@ -1494,6 +1534,10 @@ function wins(){
             }
             
             var i=1;
+            /**
+             * 工况信息拉伸
+             * @returns {undefined}
+             */
             function bd(){
                 if(i%2==0){
                     $("#gk2").css("display","block");

@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+/**
+ * 系统初始化Controller
+ * @author Administrator
+ */
 @Controller
 @RequestMapping(value = "/sysinit")
 public class SysInitController {
@@ -29,6 +34,7 @@ public class SysInitController {
 	private UserExtInfoService userExtInfoService;
     @Autowired
 	private MenuService menuService;
+    
     /**
      * 系统初始化,建默认用户及分配置后台管理权限
      * @return 
@@ -68,6 +74,5 @@ public class SysInitController {
         menuService.insertMenuType(menuType);
         menuService.insertMenuItem(menuItem);
 		return "System initialization is complete! ";
-
 	}
 }

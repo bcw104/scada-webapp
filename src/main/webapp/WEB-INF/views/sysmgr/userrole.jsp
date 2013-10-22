@@ -59,6 +59,10 @@ function doOnLoad(){
         dhxWins.window('win').center();
 	  
 }
+/**
+ * 窗口关闭
+ * @returns {undefined}
+ */
 function winClose(){
     dhxWins.window('win').hide();
     dhxWins.window('win').setModal(false);
@@ -68,6 +72,11 @@ function winClose(){
     document.getElementById("updateRole").style.display='none';
   
 }
+/**
+ * JSON信息管理
+ * @param {type} json
+ * @returns {jsonManage.item}
+ */
 function jsonManage(json){
         var item={rows:[]};
         for(var i=0;i<json.length;i++){
@@ -81,6 +90,10 @@ function jsonManage(json){
         }
         return item;
 }
+/**
+ * 创建菜单栏
+ * @returns {undefined}
+ */
 function creatToolbar(){
 	toolbar=dhxLayout.cells("a").attachToolbar();
     toolbar.setIconsPath("${ctx}/static/dhtmlx/imgs/");
@@ -123,6 +136,12 @@ function doOnClick(itemId){
         window.location.href="${ctx}/admin/role/roleMenu?id=" + selectedId;
     }
 }
+/**
+* 创建显示窗口
+
+ * @param {type} id
+ * @param {type} title
+ * @returns {undefined} */
 function addDiv(id,title){
      dhxWins.window('win').show();
      dhxWins.window('win').setText(title);
@@ -130,10 +149,19 @@ function addDiv(id,title){
      document.getElementById(id).style.display='block';
      dhxWins.window('win').appendObject(id);
 }
+/**
+ * 设置布局
+ * @returns {undefined}
+ */
 function creatLayout(){
 	dhxLayout=new dhtmlXLayoutObject(document.body, "1C");
 	dhxLayout.cells("a").hideHeader();
 }
+/**
+ * 创建数据显示Grid
+ * @param {type} json
+ * @returns {undefined}
+ */
 function creatGrid(json){
 	mygrid=dhxLayout.cells("a").attachGrid(); 
 	mygrid.setImagePath("imgs/");
@@ -145,6 +173,10 @@ function creatGrid(json){
 	mygrid.init();
 	mygrid.parse(json,'json');
 }
+/**
+ * 绑定数据
+ * @returns {undefined}
+ */
 function getGridRowsData(){
     	  $.ajax({
 		  type: 'POST',
@@ -157,6 +189,11 @@ function getGridRowsData(){
 		  }
 	  });
 }
+/**
+* 信息提示
+
+ * @param {type} value
+ * @returns {undefined} */
 function alertMessage(value){
         dhtmlx.message({
 		title: "消息提示",
@@ -164,6 +201,10 @@ function alertMessage(value){
 		text: value
         });
 }
+/**
+ * 添加角色
+ * @returns {Boolean}
+ */
 function addRolseFormSubmit(){
     var uName=$("#roleName").val();
     var rName=$("#roleDescription").val();
@@ -191,6 +232,10 @@ function addRolseFormSubmit(){
       $('#addForm').ajaxSubmit(options);
       return false;
 }
+/**
+* 删除用户
+
+ * @returns {unresolved} */
 function dropMessage(){
     var selectedId=mygrid.getSelectedRowId();
     if(selectedId==null){

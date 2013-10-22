@@ -41,6 +41,13 @@ public class ManageController {
     @Autowired
     private RealtimeDataService realtimeDataService;
     
+    /**
+     * 保存遥控数据
+     * @param id
+     * @param state
+     * @param content
+     * @return 
+     */
     @RequestMapping(value="saveYkData")
     @ResponseBody
     public Map saveYkData(String id, String state, String content){
@@ -72,6 +79,11 @@ public class ManageController {
         return mapResult;
     }	
     
+    /**
+     * 获得遥调数据
+     * @param id
+     * @return 
+     */
     @RequestMapping(value="getYtData")
     @ResponseBody
     public Map getYtData(String id){
@@ -108,6 +120,16 @@ public class ManageController {
         return mapResult;
     }
     
+    /**
+     * 保存遥调数据
+     * @param id
+     * @param content
+     * @param scch
+     * @param scci
+     * @param xcch
+     * @param xcci
+     * @return 
+     */
     @RequestMapping(value="saveYtData")
     @ResponseBody
     public Map saveYtData(String id, String content, String scch, String scci, String xcch, String xcci){
@@ -186,6 +208,11 @@ public class ManageController {
         return mapResult;
     }
     
+    /**
+     * 获得机构名称
+     * @param p_majorTag
+     * @return 
+     */
     private String getPosition(MajorTag p_majorTag){
         
         if(p_majorTag.getParent() != null){

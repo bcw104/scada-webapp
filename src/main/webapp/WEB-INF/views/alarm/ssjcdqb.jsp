@@ -74,6 +74,7 @@
             var yse=['black','blue'];
             var j=0;
             var dyDate= [0.57,0.52,0.56,0.59,0.55,0.6,0.57,0.5,0.57,0.55,0.6,0.52,0.57,0.5,0.5,0.56,0.59,0.53,0.58,0.56,0.54,0.6,0.51,0.59,0.55,0.51,0.59,0.52,0.58,0.54,0.59,0.52,0.51,0.57,0.53,0.54,0.58,0.5,0.53,0.53,0.59,0.57,0.56,0.51,0.54,0.6,0.51,0.6,0.52,0.53,0.58,0.53,0.51,0.59,0.59,0.6,0.54,0.57,0.51,0.51,0.58,0.55,0.6,0.6,0.6,0.58,0.59,0.55,0.52,0.56,0.52,0.53,0.59,0.54,0.55,0.58,0.55,0.5,0.6,0.55,0.57,0.57,0.51,0.51,0.51,0.59,0.59,0.53,0.54,0.54,0.54,0.6,0.6,0.5,0.59,0.53,0.58,0.5,0.53,0.55,0.59,0.59,0.53,0.54,0.56,0.51,0.53,0.59,0.56,0.5,0.51,0.57,0.6,0.55,0.57,0.5,0.53,0.54,0.54,0.57,0.54,0.58,0.58,0.59,0.54,0.57,0.52,0.6,0.55,0.5,0.56,0.55,0.52,0.55,0.57,0.55,0.59,0.52,0.56,0.6,0.51,0.6,0.54,0.6,0.59,0.53,0.52,0.51,0.54,0.52,0.52,0.57,0.58,0.54,0.58,0.59,0.51,0.52,0.53,0.53,0.54,0.5,0.58,0.59,0.58,0.54,0.54,0.53,0.59,0.55,0.6,0.58,0.51,0.51,0.56,0.57,0.55,0.57,0.6,0.51,0.51,0.55,0.5,0.55,0.54,0.52,0.6,0.53,0.59,0.6,0.59,0.58,0.54,0.6,0.55,0.56,0.5,0.52,0.57,0.57,0.51,0.55,0.51,0.53,0.57,0.56,0.6,0.54,0.56,0.55,0.51,0.51,0.51,0.52,0.51,0.52,0.59,0.54,0.54,0.57,0.51,0.59,0.6,0.58,0.53,0.56,0.53,0.5,0.53,0.53,0.58,0.51,0.54,0.53,0.51,0.6,0.58,0.5,0.52,0.56,0.52,0.5,0.56,0.52,0.52,0.53,0.53,0.55,0.56,0.5,0.54,0.52,0.6,0.56,0.57,0.56,0.53,0.53,0.55,0.51,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+           
             /**
              * 设置工况信息
              * @returns {undefined}
@@ -136,6 +137,7 @@
                 // 事件绑定
                 gr.attachEvent('onRowSelect', doGrClick);
             }
+           
             /**
              * 信息点击
              * @param {type} gr_rId
@@ -171,6 +173,7 @@
                         }
                     });                    
                 }               
+           
             /**
              * 设置RTU状态
              * @returns {undefined}
@@ -219,7 +222,8 @@
                 // 事件绑定
                 gr1.attachEvent('onRowSelect', doGrClick);
             }
-             /**
+            
+            /**
              * 信息点击
              * @param {type} gr_rId
              * @param {type} gr_cInd
@@ -257,8 +261,10 @@
                         }
                     });                    
                 }               
+            
             // 电气参数标题项目
             var strDqTitle = ',u_a,u_b,u_c,i_a,i_b,i_c,gl_ys,';
+            
             /**
              * 设置电气参数
              * @returns {undefined}
@@ -283,6 +289,7 @@
                     }
                 }); 
             }
+           
             /**
               * 电气参数信息点击
               * @param {type} dy_code
@@ -321,6 +328,7 @@
                         }
                     });                    
                 }
+          
             /**
             * 设置传感器运行信息
             * @returns {undefined}             
@@ -373,6 +381,11 @@
                     }
                 });
             }
+            
+            /**
+            * 创建浮动窗口
+             * @returns {undefined}             
+             * */
             function createWindows(){
                     dhxWins = new dhtmlXWindows();
                     dhxWins.attachViewportTo(document.body);
@@ -382,6 +395,11 @@
                     dhxWins.window("win").button('park').hide();
                     dhxWins.window("win").hide();	
                     }
+                    
+              /**
+               * 工况图片
+               * @returns {undefined}
+               */
             function ztwin(){
                      dhxWins.window("win").show();
                      dhxWins.window("win").setText("工况");
@@ -390,6 +408,12 @@
                                              });
                      dhxWins.window("win").attachHTMLString(dtu);
                     }
+                    
+                    /**
+                     * 曲线显示位置设置
+                     * @param {type} i
+                     * @returns {undefined}
+                     */
             function qxa(i){
                 $("#ssqx4").css("display","block");
                 $("#gtdb").css("display","none");
@@ -403,6 +427,7 @@
                 te(dyDate,dqname,"V",ys);
                 j+=1;
             }
+            
             /**
              * 调参、控制弹出框
              * @returns {undefined}
@@ -762,6 +787,10 @@
             }
             
             var i=1;
+            /**
+             * 工况列表伸缩设置
+             * @returns {undefined}
+             */
             function bd(){
                 if(i%2==0){
                     $("#gk2").css("display","block");

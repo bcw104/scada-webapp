@@ -175,6 +175,7 @@
 
                     te1(xAxisData, tmpName[1], '', '', yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
                 }  
+            
             /**
              * 电气参数（谐波）
              * @returns {undefined}
@@ -309,6 +310,7 @@
                 // 事件绑定
                 dqgr2.attachEvent('onRowSelect', doFzZzGrClick); 
             }
+            
             /**
              * 页面布局设置
              * @returns {undefined}
@@ -525,6 +527,7 @@
             
             // 电气参数标题项目
             var strDqTitle = ',u_a,u_b,u_c,i_a,i_b,i_c,gl_ys,';
+            
             /**
              * 设置电气参数
              * @returns {undefined}
@@ -1344,6 +1347,10 @@
                 dhxd3.window("wi3").hide();
             }
             
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindows(){
                 dhxWins = new dhtmlXWindows();
                 dhxWins.attachViewportTo(document.body);
@@ -1354,9 +1361,18 @@
                 dhxWins.window("win").hide();	
             }
             
+            /**
+             * 窗口显示
+             * @returns {undefined}
+             */
             function wins(){
                 dhxWins.window("win").show();
             }
+           
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindows1(){
                 dhxWins1 = new dhtmlXWindows();
                 dhxWins1.attachViewportTo(document.body);
@@ -1375,6 +1391,11 @@
                             });
                 dhxWins1.window("win1").attachHTMLString(xb);
             }
+            
+            /**
+             * 工况图片
+             * @returns {undefined}
+             */
             function ztwin(){
                  dhxWins.window("win").show();
                  dhxWins.window("win").setText("工况");
@@ -1383,6 +1404,12 @@
                              });
                  dhxWins.window("win").attachHTMLString(dtu);
             }
+            
+            /**
+             * 曲线
+             * @param {type} i
+             * @returns {undefined}
+             */
             function qxa(i){
                 $("#ssqx4").css("display","block");
                 $("#gtdb").css("display","none");
@@ -1398,6 +1425,10 @@
             }
             
             var i=1;
+            /**
+             * 示功图伸缩
+             * @returns {undefined}
+             */
             function bd(){
                 if(i%2==0){
                     $("#gk2").css("display","block");

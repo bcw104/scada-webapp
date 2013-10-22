@@ -21,6 +21,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * 最终设备（井）Controller
+ * @author Administrator
+ */
 @Controller
 @RequestMapping("/endtagpoint")
 public class EndTagPointController {
@@ -35,6 +39,10 @@ public class EndTagPointController {
     @Autowired
     private RealtimeDataService realtimeDataService;
     
+    /**
+     * 获得数据列表
+     * @return 
+     */
     @RequestMapping(value = "list")
     @ResponseBody
     public List<Map> list(){
@@ -63,11 +71,26 @@ public class EndTagPointController {
         }
         return rtn;
     }
+    
+    /**
+     * 获得井坐标
+     * @param id
+     * @return 
+     */
     @RequestMapping(value = "point")
     @ResponseBody
     public EndTagPoint getEndTagPoint(int id){
         return endTagPointService.getPointListByEndTagID(id);
     }
+    
+    /**
+     * 保存井坐标信息
+     * @param id
+     * @param pointx
+     * @param pointy
+     * @param endtagid
+     * @return 
+     */
     @RequestMapping(value = "savepoint")
     @ResponseBody
     public int savepoint(int id,String pointx,String pointy,int endtagid){
