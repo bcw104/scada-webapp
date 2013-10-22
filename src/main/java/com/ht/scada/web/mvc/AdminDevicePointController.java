@@ -4,20 +4,21 @@
  */
 package com.ht.scada.web.mvc;
 
+import java.util.Map;
+import java.util.HashMap;
+
 import com.ht.scada.web.entity.DevicePoint;
 import com.ht.scada.web.service.DevicePointService;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- *
+ * 设备信息相关操作Controller
  * @author admin
  */
 @Controller
@@ -26,10 +27,21 @@ public class AdminDevicePointController {
     @Autowired
     private DevicePointService devicePointService;
     
+    /**
+     * 获取设备信息列表
+     * @param model
+     * @return 
+     */
     @RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
         return "sysmgr/deviceList";
     }
+    
+    /**
+     * 删除指定id对应设备信息
+     * @param id
+     * @return 
+     */
     @RequestMapping(value="drop")
     @ResponseBody
     public int drop(int id){
@@ -41,6 +53,18 @@ public class AdminDevicePointController {
         }
         return rtn;
     }
+    
+    /**
+     * 保存设备信息
+     * @param id 设备id
+     * @param deviceName 设备名称
+     * @param x
+     * @param y
+     * @param deviceType
+     * @param endTagCode
+     * @param parent
+     * @return 
+     */
     @RequestMapping(value="save")
     @ResponseBody
     public int save(int id,String deviceName,String x,String y,String deviceType,String endTagCode,String parent){
@@ -71,6 +95,12 @@ public class AdminDevicePointController {
         }
         return rtn;
     }
+    
+    /**
+     * 获得设备信息
+     * @param id
+     * @return 
+     */
     @RequestMapping(value="getbyid")
     @ResponseBody
     public Map getByID(int id){

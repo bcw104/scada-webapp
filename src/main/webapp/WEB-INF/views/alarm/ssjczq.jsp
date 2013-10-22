@@ -291,7 +291,11 @@
                 // 事件绑定
                 gr.attachEvent('onRowSelect', doGrClick);
                 }
-             function createzqdqGr(){
+            /**
+            * 电力信息
+
+             * @returns {undefined}             */ 
+            function createzqdqGr(){
                 zqdq=new dhtmlXGridObject('zqdq');
 				zqdq.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
 				//dqgr.setNoHeader(true);//隐藏表头
@@ -328,6 +332,10 @@
                 // 事件绑定
                 zqdq.attachEvent('onRowSelect', doGrClick); 
             }
+            /**
+            * 电量信息
+
+             * @returns {undefined}             */
             function createzqdqGr1(){
                 zqdq1=new dhtmlXGridObject('zqdq1');
 				zqdq1.setImagePath("js/gridcodebase/imgs/");
@@ -406,6 +414,10 @@
                 } 
               
             var xbJson;
+            /**
+             * 谐波信息
+             * @returns {undefined}
+             */
             function createzqdqGr2(){
                 zqdq2=new dhtmlXGridObject('zqdq2');
 				zqdq2.setImagePath("js/gridcodebase/imgs/");
@@ -807,6 +819,10 @@
                 dhxd3.window("wi3").hide();
             }
            
+           /**
+            * 浮动窗口
+            * @returns {undefined}
+            */
             function createWindows(){
                     dhxWins = new dhtmlXWindows();
                     dhxWins.attachViewportTo(document.body);
@@ -816,6 +832,11 @@
                     dhxWins.window("win").button('park').hide();
                     dhxWins.window("win").hide();	
                     }
+            
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindows1(){
                     dhxWins1 = new dhtmlXWindows();
                     dhxWins1.attachViewportTo(document.body);
@@ -825,6 +846,11 @@
                     dhxWins1.window("win1").button('park').hide();
                     dhxWins1.window("win1").hide();	
                     }
+            
+            /**
+             * 工况信息
+             * @returns {undefined}
+             */
             function ztwin(){
                      dhxWins.window("win").show();
                      dhxWins.window("win").setText("工况");
@@ -843,6 +869,10 @@
                     }
                     
                     var i=1;
+                    /**
+                     * 工况信息伸缩
+                     * @returns {undefined}
+                     */
             function bd(){
                 if(i%2==0){
                     $("#gk2").css("display","block");

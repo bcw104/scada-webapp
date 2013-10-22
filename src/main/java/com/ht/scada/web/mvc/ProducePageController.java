@@ -28,6 +28,11 @@ public class ProducePageController {
     @Autowired
 	private ReportPageService reportPageService;
     
+    /**
+     * 进入生产管理页面
+     * @param model
+     * @return 
+     */
     @RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
         

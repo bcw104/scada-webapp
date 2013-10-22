@@ -207,6 +207,10 @@
                 return deviceData;
             }
             
+            /**
+            * 创建浮动窗口
+
+             * @returns {undefined}             */
             function createWindow(){
                 dhxWin = new dhtmlXWindows();
                 dhxWin.attachViewportTo(document.body);
@@ -217,6 +221,11 @@
                 dhxWin.window("win").hide();	
             }
             
+            /**
+             * rtu设备信息
+             * @param {type} code
+             * @returns {undefined}
+             */
             function rtu(code){
                 dhxWin.window("win").show();
                 Grid9=dhxWin.window("win").attachGrid();
@@ -282,6 +291,10 @@
                 });
             }
             
+            /**
+             * 创建浮动窗口
+             * @returns {undefined}
+             */
             function createWindows(){
                 dhxWins = new dhtmlXWindows();
                 dhxWins.attachViewportTo(document.body);
@@ -292,6 +305,10 @@
                 dhxWins.window("win").hide();	
             }
             
+            /**
+             * 报警信息树
+             * @returns {undefined}
+             */
             function createTreeGrid(){
                 treeGrid= new dhtmlXGridObject('gk');
                 treeGrid.selMultiRows = true;
@@ -321,7 +338,11 @@
                 treeGrid2.init();
                 treeGrid2.load("data/gzcz.json", "json");
             }
-                        
+             
+            /**
+             * 生产综合图表
+             * @returns {undefined}
+             */
             function tbxs(){
                 dhxWins.window("win").show();
                 dhxWins.window("win").setText("生产综合图表");
@@ -331,15 +352,30 @@
                 });
             }
             
+            /**
+             * 显示提示
+             * @param {type} i
+             * @returns {undefined}
+             */
             function xx(i){
                 document.getElementById("bc"+i).style.display="block";
             }
             
+            /**
+             * 关闭提示
+             * @param {type} i
+             * @returns {undefined}
+             */
             function closedDiv(i){
                 document.getElementById("bc"+i).style.display="none";
             }
             
             var dhxWins
+            /**
+             * 标签信息切换
+             * @param {type} cdiv
+             * @returns {undefined}
+             */
             function jk(cdiv){
                 $(".cssdiv1").removeClass("s1");
                 $(".cssdiv2").removeClass("s1");
@@ -350,6 +386,11 @@
             }
             
             var i=0;
+            /**
+             * 标签信息切换
+             * @param {type} cdiv
+             * @returns {undefined}
+             */
             function jk1(cdiv){
                 $(".cssdiv").removeClass("s1");
                 $(".cssdiv2").removeClass("s1");
@@ -362,6 +403,10 @@
             }
             
             var sd=0;
+            /**
+             * 标签信息切换
+             * @returns {undefined}
+             */
             function deviceOnload() {
                 var swfVersionStr = "11.1.0";
                 var xiSwfUrlStr = objUrl + "/static/gis/playerProductInstall.swf";
@@ -384,6 +429,11 @@
                 swfobject.createCSS("#deviceContent", "display:block;text-align:left;");
             //    solsmap = sols;
             }
+            
+            /**
+             * 设备信息
+             * @returns {undefined}
+             */
             function deviceMapCompleteOver(){
                 $.ajax({
                     type: 'POST',
@@ -394,10 +444,20 @@
                     }
                 });
             }
+            /**
+            * 设备连接线
+
+             * @param {type} data
+             * @returns {undefined}             */
             function showDevicePointLine(data){
                 showDeviceLine(data);
                 showDevicePoint(data);
             }
+            /**
+             * 设备点
+             * @param {type} data
+             * @returns {undefined}
+             */
             function showDevicePoint(data){
                 var shoplocationdata = [];
                 for(var i=0;i<data.length;i++){
@@ -418,6 +478,11 @@
                 devicemap.swf_showShopLocation(shoplocationdata);
                 devicemap.swf_showShopTextLocation(shoplocationdata);
             }
+            /**
+             * 设备线
+             * @param {type} data
+             * @returns {undefined}
+             */
             function showDeviceLine(data){
                 var color= 0x00ff00;
                 for(var i=0;i<data.length;i++){
@@ -432,6 +497,12 @@
 
                 }
             }
+            /**
+             * 获得设备点
+             * @param {type} data
+             * @param {type} id
+             * @returns {unresolved}
+             */
             function getPoint(data,id){
                 for(var i=0;i<data.length;i++){
                     if(data[i].id == id){
@@ -440,6 +511,12 @@
                 }
                 return null;
             }
+            /**
+             * 设备点击
+             * @param {type} id
+             * @param {type} devicetype
+             * @returns {unresolved}
+             */
             function deviceMouseLeftDoubleClick(id,devicetype){
                 if(devicetype != "RTU"){
                     return;

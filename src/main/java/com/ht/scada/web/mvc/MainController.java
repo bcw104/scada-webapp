@@ -22,6 +22,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * 生产监控模块Controller
+ * @author Administrator
+ */
 @Controller
 @RequestMapping(value = "/main")
 public class MainController {
@@ -75,6 +79,12 @@ public class MainController {
         return "main/index";
 	}
     
+    /**
+     * 进入抽油井信息页面
+     * @param id
+     * @param model
+     * @return 
+     */
     @RequestMapping(value="cyj")
 	public String cyj(@RequestParam("id") int id,Model model) {
         
@@ -93,6 +103,12 @@ public class MainController {
         return "main/ssjcmain";
 	}
     
+    /**
+     * 进入电潜泵信息页面
+     * @param id
+     * @param model
+     * @return 
+     */
     @RequestMapping(value="dqb")
 	public String dqb(@RequestParam("id") int id,Model model) {
         
@@ -111,6 +127,12 @@ public class MainController {
         return "main/ssjcdqb";
 	}
     
+    /**
+     * 进入自喷井信息页面
+     * @param id
+     * @param model
+     * @return 
+     */
     @RequestMapping(value="zp")
 	public String zp(@RequestParam("id") int id,Model model) {
         
@@ -129,6 +151,12 @@ public class MainController {
         return "main/ssjczp";
 	}
     
+    /**
+     * 进入焖井信息页面
+     * @param id
+     * @param model
+     * @return 
+     */
     @RequestMapping(value="mj")
 	public String mj(@RequestParam("id") int id,Model model) {
         
@@ -147,6 +175,12 @@ public class MainController {
         return "main/ssjcmj";
 	}
     
+    /**
+     * 进入螺杆泵信息页面
+     * @param id
+     * @param model
+     * @return 
+     */
     @RequestMapping(value="lgb")
 	public String lgb(@RequestParam("id") int id,Model model) {
         
@@ -165,6 +199,12 @@ public class MainController {
         return "main/ssjclgb";
 	}
     
+    /**
+     * 进入自喷井信息页面
+     * @param id
+     * @param model
+     * @return 
+     */
     @RequestMapping(value="zq")
 	public String zq(@RequestParam("id") int id,Model model) {
         
@@ -183,6 +223,12 @@ public class MainController {
         return "main/ssjczq";
 	}
     
+    /**
+     * 进入孤立井信息页面
+     * @param id
+     * @param model
+     * @return 
+     */
     @RequestMapping(value="glj")
 	public String glj(@RequestParam("id") int id,Model model) {
         
@@ -200,6 +246,12 @@ public class MainController {
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "main/ssjcglj";
 	}
+    
+    /**
+     * 测试用登录（可忽略不记）
+     * @param redirectAttributes
+     * @return 
+     */
 	@RequestMapping(value = "test")
 	public String test(RedirectAttributes redirectAttributes) {
 		log.debug("初始化用户：{}/{}", "admin", "admin");
@@ -221,6 +273,10 @@ public class MainController {
 
 	}
     
+    /**
+     * 登录监测接口
+     * @return 
+     */
     @RequestMapping(value="logincheck")    
     @ResponseBody
 	public Map logincheck() {

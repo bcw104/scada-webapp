@@ -70,6 +70,7 @@
             var yse=['black','blue'];
             var j=0;
             var dyDate= [0.57,0.52,0.56,0.59,0.55,0.6,0.57,0.5,0.57,0.55,0.6,0.52,0.57,0.5,0.5,0.56,0.59,0.53,0.58,0.56,0.54,0.6,0.51,0.59,0.55,0.51,0.59,0.52,0.58,0.54,0.59,0.52,0.51,0.57,0.53,0.54,0.58,0.5,0.53,0.53,0.59,0.57,0.56,0.51,0.54,0.6,0.51,0.6,0.52,0.53,0.58,0.53,0.51,0.59,0.59,0.6,0.54,0.57,0.51,0.51,0.58,0.55,0.6,0.6,0.6,0.58,0.59,0.55,0.52,0.56,0.52,0.53,0.59,0.54,0.55,0.58,0.55,0.5,0.6,0.55,0.57,0.57,0.51,0.51,0.51,0.59,0.59,0.53,0.54,0.54,0.54,0.6,0.6,0.5,0.59,0.53,0.58,0.5,0.53,0.55,0.59,0.59,0.53,0.54,0.56,0.51,0.53,0.59,0.56,0.5,0.51,0.57,0.6,0.55,0.57,0.5,0.53,0.54,0.54,0.57,0.54,0.58,0.58,0.59,0.54,0.57,0.52,0.6,0.55,0.5,0.56,0.55,0.52,0.55,0.57,0.55,0.59,0.52,0.56,0.6,0.51,0.6,0.54,0.6,0.59,0.53,0.52,0.51,0.54,0.52,0.52,0.57,0.58,0.54,0.58,0.59,0.51,0.52,0.53,0.53,0.54,0.5,0.58,0.59,0.58,0.54,0.54,0.53,0.59,0.55,0.6,0.58,0.51,0.51,0.56,0.57,0.55,0.57,0.6,0.51,0.51,0.55,0.5,0.55,0.54,0.52,0.6,0.53,0.59,0.6,0.59,0.58,0.54,0.6,0.55,0.56,0.5,0.52,0.57,0.57,0.51,0.55,0.51,0.53,0.57,0.56,0.6,0.54,0.56,0.55,0.51,0.51,0.51,0.52,0.51,0.52,0.59,0.54,0.54,0.57,0.51,0.59,0.6,0.58,0.53,0.56,0.53,0.5,0.53,0.53,0.58,0.51,0.54,0.53,0.51,0.6,0.58,0.5,0.52,0.56,0.52,0.5,0.56,0.52,0.52,0.53,0.53,0.55,0.56,0.5,0.54,0.52,0.6,0.56,0.57,0.56,0.53,0.53,0.55,0.51,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+            
             /**
              * 设置工况信息
              * @returns {undefined}
@@ -130,7 +131,8 @@
                 // 事件绑定
                 gr.attachEvent('onRowSelect', doGrClick);
             }
-             /**
+             
+            /**
              * 信息点击
              * @param {type} gr_rId
              * @param {type} gr_cInd
@@ -165,7 +167,12 @@
                         }
                     });                    
                 }               
-             function createdqgr(){
+             
+             /**
+             * 电力信息
+
+              * @returns {undefined}              */
+            function createdqgr(){
                 dqgr=new dhtmlXGridObject('zpdq1');
 				dqgr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
 				//dqgr.setNoHeader(true);//隐藏表头
@@ -236,6 +243,10 @@
                         }
                     });                    
                 }  
+            /**
+            * 电量信息
+
+             * @returns {undefined}             */
             function createdqgr1(){
                 dqgr1=new dhtmlXGridObject('zpdq2');
 				dqgr1.setImagePath("js/gridcodebase/imgs/");
@@ -273,7 +284,10 @@
                 // 事件绑定
                 dqgr1.attachEvent('onRowSelect', doFzGrClick); 
             }
-            
+            /**
+            * 谐波信息
+
+             * @returns {undefined}             */
             function createdqgr2(){
                 dqgr2=new dhtmlXGridObject('zpdq3');
 				dqgr2.setImagePath("js/gridcodebase/imgs/");
@@ -713,6 +727,10 @@
                 dhxd3.window("wi3").hide();
             }
             
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindows(){
                     dhxWins = new dhtmlXWindows();
                     dhxWins.attachViewportTo(document.body);
@@ -722,6 +740,11 @@
                     dhxWins.window("win").button('park').hide();
                     dhxWins.window("win").hide();	
                     }
+            
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindows1(){
                     dhxWins1 = new dhtmlXWindows();
                     dhxWins1.attachViewportTo(document.body);
@@ -731,6 +754,11 @@
                     dhxWins1.window("win1").button('park').hide();
                     dhxWins1.window("win1").hide();	
                     }
+            
+            /**
+             * 工况信息
+             * @returns {undefined}
+             */
             function ztwin(){
                      dhxWins.window("win").show();
                      dhxWins.window("win").setText("工况");
@@ -739,6 +767,7 @@
                                              });
                      dhxWins.window("win").attachHTMLString(dtu);
                     }
+            
             function cbb(){
                      dhxWins1.window("win1").show();
                      dhxWins1.window("win1").setText("B相电压0～31次谐波");
@@ -749,6 +778,10 @@
                     }
                     
                     var i=1;
+            /**
+             * 工况信息伸缩
+             * @returns {undefined}
+             */
             function bd(){
                 if(i%2==0){
                     $("#gk1").css("width","426px");

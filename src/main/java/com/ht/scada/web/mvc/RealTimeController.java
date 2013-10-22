@@ -222,6 +222,11 @@ public class RealTimeController {
         return list;
     }
     
+    /**
+     * 返回井信息,返回格式为JSON
+     * @param code
+     * @return 
+     */
     @RequestMapping(value="etinfo")
     @ResponseBody
     public Map endTagExtInfo(String code){
@@ -232,6 +237,13 @@ public class RealTimeController {
         }
         return map;
     }
+    
+    /**
+     * 工况信息
+     * @param code
+     * @param group
+     * @return 
+     */
     @RequestMapping(value="groupinfo")
     @ResponseBody
     public List<Map> groupInfo(String code,String group){
@@ -268,11 +280,24 @@ public class RealTimeController {
         }        
         return rtn;
     }
+    
+    /**
+     * 变量信息
+     * @param code
+     * @param varname
+     * @return 
+     */
     @RequestMapping(value="varinfo")
     @ResponseBody
     public String varInfo(String code,String varname){
         return realtimeDataService.getEndTagVarInfo(code, varname);
     }
+    
+    /**
+     * 传感器运行信息
+     * @param code
+     * @return 
+     */
     @RequestMapping(value="sensor")
     @ResponseBody
     public List<Map> sensor(String code){
@@ -325,6 +350,15 @@ public class RealTimeController {
         }
         return data;
     }
+    
+    /**
+     * 曲线用数据
+     * @param code
+     * @param group
+     * @param varName
+     * @param date
+     * @return 
+     */
     @RequestMapping(value="linedata")
     @ResponseBody
     public Object LineData(String code,String group, String varName,String date) {
@@ -343,6 +377,13 @@ public class RealTimeController {
         Date startDate = cal.getTime();
         return historyDataService.getVarTimeSeriesData(code, VarGroupEnum.valueOf(group), varName, startDate, endDate);
     }
+    
+    /**
+     * 获得井数据
+     * @param code
+     * @param date
+     * @return 
+     */
     @RequestMapping(value="welldata")
     @ResponseBody
     public WellData wellData(String code,String date){
@@ -359,6 +400,13 @@ public class RealTimeController {
         }
         return wellData;
     }
+    
+    /**
+     * 电流曲线数据
+     * @param code
+     * @param date
+     * @return 
+     */
     @RequestMapping(value="welldgtdata")
     @ResponseBody
     public WellDGTData wellDGTData(String code,String date){
@@ -375,18 +423,31 @@ public class RealTimeController {
         }
         return wellDGTData;
     }
+    
+    /**
+     * 抽油杆受力数据
+     * @param code
+     * @return 
+     */
     @RequestMapping(value="cygshouli")
     @ResponseBody
     public List<ChouYouGanShouLi> cygShouLi(String code){
         return wellService.getLatestCYGShouLi(code);
     }
+    
+    /**
+     * 传感器设备信息
+     * @param code
+     * @return 
+     */
     @RequestMapping(value="sensordevice")
     @ResponseBody
     public List<SensorDevice> sensorDevice(String code) {
         return tagService.getSensorDeviceByCode(code);
     }
+    
     /**
-     *
+     * 功图数据
      * @param code
      * @return
      */
@@ -402,18 +463,38 @@ public class RealTimeController {
         }
         return rtn;
     }
-    //TimeSeriesData
+    
+    /**
+     * 查询单个变量在指定时间范围内的历史数据, 可用于绘制曲线图
+     * @param code
+     * @param group
+     * @param name
+     * @return 
+     */
     @RequestMapping(value="timeseriesdata")
     @ResponseBody
     public List<TimeSeriesDataModel> TimeSeriesData(String code,String group,String name) {
         return historyDataService.getVarTimeSeriesData(code, VarGroupEnum.valueOf(group), name, null, null);
     }
     
+    /**
+     * 获取油井工艺组态图url地址
+     * @param code
+     * @return 
+     */
     @RequestMapping(value="svgviewurl")
     @ResponseBody
     public String SvgViewUrl(String code) {
         return urlService.getSvgViewUrl(code);
     }
+    
+    /**
+     * 电气参数
+     * @param code
+     * @param group
+     * @param date
+     * @return 
+     */
     @RequestMapping(value="groupbydate")
     @ResponseBody
     public List<Map> groupInfoByDate(String code,String group,String date){
@@ -442,6 +523,11 @@ public class RealTimeController {
         return rtn;
     }
     
+    /**
+     * 数据转换
+     * @param data
+     * @return 
+     */
     private Map<String,String> convert(VarGroupData data){
         Map<String,String> map = new HashMap<>();
         for(Map.Entry<String, Float> entry : data.getYcValueMap().entrySet()){
@@ -466,6 +552,13 @@ public class RealTimeController {
         return map;
         
     }
+    
+    /**
+     * 传感器运行信息
+     * @param code
+     * @param date
+     * @return 
+     */
     @RequestMapping(value="sensorbydate")
     @ResponseBody
     public List<Map> sensorByDae(String code,String date){

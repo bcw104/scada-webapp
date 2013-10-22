@@ -4,7 +4,6 @@ import com.ht.scada.common.tag.entity.AcquisitionDevice;
 import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.common.tag.entity.SensorDevice;
 import com.ht.scada.common.tag.service.EndTagService;
-import com.ht.scada.common.tag.util.VarSubTypeEnum;
 import com.ht.scada.data.service.RealtimeDataService;
 import com.ht.scada.security.service.UserService;
 import com.ht.scada.web.service.AcquisitionDeviceWebService;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * 生产管理页面操作
+ * 生产管理页面用接口Controlle
  * @author Administrator
  */
 @Controller
@@ -38,6 +37,10 @@ public class ProduceController {
     @Autowired
     private AcquisitionDeviceWebService acquisitionDeviceService;
     
+    /**
+     * 设备列表信息
+     * @return 
+     */
     @RequestMapping(value="deviceList")
     @ResponseBody
     public List<Map> deviceList(){
@@ -103,6 +106,11 @@ public class ProduceController {
         return lstRusult;
     }
     
+    /**
+     * 通过code获得设备列表信息
+     * @param code
+     * @return 
+     */
     @RequestMapping(value="deviceListbycode")
     @ResponseBody
     public List<Map> deviceListByCode(String code){

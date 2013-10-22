@@ -49,6 +49,10 @@
                 $(".cssdiv").addClass("s1");
             });
             
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindow(){
                 dhxWins = new dhtmlXWindows();
                 dhxWins.attachViewportTo(document.body);
@@ -604,6 +608,12 @@
                 });
             }
             
+            /**
+            * JSON数据整合
+
+             * @param {type} json
+             * @param {type} zs
+             * @returns {jsonManagezs.itemson}             */
             function jsonManagezs(json,zs){
                 var itemson={rows:[]};
                 if(zs!=""){
@@ -641,6 +651,10 @@
                 return itemson;
             }
             
+            /**
+             * 注水站信息
+             * @returns {undefined}
+             */
             function createGr(){
                 Grid= new dhtmlXGridObject('zsz');
                 Grid.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
@@ -670,6 +684,12 @@
                 //Grid.load('data/ssjcgrid.json','json');
             }
             
+            /**
+            * JSON数据整合--接转站
+
+             * @param {type} json
+             * @param {type} jz
+             * @returns {jsonManagejz.itemson}             */
             function jsonManagejz(json,jz){
                 var itemson={rows:[]};
                 if(jz!=""){
@@ -706,6 +726,11 @@
                 }
                 return itemson;
             }
+            
+            /**
+             * 接转站信息
+             * @returns {undefined}
+             */
             function creategr(){
                 Grid1= new dhtmlXGridObject('jzz');
                 Grid1.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
@@ -734,7 +759,11 @@
                 });
                 //Grid1.load('data/ssjcgrid1.json','json');
             }
+            
+            /**
+            * 增压站信息
 
+             * @returns {undefined}             */
             function cregri(){
                 var a=document.getElementById("textfield1").value;
                 Grid2= new dhtmlXGridObject('zybz');
@@ -768,6 +797,12 @@
             }
 
             var j=0;
+            /**
+            * JSON数据整合
+
+             * @param {type} json
+             * @param {type} h
+             * @returns {jsonManage.item}             */
             function jsonManage(json,h){
                 var item={rows:[]};
                 if(h!=""){
@@ -819,6 +854,11 @@
                 return item;
             }
 
+            /**
+             * 标签页切换
+             * @param {type} cdiv
+             * @returns {undefined}
+             */
             function jk(cdiv){
                 $(".cssdiv1").removeClass("s1");
                 $(".cssdiv2").removeClass("s1");
@@ -830,6 +870,11 @@
                 $("#gr3").css("display","none");
             }
 
+            /**
+             * 标签页切换
+             * @param {type} cdiv
+             * @returns {undefined}
+             */
             function jk1(cdiv){
                 $(".cssdiv").removeClass("s1");
                 $(".cssdiv2").removeClass("s1");
@@ -841,6 +886,11 @@
                 $("#gr3").css("display","none");
             }
 
+            /**
+             * 标签页切换
+             * @param {type} cdiv
+             * @returns {undefined}
+             */
             function jk2(cdiv){
                 $(".cssdiv").removeClass("s1");
                 $(".cssdiv1").removeClass("s1");
@@ -852,6 +902,11 @@
                 $("#gr3").css("display","none");
             }
 
+            /**
+             * 标签页切换
+             * @param {type} cdiv
+             * @returns {undefined}
+             */
             function jk3(cdiv){
                 $(".cssdiv").removeClass("s1");
                 $(".cssdiv1").removeClass("s1");

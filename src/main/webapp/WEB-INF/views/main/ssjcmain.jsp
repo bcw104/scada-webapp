@@ -1569,6 +1569,11 @@
                 dhxWins_gk.window("win_gk").button('park').hide();
                 dhxWins_gk.window("win_gk").hide();
             } 
+            
+            /**
+             * 工况窗口显示
+             * @returns {Boolean}
+             */
             function win_gk_show(){
                 if(!refFlag) return true;
                 // 刷新标识
@@ -1599,6 +1604,11 @@
                 dhxWins_dq.window("win_dq").hide();
             } 
             var dp_flag = 1;
+            /**
+             * 电力窗口显示
+             * @param {type} p_dp_flag
+             * @returns {Boolean}
+             */
             function win_dq_show(p_dp_flag){
                 if(!refFlag && refFlag_dl) return true;
                 // 刷新标识
@@ -1638,7 +1648,11 @@
                         break;
                 }
             }
-            
+            /**
+             * 电气参数浮动窗口显示
+             * @param {type} p_dp_flag
+             * @returns {undefined}
+             */
             function dq_show(p_dp_flag){
                 
                 switch(p_dp_flag){

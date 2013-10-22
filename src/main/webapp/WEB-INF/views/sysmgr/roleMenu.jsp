@@ -66,14 +66,28 @@
 //                });
                 doOnRowSelected();
             }
+            /**
+             * 全部选择操作
+             * @param {type} val
+             * @returns {undefined}
+             */
             function selectall(val){
                 var cls = ".menuitem_" + val;
                 $(cls).attr("checked", "true");
             }
+            /**
+             * 撤销选择操作
+             * @param {type} val
+             * @returns {undefined}
+             */
             function selectnoall(val){
                 var cls = ".menuitem_" + val;
                 $(cls).removeAttr("checked");
             }
+            /**
+             * 页面布局
+             * @returns {undefined}
+             */
             function creatLayout() {
                 dhxLayout = new dhtmlXLayoutObject(document.body, "1C");
                 //dhxLayout.cells("a").hideHeader();
@@ -82,6 +96,11 @@
                 dhxLayout.cells("a").attachObject("menuDiv");
 
             }
+            /**
+             * JSON数据转换
+             * @param {type} json
+             * @returns {jsonManage.item}
+             */
             function jsonManage(json) {
                 var item = {rows: []};
                 for (var i = 0; i < json.length; i++) {
@@ -94,7 +113,10 @@
                 }
                 return item;
             }
-
+            /**
+             * 选择
+             * @returns {undefined}
+             */
             function doOnRowSelected() {
                 $.post('${ctx}/admin/role/findUserRoleByID', {
                     roleId: $("#txtRoleID").val()
@@ -109,6 +131,10 @@
                 });
 
             }
+            /**
+             * 创建菜单栏
+             * @returns {undefined}
+             */
             function creatToolbar() {
                 toolbar = dhxLayout.cells("a").attachToolbar();
                 toolbar.setIconsPath("${ctx}/static/dhtmlx/imgs/");
@@ -122,6 +148,10 @@
                 toolbar.attachEvent("onClick", doOnClick);
 
             }
+            /**
+             * 清除选择
+             * @returns {undefined}
+             */
             function clearcheck() {
                 $(".role_menutype").attr("checked", false);
                 $(".role_menuitem").attr("checked", false);
@@ -140,6 +170,11 @@
                     window.location.href = "${ctx}/admin/role";
                 }
             }
+            /**
+            * 保存权限
+
+             * @param {type} menuStr
+             * @returns {undefined}             */
             function saveMenu(menuStr) {
                 $.post('${ctx}/admin/role/saveRoleMenu', {
                     roleId: $("#txtRoleID").val(),
@@ -156,6 +191,11 @@
                     }
                 });
             }
+            /**
+             * 信息提示
+             * @param {type} value
+             * @returns {undefined}
+             */
             function alertMessage(value) {
                 dhtmlx.message({
                     title: "消息提示",

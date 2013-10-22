@@ -1,9 +1,5 @@
 package com.ht.scada.web.mvc;
 
-import com.ht.scada.common.tag.entity.EndTag;
-import com.ht.scada.common.tag.entity.MajorTag;
-import com.ht.scada.common.tag.service.EndTagService;
-import com.ht.scada.common.tag.service.MajorTagService;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
 import org.slf4j.Logger;
@@ -13,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 调度运行页面操作
@@ -28,6 +23,11 @@ public class ManagePageController {
     @Autowired
 	private UserService userService;
     
+    /**
+     * 进入调度运行主页面
+     * @param model
+     * @return 
+     */
     @RequestMapping(method = RequestMethod.GET)
 	public String main(Model model) {
 

@@ -82,6 +82,11 @@
                 createwi();
                
             }
+           
+            /**
+             * 传感器设备信息
+             * @returns {undefined}
+             */
             function  createlgbsbGr(){
                Grid2= new dhtmlXGridObject('gr');
                Grid2.setImagePath("js/gridcodebase/imgs/");
@@ -120,6 +125,11 @@
                     }
                 });
             }
+            
+            /**
+            * 电气参数--电力
+             * @returns {undefined}             
+             * */
             function createlgbdqGr(){
                 lgbgr1=new dhtmlXGridObject('lgbdq1');
                 lgbgr1.setImagePath("js/gridcodebase/imgs/");
@@ -158,6 +168,7 @@
                  // 事件绑定
                 lgbgr1.attachEvent('onRowSelect', doFzGrClick); 
             }
+            
             /**
              * 信息点击
              * @param {type} gr_rId
@@ -193,6 +204,11 @@
                         }
                     });                    
                 }  
+            
+            /**
+            * 电气参数--电量
+
+             * @returns {undefined}             */
             function createlgbdqGr1(){
                 lgbgr2=new dhtmlXGridObject('lgbdq2');
                 lgbgr2.setImagePath("js/gridcodebase/imgs/");
@@ -230,6 +246,10 @@
                 lgbgr2.attachEvent('onRowSelect', doFzGrClick); 
             }            
             
+            /**
+            * 电气参数--谐波
+
+             * @returns {undefined}             */
             function createlgbdqGr2(){
                 lgbgr3=new dhtmlXGridObject('lgbdq3');
                 lgbgr3.setImagePath("js/gridcodebase/imgs/");
@@ -271,7 +291,9 @@
                  // 事件绑定
                 lgbgr3.attachEvent('onRowSelect', doFzZzGrClick); 
             }
-             var xbJson;
+            
+            var xbJson;
+            
              /**
              * 信息点击
              * @param {type} gr_rId
@@ -309,6 +331,7 @@
 
                     te1(xAxisData, tmpName[1], '', '', yAxisData, 'container2');//alert(xAxisData + '----' + yAxisData);
                 }  
+            
             /**
              * 页面布局设置
              * @returns {undefined}
@@ -322,9 +345,11 @@
                 dhxTabbar.cells("tab1").attachObject("gk");
                 dhxTabbar.cells("tab2").attachObject("fz");
             }
+            
             var yse=['black','blue'];
             var j=0;
             var dyDate= [0.57,0.52,0.56,0.59,0.55,0.6,0.57,0.5,0.57,0.55,0.6,0.52,0.57,0.5,0.5,0.56,0.59,0.53,0.58,0.56,0.54,0.6,0.51,0.59,0.55,0.51,0.59,0.52,0.58,0.54,0.59,0.52,0.51,0.57,0.53,0.54,0.58,0.5,0.53,0.53,0.59,0.57,0.56,0.51,0.54,0.6,0.51,0.6,0.52,0.53,0.58,0.53,0.51,0.59,0.59,0.6,0.54,0.57,0.51,0.51,0.58,0.55,0.6,0.6,0.6,0.58,0.59,0.55,0.52,0.56,0.52,0.53,0.59,0.54,0.55,0.58,0.55,0.5,0.6,0.55,0.57,0.57,0.51,0.51,0.51,0.59,0.59,0.53,0.54,0.54,0.54,0.6,0.6,0.5,0.59,0.53,0.58,0.5,0.53,0.55,0.59,0.59,0.53,0.54,0.56,0.51,0.53,0.59,0.56,0.5,0.51,0.57,0.6,0.55,0.57,0.5,0.53,0.54,0.54,0.57,0.54,0.58,0.58,0.59,0.54,0.57,0.52,0.6,0.55,0.5,0.56,0.55,0.52,0.55,0.57,0.55,0.59,0.52,0.56,0.6,0.51,0.6,0.54,0.6,0.59,0.53,0.52,0.51,0.54,0.52,0.52,0.57,0.58,0.54,0.58,0.59,0.51,0.52,0.53,0.53,0.54,0.5,0.58,0.59,0.58,0.54,0.54,0.53,0.59,0.55,0.6,0.58,0.51,0.51,0.56,0.57,0.55,0.57,0.6,0.51,0.51,0.55,0.5,0.55,0.54,0.52,0.6,0.53,0.59,0.6,0.59,0.58,0.54,0.6,0.55,0.56,0.5,0.52,0.57,0.57,0.51,0.55,0.51,0.53,0.57,0.56,0.6,0.54,0.56,0.55,0.51,0.51,0.51,0.52,0.51,0.52,0.59,0.54,0.54,0.57,0.51,0.59,0.6,0.58,0.53,0.56,0.53,0.5,0.53,0.53,0.58,0.51,0.54,0.53,0.51,0.6,0.58,0.5,0.52,0.56,0.52,0.5,0.56,0.52,0.52,0.53,0.53,0.55,0.56,0.5,0.54,0.52,0.6,0.56,0.57,0.56,0.53,0.53,0.55,0.51,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+            
             /**
              * 设置工况信息
              * @returns {undefined}
@@ -387,7 +412,8 @@
                 // 事件绑定
                 gr.attachEvent('onRowSelect', doGrClick);
             }
-             /**
+             
+            /**
              * 信息点击
              * @param {type} gr_rId
              * @param {type} gr_cInd
@@ -422,6 +448,7 @@
                         }
                     });                    
                 }               
+            
             /**
              * 设置RTU状态
              * @returns {undefined}
@@ -471,6 +498,7 @@
                 // 事件绑定
                 rtugr.attachEvent('onRowSelect', doGrClick);
             }
+            
             /**
              * 信息点击
              * @param {type} gr_rId
@@ -507,8 +535,10 @@
                         }
                     });                    
                 }               
+            
             // 电气参数标题项目
             var strDqTitle = ',u_a,u_b,u_c,i_a,i_b,i_c,gl_ys,';
+            
             /**
              * 设置电气参数
              * @returns {undefined}
@@ -648,7 +678,7 @@
                 });
             }
 
-/**
+            /**
              * 调参、控制弹出框
              * @returns {undefined}
              */
@@ -1006,6 +1036,10 @@
                 dhxd3.window("wi3").hide();
             }
 
+            /**
+             *  浮动窗口
+             * @returns {undefined}
+             */            
             function createWindows1(){
                     dhxWins1 = new dhtmlXWindows();
                     dhxWins1.attachViewportTo(document.body);
@@ -1015,6 +1049,11 @@
                     dhxWins1.window("win1").button('park').hide();
                     dhxWins1.window("win1").hide();	
                     }
+            
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindows(){
                     dhxWins = new dhtmlXWindows();
                     dhxWins.attachViewportTo(document.body);
@@ -1024,6 +1063,11 @@
                     dhxWins.window("win").button('park').hide();
                     dhxWins.window("win").hide();	
                     }
+                    
+             /**
+              * 工况信息放大显示
+              * @returns {undefined}
+              */       
             function ztwin(){
                      dhxWins.window("win").show();
                      dhxWins.window("win").setText("工况");
@@ -1032,6 +1076,7 @@
                                              });
                      dhxWins.window("win").attachHTMLString(dtu);
                     }
+                    
             /**
               * 电气参数信息点击
               * @param {type} dy_code
@@ -1072,6 +1117,11 @@
                 }
                 
                 var i=1;
+                
+                /**
+                * 工况信息伸缩显示
+
+                 * @returns {undefined}                 */
             function bd(){
                 if(i%2==0){
                     $("#gk2").css("display","block");

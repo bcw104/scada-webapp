@@ -400,6 +400,11 @@
                 $(".cssdiv1").addClass("s1");
             });
             
+            /**
+             * 历史记录标签页显示
+             * @param {type} cdiv
+             * @returns {undefined}
+             */
             function jk(cdiv){
                 $(".cssdiv1").removeClass("s1");
                 $(cdiv).addClass("s1");
@@ -408,6 +413,11 @@
                 $("#recinfoArea").children().css("width","1245px");
             }
             
+            /**
+             * 实时信息标签页显示
+             * @param {type} cdiv
+             * @returns {undefined}
+             */
             function jk1(cdiv){
                 $(".cssdiv").removeClass("s1");
                 $(cdiv).addClass("s1");
@@ -641,9 +651,6 @@
                 }); 
             }
             
-            function runurl(){
-                window.location.href="bcxi.html";
-            }
         </script>
     </head>
     <body>

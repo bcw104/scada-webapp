@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 测试用
+ * @author Administrator
+ */
 @Controller
 @RequestMapping(value = "/test")
 public class TestController {

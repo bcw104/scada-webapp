@@ -130,7 +130,14 @@
                 // 事件绑定
                 gr.attachEvent('onRowSelect', doGrClick);
                 }
-             function doGrClick(gr_rId, gr_cInd){
+            
+            /**
+            * 信息点击
+
+             * @param {type} gr_rId
+             * @param {type} gr_cInd
+             * @returns {undefined}             */
+            function doGrClick(gr_rId, gr_cInd){
              
                 var tmpName = gr_rId.split('||');
                     $("#ssqxTitle").html( tmpName[1] + '曲线');
@@ -160,7 +167,12 @@
                         }
                     });                    
              }   
-             function createmjdqgr(){
+             
+            /**
+            * 电力信息
+
+             * @returns {undefined}             */
+            function createmjdqgr(){
                 mjgr=new dhtmlXGridObject('mjdq1');
 				mjgr.setImagePath("${ctx}/static/dhtmlx/js/gridcodebase/imgs/");
 				//dqgr.setNoHeader(true);//隐藏表头
@@ -231,6 +243,11 @@
                         }
                     });                    
                 }  
+            
+            /**
+            * 电量信息
+
+             * @returns {undefined}             */
             function createmjdqgr1(){
                 mjgr1=new dhtmlXGridObject('mjdq2');
 				mjgr1.setImagePath("js/gridcodebase/imgs/");
@@ -268,6 +285,10 @@
                 mjgr1.attachEvent('onRowSelect', doFzGrClick); 
             }
             
+            /**
+            * 谐波信息
+
+             * @returns {undefined}             */
             function createmjdqgr2(){
                 mjgr2=new dhtmlXGridObject('mjdq3');
 				mjgr2.setImagePath("js/gridcodebase/imgs/");
@@ -705,6 +726,10 @@
                 dhxd3.window("wi3").hide();
             }
             
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindows(){
                     dhxWins = new dhtmlXWindows();
                     dhxWins.attachViewportTo(document.body);
@@ -714,6 +739,11 @@
                     dhxWins.window("win").button('park').hide();
                     dhxWins.window("win").hide();	
                     }
+            
+            /**
+             * 浮动窗口
+             * @returns {undefined}
+             */
             function createWindows1(){
                     dhxWins1 = new dhtmlXWindows();
                     dhxWins1.attachViewportTo(document.body);
@@ -723,6 +753,11 @@
                     dhxWins1.window("win1").button('park').hide();
                     dhxWins1.window("win1").hide();	
                     }
+            
+            /**
+             * 工况图片
+             * @returns {undefined}
+             */
             function ztwin(){
                      dhxWins.window("win").show();
                      dhxWins.window("win").setText("工况");
@@ -741,6 +776,10 @@
                     }
                     
                     var i=1;
+            /**
+             * 示功图伸缩
+             * @returns {undefined}
+             */
             function bd(){
                 if(i%2==0){
                     $("#gk1").css("width","426px");

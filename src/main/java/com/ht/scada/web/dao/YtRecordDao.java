@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 /**
- *
+ * 遥调
  * @author Administrator
  */
 public interface YtRecordDao extends JpaRepository<YtRecord, Integer>{

@@ -25,6 +25,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * 报警信息Controller
+ * @author Administrator
+ */
 @Controller
 @RequestMapping("/alarm")
 public class AlarmInfoController {
@@ -41,6 +45,10 @@ public class AlarmInfoController {
     @Autowired
     private EndTagService endTagService;
 
+    /**
+     * 历史报警信息
+     * @return 
+     */
     @RequestMapping(value = "history")
     @ResponseBody
     public List<AlarmRecord> history() {
@@ -58,6 +66,10 @@ public class AlarmInfoController {
         return alarmList;
     }
 
+    /**
+     * 实时报警
+     * @return 
+     */
     @RequestMapping(value = "realtime")
     @ResponseBody
     public Map<String, List> realtime() {
@@ -85,12 +97,25 @@ public class AlarmInfoController {
         return map;
     }
 
+    /**
+     * 获得报警信息
+     * @param id
+     * @return 
+     */
     @RequestMapping(value = "getAlarmById")
     @ResponseBody
     public AlarmRecord getAlarmById(int id) {
         return alarmInfoService.getAlarmByID(id);
     }
 
+    /**
+     * 报警回复处理
+     * @param alarmId
+     * @param user
+     * @param type
+     * @param msg
+     * @return 
+     */
     @RequestMapping(value = "confirm")
     @ResponseBody
     public boolean confirm(String alarmId, String user, String type,String msg) {
@@ -128,12 +153,21 @@ public class AlarmInfoController {
         return true;
     }
 
+    /**
+     * 获得系统时间
+     * @return 
+     */
     @RequestMapping(value = "now")
     @ResponseBody
     public Date now() {
         return new Date();
     }
 
+    /**
+     * 获得井信息
+     * @param code
+     * @return 
+     */
     @RequestMapping(value = "endTagExtInfo")
     @ResponseBody
     public Map<String, String> endTagExtInfo(String code) {
@@ -145,10 +179,12 @@ public class AlarmInfoController {
         }
         return map;
     }
-    /*
-     * 提供给android客户端报警信息的接口
+    
+    /**
+     * 获得报警信息（android客户端用）
+     * @param username
+     * @return 
      */
-
     @RequestMapping(value = "mobile")
     @ResponseBody
     public List<AlarmRecord> mobile(String username) {
@@ -175,6 +211,12 @@ public class AlarmInfoController {
         return alarmList;
     }
 
+    /**
+     * 移动客户端登录
+     * @param username
+     * @param password
+     * @return 
+     */
     @RequestMapping(value = "mobileLogin")
     @ResponseBody
     public Map<String, String> mobileLogin(String username, String password) {
