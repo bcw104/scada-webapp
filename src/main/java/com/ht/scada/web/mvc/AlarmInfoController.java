@@ -6,6 +6,7 @@ import com.ht.scada.common.tag.entity.EndTagExtInfo;
 import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
+import com.ht.scada.web.alarm.AlarmCache;
 import com.ht.scada.web.entity.AlarmHandle;
 import com.ht.scada.web.entity.AlarmRecord;
 import com.ht.scada.web.entity.UserExtInfo;
@@ -104,8 +105,9 @@ public class AlarmInfoController {
      */
     @RequestMapping(value = "getAlarmById")
     @ResponseBody
-    public AlarmRecord getAlarmById(int id) {
-        return alarmInfoService.getAlarmByID(id);
+    public AlarmRecord getAlarmById(String id) {
+//        return alarmInfoService.getAlarmByID(id);
+        return AlarmCache.getInstance().getAlarm(id);
     }
 
     /**
