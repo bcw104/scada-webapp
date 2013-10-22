@@ -228,7 +228,8 @@ public class BroadcasterCache {
         }
         if (clientQueue == null) {
             //logger.debug("client {} cache is empty", clientId);
-            return Collections.emptyList();
+//            return Collections.emptyList();
+            return null;
         } else {
             List<CacheMessage> clientMessages = clientQueue.getQueue();
             if (logger.isTraceEnabled()) {
