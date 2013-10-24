@@ -2,455 +2,460 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-var dhxLayout,toolbar,mygrid,dhxWins,dhxCombo,dhxComboUpdate,userItem;
-window.dhx_globalImgPath = objUrl+"/static/dhtmlx/imgs/";
+var dhxLayout, toolbar, mygrid, dhxWins, dhxCombo, dhxComboUpdate, userItem;
+window.dhx_globalImgPath = objUrl + "/static/dhtmlx/imgs/";
 //加载执行
-function doOnLoad(){
-	  creatLayout();
-	  creatToolbar();  
-	  $.ajax({
-		  type: 'POST',
-		  url: objUrl+'/admin/user/findUser',
-		  success: function(json){
-			var item=jsonManage(json);
-			creatGrid(item);
-		  }
-	  });
-        creatCombo();
-        dhxWins = new dhtmlXWindows();
-        dhxWins.attachViewportTo(document.body);
-        var w1=dhxWins.createWindow('win',0,0,450,435);
-        
-        w1.button('minmax2').hide();
-        w1.button('minmax1').hide();
-        w1.button('park').hide();
-        dhxWins.window('win').hide();
-        dhxWins.attachEvent("onClose", function(win){
-            winClose();
-        });
-        dhxWins.window('win').center();
- //提供回调函数，提供提交返回结果的处理   
-      
-       
-   //初始化验证插件，如果提交出错，则弹出对话框，如果正确，则通过ajax提交表单请求。   
-    
-      
+function doOnLoad() {
+    creatLayout();
+    creatToolbar();
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/admin/user/findUser',
+        success: function (json) {
+            var item = jsonManage(json);
+            creatGrid(item);
+        }
+    });
+    creatCombo();
+    dhxWins = new dhtmlXWindows();
+    dhxWins.attachViewportTo(document.body);
+    var w1 = dhxWins.createWindow('win', 0, 0, 450, 435);
+
+    w1.button('minmax2').hide();
+    w1.button('minmax1').hide();
+    w1.button('park').hide();
+    dhxWins.window('win').hide();
+    dhxWins.attachEvent("onClose", function (win) {
+        winClose();
+    });
+    dhxWins.window('win').center();
+    //提供回调函数，提供提交返回结果的处理
+
+
+    //初始化验证插件，如果提交出错，则弹出对话框，如果正确，则通过ajax提交表单请求。
+
 
 }
-function winClose(){
+function winClose() {
     dhxWins.window('win').hide();
     dhxWins.window('win').setModal(false);
     document.getElementById("addForm").reset();
     document.getElementById("updateForm").reset();
     document.getElementById("passForm").reset();
-    document.getElementById("addUser").style.display='none';
-    document.getElementById("updateUser").style.display='none';
-    document.getElementById("passUser").style.display='none';
+    document.getElementById("addUser").style.display = 'none';
+    document.getElementById("updateUser").style.display = 'none';
+    document.getElementById("passUser").style.display = 'none';
 }
 //json管理
-function jsonManage(json){
-        var item={rows:[]};
-        for(var i=0;i<json.length;i++){
-                var it={};
-                it.id = json[i].user.id;
-                it.data = [];
-                it.data.push(0);
-                it.data.push(json[i].user.username);
-                it.data.push(json[i].realName);
-                var sex="";
-                if(json[i].gender==1){
-                    sex="男";
-                }else{
-                    sex="女";
-                }
-                it.data.push(sex);
-                it.data.push(json[i].department);
-                it.data.push(json[i].address);
-                it.data.push(json[i].telphone);
-                it.data.push(json[i].email);
-                it.data.push(json[i].user.userRole.name);
-                item.rows.push(it);
+function jsonManage(json) {
+    var item = {rows: []};
+    for (var i = 0; i < json.length; i++) {
+        var it = {};
+        it.id = json[i].user.id;
+        it.data = [];
+        it.data.push(0);
+        it.data.push(json[i].user.username);
+        it.data.push(json[i].realName);
+        var sex = "";
+        if (json[i].gender == 1) {
+            sex = "男";
+        } else {
+            sex = "女";
         }
-        return item;
+        it.data.push(sex);
+        it.data.push(json[i].department);
+        it.data.push(json[i].address);
+        it.data.push(json[i].telphone);
+        it.data.push(json[i].email);
+        it.data.push(json[i].user.userRole.name);
+        item.rows.push(it);
+    }
+    return item;
 }
 //创建toolbar
-function creatToolbar(){
-    toolbar=dhxLayout.cells("a").attachToolbar();
-    toolbar.setIconsPath(objUrl+"/static/dhtmlx/imgs/");
-	toolbar.addButton("add", 1, "添加用户",'edit_add.png');
-  	toolbar.addButton("update", 2, "编辑用户",'pencil.png');
-  	toolbar.addButton("pass", 3, "修改密码",'password.png');
-	toolbar.addButton("drop", 4, "删除用户",'edit_remove.png');
-    toolbar.addButton("permission", 5, "用户权限",'permission.png');
+function creatToolbar() {
+    toolbar = dhxLayout.cells("a").attachToolbar();
+    toolbar.setIconsPath(objUrl + "/static/dhtmlx/imgs/");
+    toolbar.addButton("add", 1, "添加用户", 'edit_add.png');
+    toolbar.addButton("update", 2, "编辑用户", 'pencil.png');
+    toolbar.addButton("pass", 3, "修改密码", 'password.png');
+    toolbar.addButton("drop", 4, "删除用户", 'edit_remove.png');
+    toolbar.addButton("permission", 5, "用户权限", 'permission.png');
     toolbar.attachEvent("onClick", doOnClick);
 }
 //toolbar按钮调用
-function doOnClick(itemId){
-    if(itemId=='add'){
-        addDiv("addUser","添加用户");
-    }else if(itemId=='update'){
-        var selectedId=mygrid.getSelectedRowId();
-        if(selectedId==null){
+function doOnClick(itemId) {
+    if (itemId == 'add') {
+        addDiv("addUser", "添加用户");
+    } else if (itemId == 'update') {
+        var selectedId = mygrid.getSelectedRowId();
+        if (selectedId == null) {
             alertMessage("请选择用户");
             return;
         }
-        $.post(objUrl+"/admin/user/findUserExtInfoByUserID",
-        {
-          userID:selectedId
-        },
-        function(data){
-          userItem=data;
-            $("#update_userid").val(userItem.user.id);
-            $("#update_uName").val(userItem.user.username);
-            $("#update_rName").val(userItem.realName);
-            $('[name="gender"]:radio').each(
-                function() { 
-                   if (this.value == userItem.gender) { this.checked = true;} 
-            });            
-            $("#update_department").val(userItem.department);
-            $("#update_address").val(userItem.address);
-            $("#update_email").val(userItem.email);
-            $("#update_telphone").val(userItem.telphone);
-            $("#update_description").val(userItem.user.userRole.id);
-            dhxComboUpdate.setComboValue(userItem.user.userRole.id);
-            dhxComboUpdate.setComboText(userItem.user.userRole.name);
-            
-            $('[name="headflg"]:radio').each(
-                function() { 
-                   if (this.value == userItem.headflg) { this.checked = true;} 
-            });    
-            $('[name="receiveflg"]:radio').each(
-                function() { 
-                   if (this.value == userItem.receiveflg) { this.checked = true;} 
-            });  
-        });
-        addDiv("updateUser","编辑用户");
-    }else if(itemId=='pass'){
-        var selectedId=mygrid.getSelectedRowId();
-        if(selectedId==null){
-        alertMessage("请选择用户");
-        return;
+        $.post(objUrl + "/admin/user/findUserExtInfoByUserID",
+            {
+                userID: selectedId
+            },
+            function (data) {
+                userItem = data;
+                $("#update_userid").val(userItem.user.id);
+                $("#update_uName").val(userItem.user.username);
+                $("#update_rName").val(userItem.realName);
+                $('[name="gender"]:radio').each(
+                    function () {
+                        if (this.value == userItem.gender) {
+                            this.checked = true;
+                        }
+                    });
+                $("#update_department").val(userItem.department);
+                $("#update_address").val(userItem.address);
+                $("#update_email").val(userItem.email);
+                $("#update_telphone").val(userItem.telphone);
+                $("#update_description").val(userItem.user.userRole.id);
+                dhxComboUpdate.setComboValue(userItem.user.userRole.id);
+                dhxComboUpdate.setComboText(userItem.user.userRole.name);
+
+                $('[name="headflg"]:radio').each(
+                    function () {
+                        if (this.value == userItem.headflg) {
+                            this.checked = true;
+                        }
+                    });
+                $('[name="receiveflg"]:radio').each(
+                    function () {
+                        if (this.value == userItem.receiveflg) {
+                            this.checked = true;
+                        }
+                    });
+            });
+        addDiv("updateUser", "编辑用户");
+    } else if (itemId == 'pass') {
+        var selectedId = mygrid.getSelectedRowId();
+        if (selectedId == null) {
+            alertMessage("请选择用户");
+            return;
         }
-        
-        addDiv("passUser","修改密码");
-    }else if(itemId=='drop'){
+
+        addDiv("passUser", "修改密码");
+    } else if (itemId == 'drop') {
         dropMessage();
-    }else if(itemId=='permission'){
-        
-        var selectedId=mygrid.getSelectedRowId();
-        if(selectedId==null){
+    } else if (itemId == 'permission') {
+
+        var selectedId = mygrid.getSelectedRowId();
+        if (selectedId == null) {
             alertMessage("请选择用户");
             return;
         }
-        
-        window.location.href= objUrl+ "/admin/user/userPermissionList?id=" + selectedId;
+
+        window.location.href = objUrl + "/admin/user/userPermissionList?id=" + selectedId;
     }
 }
 //新建用户
-function addDiv(id,title){
-     dhxWins.window('win').show();
-     dhxWins.window('win').setText(title);
-     dhxWins.window('win').setModal(true);
-     document.getElementById(id).style.display='block';
-     if(id=='updateUser'){
-       
-     }
-     dhxWins.window('win').appendObject(id);
+function addDiv(id, title) {
+    dhxWins.window('win').show();
+    dhxWins.window('win').setText(title);
+    dhxWins.window('win').setModal(true);
+    document.getElementById(id).style.display = 'block';
+    if (id == 'updateUser') {
+
+    }
+    dhxWins.window('win').appendObject(id);
 }
-function creatCombo(){
-     dhxCombo=new dhtmlXCombo("combo_zone4","combo_select.gif",100);
-     dhxComboUpdate=new dhtmlXCombo("combo_zone5","combo_select.gif",100);
-        $.ajax({
-		  type: 'POST',
-		  url: objUrl+'/admin/role/list',
-		  success: function(json){
-                        var temp=[]; 
-                        var sid=json[0].id;
-			for(var i=0;i<json.length;i++){
-                            var item=[];
-                            item.push(json[i].id);
-                            item.push(json[i].name);
-                            temp.push(item);
-                        }
-                        dhxCombo.addOption(temp);
-                        dhxComboUpdate.addOption(temp);
-		  }
-	  });
+function creatCombo() {
+    dhxCombo = new dhtmlXCombo("combo_zone4", "combo_select.gif", 100);
+    dhxComboUpdate = new dhtmlXCombo("combo_zone5", "combo_select.gif", 100);
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/admin/role/list',
+        success: function (json) {
+            var temp = [];
+            var sid = json[0].id;
+            for (var i = 0; i < json.length; i++) {
+                var item = [];
+                item.push(json[i].id);
+                item.push(json[i].name);
+                temp.push(item);
+            }
+            dhxCombo.addOption(temp);
+            dhxComboUpdate.addOption(temp);
+        }
+    });
 }
-function dropMessage(){
-    var selectedId=mygrid.getSelectedRowId();
-        if(selectedId==null){
+function dropMessage() {
+    var selectedId = mygrid.getSelectedRowId();
+    if (selectedId == null) {
         alertMessage("请选择用户");
         return;
     }
-    dhtmlx.message({ 
-        type:"confirm", 
-        text:"确定要删除此用户?",
-        title:"删除用户",
-        ok:"是",
-        cancel:"否",
-        callback: function(id) {
-            if(id==true){
+    dhtmlx.message({
+        type: "confirm",
+        text: "确定要删除此用户?",
+        title: "删除用户",
+        ok: "是",
+        cancel: "否",
+        callback: function (id) {
+            if (id == true) {
                 drop(selectedId);
             }
         }
     });
 }
 //删除用户
-function drop(selectedId){
-    
-   $.ajax({
+function drop(selectedId) {
+
+    $.ajax({
         type: 'POST',
-        url: objUrl+'/admin/user/delUserExtInfo',
-        data:"id="+selectedId,
-        success: function(json){
-             if(json=='true'){
-                 alertMessage("删除成功!");
-                 getGridRowsData();
-             }else{
-                 alertMessage("删除失败！请重新操作。");
-             }
+        url: objUrl + '/admin/user/delUserExtInfo',
+        data: "id=" + selectedId,
+        success: function (json) {
+            if (json == 'true') {
+                alertMessage("删除成功!");
+                getGridRowsData();
+            } else {
+                alertMessage("删除失败！请重新操作。");
+            }
         }
     });
 }
 //创建布局
-function creatLayout(){
-	dhxLayout=new dhtmlXLayoutObject(document.body, "1C");
-	dhxLayout.cells("a").hideHeader();
+function creatLayout() {
+    dhxLayout = new dhtmlXLayoutObject(document.body, "1C");
+    dhxLayout.cells("a").hideHeader();
 }
 //创建GRID
-function creatGrid(json){
-	mygrid=dhxLayout.cells("a").attachGrid(); 
-	mygrid.setImagePath(window.dhx_globalImgPath);
-	mygrid.setHeader("序号,用户名,真实姓名,性别,部门,地址,电话,Email,角色");
-	mygrid.setInitWidths("50,100,100,100,100,100,100,100,*");
-	mygrid.setColAlign("center,left,left,left,left,left,left,left,left");
-        mygrid.setColTypes("cntr,txt,txt,txt,txt,txt,txt,txt,txt");
-	mygrid.setColSorting("int,str,str,str,str,str,str,str,str");
-        mygrid.setEditable(false);
-	mygrid.init();
-	mygrid.parse(json,'json');
+function creatGrid(json) {
+    mygrid = dhxLayout.cells("a").attachGrid();
+    mygrid.setImagePath(window.dhx_globalImgPath);
+    mygrid.setHeader("序号,用户名,真实姓名,性别,部门,地址,电话,Email,角色");
+    mygrid.setInitWidths("50,100,100,100,100,100,100,100,*");
+    mygrid.setColAlign("center,left,left,left,left,left,left,left,left");
+    mygrid.setColTypes("cntr,txt,txt,txt,txt,txt,txt,txt,txt");
+    mygrid.setColSorting("int,str,str,str,str,str,str,str,str");
+    mygrid.setEditable(false);
+    mygrid.init();
+    mygrid.parse(json, 'json');
 }
-function getGridRowsData(){
-    	  $.ajax({
-		  type: 'POST',
-		  url: objUrl+'/admin/user/findUser',
-		  success: function(json){
-			var item=jsonManage(json);
-                        //mygrid.init();
-                        mygrid.clearAll();
-			mygrid.parse(item,'json');
-		  }
-	  });
+function getGridRowsData() {
+    $.ajax({
+        type: 'POST',
+        url: objUrl + '/admin/user/findUser',
+        success: function (json) {
+            var item = jsonManage(json);
+            //mygrid.init();
+            mygrid.clearAll();
+            mygrid.parse(item, 'json');
+        }
+    });
 }
 // 添加新用户
-function addUserFormSubmit(){
-    
-    var uName=$("#userName").val();
-    var rName=$("#relName").val();
-    var dption=dhxCombo.getSelectedValue();
-    var pass=$("#newPassword").val();
-    var rpass=$("#relPassword").val();
-    var department=$("#department").val();
-    var address=$("#address").val();
-    var email=$("#email").val();
-    var telphone=$("#telphone").val();
-    
+function addUserFormSubmit() {
+
+    var uName = $("#userName").val();
+    var rName = $("#relName").val();
+    var dption = dhxCombo.getSelectedValue();
+    var pass = $("#newPassword").val();
+    var rpass = $("#relPassword").val();
+    var department = $("#department").val();
+    var address = $("#address").val();
+    var email = $("#email").val();
+    var telphone = $("#telphone").val();
+
     var partten = /^1[3,5,8]\d{9}$/;
     var epartten = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 //    alertMessage(dption);return false;
     // 用户名
-    if($.trim(uName)==''){        
-        alertMessage("用户名不能为空");        
+    if ($.trim(uName) == '') {
+        alertMessage("用户名不能为空");
         return;
-    }else if($.trim(uName).length <6){
+    } else if ($.trim(uName).length < 6) {
         alertMessage("用户名长度不能小于6位！");
         return false;
-    // 姓名
-    }else if($.trim(rName)==''){        
+        // 姓名
+    } else if ($.trim(rName) == '') {
         alertMessage("姓名不能为空");
         return;
-    // 部门
-    }else if($.trim(department)==''){        
-        alertMessage("部门不能为空");        
+        // 部门
+    } else if ($.trim(department) == '') {
+        alertMessage("部门不能为空");
         return;
-    // 地址
-    }else if($.trim(address)==''){        
-        alertMessage("地址不能为空");        
+        // 地址
+    } else if ($.trim(address) == '') {
+        alertMessage("地址不能为空");
         return;
-    // Email
-    }else if($.trim(email)==''){        
-        alertMessage("Email不能为空");        
+        // Email
+    } else if ($.trim(email) == '') {
+        alertMessage("Email不能为空");
         return;
-    // Email
-    }else if(!epartten.test($.trim(email))){        
-        alertMessage("Email输入有误，请重新输入");        
+        // Email
+    } else if (!epartten.test($.trim(email))) {
+        alertMessage("Email输入有误，请重新输入");
         return;
-    // 电话
-    }else if($.trim(telphone)==''){        
-        alertMessage("电话不能为空");        
+        // 电话
+    } else if ($.trim(telphone) == '') {
+        alertMessage("电话不能为空");
         return;
-    // 电话
-    }else if(!partten.test($.trim(telphone))){        
-        alertMessage("电话输入有误，请重新输入");        
+        // 电话
+    } else if (!partten.test($.trim(telphone))) {
+        alertMessage("电话输入有误，请重新输入");
         return;
-    // 角色
-    }else if(dption==null){
+        // 角色
+    } else if (dption == null) {
         alertMessage("角色不能为空");
         return;
-    // 密码
-    }else if($.trim(pass)==''){
+        // 密码
+    } else if ($.trim(pass) == '') {
         alertMessage("密码不能为空");
         return;
-    }else if($.trim(pass).length <6){
+    } else if ($.trim(pass).length < 6) {
         alertMessage("密码长度不能小于6位！");
         return false;
-    // 确认密码
-    }else if($.trim(rpass)==''){
+        // 确认密码
+    } else if ($.trim(rpass) == '') {
         alertMessage("请确认密码！");
-        return;        
-    // 密码与确认密码
-    }else if($.trim(pass)!=$.trim(rpass)){
+        return;
+        // 密码与确认密码
+    } else if ($.trim(pass) != $.trim(rpass)) {
         alertMessage("密码与确认密码不相符，请重新输入！");
         return;
-    }else{
-        
-        $.post(objUrl+"/admin/user/checkUserName",
-            {
-              userName:$.trim(uName)
-            },
-            function(data){
-              if(data=='false'){
+    } else {
 
-                  alertMessage("用户名已经存在，请重新输入"); 
-                  return;
-              }
+        $.post(objUrl + "/admin/user/checkUserName",
+            {
+                userName: $.trim(uName)
+            },
+            function (data) {
+                if (data == 'false') {
+
+                    alertMessage("用户名已经存在，请重新输入");
+                    return;
+                }
             }
         );
     }
-    
+
     $("#description").val(dption);
-    
+
     // 用户添加
-    var options = {    
-        success:function(data) {   
-            if(data=='true'){
+    var options = {
+        success: function (data) {
+            if (data == 'true') {
                 alertMessage("添加用户成功");
                 winClose();
                 getGridRowsData();
-            }else{
+            } else {
                 alertMessage("添加用户失败，请重新操作");
                 winClose();
             }
         }
-    }; 
+    };
     $('#addForm').ajaxSubmit(options);
     return false;
 }
 //编辑用户
-function updateUserFormSubmit(){
+function updateUserFormSubmit() {
 
-    var rName=$("#update_rName").val();
-    var dption=dhxComboUpdate.getSelectedValue();
-    var department=$("#update_department").val();
-    var address=$("#update_address").val();
-    var email=$("#update_email").val();
-    var telphone=$("#update_telphone").val();
-    
+    var rName = $("#update_rName").val();
+    var dption = dhxComboUpdate.getSelectedValue();
+    var department = $("#update_department").val();
+    var address = $("#update_address").val();
+    var email = $("#update_email").val();
+    var telphone = $("#update_telphone").val();
+
     var partten = /^1[3,5,8]\d{9}$/;
     var epartten = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 
     // 姓名
-    if($.trim(rName)==''){        
+    if ($.trim(rName) == '') {
         alertMessage("姓名不能为空");
         return;
-    // 部门
-    }else if($.trim(department)==''){        
-        alertMessage("部门不能为空");        
+        // 部门
+    } else if ($.trim(department) == '') {
+        alertMessage("部门不能为空");
         return;
-    // 地址
-    }else if($.trim(address)==''){        
-        alertMessage("地址不能为空");        
+        // 地址
+    } else if ($.trim(address) == '') {
+        alertMessage("地址不能为空");
         return;
-    // Email
-    }else if($.trim(email)==''){        
-        alertMessage("Email不能为空");        
+        // Email
+    } else if ($.trim(email) == '') {
+        alertMessage("Email不能为空");
         return;
-    // Email
-    }else if(!epartten.test($.trim(email))){        
-        alertMessage("Email输入有误，请重新输入");        
+        // Email
+    } else if (!epartten.test($.trim(email))) {
+        alertMessage("Email输入有误，请重新输入");
         return;
-    // 电话
-    }else if($.trim(telphone)==''){        
-        alertMessage("电话不能为空");        
+        // 电话
+    } else if ($.trim(telphone) == '') {
+        alertMessage("电话不能为空");
         return;
-    // 电话
-    }else if(!partten.test($.trim(telphone))){        
-        alertMessage("电话输入有误，请重新输入");        
+        // 电话
+    } else if (!partten.test($.trim(telphone))) {
+        alertMessage("电话输入有误，请重新输入");
         return;
-    // 角色
-    }else if(dption==null){
+        // 角色
+    } else if (dption == null) {
         alertMessage("角色不能为空");
         return;
     }
-    
+
     $("#update_description").val(dption);
-    
-     var options = {    
-        success:function(data) {   
-            if(data=='true'){
+
+    var options = {
+        success: function (data) {
+            if (data == 'true') {
                 alertMessage("编辑用户成功");
                 winClose();
                 getGridRowsData();
-            }else{
+            } else {
                 alertMessage("编辑用户失败，请重新操作");
                 winClose();
             }
         }
-      }; 
-      $('#updateForm').ajaxSubmit(options);
-      return false;
+    };
+    $('#updateForm').ajaxSubmit(options);
+    return false;
 }
 //修改密码
-function updatePass(){
-    var selectedId=mygrid.getSelectedRowId();
-    var pass=$("#newPass").val();
-    var rpass=$("#rePass").val();
-    if(pass==''|| pass==null){
+function updatePass() {
+    var selectedId = mygrid.getSelectedRowId();
+    var pass = $("#newPass").val();
+    var rpass = $("#rePass").val();
+    if (pass == '' || pass == null) {
         alertMessage("密码不能为空");
         return;
     }
-     if(rpass==''|| rpass==null){
+    if (rpass == '' || rpass == null) {
         alertMessage("请确认密码！");
         return;
     }
-    if(pass!=rpass){
+    if (pass != rpass) {
         alertMessage("新设密码与原始密码不相符，请重新输入！");
         return;
     }
-     $.post(objUrl+"/admin/user/updatePass",
+    $.post(objUrl + "/admin/user/updatePass",
         {
-          newPass:pass,
-          rePass:rpass,
-          userID:selectedId
+            newPass: pass,
+            rePass: rpass,
+            userID: selectedId
         },
-        function(data){
-          if(data=='true'){
-              alertMessage("修改密码成功！");
-              winClose();
-          }else if(data=='passWorng'){
-              alertMessage("新设密码与原始密码不相符，请重新输入！");
-          }else{
-              alertMessage("操作失败，请重新操作"); 
-          }
+        function (data) {
+            if (data == 'true') {
+                alertMessage("修改密码成功！");
+                winClose();
+            } else if (data == 'passWorng') {
+                alertMessage("新设密码与原始密码不相符，请重新输入！");
+            } else {
+                alertMessage("操作失败，请重新操作");
+            }
         });
 
 }
-function alertMessage(value){
-        dhtmlx.message({
-		title: "消息提示",
-                type: "alert",
-		text: value
-        });
+function alertMessage(value) {
+    dhtmlx.message({
+        title: "消息提示",
+        type: "alert",
+        text: value
+    });
 }
 
