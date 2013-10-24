@@ -373,9 +373,15 @@
                 dhxTabbar.setImagePath("${ctx}/static/dhtmlx/imgs/");
                 dhxTabbar.addTab("tab1", "监测信息", "100px");
                 dhxTabbar.addTab("tab2", "辅助信息", "100px");
+                dhxTabbar.addTab("tab3", "原始数据", "100px");
                 dhxTabbar.setTabActive("tab1");
                 dhxTabbar.cells("tab1").attachObject("gk");
                 dhxTabbar.cells("tab2").attachObject("fz");
+                dhxTabbar.cells("tab3").attachObject("ss");
+
+                $("div[tab_id=tab3]").click(function(){
+                    $("#ss").html('<iframe frameboder="0" src="${ctx}/main/detail?code=${info.code}" style="width: 100%; height: 100%;"></iframe>');
+                });
             }
             var yse=['black','blue'];
             var j=0;
@@ -2003,7 +2009,7 @@
                             <div id="ba8" style="width:5px; height:80px;  float:left"></div>
                             <!--电气参数-->
                             <div id="dqcs" style="width:629px; height:79px; float:right; border:solid; border-width:1px; float:left; border-color:#b4da72; background-color:#fbfff3">
-                                <div id="dqcs1" style=" width:629px; height:10; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
+                                <div id="dqcs1" style=" width:629px; height:10px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
                                     &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
                                 </div>
                                 <div id="dq0" class="cssdiv" style="cursor:hand; width:160px; height:23px;font-size:14px ;line-height:30px;float:left;cursor:pointer" onclick="showDyqx('u_a', 'A相电压');">
@@ -2032,7 +2038,7 @@
                             <div id="ba9" style="width:5px; height:90px; float:left"></div>
                             <!--传感器运行-->
                             <div id="cgqyx" style="width:629px; height:115px; float:left; border:solid; border-width:1px; border-color:#fdbbfd;">
-                                <div id="cgqyx1" style="width:629px; height:10; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#fde7fd" >
+                                <div id="cgqyx1" style="width:629px; height:10px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#fde7fd" >
                                     &nbsp传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp运&nbsp;&nbsp;&nbsp行
                                 </div>
                                 <div id="cgqyx2" style=" width:628px; height:90px; float:left"></div>
@@ -2046,13 +2052,13 @@
           
                                     <a onclick="run1();" style="cursor: hand;font-size:14px;">&nbsp;&nbsp;即时功能读取</a>
                                 </div>
-                                <div id="gt4" style="width:105px; height:10; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/gtdb.png);">
+                                <div id="gt4" style="width:105px; height:10px; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/gtdb.png);">
                                     <a  onclick="sj();" style="cursor: hand;font-size:14px">&nbsp;功图对比</a>
                                 </div>
-                                <div id="gt5" style="width:131px; height:10; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/cygsl.png);">
+                                <div id="gt5" style="width:131px; height:10px; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/cygsl.png);">
                                     <a onclick="cyfslfx()" style=" cursor: hand;font-size:14px">&nbsp;抽油杆受力分析</a>
                                 </div>
-                                <div id="gt6" style="width:265px; height:10; float:left">              
+                                <div id="gt6" style="width:265px; height:10px; float:left">              
                                 </div>
                             </div>
                             <div id="gt7" style="width:160px; height:30px; font-size:14px;float:left; line-height:30px;background-color:#deeeff" align="center" >
@@ -2131,7 +2137,7 @@
                         <div id="bia13" style="width:1280px;  height:5px;float:left; "></div>
                         <div id="bia2" style="width:5px;  height:22px; float:left "></div>
                         <div id="ssqx2" style="width:1268px; height:135px;border:solid; border-width:1px; border-color:#9fdfae; float:left" class="ss1">
-                            <div id="ssqx3" style="width:1268px; font-size:14px; font-weight:bold;height:10; float:left; background-color:#9fdfae" align="left" class="ss2">
+                            <div id="ssqx3" style="width:1268px; font-size:14px; font-weight:bold;height:10px; float:left; background-color:#9fdfae" align="left" class="ss2">
                                 &nbsp实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp数&nbsp;&nbsp;&nbsp据
                                 <span id="ssqxTitle"></span>
                             </div>	
@@ -2181,7 +2187,7 @@
                              </table>
                         </div>
                         <div id="sy" style="width:629px;height:6px; float:left; " align="left"></div>
-                        <div id="cgqs" style="width:627px; font-size:14px;height:10; font-weight:bold;background-color:#e6d5ff; float:left; border-style:solid;border-color:#e6d5ff; border-width:1px" >&nbsp;传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp设&nbsp;&nbsp;&nbsp备
+                        <div id="cgqs" style="width:627px; font-size:14px;height:10px; font-weight:bold;background-color:#e6d5ff; float:left; border-style:solid;border-color:#e6d5ff; border-width:1px" >&nbsp;传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp设&nbsp;&nbsp;&nbsp备
                         </div>
                         <div id="gr" style="width:627px; height:140px; border-style:solid; border-color:#e6d5ff;border-width:1px; background-color:#FFE0BB; float:left">
                         </div>
@@ -2215,7 +2221,12 @@
                                 <div id="container5" style=" min-width:90%; height:100%;margin:0 auto"></div>
                             </div>
                         </div>
-                    </div>        
+                    </div>
+                    <!--原始数据 width: 1275px; height: 538px-->
+                    <div id="ss" style="width:1280px; height:538px;">
+                        <!--              		     <iframe frameboder="0" src="${ctx}/main/detail?code=${info.code}" style="width: 100%; height: 100%;">
+              		     </iframe>-->
+                    </div>
                 </div>
                 <!--地图-->
                 <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
@@ -2230,19 +2241,19 @@
             </div>
             <!--浮上-->
             <div id="apDiv1">
-                <div id="ad" style="width:70px; height:10; float:left; font-size:14px; font-weight:bold; line-height:25px">
+                <div id="ad" style="width:70px; height:10px; float:left; font-size:14px; font-weight:bold; line-height:25px">
                     &nbsp;&nbsp;&nbsp;井标识
                 </div>
-                <div id="ad2" style="width:350px; height:10;float:left; font-size:14px;line-height:25px">
+                <div id="ad2" style="width:350px; height:10px;float:left; font-size:14px;line-height:25px">
                     运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
                     故障停井&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
                     非正常停井&nbsp;<img src="${ctx}/static/img/zise.png" />&nbsp;&nbsp;
                     计划停井&nbsp;<img src="${ctx}/static/img/juse.png" />
                 </div>
-                <div id="ads" style="width:80px; height:10; float:left; font-size:14px; font-weight:bold; line-height:25px">
+                <div id="ads" style="width:80px; height:10px; float:left; font-size:14px; font-weight:bold; line-height:25px">
                     &nbsp;&nbsp;&nbsp;RTU标识
                 </div>
-                <div id="adr" style="width:390px; height:10;float:left; font-size:14px;line-height:25px">
+                <div id="adr" style="width:290px; height:10px;float:left; font-size:14px;line-height:25px">
                     运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
                     故障&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
                     校验&nbsp;<img src="${ctx}/static/img/lansee.png" />

@@ -2,247 +2,291 @@
 /* CSS Document */
 
 html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0px;
-            }
-            #yin {
-                position:absolute;
-                left:1600px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin1 {
-                position:absolute;
-                left:2000px;
-                top:350px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin2 {
-                position:absolute;
-                left:1900px;
-                top:320px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin3{
-                position:absolute;
-                left:1520px;
-                top:500px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin4 {
-                position:absolute;
-                left:1756px;
-                top:280px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin5 {
-                position:absolute;
-                left:2000px;
-                top:400px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin6 {
-                position:absolute;
-                left:1800px;
-                top:550px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #yin12 {
-                position:absolute;
-                left:1500px;
-                top:300px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #apDiv1 {
-                position:absolute;
-                left:207px;
-                top:146px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-            }
-            #divkd {
-                display:none;
-                position:absolute;
-                background:url(../static/img/kd.jpg);
-                left:18px;
-                top:491px;
-                width:64px;
-                height:216px;
-                z-index:1;
-            }
-            .s1{ color:red;}
-            .s2{ color:#000;}
-            .cssdiv:hover{
-                color:#09F
-            }
-            .cssdiv1:hover{
-                color:#09F
-            }
-            #sztitle {
-                position:absolute;
-                left:145px;
-                top:22px;
-                width:600px;
-                height:40px;
-                z-index:1;
-                color: #fff;
-                font-size: 26px;
-                font-weight: bold;
-            }
-            #szda {
-                position:absolute;
-                left:804px;
-                top:38px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-            #szan {
-                position:absolute;
-                left:1120px;
-                top:55px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-            #tcan {
-                position:absolute;
-                left:1200px;
-                top:55px;
-                width:1075px;
-                height:27px;
-                z-index:1;
-                color: #fff;
-                font-size: 14px;
-                font-weight: bold;
-            }
-            
-            div.objbox { 
-                SCROLLBAR-FACE-COLOR: #FFFFFF ; 
-                SCROLLBAR-HIGHLIGHT-COLOR: #e6d5ff; 
-                SCROLLBAR-SHADOW-COLOR: #e6d5ff; 
-                SCROLLBAR-3DLIGHT-COLOR: #e6d5ff; 
-                SCROLLBAR-ARROW-COLOR: #e6d5ff; 
-                SCROLLBAR-TRACK-COLOR: #FFFFFF;
-                SCROLLBAR-DARKSHADOW-COLOR: #e6d5ff
-            }
-            a:hover{
-                color:#09F
-            }
-            .cssdiv:hover{
-                color:#09F
-            }
-    .radioBtn {height: 16px;vertical-align: middle;}
-    .checkboxBtn {vertical-align: middle;margin-right: 2px;}
-    #hhk1{
-	position:absolute;
-	left:460px;
-	top:210px;
-	width:1075px;
-	height:27px;
-	z-index:1;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
 }
-#xian{
-	position:absolute;
-	left:489px;
-	top:238px;
-	width:1075px;
-	height:27px;
-	z-index:1;
+
+#yin {
+    position: absolute;
+    left: 1600px;
+    top: 146px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
 }
-#bc1{
-	position:absolute;
-	left:1047px;
-	top:623px;
-	width:1075px;
-	height:27px;
-	z-index:1;
+
+#yin1 {
+    position: absolute;
+    left: 2000px;
+    top: 350px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
 }
-#bc2{
-	position:absolute;
-	left:1047px;
-	top:535px;
-	width:1075px;
-	height:27px;
-	z-index:1;
+
+#yin2 {
+    position: absolute;
+    left: 1900px;
+    top: 320px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
 }
-#bc3{
-	position:absolute;
-	left:865px;
-	top:600px;
-	width:1075px;
-	height:27px;
-	z-index:1;
+
+#yin3 {
+    position: absolute;
+    left: 1520px;
+    top: 500px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
 }
-#bc4{
-	position:absolute;
-	left:1090px;
-	top:600px;
-	width:1075px;
-	height:27px;
-	z-index:1;
+
+#yin4 {
+    position: absolute;
+    left: 1756px;
+    top: 280px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
 }
-#bc5{
-	position:absolute;
-	left:350px;
-	top:200px;
-	width:79px;
-	height:43px;
-	z-index:1;
+
+#yin5 {
+    position: absolute;
+    left: 2000px;
+    top: 400px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
 }
-#bc6{
-	position:absolute;
-	left:916px;
-	top:500px;
-	width:79px;
-	height:43px;
-	z-index:1;
+
+#yin6 {
+    position: absolute;
+    left: 1800px;
+    top: 550px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
 }
-#bc7{
-	position:absolute;
-	left:916px;
-	top:600px;
-	width:79px;
-	height:43px;
-	z-index:1;
+
+#yin12 {
+    position: absolute;
+    left: 1500px;
+    top: 300px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
 }
-#bc8{
-	position:absolute;
-	left:900px;
-	top:530px;
-	width:79px;
-	height:43px;
-	z-index:1;
+
+#apDiv1 {
+    position: absolute;
+    /*添加原始数据*/
+    left: 307px;
+    top: 146px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
 }
-#bc9{
-	position:absolute;
-	left:1050px;
-	top:530px;
-	width:79px;
-	height:43px;
-	z-index:1;
+
+#divkd {
+    display: none;
+    position: absolute;
+    background: url(../static/img/kd.jpg);
+    left: 18px;
+    top: 491px;
+    width: 64px;
+    height: 216px;
+    z-index: 1;
+}
+
+.s1 {
+    color: red;
+}
+
+.s2 {
+    color: #000;
+}
+
+.cssdiv:hover {
+    color: #09F
+}
+
+.cssdiv1:hover {
+    color: #09F
+}
+
+#sztitle {
+    position: absolute;
+    left: 145px;
+    top: 22px;
+    width: 600px;
+    height: 40px;
+    z-index: 1;
+    color: #fff;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+#szda {
+    position: absolute;
+    left: 804px;
+    top: 38px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#szan {
+    position: absolute;
+    left: 1120px;
+    top: 55px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#tcan {
+    position: absolute;
+    left: 1200px;
+    top: 55px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div.objbox {
+    scrollbar-face-color: #ffffff;
+    scrollbar-highlight-color: #e6d5ff;
+    scrollbar-shadow-color: #e6d5ff;
+    scrollbar-3dlight-color: #e6d5ff;
+    scrollbar-arrow-color: #e6d5ff;
+    scrollbar-track-color: #ffffff;
+    scrollbar-darkshadow-color: #e6d5ff
+}
+
+a:hover {
+    color: #09F
+}
+
+.cssdiv:hover {
+    color: #09F
+}
+
+.radioBtn {
+    height: 16px;
+    vertical-align: middle;
+}
+
+.checkboxBtn {
+    vertical-align: middle;
+    margin-right: 2px;
+}
+
+#hhk1 {
+    position: absolute;
+    left: 460px;
+    top: 210px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
+}
+
+#xian {
+    position: absolute;
+    left: 489px;
+    top: 238px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
+}
+
+#bc1 {
+    position: absolute;
+    left: 1047px;
+    top: 623px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
+}
+
+#bc2 {
+    position: absolute;
+    left: 1047px;
+    top: 535px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
+}
+
+#bc3 {
+    position: absolute;
+    left: 865px;
+    top: 600px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
+}
+
+#bc4 {
+    position: absolute;
+    left: 1090px;
+    top: 600px;
+    width: 1075px;
+    height: 27px;
+    z-index: 1;
+}
+
+#bc5 {
+    position: absolute;
+    left: 350px;
+    top: 200px;
+    width: 79px;
+    height: 43px;
+    z-index: 1;
+}
+
+#bc6 {
+    position: absolute;
+    left: 916px;
+    top: 500px;
+    width: 79px;
+    height: 43px;
+    z-index: 1;
+}
+
+#bc7 {
+    position: absolute;
+    left: 916px;
+    top: 600px;
+    width: 79px;
+    height: 43px;
+    z-index: 1;
+}
+
+#bc8 {
+    position: absolute;
+    left: 900px;
+    top: 530px;
+    width: 79px;
+    height: 43px;
+    z-index: 1;
+}
+
+#bc9 {
+    position: absolute;
+    left: 1050px;
+    top: 530px;
+    width: 79px;
+    height: 43px;
+    z-index: 1;
 }

@@ -1,0 +1,97 @@
+
+html, body {
+    height: 100%;
+}
+html {
+    overflow-y: auto;
+}
+
+body {
+    background: none repeat scroll 0 0 #FFFFFF;
+    font: 14px "Times New Roman";
+    padding: 0 100px;
+}
+
+#nav {
+    margin-top: 32px;
+}
+#nav ul {
+    display: block;
+    padding: 0;
+    border-bottom: 1px solid black;
+}
+#nav ul:after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+#nav li {
+    display: block;
+    float: left;
+    list-style-type: none;
+    margin: 0 12px 6px;
+    padding: 3px 12px 4px;
+}
+#nav li.active a {
+    color: #CCCCCC;
+    cursor: default;
+    text-shadow: 0 -1px 1px #EDEDED;
+}
+#nav li:first-child {
+    margin-left: 0;
+}
+#nav a {
+    color: #444444;
+    text-decoration: none;
+}
+#nav a:hover {
+    color: #0096B6;
+}
+
+table.dataintable {
+    border: 1px solid #AAAAAA;
+    border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif;
+    /*margin-top: 10px;*/
+    /* 	width: 100%; */
+}
+
+table.dataintable th {
+    /*background-color: #D5D5D5;*/
+    border: 1px solid #AAAAAA;
+    padding: 5px 5px 5px 5px;
+    text-align: left;
+    vertical-align: baseline;
+}
+
+table.dataintable td {
+    /*background-color: #EFEFEF;*/
+    border: 1px solid #AAAAAA;
+    padding: 5px 5px 5px 5px;
+    vertical-align: text-top;
+}
+
+.msg-info {
+    color: #ffffff;
+    background-color: #0000ff;
+    padding: 2px 5px;
+}
+
+.msg-error {
+    color: #ff0000;
+    background-color: #ffff00;
+    padding: 2px 5px;
+}
+
+/* tooltip styling. by default the element to be styled is .tooltip  */
+.tooltip {
+    display:none;
+    background:url(./img/tooltip/black_arrow_big.png);
+    height:163px;
+    padding:40px 30px 10px 30px;
+    width:310px;
+    font-size:11px;
+    color:#fff;
+}
