@@ -326,7 +326,7 @@ function createSgForShow(p_code,p_data) {
                     trackAll: false,
                     trackY: false,
                     trackFormatter: function(obj){
-                        return '<b>示功图</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
+                        return '位移(横):<font color=green;>'+ obj.x +'</font>m</br>载荷(纵):<font color=green;>'+ obj.y + '</font>KN';//取得数据源中的值
                     }
                 }
             });
@@ -402,7 +402,7 @@ function createDlForShow(p_code,p_data) {
                     trackAll: false,
                     trackY: false,
                     trackFormatter: function(obj){
-                        return '<b>电流曲线</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
+                        return '位移(横):<font color=green;>'+ obj.x +'</font>m</br>电流(纵):<font color=green;>'+ obj.y + '</font>A';//取得数据源中的值
                     }
                 }
             });
@@ -478,7 +478,7 @@ function createDgForShow(p_code,p_data) {
                     trackAll: false,
                     trackY: false,
                     trackFormatter: function(obj){
-                        return '<b>功率曲线</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
+                        return '位移(横):<font color=green;>'+ obj.x +'</font>m</br>功率(纵):<font color=green;>'+ obj.y + '</font>KW';//取得数据源中的值
                     }
                 }
             });
@@ -554,7 +554,7 @@ function createYgglForShow(p_code,p_data) {
                     trackAll: false,
                     trackY: false,
                     trackFormatter: function(obj){
-                        return '<b>功率因数曲线</b><br/>'+ obj.x +': '+ obj.y + 'm';//取得数据源中的值
+                        return '位移(横):<font color=green;>'+ obj.x +'</font>m</br>功率(纵):<font color=green;>'+ obj.y + '</font>KW';//取得数据源中的值
                     }
                 }
             });

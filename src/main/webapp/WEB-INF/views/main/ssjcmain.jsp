@@ -791,7 +791,7 @@
             }
             
             /**
-            * 即时功能读取
+            * 即时功图读取
             * @returns {undefined}             
             * */
             function run1(){
@@ -2050,7 +2050,7 @@
                             <div style="width:629px;height:20px; background-color:#eef7ff;padding-top:10px;padding-left:20px;">
                                 <div id="gt3" style="width:125px; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/jsgt.png);">
           
-                                    <a onclick="run1();" style="cursor: hand;font-size:14px;">&nbsp;&nbsp;即时功能读取</a>
+                                    <a onclick="run1();" style="cursor: hand;font-size:14px;">&nbsp;&nbsp;即时功图读取</a>
                                 </div>
                                 <div id="gt4" style="width:105px; height:10px; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/gtdb.png);">
                                     <a  onclick="sj();" style="cursor: hand;font-size:14px">&nbsp;功图对比</a>
@@ -2058,7 +2058,11 @@
                                 <div id="gt5" style="width:131px; height:10px; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/cygsl.png);">
                                     <a onclick="cyfslfx()" style=" cursor: hand;font-size:14px">&nbsp;抽油杆受力分析</a>
                                 </div>
-                                <div id="gt6" style="width:265px; height:10px; float:left">              
+                                <!-- 添加变频器曲线功能 -->
+                                <div id="bpqqx" style="width:131px; height:10px; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/cygsl.png);">
+                                    <a href="${ctx}/main/power?code=${info.code}" target="_blank" style=" cursor: hand;font-size:14px;text-decoration: none;">&nbsp;变频器曲线</a>
+                                </div>
+                                <div id="gt6" style="width:265px; height:10px; float:left">
                                 </div>
                             </div>
                             <div id="gt7" style="width:160px; height:30px; font-size:14px;float:left; line-height:30px;background-color:#deeeff" align="center" >
@@ -2071,7 +2075,7 @@
                                 <a onclick="sgtwin(3);" style="cursor: hand;text-decoration:none">&nbsp;功&nbsp;率&nbsp;曲&nbsp;线</a>
                             </div>
                             <div id="gt10" style="width:150px; height:30px;font-size:14px; float:left;line-height:30px; background-color:#deeeff" align="center" >
-                                <a onclick="sgtwin(4);" style="cursor: hand;text-decoration:none">&nbsp功&nbsp率&nbsp因&nbsp数&nbsp曲&nbsp线</a>
+                                <a onclick="sgtwin(4);" style="cursor: hand;text-decoration:none">变频器功率曲线</a>
                             </div>
                             <div id="gtt" style="width:155px; height:150px; line-height:30px;float:left;">
                             <div id="containerr" style="height:150px;width:150px;font-size:12px;"></div>
