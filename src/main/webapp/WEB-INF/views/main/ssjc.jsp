@@ -972,7 +972,7 @@
                         &nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;况&nbsp;&nbsp;&nbsp;信&nbsp;&nbsp;&nbsp;息
                     </div>
                     <div id="jd" style="width:70px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                        &nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;名
+                        油井名：
                     </div>
                     <div id="jhxx" style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
                         <input type="text" name="textfie" id="textfie" style=" height:13px; width:80px; "/>
@@ -989,7 +989,7 @@
                         &nbsp;&nbsp;&nbsp;增&nbsp;&nbsp;&nbsp;压&nbsp;&nbsp;&nbsp;站&nbsp;&nbsp;&nbsp;信&nbsp;&nbsp;&nbsp;息
                     </div>
                     <div id="jd" style="width:90px;height:19px;line-height:20px; background-color:#cced94; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#cced94; float:left" >
-                        &nbsp;&nbsp;&nbsp;增&nbsp;&nbsp;&nbsp;压&nbsp;&nbsp;&nbsp;站
+                        增压站名称：
                     </div>
                     <div id="zyzxx" style="width:100px; height:19px; background-color:#cced94; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#cced94; float:left" >
                         <input type="text" name="txtZenya" id="txtZenya" style=" height:13px; width:80px;"/>
@@ -1006,7 +1006,7 @@
                         &nbsp;&nbsp;&nbsp;注&nbsp;&nbsp;&nbsp;水&nbsp;&nbsp;&nbsp;站&nbsp;&nbsp;&nbsp;信&nbsp;&nbsp;&nbsp;息
                     </div>
                     <div id="jd" style="width:90px;height:19px;line-height:20px; background-color:#ffc8db; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#ffc8db; float:left" >
-                        &nbsp;&nbsp;&nbsp;注&nbsp;&nbsp;&nbsp;水&nbsp;&nbsp;&nbsp;站&nbsp;&nbsp;&nbsp;名&nbsp;&nbsp;&nbsp;称
+                        注水站名称：
                     </div>
                     <div id="zszxx" style="width:100px; height:19px; background-color:#ffc8db; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#ffc8db; float:left" >
                         <input type="text" name="textfiezs" id="textfiezs" style=" height:13px; width:80px;"/>
@@ -1023,7 +1023,7 @@
                         &nbsp;&nbsp;&nbsp;接&nbsp;&nbsp;&nbsp;转&nbsp;&nbsp;&nbsp;站&nbsp;&nbsp;&nbsp;信&nbsp;&nbsp;&nbsp;息
                     </div>
                     <div id="jd2" style="width:90px; height:19px;line-height:20px;background-color:#a9e2ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#a9e2ff; float:left" >
-                        &nbsp;&nbsp;&nbsp;接&nbsp;&nbsp;&nbsp;转&nbsp;&nbsp;&nbsp;站&nbsp;&nbsp;&nbsp;名&nbsp;&nbsp;&nbsp;称
+                        接转站名称：
                     </div>
                     <div id="jzzxx" style="width:100px; height:19px; background-color:#a9e2ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#a9e2ff; float:left" >
                         <input type="text" name="textfiejz" id="textfiejz" style=" height:13px; width:80px;"/>
