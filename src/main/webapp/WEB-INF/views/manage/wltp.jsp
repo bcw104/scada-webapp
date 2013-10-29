@@ -736,7 +736,7 @@
                         &nbsp;&nbsp;&nbsp;井&nbsp;&nbsp;&nbsp;况&nbsp;&nbsp;&nbsp;信&nbsp;&nbsp;&nbsp;息
                     </div>
                     <div id="jd" style="width:70px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                        &nbsp;井&nbsp;&nbsp;号
+                        &nbsp;井&nbsp;&nbsp;&nbsp;号
                     </div>
                     <div id="jhxx" style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
                         <input type="text" name="textfie" id="textfie" style=" height:13px; width:80px; "/>
