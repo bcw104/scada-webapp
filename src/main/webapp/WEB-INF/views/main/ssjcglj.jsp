@@ -1364,7 +1364,7 @@
         }
         
             /**
-            * 即时功能读取
+            * 即时功图读取
             * @returns {undefined}             
             * */
             function run1(){
@@ -1574,7 +1574,7 @@
                     case 1:
                         createSgForShow('${info.code}');
                         dhxWins.window("win").show();
-                        dhxWins.window("win").setText("示工图");
+                        dhxWins.window("win").setText("示功图");
                         dhxWins.attachEvent("onClose", function(win){
                             $("#dt1").hide();
                             dhxWins.window("win").hide(); 
@@ -1610,7 +1610,7 @@
                     case 4:
                         createYgglForShow('${info.code}');
                         dhxWins.window("win").show();
-                        dhxWins.window("win").setText("功率因数曲线");
+                        dhxWins.window("win").setText("变频器输出功率曲线");
                         dhxWins.attachEvent("onClose", function(win){
                             $("#dt4").hide();
                             dhxWins.window("win").hide(); 
@@ -1624,7 +1624,7 @@
     </head>
     <body>
         <!--主界面-->
-            <div id="zz" style="width:3845px; height:717px;border:solid; border-color:#000; border-width:1px">
+            <div id="zz" style="width:3845px; height:717px;border:1px solid #000;">
                 <!--数据-->
                 <div id="ssjcm" style="width:1280px; height:69px;  float:left; font-size: 0 " >
                     <%@ include file="ssjcCommon.jsp"%> 
@@ -1652,7 +1652,7 @@
           <div id="bas" style="width:5px; height:22px;  float:left"></div>
           <div id="wai" style="width:636px; height:365px; float:left">
           	<div id="ba4" style="width:5px; height:154px;  float:left"></div>
-             <div id="gk4" style="width:424px; height:152px; background-color:#FFF8EF;border:solid; border-color:#FFBC6C; border-width:1px; float:left">
+             <div id="gk4" style="width:424px; height:152px; background-color:#FFF8EF;border:1px solid #FFBC6C; float:left">
           <div id="gkk" style="width:245px; height:152px; float:left ">
            <a  ondblclick="ztwin();" style="cursor:hand;text-decoration:none"><img src="${ctx}/static/img/djgyt22.jpg"  style="width:100%; height:151px" /></a>
           </div>
@@ -1667,13 +1667,13 @@
          </div>
          <!--RTU状态-->
           <div id="ba5" style="width:5px; height:154px;  float:left"></div>
-          <div id="rtu" style="width:198px; height:152px;border:solid; border-width:1px; border-color:#BAC3FD;float:left">
+          <div id="rtu" style="width:198px; height:152px;border:1px solid #BAC3FD;float:left">
               
            </div>
            <div id="ba8" style="width:636px; height:5px;  float:left"></div>
            <div id="ba8" style="width:5px; height:80px;  float:left"></div>
             <!--电气参数-->
-              <div id="dqcs" style="width:629px; height:79px; float:right; border:solid; border-width:1px; float:left; border-color:#b4da72; background-color:#fbfff3">
+              <div id="dqcs" style="width:629px; height:79px; float:right; border:1px solid #b4da72; float:left;background-color:#fbfff3">
                 <div id="dqcs1" style=" width:629px; height:10; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
                    &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
                 </div>
@@ -1703,7 +1703,7 @@
               <div id="baq" style="width:636px; height:5px;  float:left"></div>
               <div id="ba9" style="width:5px; height:90px; float:left"></div>
              <!--传感器运行-->
-              <div id="cgqyx" style="width:629px; height:115px; float:right; border:solid; border-width:1px; border-color:#fdbbfd; float:left">
+              <div id="cgqyx" style="width:629px; height:115px; float:right; border:1px solid #fdbbfd; float:left">
             <div id="cgqyx1" style="width:629px; height:10; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#fde7fd" >
             &nbsp传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp运&nbsp;&nbsp;&nbsp行
             </div>
@@ -1713,10 +1713,10 @@
           </div>
            <!--功图-->
           <div id="ba6" style="width:7px; height:154px; float:left"></div>
-          <div id="gt" style="width:630px; height:365px; border:solid; border-width:1px; border-color:#96c2ff; float:left">
+          <div id="gt" style="width:630px; height:365px; border: 1px border #96c2ff; float:left">
           	<div style="width:629px;height:20px; background-color:#eef7ff;padding-top: 10px;padding-left:20px;">
                 <div id="gt3" style="width:125px; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/jsgt.png);">
-                    <a onclick="run1();" style="cursor: hand;font-size:14px">即时功能读取</a>
+                    <a onclick="run1();" style="cursor: hand;font-size:14px">即时功图读取</a>
                 </div>
                 <div id="gt4" style="width:105px; height:10; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/gtdb.png);">
                     <a  onclick="sj();" style="cursor: hand;font-size:14px">功图对比</a>
@@ -1737,7 +1737,7 @@
                 <a onclick="sgtwin(3);" style="cursor: hand;text-decoration:none">&nbsp;功&nbsp;率&nbsp;曲&nbsp;线</a>
             </div>
             <div id="gt10" style="width:150px; height:30px;font-size:14px; float:left;line-height:30px; background-color:#deeeff" align="center" >
-                <a onclick="sgtwin(4);" style="cursor: hand;text-decoration:none">&nbsp功&nbsp率&nbsp因&nbsp数&nbsp曲&nbsp线</a>
+                <a onclick="sgtwin(4);" style="cursor: hand;text-decoration:none">变频器输出功率曲线</a>
             </div>
             <div id="gtt" style="width:158px; height:150px; line-height:30px;float:left">
                 <div id="containerr" style="height:158px;width:150px; "></div>
@@ -1818,7 +1818,7 @@
             </div>	
             <div id="biaq1" style="width:5px;  height:17px; float:left "></div>
             <div id="biaq2" style="width:5px;  height:30px;  float:left "></div>
-            <div id="yg" style="width:313px;  height:28px; background-color:#f5ffdc;border:solid; border-color:#9fdfae; border-width:1px; float:left; line-height:20px ">
+            <div id="yg" style="width:313px;  height:28px; background-color:#f5ffdc;border: 1px border #9fdfae; float:left; line-height:20px ">
             <table>
                      <tr>
                         <td  style="width:156px; font-size:14px; font-weight:bold" align="center">油温：500</td>
@@ -1828,7 +1828,7 @@
                 </table>
             </div>
             <div id="biaq3" style="width:5px;  height:30px;  float:left "></div>
-            <div id="tqj" style="width:313px;  height:28px;background-color:#f5ffdc; border:solid; border-color:#9fdfae; border-width:1px; float:left; line-height:20px ">
+            <div id="tqj" style="width:313px;  height:28px;background-color:#f5ffdc; border: 1px border #9fdfae; float:left; line-height:20px ">
             <table>
                      <tr>
                         <td  style="width:156px; font-size:14px; font-weight:bold" align="center">状态：运行</td>
@@ -1838,7 +1838,7 @@
                 </table>
             </div>
             <div id="biaq4" style="width:5px;  height:30px;  float:left "></div>
-            <div id="stl" style="width:313px;  height:28px;background-color:#f5ffdc; border:solid; border-color:#9fdfae; border-width:1px; float:left; line-height:20px ">
+            <div id="stl" style="width:313px;  height:28px;background-color:#f5ffdc; border: 1px border #9fdfae; float:left; line-height:20px ">
             <table>
                      <tr>
                         <td  style="width:234px; font-size:14px; font-weight:bold" align="center">水温：500</td>
@@ -1847,7 +1847,7 @@
                 </table>
             </div>
             <div id="biaq5" style="width:5px;  height:30px;  float:left "></div>
-            <div id="zpcl" style="width:308px;  height:28px; background-color:#f5ffdc; border:solid; border-color:#9fdfae; border-width:1px; float:left; line-height:20px ">
+            <div id="zpcl" style="width:308px;  height:28px; background-color:#f5ffdc; border: 1px border #9fdfae; float:left; line-height:20px ">
             <table>
                      <tr>
                         <td  style="width:155px; font-size:14px; font-weight:bold" align="center">状态：OFF</td>
@@ -1858,7 +1858,7 @@
             <div id="biaq12" style="width:5px;  height:30px;  float:left "></div>
             <div id="biaq123" style="width:1280px;  height:5px;  float:left "></div>
             <div id="bi" style="width:5px;  height:19px;float:left "></div>
-         <div id="ssqx2" style="width:1268px; height:135px;border:solid; border-width:1px; border-color:#8ed4ff; float:left" class="ss1">
+         <div id="ssqx2" style="width:1268px; height:135px; border: 1px border #8ed4ff; float:left" class="ss1">
           	<div id="ssqx3" style="width:1268px; font-size:14px; font-weight:bold;height:10; float:left; background-color:#8ed4ff" align="left" class="ss2">
             &nbsp实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp曲&nbsp;&nbsp;&nbsp线
             <span id="ssqxTitle"></span>
@@ -1894,11 +1894,11 @@
                         </div>
                         <div id="kzc" style="width:5px; height:22px;  float:left; "></div>
                         <div id="baa" style="width:5px; height:220px;  float:left;"></div>
-                        <div id="jjb" style="width:630px; height:217px; float:left; background-color:#ffffff;border:solid; border-width:1px; border-color:#d2e8ab">
+                        <div id="jjb" style="width:630px; height:217px; float:left; background-color:#ffffff;border: 1px border #d2e8ab">
                         </div>
                         <div id="bia" style="width:5px; height:217px; float:left; "></div>
                         <!--电气参数数据-->
-                        <div id="dqsj" style="width:627px; height:50px; background-color:#ffffff; float:left; font-size:14px;border-color:#FFE0BB;border-style:solid; border-width:1px" >
+                        <div id="dqsj" style="width:627px; height:50px; background-color:#ffffff; float:left; font-size:14px;border-color:1px solid #FFE0BB " >
                             <table>
                                   <tr style="height:10px"></tr>
                                   <tr>
@@ -1909,9 +1909,9 @@
                              </table>
                         </div>
                         <div id="sy" style="width:629px;height:6px; float:left; " align="left"></div>
-                        <div id="cgqs" style="width:627px; font-size:14px;height:10; font-weight:bold;background-color:#e6d5ff; float:left; border-style:solid;border-color:#e6d5ff; border-width:1px" >&nbsp;传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp设&nbsp;&nbsp;&nbsp备
+                        <div id="cgqs" style="width:627px; font-size:14px;height:10; font-weight:bold;background-color:#e6d5ff; float:left; border:1px solid #e6d5ff;" >&nbsp;传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp设&nbsp;&nbsp;&nbsp备
                         </div>
-                        <div id="gr" style="width:627px; height:140px; border-style:solid; border-color:#e6d5ff;border-width:1px; background-color:#FFE0BB; float:left">
+                        <div id="gr" style="width:627px; height:140px; border:1px solid #e6d5ff; background-color:#FFE0BB; float:left">
                         </div>
                         <div id="bia2" style="width:1279px;height:5px; ; float:left; "></div>
                         <div id="bia23" style="width:5px; height:20px; ; float:left; "></div>
@@ -1920,12 +1920,12 @@
                         </div> 
                         <div id="bia4" style="width:5px; height:22px;  float:left; "></div>
                         <div id="bias" style="width:5px; height:140px;  float:left; "></div>
-                        <div id="cs" style="width:1265px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
-                            <div id="ygdq1" style="width:420px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">                            
+                        <div id="cs" style="width:1265px; height:138px; border: 1px border #fdb4fd;  float:left">
+                            <div id="ygdq1" style="width:420px; height:138px; border: 1px border #fdb4fd;  float:left">                            
                             </div>
-                            <div id="ygdq2" style="width:420px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">                            
+                            <div id="ygdq2" style="width:420px; height:138px; border: 1px border #fdb4fd;  float:left">                            
                             </div>
-                            <div id="ygdq3" style="width:418px; height:138px; border-color:#fdb4fd;border-style:solid; border-width:1px;  float:left">
+                            <div id="ygdq3" style="width:418px; height:138px; border: 1px border #fdb4fd;  float:left">
                             </div>
                         </div>
                         <div id="bia13" style="width:1340px; height:5px;float:left; "></div>
@@ -1935,7 +1935,7 @@
                             <span id="dqqxTitle"></span>
                         </div>
                         <div id="bia2" style="width:5px; height:20px; float:left;" ></div>
-                        <div id="dqcsqxt" style=" width:1266px; height:95px; border-style:solid; border-color:#9fdfae; border-width:1px;  float:left" >
+                        <div id="dqcsqxt" style=" width:1266px; height:95px; border: 1px border #9fdfae;  float:left" >
                             <div id="div3" style="width:100%;height:100%;">
                                 <div id="container2" style="min-width: 90%; height: 100%; margin: 0 auto"></div>
                             </div>
@@ -1943,13 +1943,13 @@
                     </div>        
                 </div>
                 <!--地图-->
-                <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
+                <div id="dt" style="width:1280px;height:716px; border: 1px border #000; float:left;" >
                     <div  style="width:100%;height:100%; position: relative;">
                         <div id="flashContent" style="width:100%;" ></div>                        
                     </div>
                 </div>
                 <!--视频-->
-                <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;" >
+                <div id="sp" style="width:1280px;height:716px; border: 1px border #000; float:left;" >
                     <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
                 </div>
             </div>
@@ -1967,7 +1967,7 @@
                 <div id="ads" style="width:80px; height:10; float:left; font-size:14px; font-weight:bold; line-height:25px">
                     &nbsp;&nbsp;&nbsp;RTU标识
                 </div>
-                <div id="adr" style="width:390px; height:10;float:left; font-size:14px;line-height:25px">
+                <div id="adr" style="width:290px; height:10;float:left; font-size:14px;line-height:25px">
                     运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
                     故障&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
                     校验&nbsp;<img src="${ctx}/static/img/lansee.png" />

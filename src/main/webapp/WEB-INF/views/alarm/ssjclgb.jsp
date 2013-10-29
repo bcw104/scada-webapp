@@ -1336,7 +1336,7 @@
                 <div id="ads" style="width:80px; height:10; float:left; font-size:14px; font-weight:bold; line-height:25px">
                     &nbsp;&nbsp;&nbsp;RTU标识
                 </div>
-                <div id="adr" style="width:390px; height:10;float:left; font-size:14px;line-height:25px">
+                <div id="adr" style="width:290px; height:10;float:left; font-size:14px;line-height:25px">
                     运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
                     故障&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
                     校验&nbsp;<img src="${ctx}/static/img/lansee.png" />

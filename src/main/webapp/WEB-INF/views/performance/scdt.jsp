@@ -346,13 +346,20 @@
                     type: 'POST',
                     url: '${ctx}/performance/getDateData',
                     dateType:'json',
+
+                    <!-- json数据格式 -->
+//                {
+//                    days: 23,
+//                    today: "2013/10/23",
+//                    xun_days: 11
+//                }
                     success: function(jsonDate){
-//alert(jsonDate.days + '---' + jsonDate.xun_days);
                         // 天数
                         days = jsonDate.days;
                         // 旬数
                         xun_days = jsonDate.xun_days;
                         // 初始日期设置
+                        // 统计时间
                         $('#txtStartDate').val(jsonDate.today);
                         $('#txtEndDate').val(jsonDate.today);
                         
@@ -2667,8 +2674,8 @@
                 <div id="tool5" style="width:120px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <img src="${ctx}/static/img/yjcz.png" style="width:120px; height:33px" />
                 </div>
-                <div id="tool7" style="width:535px; height:20; float:left" >
-                    <img src="${ctx}/static/img/tp.png" style="width:535px; height:33px" />
+                <div id="tool7" style="width:536px; height:20; float:left" >
+                    <img src="${ctx}/static/img/tp.png" style="width:536px; height:33px" />
                 </div>
                 <!--竖div-->
                 <div id="zhylll" style="width:33px;  height:602px; float:left;">  

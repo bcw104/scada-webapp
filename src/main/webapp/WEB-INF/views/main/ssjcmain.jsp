@@ -1941,7 +1941,7 @@
                     // 功率因数曲线
                     case 4:
                         dhxWins_gt.window("win_gt").show();
-                        dhxWins_gt.window("win_gt").setText("功率因数曲线");
+                        dhxWins_gt.window("win_gt").setText("变频器输出功率曲线");
                         dhxWins_gt.attachEvent("onClose", function(win){
                             dhxWins_gt.window("win_gt").hide(); 
                         });
@@ -2009,7 +2009,7 @@
                             <div id="ba8" style="width:5px; height:80px;  float:left"></div>
                             <!--电气参数-->
                             <div id="dqcs" style="width:629px; height:79px; float:right; border:solid; border-width:1px; float:left; border-color:#b4da72; background-color:#fbfff3">
-                                <div id="dqcs1" style=" width:629px; height:10px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
+                                <div id="dqcs1" style=" width:629px; height:20px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#d2e8ab">
                                     &nbsp电&nbsp;&nbsp;&nbsp气&nbsp;&nbsp;&nbsp参&nbsp;&nbsp;&nbsp数
                                 </div>
                                 <div id="dq0" class="cssdiv" style="cursor:hand; width:160px; height:23px;font-size:14px ;line-height:30px;float:left;cursor:pointer" onclick="showDyqx('u_a', 'A相电压');">
@@ -2037,8 +2037,8 @@
                             <div id="baq" style="width:636px; height:5px;  float:left"></div>
                             <div id="ba9" style="width:5px; height:90px; float:left"></div>
                             <!--传感器运行-->
-                            <div id="cgqyx" style="width:629px; height:115px; float:left; border:solid; border-width:1px; border-color:#fdbbfd;">
-                                <div id="cgqyx1" style="width:629px; height:10px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#fde7fd" >
+                            <div id="cgqyx" style="width:629px; height:120px; float:left; border:solid; border-width:1px; border-color:#fdbbfd;">
+                                <div id="cgqyx1" style="width:629px; height:20px; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#fde7fd" >
                                     &nbsp传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp运&nbsp;&nbsp;&nbsp行
                                 </div>
                                 <div id="cgqyx2" style=" width:628px; height:90px; float:left"></div>
@@ -2075,7 +2075,7 @@
                                 <a onclick="sgtwin(3);" style="cursor: hand;text-decoration:none">&nbsp;功&nbsp;率&nbsp;曲&nbsp;线</a>
                             </div>
                             <div id="gt10" style="width:150px; height:30px;font-size:14px; float:left;line-height:30px; background-color:#deeeff" align="center" >
-                                <a onclick="sgtwin(4);" style="cursor: hand;text-decoration:none">变频器功率曲线</a>
+                                <a onclick="sgtwin(4);" style="cursor: hand;text-decoration:none">变频器输出功率曲线</a>
                             </div>
                             <div id="gtt" style="width:155px; height:150px; line-height:30px;float:left;">
                             <div id="containerr" style="height:150px;width:150px;font-size:12px;"></div>
@@ -2141,7 +2141,7 @@
                         <div id="bia13" style="width:1280px;  height:5px;float:left; "></div>
                         <div id="bia2" style="width:5px;  height:22px; float:left "></div>
                         <div id="ssqx2" style="width:1268px; height:135px;border:solid; border-width:1px; border-color:#9fdfae; float:left" class="ss1">
-                            <div id="ssqx3" style="width:1268px; font-size:14px; font-weight:bold;height:10px; float:left; background-color:#9fdfae" align="left" class="ss2">
+                            <div id="ssqx3" style="width:1268px; font-size:14px; font-weight:bold;height:20px; float:left; background-color:#9fdfae" align="left" class="ss2">
                                 &nbsp实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp数&nbsp;&nbsp;&nbsp据
                                 <span id="ssqxTitle"></span>
                             </div>	
@@ -2176,7 +2176,7 @@
                         </div>
                         <div id="kzc" style="width:5px; height:22px;  float:left; "></div>
                         <div id="baa" style="width:5px; height:220px;  float:left;"></div>
-                        <div id="jjb" style="width:630px; height:217px; float:left; background-color:#ffffff;border:solid; border-width:1px; border-color:#d2e8ab">
+                        <div id="jjb" style="width:630px; height:219px; float:left; background-color:#ffffff;border:solid; border-width:1px; border-color:#d2e8ab">
                         </div>
                         <div id="bia" style="width:5px; height:217px; float:left; "></div>
                         <!--电气参数数据-->
@@ -2191,7 +2191,7 @@
                              </table>
                         </div>
                         <div id="sy" style="width:629px;height:6px; float:left; " align="left"></div>
-                        <div id="cgqs" style="width:627px; font-size:14px;height:10px; font-weight:bold;background-color:#e6d5ff; float:left; border-style:solid;border-color:#e6d5ff; border-width:1px" >&nbsp;传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp设&nbsp;&nbsp;&nbsp备
+                        <div id="cgqs" style="width:627px; font-size:14px;height:20px; font-weight:bold;background-color:#e6d5ff; float:left; border-style:solid;border-color:#e6d5ff; border-width:1px" >&nbsp;传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp设&nbsp;&nbsp;&nbsp备
                         </div>
                         <div id="gr" style="width:627px; height:140px; border-style:solid; border-color:#e6d5ff;border-width:1px; background-color:#FFE0BB; float:left">
                         </div>

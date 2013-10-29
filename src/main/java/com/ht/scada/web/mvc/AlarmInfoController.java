@@ -113,27 +113,27 @@ public class AlarmInfoController {
     /**
      * 报警回复处理
      * @param alarmId
-     * @param user
+     * @param userName
      * @param type
      * @param msg
      * @return 
      */
     @RequestMapping(value = "confirm")
     @ResponseBody
-    public boolean confirm(String alarmId, String user, String type,String msg) {
+    public boolean confirm(String alarmId, String userName, String type,String msg) {
         String[] ids = alarmId.split(",");
         for (String id : ids) {
-            AlarmRecord alarm = alarmInfoService.getAlarmByID(Integer.valueOf(id));
+            AlarmRecord alarm = alarmInfoService.getAlarmByAlarmId(id);
             Date curDate = new Date();
             AlarmHandle record = null;
             for (AlarmHandle rec : alarm.getAlarmHandleList()) {
-                if (rec.getUser().getUsername().equals(user)) {
+                if (rec.getUser().getUsername().equals(userName)) {
                     record = rec;
                 }
             }
             if (record == null) {
                 record = new AlarmHandle();
-                User usr = userService.getUserByUsername(user);
+                User usr = userService.getUserByUsername(userName);
                 record.setUser(usr);
                 record.setAlarmRecord(alarm);
                 //alarm.getAlarmHandleList().add(record);

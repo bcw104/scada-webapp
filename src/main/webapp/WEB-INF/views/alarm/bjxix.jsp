@@ -38,10 +38,10 @@
             // 曲线参数
             var options = {
                 title: {
-                    text: '',
+                    text: ''
                 },
                 subtitle: {
-                    text: '',
+                    text: ''
                 },
                 xAxis: {
                     type: 'datetime'
@@ -55,7 +55,7 @@
                         formatter: function() {
                             return '';
                         }
-                    },
+                    }
                 },
                 rangeSelector: {
                     enabled:false
@@ -67,7 +67,7 @@
 					height:15
 				},
                 legend: {
-                    enabled: false,
+                    enabled: false
                 },
                 tooltip: {
                     formatter: function() {
@@ -158,10 +158,13 @@
              * @returns {undefined}
              */
             function doOnLoad(){
-                
+                // 报警对象（报警历史记录查询） @auto 陈志强
                 $("#txtDx").val("");
+                // 变量名（报警历史记录查询）
                 $("#txtBl").val("");
+                // 报警类型（报警历史记录查询）
                 $("#txtLx").val("");
+                // 报警时间（报警历史记录查询）
                 $("#txtSj").val("");
                 
                 Highcharts.setOptions({ 
@@ -196,7 +199,9 @@
                         
                         var intLoopFuzern = 0;                                    
                         var mapFuzerenColor = new Map();
-                                        
+
+                        $("#qxContent").html("");
+
                         // 遍历井
                         $.each(json,function(key, value){
                                 
@@ -206,7 +211,7 @@
                                 url: '${ctx}/alarm/endTagExtInfo',
                                 data:{code:key},
                                 dateType:'json',
-                                success: function(json){
+                                success: function(json1){
 
                                 // 曲线参数
                                 seriesItme1 = [];
@@ -220,7 +225,7 @@
                                 fuzerenData = new Object();
                                 fuzerenData.rows = [];
                             
-                                    jingStage = json.stage;
+                                    jingStage = json1.stage;
                                     
                                     // 遍历报警信息
                                     $.each(value,function(itemkey, itemvalue){                         
@@ -309,25 +314,26 @@
                                         baojingData.rows.push(baojingItem);
                                     }); 
 
-                                    var strDivHtml = '  <div id="jxxtp_' + key + '" style="width:1200px; height:193px;border:solid; border-width:1px; border-color:#e6d5ff;  float:left; ">';
-                                    strDivHtml += '         <div id="mcxxll1_' + key + '" style="float:left; height:193px; width:190px">';
+                                    var strDivHtml = '  <div id="jxxtp_' + key + '" style="width:1240px; height:193px;border:1px solid #e6d5ff;float:left;line-height:190px; ">';
+                                    strDivHtml += '         <div id="mcxxll1_' + key + '" style="float:left; height:193px; width:190px;line-height:193px;">';
 
                                     if(loopIndex % 2 === 0){                            
-                                        strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#e3f5ff; height:22px; width:190px; text-align:center; font-size:14px; padding-top:6px;">';
+                                        strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#e3f5ff; height:22px; width:190px; text-align:center; font-size:14px; padding-top:6px;line-height:22px;">';
                                     }else{
-                                        strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#f5ffdc; height:22px; width:190px; text-align:center; font-size:14px; padding-top:6px;" >';
+                                        strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#f5ffdc; height:22px; width:190px; text-align:center; font-size:14px; padding-top:6px;line-height:22px;">';
                                     }
 
-        //                            strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#e3f5ff; height:22px; width:190px; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
+                                    // strDivHtml += '             <div id="mcxxt1_' + key + '" style="background-color:#e3f5ff; height:22px; width:190px; text-align:center;cursor:hand; font-size:14px; padding-top:6px;"  onclick="runurl();">';
                                     strDivHtml += '                 <strong>井号：' + jingName + '</strong>';
                                     strDivHtml += '             </div>';
-                                    strDivHtml += '             <div id="mcxx11_' + key + '" style=" height:81px; width:188px;cursor:pointer ; background-color:#0C3;" ></div>';
-                                    strDivHtml += '             <div id="mcxx12_' + key + '" style=" height:81px; width:188px;cursor:pointer ; background-color:#03C;" ></div>';
+                                    // 背景色
+                                    strDivHtml += '             <div id="mcxx11_' + key + '" style=" height:81px; width:188px;cursor:pointer; background-color:#ffffff;"></div>';
+                                    strDivHtml += '             <div id="mcxx12_' + key + '" style=" height:81px; width:188px;cursor:pointer; background-color:#ffffff;"></div>';
                                     strDivHtml += '         </div>';
-                                    strDivHtml += '         <div id="mcltb1_' + key + '" style=" height:193px; width:1035px; margin-left:190px;"></div>';
+                                    strDivHtml += '         <div id="mcltb1_' + key + '" style=" height:193px; width:1035px; margin-left:193px;"></div>';
                                     strDivHtml += '     </div>';
 
-                                    $("#qxContent").append(strDivHtml);                            
+                                    $("#qxContent").append(strDivHtml);
 
                                     // 报警对象
                                     grid1 = new dhtmlXGridObject('mcxx11_' + key);
@@ -347,7 +353,7 @@
                                     grid2.setColTypes("ro");
                                     grid2.init();
 
-                                    if(loopIndex % 2 === 0){                            
+                                    if(loopIndex % 2 === 0){
                                         grid1.setSkin("mt");
                                         grid2.setSkin("mt");
                                     }else{
@@ -355,18 +361,18 @@
                                         grid2.setSkin("modern");
                                     }
 
-                                    grid1.parse(baojingData,'json');                            
+                                    grid1.parse(baojingData,'json');
                                     grid2.parse(fuzerenData,'json');
 
                                     grid2.forEachRow(function(id){
-                                  
+
                                         grid2.setRowColor(id,mapFuzerenColor.get(id));
                                     });
 
                                     // 事件绑定
                                     grid1.attachEvent('onRowSelect', doGrClick);
                                     loopIndex++;
-                         
+
                                     options.series = [];
                                     series1.data = [];
                                     series2.data = [];
@@ -654,7 +660,7 @@
         </script>
     </head>
     <body>
-        <div id="zy"  style="width:3845px; height:717px;border:solid; border-width:1px">
+        <div id="zy"  style="width:3845px; height:717px;border:1px solid;">
             <!--数据-->
             <div id="scdt" style="width:1280px; height:69px;  float:left; font-size: 0 " class="ssjkd">
                 <!--logo-->
@@ -689,54 +695,55 @@
                 <div id="tool5" style="width:120px; height:20; border-right-style:solid; border-right-color:#06F; border-right-width:1px; float:left" >
                     <img src="${ctx}/static/img/yjcz.png" style="width:120px; height:33px" />
                 </div>
-                <div id="tool7" style="width:535px; height:20; float:left" >
-                    <img src="${ctx}/static/img/tp.png" style="width:535px; height:33px" />
+                <div id="tool7" style="width:537px; height:20; float:left" >
+                    <img src="${ctx}/static/img/tp.png" style="width:537px; height:33px" />
                 </div>
                 <!--竖div-->
-                <div id="zhylll" style="width:33px;  height:595px; float:left;"> 
-                    <div id="zyz" class="cssdiv1" onclick="jk1(this);" style=" width:32px; height:120px;cursor:pointer;background-color:#8ed4ff; font-size:14px; line-height:30px; font-weight:bold; float:center;border-right-style:solid; border-right-color:#06F; border-right-width:1px;">
+                <div id="zhylll" style="width:33px;  height:595px; float:left;">
+                    <div id="zyz" class="cssdiv1" onclick="jk1(this);" style=" width:32px; height:120px;cursor:pointer;background-color:#8ed4ff; font-size:14px; line-height:30px; font-weight:bold; float:center; border-right-style:solid; border-right-color:#06F; border-right-width:1px;">
                         &nbsp;&nbsp;实<br />&nbsp;&nbsp;时<br />&nbsp;&nbsp;信<br />&nbsp;&nbsp;息
                     </div>
-                    <div id="jkxx" class="cssdiv" onclick="jk(this);" style=" width:32px; height:120px;cursor:pointer;  background-color:#e6d5ff; font-size:14px; line-height:30px; font-weight:bold; float:center;border-right-style:solid; border-right-color:#06F; border-right-width:1px;border-top-style:solid; border-top-color:#06F; border-top-width:1px;">
+                    <div id="jkxx" class="cssdiv" onclick="jk(this);" style=" width:32px; height:120px;cursor:pointer;  background-color:#e6d5ff; font-size:14px; line-height:30px; font-weight:bold; float:center; border-right-style:solid; border-right-color:#06F; border-right-width:1px;border-top-style:solid; border-top-color:#06F; border-top-width:1px;">
                         &nbsp;&nbsp;历<br />&nbsp;&nbsp;史<br />&nbsp;&nbsp;记<br />&nbsp;&nbsp;录
-                    </div> 
-                    <div id="zkk" class="cssdiv3" style=" width:32px; height:357px;cursor:pointer;  background-color:#fff; font-size:14px; line-height:30px; font-weight:bold; float:center;border-right-style:solid; border-right-color:#06F; border-right-width:1px;border-top-style:solid; border-top-color:#06F; border-top-width:1px;">
+                    </div>
+                    <div id="zkk" class="cssdiv3" style=" width:32px; height:357px;cursor:pointer;  background-color:#fff; font-size:14px; line-height:30px; font-weight:bold; float:center; border-right-style:solid; border-right-color:#06F; border-right-width:1px;border-top-style:solid; border-top-color:#06F; border-top-width:1px;">
      	            </div>
                 </div>
-                <div id="zhyrrr" style="width:1245px; height:595px; overflow:scrol; float:left">
-                    <div id="gr" style="width:1245px; height:602px; overflow:scrol; float:left;display:none;overflow:scrol;">
+                <div id="zhyrrr" style="width:1245px; height:595px; float:left">
+                    <div id="gr" style="width:1245px; height:602px; float:left;display:none;">
                         <!--历史记录-->
-                        <div id="qm" style="width:375px; height:10; background-color:#e6d5ff; font-size:14px; font-weight:bold; line-height:19px;border:solid; border-color:#e6d5ff; border-width:1px;  float:left">
+                        <div id="qm" style="width:375px; height:10; background-color:#e6d5ff; font-size:14px; font-weight:bold; line-height:19px; border: 1px solid #e6d5ff;float:left">
                             &nbsp;&nbsp;&nbsp历&nbsp;&nbsp;&nbsp史&nbsp;&nbsp;&nbsp记&nbsp;&nbsp;&nbsp录
                         </div>
-                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            报&nbsp;&nbsp;警&nbsp;&nbsp;对&nbsp;&nbsp;象
+                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
+                            报&nbsp;警&nbsp;对&nbsp;象
                         </div>
-                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
                             <input type="text" name="txtDx" id="txtDx" style=" height:13px; width:80px;"/>
                         </div>
-                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
                             变&nbsp;&nbsp;量&nbsp;&nbsp;名
                         </div>
-                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
                             <input type="text" name="txtBl" id="txtBl" style=" height:13px; width:80px;"/>
                         </div>
-                         <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            报&nbsp;&nbsp;警&nbsp;&nbsp;类&nbsp;&nbsp;型
+                         <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
+                            报&nbsp;警&nbsp;类&nbsp;型
                         </div>
-                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                       // TODO
+                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
                             <input type="text" name="txtLx" id="txtLx" style=" height:13px; width:80px;"/>
                         </div>
-                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
-                            报&nbsp;&nbsp;警&nbsp;&nbsp;时&nbsp;&nbsp;间
+                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
+                            报&nbsp;警&nbsp;时&nbsp;间
                         </div>
-                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                        <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
                             <input type="text" name="txtSj" id="txtSj" style=" height:13px; width:80px;" onclick="WdatePicker({readOnly:true,dateFmt:'yyyy-M-d'})"/>
                         </div>
-                        <div style="width:50px; height:19px; background-color:#e6d5ff; font-size:16px; font-weight:bold; border:solid; border-width:1px; border-color:#e6d5ff; float:left" >
+                        <div style="width:50px; height:19px; background-color:#e6d5ff; font-size:16px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
                             <img src="${ctx}/static/img/chaxun.png" onclick="searchHistoryData();" style="cursor:pointer" />
                         </div>
-                        <div id="wltp" style="width:1245px; height:547px; border:solid; border-color:#e6d5ff; border-width:1px;  float:left">
+                        <div id="wltp" style="width:1245px; height:547px; border:1px solid #e6d5ff; float:left">
                         </div>
                         <div id="recinfoArea" style="width:1236px; height:30px;  float: left;">
 
@@ -744,24 +751,24 @@
                     </div>
                     <div id="gr1" style="width:1245px; height:578px; overflow:scrol; float:left;">
                         <!--曲线图--> 
-                        <div id="ssjl" style=" width:1245px; height:599px;border:solid; border-color:#aad3ff; border-width:1px;  float:left">
+                        <div id="ssjl" style=" width:1245px; height:599px; border:1px solid #aad3ff;float:left">
                             <div id="jxx" style="width:1245px; height:20px; background-color:#8ed4ff; font-size:14px; font-weight:bold; line-height:20px;float:left">
                                 &nbsp;&nbsp;实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp信&nbsp;&nbsp;&nbsp息
                             </div>
-                            <div id="qxContent" style="height: 580px; overflow:auto;">            
+                            <div id="qxContent" style="height: 580px; overflow:auto;border: 1px solid #8ed4ff;line-height:580px;">
                             </div>
                         </div> 
                     </div>
                 </div>    
             </div>
             <!--地图-->
-            <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;">
+            <div id="dt" style="width:1280px;height:716px; border:1px solid #000;float:left;">
                 <div  style="width:100%;height:100%; position: relative;">
                         <div id="flashContent" style="width:100%;" ></div>                        
                     </div>
             </div>
             <!--视频-->
-            <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;">
+            <div id="sp" style="width:1280px;height:716px; border: 1px solid #000; float:left;">
                 <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
             </div>
         </div>

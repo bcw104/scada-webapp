@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>示工图</title>
+        <title>示功图</title>
         <script type="text/javascript" src="${ctx}/static/jquery/jquery-1.7.1.min.js"></script>
         <script src="${ctx}/static/js/highcharts.src.js"></script>
         <script src="${ctx}/static/js/chart1.js"></script>

@@ -1479,15 +1479,6 @@ td.dhxeditor_toolbar_dhx_skyblue .dhtmlxToolbar_dhx_skyblue {height: 24px !impor
 .dhxform_obj_dhx_skyblue .dhx_file_uploader .dhx_upload_controls.dhx_uploader_dis .dhx_file_uploader_button.button_cancel {background-position: -57px -19px}
 .dhxform_obj_dhx_skyblue .dhx_file_uploader .dhx_upload_controls.dhx_uploader_dis .dhx_file_uploader_button.button_clear {background-position: -38px -19px}
 .dhxform_obj_dhx_skyblue .dhx_file_uploader .dhx_upload_files.dhx_uploader_dis .dhx_file_param.dhx_file_delete {background-position: -87px 0px; cursor: default}
-
-
-
-
-
-
-
-
-
 .gridbox_dhx_skyblue .dhx_sub_row{background-color:#d7bcff}
 .gridbox_dhx_skyblue .xhdr{background-color:#d7bcff;}
 
@@ -1510,30 +1501,21 @@ td.dhxeditor_toolbar_dhx_skyblue .dhtmlxToolbar_dhx_skyblue {height: 24px !impor
 	}
 .gridbox_dhx_skyblue table.hdr td .hdrcell{
 	font-family:"宋体";
-	
 	height:16px;
-
 	white-space : nowrap;
-
 	font-size:14px;
 	font-weight:bold;
 	
 	}
 
 .gridbox_dhx_skyblue table.obj td {
-	
-
 	font-family:"宋体";
-
 	font-size:14px;
-
-
 }
 .gridbox_dhx_skyblue td:first-child{
 
 	cursor:pointer;}
 .gridbox_dhx_skyblue table.row20px tr td {
-
 	height:22px;
     white-space: nowrap;
     padding:1px;}

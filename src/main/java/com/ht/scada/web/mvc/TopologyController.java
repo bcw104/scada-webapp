@@ -1,17 +1,19 @@
 package com.ht.scada.web.mvc;
 
-import com.ht.scada.common.tag.entity.AcquisitionChannel;
-import com.ht.scada.common.tag.entity.AcquisitionDevice;
+import com.ht.scada.common.tag.entity.EndTag;
+import com.ht.scada.common.tag.entity.MajorTag;
 import com.ht.scada.common.tag.service.AcquisitionChannelService;
 import com.ht.scada.common.tag.service.AcquisitionDeviceService;
+import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.common.tag.service.MajorTagService;
 import com.ht.scada.security.entity.User;
 import com.ht.scada.security.service.UserService;
+import com.ht.scada.web.entity.UserExtInfo;
+import com.ht.scada.web.service.UserExtInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
@@ -26,9 +28,43 @@ import java.util.*;
 @RequestMapping(value = "/topology")
 public class TopologyController {
     @Autowired
-    private AcquisitionDeviceService acquisitionDeviceService;
+    private MajorTagService majorTagService;
     @Autowired
-    private AcquisitionChannelService acquisitionChannelService;
+    private UserService userService;
+    @Autowired
+    private UserExtInfoService userExtInfoService;
+    @Autowired
+    private EndTagService endTagService;
+
+    @RequestMapping(value = "realDataList")
+    @ResponseBody
+    public List<Map> realDataList(){
+        User user = userService.getCurrentUser();
+        UserExtInfo userExtInfo = userExtInfoService.findUserExtInfoByUserID(user.getId());
+        Set<Integer> set = userExtInfo.getMajorTagID();
+        List<Map> list = new ArrayList<>();
+        for(int id : set){
+            MajorTag majorTag = majorTagService.getById(id);
+            HashMap map = new HashMap();
+            map.put("id", majorTag.getId());
+            map.put("name", majorTag.getName());
+            map.put("type", majorTag.getType());
+
+            List<EndTag> endTagList = endTagService.getEndTagByMajorTagId(majorTag.getId());
+            map.put("endTagList", endTagList);
+//            System.out.println(endTagList);
+
+            MajorTag ptag = majorTag.getParent();
+            if(ptag == null){
+                map.put("pid", 0);
+            }else{
+                map.put("pid",ptag.getId());
+            }
+
+            list.add(map);
+        }
+        return list;
+    }
 
     @RequestMapping(value = "dataList")
     @ResponseBody

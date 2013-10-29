@@ -555,7 +555,7 @@
                     <img src="${ctx}/static/img/yjcz.png" style="width:120px; height:33px" />
                 </div>
                 <div id="tool7" style="width:535px; height:20; float:left" >
-                    <img src="${ctx}/static/img/tp.png" style="width:535px; height:33px" />
+                    <img src="${ctx}/static/img/tp.png" style="width:536px; height:33px" />
                 </div>
                 <!--竖着Tabbar页-->
                 <div id="zy" style="width:35px; height:602px; float:left; ">
@@ -572,7 +572,7 @@
                     </div>
                 </div>
                 <!--报表信息Tabbar-->
-                <div id="gr" style="width:1245px; height:600px; float:left;background-color: #00B83F">
+                <div id="gr" style="width:1245px; height:600px; float:left;background-color: #ffffff">
                 </div>
                 <!--报表-->
                 <div  id="yjbb" style="width:1245px; height:570px;overflow:hidden;">
@@ -608,13 +608,13 @@
                 </div>                   
             </div>
             <!--地图-->
-            <div id="dt" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;">
+            <div id="dt" style="width:1280px;height:716px;border: 1px solid #000;float:left;">
                 <div  style="width:100%;height:100%; position: relative;">
                         <div id="flashContent" style="width:100%;" ></div>                        
                     </div>
             </div>
             <!--视频-->
-            <div id="sp" style="width:1280px;height:716px; border:solid; border-color:#000; border-width:1px; float:left;">
+            <div id="sp" style="width:1280px;height:716px;border: 1px solid #000;float:left;">
                 <img src="${ctx}/static/img/sp.png"  style="width:1280px;height:716px;"/>
             </div>
         </div>

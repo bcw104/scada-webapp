@@ -63,6 +63,7 @@
              * @returns {undefined}
              */
             function doOnLoad(){
+                //alert("dd");
 
                 // 设置工况信息
                 createGr();
@@ -704,7 +705,7 @@
             }
             
             /**
-            * 即时功能读取
+            * 即时功图读取
             * @returns {undefined}             
             * */
             function run1(){
@@ -1290,7 +1291,7 @@
                     }
                 });
             }
-            
+
             /**
              * 远程调参--取消
              * @returns {undefined}
@@ -1465,7 +1466,7 @@
                     case 1:
                         createSgForShow('${info.code}');
                         dhxWins.window("win").show();
-                        dhxWins.window("win").setText("示工图");
+                        dhxWins.window("win").setText("示功图");
                         dhxWins.attachEvent("onClose", function(win){
                             $("#dt1").hide();
                             dhxWins.window("win").hide(); 
@@ -1501,7 +1502,7 @@
                     case 4:
                         createYgglForShow('${info.code}');
                         dhxWins.window("win").show();
-                        dhxWins.window("win").setText("功率因数曲线");
+                        dhxWins.window("win").setText("变频器输出功率曲线");
                         dhxWins.attachEvent("onClose", function(win){
                             $("#dt4").hide();
                             dhxWins.window("win").hide(); 
@@ -1532,11 +1533,11 @@
                             </tr>
                         </table>
                     </div>
-                    <div id="ba1" style="width:5px; height:22px; background-color:#FFF; float:left"></div>
+                    <div id="ba1" style="width:3px; height:22px; background-color:#FFF; float:left"></div>
                     <div id="gk2" style="width:200px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#C6CEFD; float:left">
                         &nbspRTU&nbsp;&nbsp;&nbsp状&nbsp;&nbsp;&nbsp态
                     </div>
-                    <div id="ba2" style="width:7px; height:22px; background-color:#FFF; float:left"></div>
+                    <div id="ba2" style="width:9px; height:22px; background-color:#FFF; float:left"></div>
                     <div id="gk3" style="width:632px;font-size:14px;line-height:25px; font-weight:bold; height:22px; background-color:#a9d3ff;float:left">
                         &nbsp功&nbsp;&nbsp;&nbsp图
                     </div>
@@ -1555,7 +1556,7 @@
                                 </div>
                             </div>
                             <!--RTU状态-->
-                            <div id="ba5" style="width:5px; height:154px;  float:left"></div>
+                            <div id="ba5" style="width:3px; height:154px;  float:left"></div>
                             <div id="rtu" style="width:198px; height:152px; background-color:#000;border:solid; border-width:1px; border-color:#BAC3FD;float:left">
                             </div>
                             <div id="ba8" style="width:636px; height:5px;  float:left"></div>
@@ -1590,7 +1591,7 @@
                             <div id="baq" style="width:636px; height:5px;  float:left"></div>
                             <div id="ba9" style="width:5px; height:90px; float:left"></div>
                             <!--传感器运行-->
-                            <div id="cgqyx" style="width:629px; height:115px; float:right; border:solid; border-width:1px; border-color:#fdbbfd; float:left">
+                            <div id="cgqyx" style="width:629px; height:120px; float:right; border:solid; border-width:1px; border-color:#fdbbfd; float:left">
                                 <div id="cgqyx1" style="width:629px; height:10; float:left;font-size:14px;line-height:25px; font-weight:bold; background-color:#fde7fd" >
                                     &nbsp传&nbsp;&nbsp;&nbsp感&nbsp;&nbsp;&nbsp器&nbsp;&nbsp;&nbsp运&nbsp;&nbsp;&nbsp行
                                 </div>
@@ -1603,7 +1604,7 @@
                             <div style="width:629px;height:20px; background-color:#eef7ff;padding-top:10px;padding-left:20px;">
                                 <div id="gt3" style="width:125px; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/jsgt.png);">
           
-                                    <a onclick="run1();" style="cursor: hand;font-size:14px;">&nbsp;&nbsp;即时功能读取</a>
+                                    <a onclick="run1();" style="cursor: hand;font-size:14px;">&nbsp;&nbsp;即时功图读取</a>
                                 </div>
                                 <div id="gt4" style="width:105px; height:10; float:left;padding-left:20px;background-repeat:no-repeat;  background-image: url(${ctx}/static/img/gtdb.png);">
                                     <a  onclick="sj();" style="cursor: hand;font-size:14px">&nbsp;功图对比</a>
@@ -1624,7 +1625,7 @@
                                 <a onclick="sgtwin(3);" style="cursor: hand;text-decoration:none">&nbsp;功&nbsp;率&nbsp;曲&nbsp;线</a>
                             </div>
                             <div id="gt10" style="width:150px; height:30px;font-size:14px; float:left;line-height:30px; background-color:#deeeff" align="center" >
-                                <a onclick="sgtwin(4);" style="cursor: hand;text-decoration:none">&nbsp功&nbsp率&nbsp因&nbsp数&nbsp曲&nbsp线</a>
+                                <a onclick="sgtwin(4);" style="cursor: hand;text-decoration:none">变频器输出功率曲线</a>
                             </div>
                             <div id="gtt" style="width:158px; height:150px; line-height:30px;float:left">
                             <div id="containerr" style="height:158px;width:150px; "></div>
@@ -1801,7 +1802,7 @@
                 <div id="ads" style="width:80px; height:10; float:left; font-size:14px; font-weight:bold; line-height:25px">
                     &nbsp;&nbsp;&nbsp;RTU标识
                 </div>
-                <div id="adr" style="width:390px; height:10;float:left; font-size:14px;line-height:25px">
+                <div id="adr" style="width:290px; height:10;float:left; font-size:14px;line-height:25px">
                     运行&nbsp;<img src="${ctx}/static/img/lse.png" />&nbsp;&nbsp;
                     故障&nbsp;<img src="${ctx}/static/img/hongse.png" />&nbsp;&nbsp;
                     校验&nbsp;<img src="${ctx}/static/img/lansee.png" />

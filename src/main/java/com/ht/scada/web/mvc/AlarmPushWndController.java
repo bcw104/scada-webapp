@@ -100,7 +100,7 @@ public class AlarmPushWndController {
 	@RequestMapping(value="push")
     @ResponseBody
 	public String  testSendMessages(){
-        FaultRecord record = new FaultRecord("youjing", "aaa", "hello", true, new Date());
+        FaultRecord record = new FaultRecord(1,"youjing", "aaa", "hello","tagname","info",true, new Date());
         //record.setId(UUID.randomUUID().toString());
         realtimeImpl.faultOccured(record);
 		//OffLimitsRecord record = new OffLimitsRecord();

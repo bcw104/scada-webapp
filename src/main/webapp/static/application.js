@@ -55,8 +55,13 @@ $(document).ready(function() {
 	DCS.util.showTip(a,b,s,d);
 }
 
+    var m_username;
+    /**
+     * msg: 报警Id
+     */
     $.comet.init().subscribe("/" + username, function(msg){
-        alert(msg);
+        alert("报警Id:" + msg + "----" + username);
+        m_username = username;
 //        console.log(msg);
 //        var txt = $('#latestMessage').html() + "," + msg;
 //        $('#latestMessage').html(txt);
@@ -68,8 +73,8 @@ $(document).ready(function() {
             dateType:'json',
             success: function(json){
 //               alert(json.info + '----' + json.endTag.name);
-                var strHtml = json.endTag.name + " 产生报警<br />报警原因：" + json.info + '<br />' 
-                        + '<a href="' + objUrl + '/alarmpage">查看</a>&nbsp;&nbsp;' 
+                var strHtml ="<font color='red'>" + json.endTag.name +"</font>" + " 产生报警<br/>报警原因：" + json.info + '<br />'
+                        + '<a href="' + objUrl + '/alarmpage">查看</a>&nbsp;&nbsp;'
                         + '<a id="confirmLink' + msg + '" href="javascript:void(0);" >回复</a> ';
 //                $.messager.show('预警提示', strHtml, 0);
                 
@@ -83,14 +88,16 @@ $(document).ready(function() {
 
 
         function confirmMessageShow(p_alarmId){
-//        alert('dd');
+//        alert('confirmMessageShow');
+            alert(m_username);
         $.ajax({
             type: 'POST',
             url: objUrl + '/alarm/confirm',
-            data:{alarmId:p_alarmId, user:username, type:'confirm'},
+            data:{alarmId:p_alarmId, userName:m_username, type:'confirm'},
             dateType:'json',
             success: function(json){
-                $('#confirmLink' + p_alarmId).hide();                
+                $('#confirmLink' + p_alarmId).hide();
+                alert("回复成功！")
             }
         });
     }
