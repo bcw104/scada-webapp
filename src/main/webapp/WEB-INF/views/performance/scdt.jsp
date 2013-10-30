@@ -2675,7 +2675,7 @@
                     <img src="${ctx}/static/img/yjcz.png" style="width:120px; height:33px" />
                 </div>
                 <div id="tool7" style="width:536px; height:20; float:left" >
-                    <img src="${ctx}/static/img/tp.png" style="width:536px; height:33px" />
+                    <img src="${ctx}/static/img/tp.png" style="width:535px; height:33px" />
                 </div>
                 <!--竖div-->
                 <div id="zhylll" style="width:33px;  height:602px; float:left;">  

@@ -5,6 +5,7 @@ import com.ht.scada.common.tag.entity.EndTag;
 import com.ht.scada.common.tag.entity.TagCfgTpl;
 import com.ht.scada.common.tag.service.EndTagService;
 import com.ht.scada.common.tag.service.TagService;
+import com.ht.scada.common.tag.util.AlarmTypeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,10 +28,6 @@ import org.atmosphere.cpr.MetaBroadcaster;
 public class RealtimeMessageImpl implements RealtimeMessageListener, OilDataMessageListener {
 
     private static final Logger log = LoggerFactory.getLogger(RealtimeMessageImpl.class);
-    private static final String ALARM_FAULT = "遥信故障";
-    private static final String ALARM_OFFLIMITS = "遥测越限";
-    private static final String ALARM_YXCHANGED = "遥信变位";
-    private static final String ALARM_FAULTDIAGNOSE = "功图故障";
     private static final int ALARM_STATUS_OCCURED = 0;
     private static final int ALARM_STATUS_RESUMED = 1;
     @Inject
@@ -55,7 +52,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener, OilDataMess
 
         EndTag endTag = endTagService.getByCode(record.getCode());
         AlarmRecord alarm = new AlarmRecord();
-        alarm.setAlarmType(ALARM_FAULT);
+        alarm.setAlarmType(AlarmTypeEnum.ALARM_FAULT.toString());
         alarm.setAlarmId(record.getId());
         alarm.setEndTag(endTag);
         alarm.setActionTime(record.getActionTime());
@@ -92,7 +89,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener, OilDataMess
         }
         EndTag endTag = endTagService.getByCode(record.getCode());
         AlarmRecord alarm = new AlarmRecord();
-        alarm.setAlarmType(ALARM_OFFLIMITS);
+        alarm.setAlarmType(AlarmTypeEnum.ALARM_OFFLIMITS.toString());
         alarm.setAlarmId(record.getId());
         alarm.setEndTag(endTag);
         alarm.setActionTime(record.getActionTime());
@@ -125,7 +122,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener, OilDataMess
         //ALARM_YXCHANGED
         EndTag endTag = endTagService.getByCode(record.getCode());
         AlarmRecord alarm = new AlarmRecord();
-        alarm.setAlarmType(ALARM_YXCHANGED);
+        alarm.setAlarmType(AlarmTypeEnum.ALARM_YXCHANGED.toString());
         alarm.setAlarmId(record.getId());
         alarm.setEndTag(endTag);
         alarm.setActionTime(record.getDatetime());
@@ -142,7 +139,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener, OilDataMess
     public synchronized void faultOccured(FaultDiagnoseRecord record) {
         EndTag endTag = endTagService.getByCode(record.getCode());
         AlarmRecord alarm = new AlarmRecord();
-        alarm.setAlarmType(ALARM_FAULTDIAGNOSE);
+        alarm.setAlarmType(AlarmTypeEnum.ALARM_FAULTDIAGNOSE.toString());
         alarm.setAlarmId(record.getId());
         alarm.setEndTag(endTag);
         alarm.setActionTime(record.getActionTime());
@@ -163,7 +160,7 @@ public class RealtimeMessageImpl implements RealtimeMessageListener, OilDataMess
     }
 
     private synchronized void pushAlarm(AlarmRecord alarm) {
-        log.debug(ALARM_FAULT + Thread.currentThread().getId());
+        log.debug(AlarmTypeEnum.ALARM_FAULT.toString() + Thread.currentThread().getId());
         List<UserExtInfo> list = userExtInfoService.getUserExtInfoByEndTag(alarm.getEndTag().getId());
         for (UserExtInfo extInfo : list) {
             if (extInfo.getHeadflg().equals("1")) {

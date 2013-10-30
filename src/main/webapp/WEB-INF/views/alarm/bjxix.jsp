@@ -152,7 +152,27 @@
             var mapPoint;
             // 颜色数组
             var stt=["#CDC9C9","#0000FF","#008B00","#00B2EE","#00CD66","#00EE00","#00FA9A","#CD6839","#CD9B9B","#00008B"];
-            
+
+            /**
+            *  获取系统当前时间并格式化
+            * @returns {string}
+             */
+            function getNowFormatDate() {
+                var nowDate = new Date();
+                var nowDate_year = nowDate.getFullYear();
+                var nowDate_month = nowDate.getMonth() + 1;
+                var nowDate_day = nowDate.getDate();
+                var seperator = "-";
+                if (nowDate_month >= 1 && nowDate_month <= 9) {
+                    nowDate_month = "0" + nowDate_month;
+                }
+                if (nowDate_day >= 0 && nowDate_day <= 9) {
+                    nowDate_day = "0" + nowDate_day;
+                }
+                var currentdate = nowDate_year + seperator + nowDate_month + seperator + nowDate_day;
+                return currentdate;
+            }
+
             /**
              * 报警信息初始化
              * @returns {undefined}
@@ -165,7 +185,7 @@
                 // 报警类型（报警历史记录查询）
                 $("#txtLx").val("");
                 // 报警时间（报警历史记录查询）
-                $("#txtSj").val("");
+                $("#txtSj").val(getNowFormatDate);
                 
                 Highcharts.setOptions({ 
                     global: { useUTC: false  } 
@@ -522,7 +542,7 @@
                             baojingData.rows.push(baojingItem);
                         });
                         treeGrid.init();
-                        treeGrid.enablePaging(true,10,3, "recinfoArea");
+                        treeGrid.enablePaging(true,10,3, "recinfoArea"); // 分页
                         treeGrid.setPagingSkin("toolbar", "dhx_skyblue");
 
                         treeGrid.parse(baojingData,'json');
@@ -712,29 +732,34 @@
                 <div id="zhyrrr" style="width:1245px; height:595px; float:left">
                     <div id="gr" style="width:1245px; height:602px; float:left;display:none;">
                         <!--历史记录-->
-                        <div id="qm" style="width:375px; height:10; background-color:#e6d5ff; font-size:14px; font-weight:bold; line-height:19px; border: 1px solid #e6d5ff;float:left">
+                        <div id="qm" style="width:440px; height:10; background-color:#e6d5ff; font-size:14px; font-weight:bold; line-height:19px; border: 1px solid #e6d5ff;float:left">
                             &nbsp;&nbsp;&nbsp历&nbsp;&nbsp;&nbsp史&nbsp;&nbsp;&nbsp记&nbsp;&nbsp;&nbsp录
                         </div>
-                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
+                        <div style="width:90px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
                             报&nbsp;警&nbsp;对&nbsp;象
                         </div>
                         <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
                             <input type="text" name="txtDx" id="txtDx" style=" height:13px; width:80px;"/>
                         </div>
-                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
-                            变&nbsp;&nbsp;量&nbsp;&nbsp;名
+                        <div style="width:65px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
+                            变&nbsp;量&nbsp;名
                         </div>
                         <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
                             <input type="text" name="txtBl" id="txtBl" style=" height:13px; width:80px;"/>
                         </div>
-                         <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
+                         <div style="width:90px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
                             报&nbsp;警&nbsp;类&nbsp;型
                         </div>
                        // TODO
                         <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
-                            <input type="text" name="txtLx" id="txtLx" style=" height:13px; width:80px;"/>
+                            <!-- 报警类型下拉框 @cocofish -->
+                            <select style="height:19px; width:80px;"  name="txtLx" id="txtLx">
+                                <c:forEach items="${alarmTypeLists}" var="alarmType">
+                                    <option value="${alarmType}">${alarmType}</option>
+                                </c:forEach>
+                            </select>
                         </div>
-                        <div style="width:100px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
+                        <div style="width:90px;height:19px;  line-height:20px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
                             报&nbsp;警&nbsp;时&nbsp;间
                         </div>
                         <div style="width:100px; height:19px; background-color:#e6d5ff; font-size:14px; font-weight:bold; border:1px solid #e6d5ff; float:left" >
@@ -745,9 +770,8 @@
                         </div>
                         <div id="wltp" style="width:1245px; height:547px; border:1px solid #e6d5ff; float:left">
                         </div>
-                        <div id="recinfoArea" style="width:1236px; height:30px;  float: left;">
-
-                        </div>
+                        <!-- 分页实现 -->
+                        <div id="recinfoArea" style="width:1236px; height:30px;  float: left;"></div>
                     </div>
                     <div id="gr1" style="width:1245px; height:578px; overflow:scrol; float:left;">
                         <!--曲线图--> 
@@ -755,8 +779,7 @@
                             <div id="jxx" style="width:1245px; height:20px; background-color:#8ed4ff; font-size:14px; font-weight:bold; line-height:20px;float:left">
                                 &nbsp;&nbsp;实&nbsp;&nbsp;&nbsp时&nbsp;&nbsp;&nbsp信&nbsp;&nbsp;&nbsp息
                             </div>
-                            <div id="qxContent" style="height: 580px; overflow:auto;border: 1px solid #8ed4ff;line-height:580px;">
-                            </div>
+                            <div id="qxContent" style="height: 580px; overflow:auto;border: 1px solid #8ed4ff;line-height:580px;"></div>
                         </div> 
                     </div>
                 </div>    
